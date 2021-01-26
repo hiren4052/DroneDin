@@ -1,0 +1,137 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <item name="colorControlNormal">@color/hint_text_color</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="editTextTheme" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">@dimen/_16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+
+    </style>
+
+    <style name="DialogThme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="UnLockDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/gray_55</item>
+
+    </style>
+
+    <style name="ColorPrimaryToolbar" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/gray_55</item>
+        <item name="android:textColorPrimary">@color/heading_text_color</item>
+
+    </style>
+
+
+    <style name="BoldTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Raleway-Bold.ttf</item>
+    </style>
+
+    <style name="LightTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Raleway-Light.ttf</item>
+    </style>
+
+    <style name="ThinTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">RobotoSlab-Thin.ttf</item>
+    </style>
+
+    <style name="RobotoTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Roboto-Regular.ttf</item>
+    </style>
+
+    <style name="RobotoBoldTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Roboto-Regular.ttf</item>
+    </style>
+
+    <style name="RobotoLightTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Roboto-Light.ttf</item>
+    </style>
+
+    <style name="ErrorText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/RobotoLightTextAppearance</item>
+    </style>
+
+    <style name="HintText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/hint_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/RobotoLightTextAppearance</item>
+    </style>
+
+    <style name="DarkHintText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/view_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/RobotoLightTextAppearance</item>
+    </style>
+
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <!-- reference our hint & error styles -->
+        <item name="hintTextAppearance">@style/HintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <item name="colorControlNormal">@color/hint_text_color</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="DarkTextInputLayoutAppearance" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- reference our hint & error styles -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColorHint">@color/view_color</item>
+        <item name="colorControlNormal">@color/view_color</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="hintTextAppearance">@style/DarkHintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+    </style>
+
+    <style name="DropDownAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <item name="colorControlNormal">@color/hint_text_color</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+
+
+    </style>
+</resources>
