@@ -77,7 +77,7 @@
                 android:layout_marginTop="@dimen/_30dp"
                 android:background="@drawable/ic_rectangle"
                 android:gravity="center"
-                android:padding="@dimen/_10dp"
+                android:padding="@dimen/_15dp"
                 android:text="@string/log_in"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"

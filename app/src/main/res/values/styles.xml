@@ -58,6 +58,11 @@
         <item name="fontPath">Raleway-Light.ttf</item>
     </style>
 
+    <style name="MediumTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Raleway-Medium.ttf</item>
+    </style>
+
     <style name="ThinTextAppearance" parent="android:TextAppearance">
         <!-- Custom Attr-->
         <item name="fontPath">RobotoSlab-Thin.ttf</item>
@@ -71,6 +76,11 @@
     <style name="RobotoBoldTextAppearance" parent="android:TextAppearance">
         <!-- Custom Attr-->
         <item name="fontPath">Roboto-Regular.ttf</item>
+    </style>
+
+    <style name="RobotoMediumTextAppearance" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">Roboto-Medium.ttf</item>
     </style>
 
     <style name="RobotoLightTextAppearance" parent="android:TextAppearance">
@@ -122,7 +132,7 @@
         <item name="errorTextAppearance">@style/ErrorText</item>
     </style>
 
-    <style name="DropDownAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="DropDownAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -133,5 +143,13 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
 
 
+    </style>
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

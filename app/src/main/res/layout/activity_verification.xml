@@ -11,6 +11,7 @@
         android:id="@+id/im_back"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:layout_marginStart="@dimen/_15dp"
         android:background="?selectableItemBackground"
         android:padding="@dimen/_10dp"
@@ -21,6 +22,7 @@
         android:id="@+id/top_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:padding="@dimen/_30dp"
         android:src="@drawable/ic_verification_icon"
         app:aspectRatio="0.7"

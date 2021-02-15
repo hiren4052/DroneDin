@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_jobs_top"
+                app:aspectRatio="0.6"
+                app:aspectRatioEnabled="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical"
+                android:padding="@dimen/_15dp">
+
+                <ImageView
+                    android:id="@+id/im_search"
+                    android:layout_width="@dimen/_48dp"
+                    android:layout_height="@dimen/_48dp"
+                    android:layout_gravity="end"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_10dp"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:id="@+id/title_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:text="@string/hello"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/blue_b3"
+                    android:textSize="@dimen/_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_2dp"
+                    android:text="@string/start_finding_an_excellent_pilot"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@color/green_53"
+                    android:textSize="@dimen/_14sp" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            android:id="@+id/segment_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_25dp"
+            android:layout_marginTop="-20dp"
+            android:layout_marginEnd="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            app:borderColor="@color/view_color"
+            app:borderWidth="@dimen/_1dp"
+            app:position="0"
+            app:radius="@dimen/_10dp"
+            app:ripple="false"
+            app:selectedBackground="@color/span_text_color">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/_10dp"
+                app:rounded="true"
+
+                app:selectedTextColor="@color/white"
+                app:text="@string/capital_posted"
+                app:textColor="@color/view_color"
+                app:textSize="@dimen/_16sp" />
+
+
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/_10dp"
+                app:rounded="true"
+                app:selectedTextColor="@color/white"
+                app:text="@string/capital_active"
+                app:textColor="@color/view_color"
+                app:textSize="@dimen/_16sp" />
+
+            <com.addisonelliott.segmentedbutton.SegmentedButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="@dimen/_10dp"
+                app:rounded="true"
+                app:selectedTextColor="@color/white"
+                app:text="@string/capital_history"
+                app:textColor="@color/view_color"
+                app:textSize="@dimen/_16sp" />
+
+        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/job_data_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/_15dp"
+            android:paddingTop="@dimen/_15dp"
+            android:overScrollMode="never"
+            android:paddingEnd="@dimen/_15dp"
+            android:paddingBottom="@dimen/_15dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/white"
+        app:backgroundTint="@color/yellow"
+        app:fabSize="normal" />
+
+</RelativeLayout>

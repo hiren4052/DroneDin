@@ -34,6 +34,7 @@
     <color name="gray_aa">#aaaaaa</color>
     <color name="gray_96">#969696</color>
     <color name="gray_a9">#a9a9a9</color>
+    <color name="gray_71">#717171</color>
     <color name="black_transparent">#50000000</color>
     <color name="btn_text">#00296B</color>
     <color name="title_color">#203152</color>
@@ -52,5 +53,13 @@
     <color name="view_color">#D7DCE4</color>
     <color name="span_text_color">#7EB8C4</color>
     <color name="header_text_color">#252847</color>
+    <color name="blue_b3">#3B3F63</color>
+    <color name="green_53">#53A3B4</color>
+
+
+    <color name="random_one">#ECECEC</color>
+    <color name="random_two">#CFE2E7</color>
+    <color name="random_three">#BABCC8</color>
+    <color name="random_four">#CFE2E7</color>
 
 </resources>

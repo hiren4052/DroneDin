@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "538366087573",
+    "project_id": "dronedin-5dee4",
+    "storage_bucket": "dronedin-5dee4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538366087573:android:59392cefd84675fd60e69c",
+        "android_client_info": {
+          "package_name": "com.grewon.dronedin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538366087573-sh42jtav3kq85kdikh0v9scv28807va4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grewon.dronedin",
+            "certificate_hash": "f584ea8542e4bdd05127d9e5086556f216951fe0"
+          }
+        },
+        {
+          "client_id": "538366087573-mcjibduqhlntb6olrcs8mis9b920995u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE3BXARiSMtq43v-6IMaXDI8xxdY_I3RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538366087573-mcjibduqhlntb6olrcs8mis9b920995u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

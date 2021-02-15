@@ -7,7 +7,10 @@ import android.view.View
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_forgot_password.*
+import kotlinx.android.synthetic.main.activity_forgot_password.im_back
+import kotlinx.android.synthetic.main.activity_forgot_password.txt_receive_code
 
 class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +28,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
     }
 
     override fun onClick(v: View?) {

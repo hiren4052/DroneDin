@@ -96,6 +96,8 @@
                 app:endIconMode="custom">
 
                 <AutoCompleteTextView
+                    android:id="@+id/edt_location"
+                    style="@style/editTextTheme"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -116,12 +118,20 @@
                 app:endIconMode="custom">
 
                 <AutoCompleteTextView
+                    android:id="@+id/edt_identification_document"
+                    style="@style/editTextTheme"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:focusable="true"
                     android:focusableInTouchMode="false"
                     android:inputType="none" />
+
+                <Spinner
+                    android:id="@+id/identification_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:visibility="invisible" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,14 +146,17 @@
             <RelativeLayout
                 android:id="@+id/front_image_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_180dp"
-                android:layout_marginTop="@dimen/_5dp"
-                android:background="@drawable/ic_image_select_back">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp">
 
-                <ImageView
+                <com.grewon.dronedin.helper.AspectImageView
                     android:id="@+id/front_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_image_select_back"
+                    android:scaleType="fitXY"
+                    app:aspectRatio="0.5"
+                    app:aspectRatioEnabled="true" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -164,18 +177,21 @@
             <RelativeLayout
                 android:id="@+id/back_image_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_180dp"
-                android:layout_marginTop="@dimen/_5dp"
-                android:background="@drawable/ic_image_select_back">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp">
 
-                <ImageView
+                <com.grewon.dronedin.helper.AspectImageView
                     android:id="@+id/back_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_image_select_back"
+                    android:scaleType="fitXY"
+                    app:aspectRatio="0.5" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_transparent_round" />
 
@@ -188,7 +204,7 @@
                 android:layout_marginTop="@dimen/_30dp"
                 android:background="@drawable/ic_rectangle_header_color"
                 android:gravity="center"
-                android:padding="@dimen/_10dp"
+                android:padding="@dimen/_15dp"
                 android:text="@string/save"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
