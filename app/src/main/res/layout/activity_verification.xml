@@ -17,15 +17,13 @@
         android:padding="@dimen/_10dp"
         android:src="@drawable/ic_back_blue" />
 
-
     <com.grewon.dronedin.helper.AspectImageView
         android:id="@+id/top_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:padding="@dimen/_30dp"
+        android:paddingTop="@dimen/_40dp"
         android:src="@drawable/ic_verification_icon"
-        app:aspectRatio="0.7"
+        app:aspectRatio="0.5"
         app:aspectRatioEnabled="true" />
 
     <com.grewon.dronedin.helper.AspectImageView

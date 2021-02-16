@@ -7,6 +7,7 @@ import android.view.View
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
+import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -39,8 +40,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
                 startActivity(Intent(this, SignUpActivity::class.java))
             }
             R.id.txt_login -> {
-
-
+                startActivity(Intent(this, MainActivity::class.java))
             }
             R.id.txt_forgot_password -> {
                 startActivity(Intent(this, ForgotPasswordActivity::class.java))

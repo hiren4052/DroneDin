@@ -9,16 +9,65 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <com.grewon.dronedin.helper.AspectImageView
-            android:id="@+id/top_image"
+            android:id="@+id/refImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_profile_top"
-            app:aspectRatio="0.7"
+            app:aspectRatio="0.95"
             app:aspectRatioEnabled="true" />
+
+        <com.grewon.dronedin.utils.BlurImageArtist
+            android:id="@+id/imgBlurBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/refImage"
+            app:blur="10"
+            app:imageSrc="@drawable/img_dummy" />
+
+        <RelativeLayout
+            android:id="@+id/rlToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/im_back"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/_15dp"
+                android:src="@drawable/ic_back_white" />
+
+            <TextView
+                android:id="@+id/txt_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/profile"
+                android:textAllCaps="true"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sp" />
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user"
+            android:layout_width="@dimen/_100dp"
+            android:layout_height="@dimen/_100dp"
+            android:layout_below="@+id/rlToolbar"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_dummy" />
     </RelativeLayout>
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:id="@+id/bottom_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_setting_background"
+        app:aspectRatio="1.25"
+        app:aspectRatioEnabled="true" />
 </RelativeLayout>

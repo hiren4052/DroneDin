@@ -10,6 +10,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.notifications.NotificationsFragment
+import com.grewon.dronedin.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -61,7 +62,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.im_settings -> {
-                showFragment(ClientJobsFragment())
+                showFragment(SettingsFragment())
                 return true
             }
         }
