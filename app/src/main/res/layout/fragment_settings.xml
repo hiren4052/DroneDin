@@ -7,25 +7,29 @@
     android:background="@color/white"
     tools:context=".signin.SignInActivity">
 
+
     <RelativeLayout
+        android:id="@+id/top_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <com.grewon.dronedin.helper.AspectImageView
             android:id="@+id/refImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:aspectRatio="0.95"
+            android:background="@color/black"
+            app:aspectRatio="0.75"
             app:aspectRatioEnabled="true" />
 
-        <com.grewon.dronedin.utils.BlurImageArtist
-            android:id="@+id/imgBlurBackground"
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/blur_img_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/refImage"
-            app:blur="10"
-            app:imageSrc="@drawable/img_dummy" />
+            android:scaleType="centerCrop"
+            android:alpha="0.8"
+            android:src="@drawable/img_dummy" />
 
         <RelativeLayout
             android:id="@+id/rlToolbar"
@@ -50,24 +54,55 @@
                 android:textAppearance="@style/RobotoTextAppearance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_22sp" />
+
+            <ImageView
+                android:id="@+id/im_edit"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentEnd="true"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/_15dp"
+                android:src="@drawable/ic_edit" />
+
         </RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_user"
-            android:layout_width="@dimen/_100dp"
-            android:layout_height="@dimen/_100dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rlToolbar"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/img_dummy" />
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_user"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
+                android:src="@drawable/img_dummy" />
+
+            <TextView
+                android:id="@+id/txt_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10dp"
+                android:text="Kristen Hunter"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
     <com.grewon.dronedin.helper.AspectImageView
         android:id="@+id/bottom_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_image"
+        android:layout_marginTop="-150dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_setting_background"
-        app:aspectRatio="1.25"
+        app:aspectRatio="1.5"
         app:aspectRatioEnabled="true" />
+
 </RelativeLayout>
