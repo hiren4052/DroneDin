@@ -98,4 +98,5 @@ dependencies {
     implementation 'org.fabiomsr:moneytextview:1.1.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation("io.coil-kt:coil:0.11.0")
+    implementation 'com.airbnb.android:lottie:3.6.1'
 }

@@ -53,4 +53,10 @@
     <string name="capital_history">HISTORY</string>
     <string name="end_price_string">%s$</string>
     <string name="profile">Profile</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="change_password">Change Password</string>
+    <string name="membership">Membership</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="logout">Logout</string>
 </resources>

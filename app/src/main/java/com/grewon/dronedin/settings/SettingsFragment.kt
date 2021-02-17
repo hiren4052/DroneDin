@@ -12,7 +12,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,13 +24,57 @@ class SettingsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setClicks()
         initView()
+    }
+
+    private fun setClicks() {
+        im_back.setOnClickListener(this)
+        im_edit.setOnClickListener(this)
+        txt_payment_method.setOnClickListener(this)
+        txt_change_password.setOnClickListener(this)
+        txt_privacy.setOnClickListener(this)
+        txt_terms.setOnClickListener(this)
+        txt_membership.setOnClickListener(this)
+        txt_logout.setOnClickListener(this)
     }
 
     private fun initView() {
         Glide.with(this).load(R.drawable.img_dummy)
             .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
             .into(blur_img_user)
+    }
+
+    override fun onClick(v: View?) {
+
+        when (R.id.im_back) {
+
+            R.id.im_back -> {
+
+            }
+            R.id.im_edit -> {
+
+            }
+            R.id.txt_payment_method -> {
+
+            }
+            R.id.txt_change_password -> {
+
+            }
+            R.id.txt_privacy -> {
+
+            }
+            R.id.txt_terms -> {
+
+            }
+            R.id.txt_membership -> {
+
+            }
+            R.id.txt_logout -> {
+
+            }
+        }
+
     }
 
 }
