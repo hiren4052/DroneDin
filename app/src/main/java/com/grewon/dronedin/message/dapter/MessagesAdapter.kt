@@ -62,6 +62,10 @@ class MessagesAdapter(
                 .into(holder.imageUser)
 
 
+            holder.itemView.setOnClickListener {
+                onItemClickListeners.onItemClick(null)
+            }
+
         }
 
 

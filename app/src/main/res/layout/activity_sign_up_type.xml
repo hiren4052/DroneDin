@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".signup.SignUpTypeActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:id="@+id/top_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        app:aspectRatio="0.55"
+        app:aspectRatioEnabled="true"
+        app:srcCompat="@drawable/ic_profile_top"
+        app:tint="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/top_image"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginBottom="@dimen/_40dp"
+        android:orientation="vertical"
+        android:padding="@dimen/_30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/let_s_get_started"
+            android:textAppearance="@style/BoldTextAppearance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_36sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/what_do_you_want_to_join_as"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_image"
+        android:orientation="vertical">
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/pilot_gif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:aspectRatio="0.5"
+            app:aspectRatioEnabled="true"
+            app:srcCompat="@drawable/signup_pilot" />
+
+        <TextView
+            android:id="@+id/txt_pilot"
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/spann_color_btn_selector"
+            android:gravity="center"
+            android:text="@string/as_pilot"
+            android:textAppearance="@style/BoldTextAppearance"
+            android:textColor="@drawable/spann_text_selector"
+            android:textSize="@dimen/_20sp" />
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/client_gif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:aspectRatio="0.5"
+            app:aspectRatioEnabled="true"
+            app:srcCompat="@drawable/signup_pilot" />
+
+        <TextView
+            android:id="@+id/txt_client"
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/spann_color_btn_selector"
+            android:gravity="center"
+            android:text="@string/as_client"
+            android:textAppearance="@style/BoldTextAppearance"
+            android:textColor="@drawable/spann_text_selector"
+            android:textSize="@dimen/_20sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.grewon.dronedin.message
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,7 +39,7 @@ class MessageFragment : Fragment(), MessagesAdapter.OnItemClickListeners {
     }
 
     override fun onItemClick(jobsDataBean: MessagesDataBean.Result?) {
-
+        startActivity(Intent(requireContext(), ChatActivity::class.java))
     }
 
     override fun onDeleteItem(jobsDataBean: MessagesDataBean.Result?, adapterPosition: Int) {

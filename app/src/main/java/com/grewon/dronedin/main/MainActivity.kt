@@ -1,8 +1,10 @@
 package com.grewon.dronedin.main
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.grewon.dronedin.R
@@ -18,7 +20,45 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadFragment(ClientJobsFragment())
+        initView()
         setClicks()
+    }
+
+    private fun initView() {
+        if (isPilotAccount()) {
+            bottom_navigation.menu.getItem(0).icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_search)
+            bottom_navigation.background = ContextCompat.getDrawable(this, R.color.colorPrimary)
+            val colors = intArrayOf(
+                ContextCompat.getColor(this, R.color.light_purple),
+                ContextCompat.getColor(this, R.color.white)
+            )
+
+            val states = arrayOf(
+                intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_checked),
+                intArrayOf(android.R.attr.state_enabled, android.R.attr.state_checked)
+            )
+            bottom_navigation.itemTextColor = ColorStateList(states, colors)
+            bottom_navigation.itemIconTintList = ColorStateList(states, colors)
+        } else {
+            bottom_navigation.menu.getItem(0).isVisible = false
+            bottom_navigation.menu.getItem(0).icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_jobs_selector)
+            bottom_navigation.background = ContextCompat.getDrawable(this, R.color.white)
+
+            val colors = intArrayOf(
+                ContextCompat.getColor(this, R.color.view_color),
+                ContextCompat.getColor(this, R.color.span_text_color)
+            )
+
+            val states = arrayOf(
+                intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_checked),
+                intArrayOf(android.R.attr.state_enabled, android.R.attr.state_checked)
+            )
+            bottom_navigation.itemTextColor = ColorStateList(states, colors)
+            bottom_navigation.itemIconTintList = ColorStateList(states, colors)
+        }
+
     }
 
     private fun setClicks() {
@@ -50,6 +90,14 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.im_jobs -> {
+                if (isPilotAccount()) {
+                    showFragment(ClientJobsFragment())
+                } else {
+                    showFragment(ClientJobsFragment())
+                }
+                return true
+            }
+            R.id.im_my_jobs -> {
                 showFragment(ClientJobsFragment())
                 return true
             }

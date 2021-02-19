@@ -59,4 +59,12 @@
     <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="logout">Logout</string>
+    <string name="let_s_get_started">Let’s Get Started</string>
+    <string name="what_do_you_want_to_join_as">What do you want to join as ?</string>
+    <string name="as_pilot">As Pilot</string>
+    <string name="as_client">As Client</string>
+    <string name="online">Online</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="my_jobs">My Jobs</string>
+    <string name="filters">Filters</string>
 </resources>

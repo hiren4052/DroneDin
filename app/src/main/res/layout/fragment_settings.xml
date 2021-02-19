@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                app:aspectRatio="0.75"
+                app:aspectRatio="0.8"
                 app:aspectRatioEnabled="true" />
 
             <com.grewon.dronedin.helper.AspectImageView
@@ -43,7 +43,6 @@
                     android:layout_width="?actionBarSize"
                     android:layout_height="?actionBarSize"
                     android:background="?selectableItemBackground"
-                    android:padding="@dimen/_15dp"
                     android:src="@drawable/ic_back_white"
                     android:visibility="gone" />
 
@@ -52,8 +51,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
                     android:text="@string/profile"
                     android:textAllCaps="true"
+                    android:padding="@dimen/_15dp"
                     android:textAppearance="@style/RobotoTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_22sp" />
@@ -62,6 +63,7 @@
                     android:id="@+id/im_edit"
                     android:layout_width="?actionBarSize"
                     android:layout_height="?actionBarSize"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:background="?selectableItemBackground"
                     android:padding="@dimen/_15dp"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5dp"
+    android:layout_marginBottom="@dimen/_5dp"
+    android:orientation="vertical">
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:id="@+id/image_my_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:background="@drawable/ic_my_message_back"
+        android:lines="3"
+        android:paddingStart="@dimen/_10dp"
+        android:paddingTop="@dimen/_10dp"
+        android:paddingEnd="@dimen/_25dp"
+        android:paddingBottom="@dimen/_10dp"
+        app:aspectRatio="0.75"
+        app:aspectRatioEnabled="true"
+        app:srcCompat="@drawable/ic_rectangle" />
+
+    <TextView
+        android:id="@+id/txt_my_image_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_40dp"
+        android:padding="@dimen/_5dp"
+        android:text="2:00 PM"
+        android:textColor="@color/gray_71"
+        android:textSize="@dimen/_14sp" />
+</LinearLayout>

@@ -21,7 +21,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".signup.SignUpTypeActivity"></activity>
+        <activity android:name=".clientjobs.posted.PostedJobDetailsActivity"></activity>
+        <activity android:name=".clientjobs.filter.FilterActivity" />
+        <activity
+            android:name=".message.ChatActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.SignUpTypeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".addprofile.AddProfileActivity"
             android:exported="true"

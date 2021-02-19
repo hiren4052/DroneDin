@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_jobs_top"
+                app:aspectRatio="0.6"
+                app:aspectRatioEnabled="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical"
+                android:padding="@dimen/_15dp">
+
+                <ImageView
+                    android:id="@+id/im_search"
+                    android:layout_width="@dimen/_48dp"
+                    android:layout_height="@dimen/_48dp"
+                    android:layout_gravity="end"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_10dp"
+                    android:src="@drawable/ic_search" />
+
+                <TextView
+                    android:id="@+id/title_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:text="@string/hello"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/blue_b3"
+                    android:textSize="@dimen/_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_2dp"
+                    android:text="@string/start_finding_an_excellent_pilot"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@color/green_53"
+                    android:textSize="@dimen/_14sp" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_15dp"
+            android:paddingEnd="@dimen/_15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/filters"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_20sp" />
+
+            <ImageView
+                android:id="@+id/image_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/ic_filter_map" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/job_data_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/_15dp"
+            android:paddingTop="@dimen/_15dp"
+            android:paddingEnd="@dimen/_15dp"
+            android:paddingBottom="@dimen/_15dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/white"
+        app:backgroundTint="@color/yellow"
+        app:fabSize="normal" />
+
+</RelativeLayout>

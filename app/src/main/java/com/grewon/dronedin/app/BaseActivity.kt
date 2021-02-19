@@ -35,7 +35,9 @@ open class BaseActivity : AppCompatActivity() {
         )
     }
 
-
+    fun isPilotAccount(): Boolean {
+        return true
+    }
 
 
 
