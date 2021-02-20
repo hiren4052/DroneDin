@@ -5,10 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
+import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
+import com.grewon.dronedin.server.JobsDataBean
+import kotlinx.android.synthetic.main.fragment_pilot_find_jobs.*
 
 
-class PilotFindJobsFragment : Fragment() {
+class PilotFindJobsFragment : Fragment(), View.OnClickListener,
+    PilotFindJobsAdapter.OnItemClickListeners {
+
+    private var findJobsAdapter: PilotFindJobsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,5 +24,39 @@ class PilotFindJobsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pilot_find_jobs, container, false)
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        title_user_name.text = getString(R.string.hello, "Kristen")
+        setClicks()
+        setJobsAdapter()
+    }
+
+
+    private fun setJobsAdapter() {
+        find_job_data_recycle.layoutManager = LinearLayoutManager(context)
+        findJobsAdapter = PilotFindJobsAdapter(requireContext(), this)
+        find_job_data_recycle.adapter = findJobsAdapter
+    }
+
+    private fun setClicks() {
+
+        im_search.setOnClickListener(this)
+    }
+
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.im_search -> {
+
+            }
+
+        }
+    }
+
+    override fun onItemClick(jobsDataBean: JobsDataBean.Result?) {
+
+    }
+
 
 }

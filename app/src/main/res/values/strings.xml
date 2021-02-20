@@ -67,4 +67,11 @@
     <string name="type_a_message">Type a message</string>
     <string name="my_jobs">My Jobs</string>
     <string name="filters">Filters</string>
+    <string name="posted_by_">Posted By:</string>
+    <string name="location_">Location:</string>
+    <string name="budget_">Budget:</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_skillset">Select SkillSet</string>
+    <string name="select_equipments">Select Equipments</string>
+    <string name="price_range">Price Range</string>
 </resources>

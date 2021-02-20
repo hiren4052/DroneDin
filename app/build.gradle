@@ -92,11 +92,12 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
     implementation 'org.fabiomsr:moneytextview:1.1.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation("io.coil-kt:coil:0.11.0")
     implementation 'com.airbnb.android:lottie:3.6.1'
+    implementation 'com.google.android:flexbox:2.0.1'
 }

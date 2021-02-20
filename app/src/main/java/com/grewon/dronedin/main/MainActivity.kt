@@ -12,6 +12,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.notifications.NotificationsFragment
+import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
 import com.grewon.dronedin.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,13 +20,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(ClientJobsFragment())
+
         initView()
         setClicks()
     }
 
     private fun initView() {
         if (isPilotAccount()) {
+            loadFragment(PilotFindJobsFragment())
+
+
             bottom_navigation.menu.getItem(0).icon =
                 ContextCompat.getDrawable(this, R.drawable.ic_search)
             bottom_navigation.background = ContextCompat.getDrawable(this, R.color.colorPrimary)
@@ -41,6 +45,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             bottom_navigation.itemTextColor = ColorStateList(states, colors)
             bottom_navigation.itemIconTintList = ColorStateList(states, colors)
         } else {
+            loadFragment(ClientJobsFragment())
+
             bottom_navigation.menu.getItem(0).isVisible = false
             bottom_navigation.menu.getItem(0).icon =
                 ContextCompat.getDrawable(this, R.drawable.ic_jobs_selector)
@@ -57,6 +63,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             )
             bottom_navigation.itemTextColor = ColorStateList(states, colors)
             bottom_navigation.itemIconTintList = ColorStateList(states, colors)
+
+
         }
 
     }
@@ -91,7 +99,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.im_jobs -> {
                 if (isPilotAccount()) {
-                    showFragment(ClientJobsFragment())
+                    showFragment(PilotFindJobsFragment())
                 } else {
                     showFragment(ClientJobsFragment())
                 }
