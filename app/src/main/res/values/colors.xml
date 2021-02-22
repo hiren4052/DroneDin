@@ -25,6 +25,7 @@
     <color name="gray_87">#878787</color>
     <color name="gray_8d">#8D8D8D</color>
     <color name="gray_b2">#B2B2B2</color>
+    <color name="gray_f4">#F4F4F4</color>
     <color name="gray_75">#757575</color>
     <color name="gray_76">#767676</color>
     <color name="gray_8f">#8F8F8F</color>
@@ -58,8 +59,15 @@
     <color name="header_text_color">#252847</color>
     <color name="blue_b3">#3B3F63</color>
     <color name="green_53">#53A3B4</color>
+    <color name="light_sky_blue">#E7F0F2</color>
     <string name="black_transparent_50">#80000000</string>
     <color name="light_purple">#999DC0</color>
+    <color name="active_background_color">#E3F4E3</color>
+    <color name="completed_background_color">#DDEEF1</color>
+    <color name="cancelled_background_color">#F1DDDE</color>
+    <color name="completed_text_color">#7EB8C4</color>
+    <color name="cancelled_text_color">#D16267</color>
+    <color name="active_text_color">#87AC87</color>
 
 
     <color name="random_one">#ECECEC</color>

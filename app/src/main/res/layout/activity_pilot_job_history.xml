@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    tools:context=".pilotactivejobs.PilotActiveJobsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:padding="@dimen/_15dp"
+            android:src="@drawable/ic_back_blue"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/_10dp"
+            android:text="@string/job_history"
+            android:textAllCaps="true"
+            android:textAppearance="@style/RobotoMediumTextAppearance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sp" />
+
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_proposal_received"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/active_text_color"
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/active"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_gravity="center"
+                android:background="@color/view_color" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_10dp">
+
+                <TextView
+                    android:id="@+id/txt_interviewing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/completed_text_color"
+
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/completed"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_gravity="center"
+                android:background="@color/view_color" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_10dp">
+
+                <TextView
+                    android:id="@+id/txt_invitations_sent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/cancelled_text_color"
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/cancelled"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/data_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="@dimen/_16dp" />
+</LinearLayout>

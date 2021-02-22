@@ -1,5 +1,6 @@
 package com.grewon.dronedin.pilotfindjobs
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,12 +43,16 @@ class PilotFindJobsFragment : Fragment(), View.OnClickListener,
     private fun setClicks() {
 
         im_search.setOnClickListener(this)
+        image_map.setOnClickListener(this)
     }
 
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.im_search -> {
+                startActivity(Intent(context, FindJobsFilterActivity::class.java))
+            }
+            R.id.image_map -> {
 
             }
 
@@ -55,7 +60,7 @@ class PilotFindJobsFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onItemClick(jobsDataBean: JobsDataBean.Result?) {
-
+        startActivity(Intent(context, FindJobsDetailsActivity::class.java))
     }
 
 

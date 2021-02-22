@@ -1,19 +1,20 @@
-package com.grewon.dronedin.pilotfindjobs.adapter
+package com.grewon.dronedin.pilotjobhistory.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.JobsDataBean
-import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.*
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class PilotFindJobsAdapter(
+class PilotJobsHistoryAdapter(
     val context: Context,
     private val onItemClickListeners: OnItemClickListeners
 ) :
@@ -21,7 +22,7 @@ class PilotFindJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onJobsHistoryItemClick(jobsDataBean: JobsDataBean.Result?)
 
 
     }
@@ -34,7 +35,7 @@ class PilotFindJobsAdapter(
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_find_pilot_jobs_item,
+                R.layout.layout_pilot_history_jobs_item,
                 parent,
                 false
             )
@@ -50,7 +51,15 @@ class PilotFindJobsAdapter(
 
         if (holder is ItemViewHolder) {
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
+            if(position==1){
+                holder.textjobStatus.background=ContextCompat.getDrawable(context,R.drawable.ic_round_completed_background)
+                holder.textjobStatus.setTextColor(ContextCompat.getColor(context,R.color.completed_text_color))
+                holder.textjobStatus.text=context.getText(R.string.completed)
+            }else if(position==2){
+                holder.textjobStatus.background=ContextCompat.getDrawable(context,R.drawable.ic_round_cancelled_background)
+                holder.textjobStatus.setTextColor(ContextCompat.getColor(context,R.color.cancelled_text_color))
+                holder.textjobStatus.text=context.getText(R.string.cancelled)
+            }
 
 
         }
@@ -66,12 +75,10 @@ class PilotFindJobsAdapter(
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val favouriteCheck = itemView.favourite_check
         val textCategory = itemView.txt_category_name
         val textJobTitle = itemView.txt_job_title
-        val textJobDescription = itemView.txt_job_description
-        val textClientName = itemView.txt_client_name
-        val textJobLocation = itemView.txt_job_location
+        val textjobStatus = itemView.txt_jobs_status
+        val textStartedDate = itemView.txt_started_date
         val textBudget = itemView.txt_budget
     }
 

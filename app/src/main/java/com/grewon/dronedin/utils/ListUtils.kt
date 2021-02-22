@@ -14,7 +14,10 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.server.CategoryDataBean
+import com.grewon.dronedin.server.EquipmentsDataBean
 import com.grewon.dronedin.server.IdentificationDocumentNameBean
+import com.grewon.dronedin.server.SkillsDataBean
 import com.grewon.dronedin.web.WebActivity
 
 /**
@@ -32,6 +35,127 @@ class ListUtils {
 
         fun getIdentificationsDocumentStrings(list: ArrayList<IdentificationDocumentNameBean>): List<String> {
             return list.map { it.documentName }
+        }
+
+        fun getCategoryBean(): ArrayList<CategoryDataBean.Result> {
+            val identificationList = ArrayList<CategoryDataBean.Result>()
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Real estate"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Photography"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Mapping"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Photogrammetry"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Geotechnical"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Solar"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Wind"
+                )
+            )
+            identificationList.add(
+                CategoryDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Agriculture"
+                )
+            )
+            return identificationList
+        }
+
+
+        fun getSkillsBean(): ArrayList<SkillsDataBean.Result> {
+            val identificationList = ArrayList<SkillsDataBean.Result>()
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Thermal"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Mapping"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Lidar"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Real estate"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Other"
+                )
+            )
+
+            return identificationList
+        }
+
+        fun getEquipmentsBean(): ArrayList<EquipmentsDataBean.Result> {
+            val identificationList = ArrayList<EquipmentsDataBean.Result>()
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Matrice 200"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Mavic Zoom"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Thermal camera"
+                )
+            )
+
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "Other"
+                )
+            )
+
+            return identificationList
         }
 
     }

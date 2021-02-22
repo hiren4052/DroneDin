@@ -5,36 +5,32 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.JobsDataBean
+import com.grewon.dronedin.server.EquipmentsDataBean
+import com.grewon.dronedin.server.MilestonesDataBean
+import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
+import kotlinx.android.synthetic.main.layout_mile_stone_item.view.*
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class PilotFindJobsAdapter(
-    val context: Context,
-    private val onItemClickListeners: OnItemClickListeners
+class MileStoneAdapter(
+    val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
-
-
-    }
-
-
-    var itemList = ArrayList<JobsDataBean.Result>()
+    var itemList = ArrayList<MilestonesDataBean.Result>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_find_pilot_jobs_item,
+                R.layout.layout_mile_stone_item,
                 parent,
                 false
             )
@@ -42,16 +38,18 @@ class PilotFindJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return 5
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        //   val item = itemList[position]
+
 
         if (holder is ItemViewHolder) {
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
-
+            holder.txtMileStonetitle.text = "Milestone " + (position + 1)
+            holder.txtMileStonePrice.text =
+                context.getString(R.string.price_string, (position * 10).toString())
 
         }
 
@@ -59,20 +57,16 @@ class PilotFindJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<MilestonesDataBean.Result>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val favouriteCheck = itemView.favourite_check
-        val textCategory = itemView.txt_category_name
-        val textJobTitle = itemView.txt_job_title
-        val textJobDescription = itemView.txt_job_description
-        val textClientName = itemView.txt_client_name
-        val textJobLocation = itemView.txt_job_location
-        val textBudget = itemView.txt_budget
+
+        val txtMileStonetitle = itemView.txt_mile_stone_title
+        val txtMileStonePrice = itemView.txt_mile_stone_price
     }
 
 

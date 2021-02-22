@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/_15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_category_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Real Estate"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/txt_offered_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingStart="@dimen/_5dp"
+                android:text="$100"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/span_text_color"
+                android:textSize="@dimen/_14sp"
+                tools:ignore="RtlSymmetry" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:background="@color/gray_e9" />
+
+        <TextView
+            android:id="@+id/txt_job_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We need a photographer for a short term project."
+            android:textAppearance="@style/MediumTextAppearance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_16sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:layout_toStartOf="@+id/txt_job_location"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/client_name"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/txt_client_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="Kristen Hunter"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/txt_job_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/_5dp"
+                android:layout_centerVertical="true"
+                android:text="Toronto"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp"
+                app:drawableStartCompat="@drawable/ic_location_pin" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

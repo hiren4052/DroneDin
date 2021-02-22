@@ -13,6 +13,7 @@ import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
+import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
 import com.grewon.dronedin.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -106,7 +107,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.im_my_jobs -> {
-                showFragment(ClientJobsFragment())
+                showFragment(PilotMyJobsFragment())
                 return true
             }
             R.id.im_messages -> {

@@ -1,4 +1,4 @@
-package com.grewon.dronedin.pilotfindjobs.adapter
+package com.grewon.dronedin.invitations.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.JobsDataBean
-import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
+import com.grewon.dronedin.server.InvitationsDataBean
+import kotlinx.android.synthetic.main.layout_invitations_item.view.*
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class PilotFindJobsAdapter(
+class InvitationsAdapter(
     val context: Context,
     private val onItemClickListeners: OnItemClickListeners
 ) :
@@ -21,20 +21,20 @@ class PilotFindJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onInvitationsItemClick(jobsDataBean: InvitationsDataBean.Result?)
 
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Result>()
+    var itemList = ArrayList<InvitationsDataBean.Result>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_find_pilot_jobs_item,
+                R.layout.layout_invitations_item,
                 parent,
                 false
             )
@@ -50,8 +50,6 @@ class PilotFindJobsAdapter(
 
         if (holder is ItemViewHolder) {
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
-
 
         }
 
@@ -59,17 +57,15 @@ class PilotFindJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<InvitationsDataBean.Result>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val favouriteCheck = itemView.favourite_check
         val textCategory = itemView.txt_category_name
         val textJobTitle = itemView.txt_job_title
-        val textJobDescription = itemView.txt_job_description
         val textClientName = itemView.txt_client_name
         val textJobLocation = itemView.txt_job_location
         val textBudget = itemView.txt_budget

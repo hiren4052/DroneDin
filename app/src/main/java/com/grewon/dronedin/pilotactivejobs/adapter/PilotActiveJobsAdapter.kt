@@ -1,4 +1,4 @@
-package com.grewon.dronedin.pilotfindjobs.adapter
+package com.grewon.dronedin.pilotactivejobs.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.JobsDataBean
-import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
+import kotlinx.android.synthetic.main.layout_offers_item.view.*
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class PilotFindJobsAdapter(
+class PilotActiveJobsAdapter(
     val context: Context,
     private val onItemClickListeners: OnItemClickListeners
 ) :
@@ -21,7 +21,7 @@ class PilotFindJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onOffersItemClick(jobsDataBean: JobsDataBean.Result?)
 
 
     }
@@ -34,7 +34,7 @@ class PilotFindJobsAdapter(
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_find_pilot_jobs_item,
+                R.layout.layout_pilot_active_jobs_item,
                 parent,
                 false
             )
@@ -50,8 +50,6 @@ class PilotFindJobsAdapter(
 
         if (holder is ItemViewHolder) {
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
-
 
         }
 
@@ -66,13 +64,11 @@ class PilotFindJobsAdapter(
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val favouriteCheck = itemView.favourite_check
         val textCategory = itemView.txt_category_name
         val textJobTitle = itemView.txt_job_title
-        val textJobDescription = itemView.txt_job_description
         val textClientName = itemView.txt_client_name
         val textJobLocation = itemView.txt_job_location
-        val textBudget = itemView.txt_budget
+        val textOfferedPrice = itemView.txt_offered_price
     }
 
 

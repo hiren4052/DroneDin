@@ -102,16 +102,5 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_job"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/_16dp"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@color/white"
-        app:backgroundTint="@color/yellow"
-        app:fabSize="normal" />
 
 </RelativeLayout>
