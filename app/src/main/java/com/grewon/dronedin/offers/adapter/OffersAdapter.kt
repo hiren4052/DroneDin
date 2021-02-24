@@ -49,7 +49,7 @@ class OffersAdapter(
         //  val item = itemList[position]
 
         if (holder is ItemViewHolder) {
-
+            holder.itemView.setOnClickListener { onItemClickListeners.onOffersItemClick(null) }
 
         }
 

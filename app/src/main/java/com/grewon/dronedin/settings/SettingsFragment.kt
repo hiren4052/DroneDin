@@ -1,5 +1,6 @@
 package com.grewon.dronedin.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.grewon.dronedin.R
+import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -56,7 +58,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
             }
             R.id.txt_payment_method -> {
-
+                startActivity(Intent(context, PaymentMethodActivity::class.java))
             }
             R.id.txt_change_password -> {
 

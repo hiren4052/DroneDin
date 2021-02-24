@@ -51,6 +51,7 @@ class ProposalsAdapter(
         if (holder is ItemViewHolder) {
 
 
+            holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(null) }
         }
 
 

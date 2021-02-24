@@ -1,6 +1,8 @@
 package com.grewon.dronedin.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.CheckBox
@@ -10,7 +12,10 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.grewon.dronedin.R
+
 
 class IconUtils {
     companion object {
@@ -102,7 +107,12 @@ class IconUtils {
             view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
         }
 
-         fun setFilterBackground(context: Context,textView: TextView,textBackground:Int,drawableEnd:Int) {
+        fun setFilterBackground(
+            context: Context,
+            textView: TextView,
+            textBackground: Int,
+            drawableEnd: Int
+        ) {
             textView.background =
                 ContextCompat.getDrawable(context, textBackground)
             setRightDrawableIcontoText(
@@ -110,6 +120,27 @@ class IconUtils {
                 drawableEnd,
                 textView
             )
+        }
+
+        fun bitmapDescriptorFromVector(
+            context: Context,
+            vectorResId: Int
+        ): BitmapDescriptor? {
+            val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
+            vectorDrawable!!.setBounds(
+                0,
+                0,
+                vectorDrawable.intrinsicWidth,
+                vectorDrawable.intrinsicHeight
+            )
+            val bitmap = Bitmap.createBitmap(
+                vectorDrawable.intrinsicWidth,
+                vectorDrawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            vectorDrawable.draw(canvas)
+            return BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
 

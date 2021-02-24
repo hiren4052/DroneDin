@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
+import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.server.JobsDataBean
 import kotlinx.android.synthetic.main.fragment_pilot_find_jobs.*
@@ -53,7 +54,7 @@ class PilotFindJobsFragment : Fragment(), View.OnClickListener,
                 startActivity(Intent(context, FindJobsFilterActivity::class.java))
             }
             R.id.image_map -> {
-
+                startActivity(Intent(context, JobsMapScreenActivity::class.java))
             }
 
         }

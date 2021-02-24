@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
+import com.grewon.dronedin.invitations.InvitationsDetailActivity
 import com.grewon.dronedin.invitations.adapter.InvitationsAdapter
+import com.grewon.dronedin.offers.OffersDetailActivity
 import com.grewon.dronedin.offers.adapter.OffersAdapter
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsActivity
+import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
 import com.grewon.dronedin.pilotjobhistory.PilotJobHistoryActivity
+import com.grewon.dronedin.proposals.ProposalsDetailActivity
 import com.grewon.dronedin.proposals.adapter.ProposalsAdapter
 import com.grewon.dronedin.server.InvitationsDataBean
 import com.grewon.dronedin.server.OffersDataBean
@@ -77,15 +81,15 @@ class PilotMyJobsFragment : Fragment(), OffersAdapter.OnItemClickListeners,
     }
 
     override fun onOffersItemClick(jobsDataBean: OffersDataBean.Result?) {
-
+        startActivity(Intent(context, OffersDetailActivity::class.java))
     }
 
     override fun onInvitationsItemClick(jobsDataBean: InvitationsDataBean.Result?) {
-
+        startActivity(Intent(context, InvitationsDetailActivity::class.java))
     }
 
     override fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Result?) {
-
+        startActivity(Intent(context, ProposalsDetailActivity::class.java))
     }
 
     override fun onClick(v: View?) {

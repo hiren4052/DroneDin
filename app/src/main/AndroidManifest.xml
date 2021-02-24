@@ -21,11 +21,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".pilotjobhistory.PilotJobHistoryActivity"></activity>
-        <activity android:name=".pilotactivejobs.PilotActiveJobsActivity" />
-        <activity android:name=".proposals.ProposalsDetailActivity" />
-        <activity android:name=".invitations.InvitationsDetailActivity" />
-        <activity android:name=".offers.OffersDetailActivity" />
+        <activity
+            android:name=".addprofile.AddMoreProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addbank.AddBankAccountActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".paymentmethod.PaymentMethodActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".submitproposal.SubmitProposalActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pilotjobhistory.PilotJobHistoryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pilotactivejobs.PilotActiveJobsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".proposals.ProposalsDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".invitations.InvitationsDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".offers.OffersDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pilotfindjobs.FindJobsDetailsActivity"
             android:exported="true"

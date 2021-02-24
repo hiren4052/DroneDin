@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    tools:context=".profile.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/layout_square_toolbar_with_back" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_30dp">
+
+
+                <TextView
+                    android:id="@+id/txt_title_document"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/identity_document_front"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_16sp"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:id="@+id/im_identity_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:padding="@dimen/_5dp"
+                    android:visibility="visible">
+
+                    <com.grewon.dronedin.helper.AspectImageView
+                        android:id="@+id/identity_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/add_place_holder_image"
+                        app:aspectRatio="0.5"
+                        app:aspectRatioEnabled="true" />
+                </RelativeLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_account_first_name"
+                        style="@style/editTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/account_holder_first_name"
+                        android:inputType="text"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_account_last_name"
+                        style="@style/editTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/account_holder_last_name"
+                        android:inputType="text"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <TextView
+                        android:id="@+id/edt_birth_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/birth_date"
+                        android:padding="@dimen/_15dp"
+                        android:paddingBottom="@dimen/_13dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af"
+                        android:textSize="@dimen/_16sp"
+                        android:visibility="visible" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_routing_number"
+                        style="@style/editTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/routing_number"
+                        android:inputType="number"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_account_number"
+                        style="@style/editTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/bank_account_number"
+                        android:inputType="number"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/txt_save"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:background="@drawable/ic_rectangle"
+                    android:gravity="center"
+                    android:padding="@dimen/_15dp"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/white_text_selector" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_stripe"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_10dp"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

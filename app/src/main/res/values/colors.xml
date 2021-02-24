@@ -4,6 +4,8 @@
     <color name="colorPrimary">#252847</color>
     <color name="colorPrimaryDark">#252847</color>
     <color name="colorAccent">#252847</color>
+    <color name="colorPrimary_3d">#34385A</color>
+    <color name="colorPrimary_5d">#5A5E7D</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -75,5 +77,8 @@
     <color name="random_three">#BABCC8</color>
     <color name="random_four">#CFE2E7</color>
     <color name="gray_e9">#E9E9E9</color>
+    <color name="gray_af">#AFAFAF</color>
+    <color name="gray_eb">#EBEBEB</color>
+    <color name="gray_b1">#B1B2C0</color>
 
 </resources>

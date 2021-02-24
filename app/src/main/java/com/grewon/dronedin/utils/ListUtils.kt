@@ -158,7 +158,13 @@ class ListUtils {
             return identificationList
         }
 
+        fun getCategoryStrings(list: ArrayList<CategoryDataBean.Result>): List<String> {
+            return list.map { it.userProfileName.toString() }
+        }
+
     }
+
+
 
 
 }

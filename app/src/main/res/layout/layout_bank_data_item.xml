@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardElevation="@dimen/_5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/_15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/data_select"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="Kristen Hunter"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_16sp" />
+
+            <TextView
+                android:id="@+id/txt_bank_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingTop="@dimen/_2dp"
+                android:text="IDBI Bank"
+                android:textAppearance="@style/RobotoLightTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:id="@+id/txt_bank_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingTop="@dimen/_2dp"
+                android:text="****1100"
+                android:textAppearance="@style/LightTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp" />
+
+
+        </LinearLayout>
+
+        <RadioButton
+            android:id="@+id/data_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:buttonTint="@color/span_text_color"
+            android:minHeight="0dp"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

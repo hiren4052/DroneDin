@@ -1,14 +1,17 @@
 package com.grewon.dronedin.pilotfindjobs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.pilotfindjobs.adapter.MileStoneAdapter
 import com.grewon.dronedin.server.SkillsDataBean
+import com.grewon.dronedin.submitproposal.SubmitProposalActivity
 import com.grewon.dronedin.utils.ListUtils
 import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.synthetic.main.activity_find_jobs_details.*
@@ -26,6 +29,8 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
+        txt_message.setOnClickListener(this)
+        txt_send_proposal.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -57,6 +62,12 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener {
         when (R.id.img_back) {
             R.id.img_back -> {
                 finish()
+            }
+            R.id.txt_message -> {
+                startActivity(Intent(this, ChatActivity::class.java))
+            }
+            R.id.txt_send_proposal -> {
+                startActivity(Intent(this, SubmitProposalActivity::class.java))
             }
         }
     }

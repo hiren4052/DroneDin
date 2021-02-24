@@ -60,6 +60,11 @@ class JobsImageAdapter(
         notifyDataSetChanged()
     }
 
+    fun addItems(list: JobsImageDataBean.Result) {
+        itemList.add(0,list)
+        notifyDataSetChanged()
+    }
+
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

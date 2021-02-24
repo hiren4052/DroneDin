@@ -11,8 +11,8 @@
         android:id="@+id/im_back"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
-        android:layout_marginTop="@dimen/_15dp"
         android:layout_marginStart="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:background="?selectableItemBackground"
         android:padding="@dimen/_10dp"
         android:src="@drawable/ic_back_blue" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_40dp"
         android:src="@drawable/ic_verification_icon"
-        app:aspectRatio="0.5"
+        app:aspectRatio="0.7"
         app:aspectRatioEnabled="true" />
 
     <com.grewon.dronedin.helper.AspectImageView
@@ -31,6 +31,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top_image"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="-25dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_intro_bottom" />
 

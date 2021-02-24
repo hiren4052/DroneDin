@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".signin.SignInActivity">
+
+        <ImageView
+            android:id="@+id/im_back"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:layout_marginStart="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_back_blue" />
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/top_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_20dp"
+            android:src="@drawable/add_profile"
+            app:aspectRatio="0.5"
+            app:aspectRatioEnabled="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-40dp"
+            android:background="@drawable/ic_intro_bottom"
+            android:orientation="vertical"
+            android:padding="@dimen/_25dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/_2dp"
+                android:text="@string/let_s_know_you_more"
+                android:textAppearance="@style/RobotoBoldTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/bio"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sp" />
+
+
+            <EditText
+                android:id="@+id/edt_bio"
+                style="@style/editTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="start"
+                android:hint="@string/tell_us_more_about_you"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray_b1" />
+
+
+            <TextView
+                android:id="@+id/txt_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="start"
+                android:hint="@string/select_category"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray_b1"
+                android:textSize="@dimen/_16sp"
+                app:drawableEndCompat="@drawable/ic_drop_down_white" />
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:visibility="invisible" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/skill_set"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/pick_skills_that_describes_you_well"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/skills_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipments"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/select_the_equipments_you_have"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/equipments_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp" />
+
+            <TextView
+                android:id="@+id/txt_save"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_40dp"
+                android:background="@drawable/ic_rectangle"
+                android:gravity="center"
+                android:text="@string/save"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_20sp" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+

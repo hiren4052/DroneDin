@@ -3,17 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/txt_mile_stone_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/txt_mile_stone_price"
-        android:text="Thermal"
         android:paddingTop="@dimen/_10dp"
         android:paddingBottom="@dimen/_10dp"
+        android:text="Thermal"
         android:textAppearance="@style/RobotoLightTextAppearance"
         android:textColor="@color/gray_71"
         android:textSize="@dimen/_14sp" />
@@ -23,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:paddingStart="@dimen/_10dp"
         android:text="Thermal"
-        android:layout_centerVertical="true"
         android:textAppearance="@style/RobotoLightTextAppearance"
         android:textColor="@color/gray_71"
         android:textSize="@dimen/_14sp" />
@@ -33,6 +32,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1dp"
-        android:background="@color/gray_e9"
-        android:layout_below="@id/txt_mile_stone_title"/>
+        android:layout_below="@id/txt_mile_stone_title"
+        android:background="@color/gray_e9" />
 </RelativeLayout>

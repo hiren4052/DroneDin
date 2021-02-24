@@ -4,12 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_5dp"
+    app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">
 
     <com.grewon.dronedin.helper.AspectImageView
         android:id="@+id/jobs_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_80dp"
         android:scaleType="centerCrop"
         app:aspectRatio="1"
         app:aspectRatioEnabled="true"

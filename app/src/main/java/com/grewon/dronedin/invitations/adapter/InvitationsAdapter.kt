@@ -50,7 +50,7 @@ class InvitationsAdapter(
 
         if (holder is ItemViewHolder) {
 
-
+            holder.itemView.setOnClickListener { onItemClickListeners.onInvitationsItemClick(null) }
         }
 
 

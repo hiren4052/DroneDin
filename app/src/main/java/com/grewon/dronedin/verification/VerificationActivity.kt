@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
@@ -26,6 +27,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        Glide.with(this).asGif().load(R.drawable.verifcation_image).into(top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
     }
 

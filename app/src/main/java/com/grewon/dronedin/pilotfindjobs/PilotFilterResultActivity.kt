@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.server.JobsDataBean
 import kotlinx.android.synthetic.main.activity_pilot_filter_result.*
@@ -46,6 +47,7 @@ class PilotFilterResultActivity : BaseActivity(), PilotFindJobsAdapter.OnItemCli
             }
 
             R.id.img_map_filter -> {
+                startActivity(Intent(this, JobsMapScreenActivity::class.java))
             }
 
         }
