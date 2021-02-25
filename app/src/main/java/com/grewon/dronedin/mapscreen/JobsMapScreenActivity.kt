@@ -2,12 +2,14 @@ package com.grewon.dronedin.mapscreen
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -19,10 +21,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.review.ReviewActivity
+import com.grewon.dronedin.review.adapter.ReviewsAdapter
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ListUtils
 import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.*
+import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.txt_category_name
+import kotlinx.android.synthetic.main.pilot_map_bottom_dialog.view.*
 
 
 class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
@@ -96,13 +102,22 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
         latitude = gpsTracker!!.latitude
         longitude = gpsTracker!!.longitude
 
-
-        for (i in 0..5) {
-            mMap?.addMarker(
-                MarkerOptions().icon(
-                    IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_jobs_map)
-                ).position(LatLng(latitude!! + i, longitude!! + i))
-            )
+        if (isPilotAccount()) {
+            for (i in 0..5) {
+                mMap?.addMarker(
+                    MarkerOptions().icon(
+                        IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_jobs_map)
+                    ).position(LatLng(latitude!! + i, longitude!! + i))
+                )
+            }
+        } else {
+            for (i in 0..5) {
+                mMap?.addMarker(
+                    MarkerOptions().icon(
+                        IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_pilot_map)
+                    ).position(LatLng(latitude!! + i, longitude!! + i))
+                )
+            }
         }
 
         mMap?.animateCamera(
@@ -123,7 +138,11 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        openJobsDetailDialog()
+        if (isPilotAccount()) {
+            openJobsDetailDialog()
+        } else {
+            openPilotDetailDialog()
+        }
         return true
     }
 
@@ -146,6 +165,38 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
 
         val equipmentsChipList: List<Chip> = ListUtils.getEquipmentsBean()
         chip_equipments.chipList = equipmentsChipList
+
+        dialog.show()
+
+    }
+
+
+    @SuppressLint("InflateParams")
+    private fun openPilotDetailDialog() {
+        val view = LayoutInflater.from(this)
+            .inflate(R.layout.pilot_map_bottom_dialog, null)
+        val dialog = BottomSheetDialog(
+            this, R.style.CustomBottomSheetDialogTheme
+        )
+        dialog.setContentView(view)
+
+        var textUserName = view.txt_user_name
+        var textCategoryName = view.txt_category_name
+        var textPrice = view.txt_price
+        var textRatings = view.txt_ratings
+        var textViewAll = view.txt_view_all
+        var reviewRecycle = view.review_recycle
+        var textInvite = view.txt_invite
+
+        reviewRecycle.layoutManager = LinearLayoutManager(this)
+        var reviewAdapter = ReviewsAdapter(this)
+        reviewRecycle.adapter = reviewAdapter
+
+        textViewAll.setOnClickListener {
+            startActivity(Intent(this, ReviewActivity::class.java))
+        }
+
+
 
         dialog.show()
 

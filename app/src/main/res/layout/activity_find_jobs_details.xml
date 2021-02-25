@@ -324,7 +324,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10dp"
                     android:paddingBottom="@dimen/_10dp"
-                    android:text="@string/pictures"
+                    android:text="@string/attachments"
                     android:textAppearance="@style/MediumTextAppearance"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_18sp" />

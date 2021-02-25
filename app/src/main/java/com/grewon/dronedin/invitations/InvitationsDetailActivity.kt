@@ -1,7 +1,6 @@
 package com.grewon.dronedin.invitations
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +9,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
-import com.grewon.dronedin.pilotfindjobs.adapter.MileStoneAdapter
+import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
 import com.grewon.dronedin.submitproposal.SubmitProposalActivity
 import com.grewon.dronedin.utils.ListUtils
 import com.plumillonforge.android.chipview.Chip

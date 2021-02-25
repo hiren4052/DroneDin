@@ -26,9 +26,8 @@ class ActiveJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onActiveItemClick(jobsDataBean: JobsDataBean.Result?)
 
-        fun onDeleteItem(jobsDataBean: JobsDataBean.Result?, adapterPosition: Int)
 
     }
 
@@ -52,17 +51,12 @@ class ActiveJobsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-      //  val item = itemList[position]
+        //  val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
-            Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
-                .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                .into(holder.imageUser)
 
-
-
+            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(null) }
 
 
         }
@@ -78,12 +72,11 @@ class ActiveJobsAdapter(
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageUser = itemView.img_user
         val textCategory = itemView.txt_category_name
-        val textJobLocation = itemView.txt_job_location
         val textJobTitle = itemView.txt_job_title
-        val textDate = itemView.txt_date
-        val textPrice = itemView.txt_price
+        val textPrice = itemView.txt_budget
+        val textPilotName = itemView.txt_pilot_name
+        val textLocation = itemView.txt_location
     }
 
 

@@ -13,18 +13,18 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.helper.LogX
 import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 
 
-class WebActivity : BaseActivity() {
+class WebActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-       // supportActionBar?.title = intent.getStringExtra(AppConstant.TAG)
+
+        txt_toolbar_title.text = intent.getStringExtra(AppConstant.TAG)
 
 
         webview.webViewClient = MyyWebClient()
@@ -42,6 +42,12 @@ class WebActivity : BaseActivity() {
                 )
             )
         }
+
+        setClicks()
+    }
+
+    private fun setClicks() {
+        img_back.setOnClickListener(this)
     }
 
     inner class MyyWebClient : WebViewClient() {
@@ -70,6 +76,14 @@ class WebActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.img_back -> {
+                finish()
+            }
+        }
     }
 
 }

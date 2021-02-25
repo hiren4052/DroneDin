@@ -4,109 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackground"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_5dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/_15dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_user"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_search" />
-
-        <LinearLayout
-            android:id="@+id/center_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10dp"
-            android:layout_toStartOf="@id/end_layout"
-            android:layout_toEndOf="@id/img_user"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/txt_category_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_toStartOf="@id/txt_budget"
                 android:text="Real Estate"
-                android:textAppearance="@style/RobotoLightTextAppearance"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/txt_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingStart="@dimen/_5dp"
+                android:text="$100"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/span_text_color"
-                android:textSize="@dimen/_16sp" />
+                android:textSize="@dimen/_16sp"
+                tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:background="@color/gray_e9" />
+
+        <TextView
+            android:id="@+id/txt_job_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We need a photographer for a short term project."
+            android:textAppearance="@style/MediumTextAppearance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pilot_"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/txt_pilot_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="Kristen Hunter"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_job_title"
-                android:layout_width="match_parent"
+                android:id="@+id/txt_location"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingTop="@dimen/_3dp"
-                android:paddingBottom="@dimen/_3dp"
-                android:text="House Repairing"
-                android:textColor="@color/header_color"
-                android:textSize="@dimen/_20sp" />
-
-            <TextView
-                android:id="@+id/txt_job_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_alignParentEnd="true"
                 android:drawablePadding="@dimen/_5dp"
-                android:gravity="center_vertical"
-                android:text="Amsterdam"
+                android:paddingStart="@dimen/_5dp"
+                android:text="Toronto"
                 android:textAppearance="@style/RobotoLightTextAppearance"
                 android:textColor="@color/gray_71"
                 android:textSize="@dimen/_14sp"
-                app:drawableStartCompat="@drawable/ic_location_pin" />
+                app:drawableStartCompat="@drawable/ic_location_pin"
+                tools:ignore="RtlSymmetry" />
 
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/end_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/center_layout"
-            android:layout_alignBottom="@id/center_layout"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/_10dp"
-            tools:ignore="RtlSymmetry">
-
-            <org.fabiomsr.moneytextview.MoneyTextView
-                android:id="@+id/txt_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@id/txt_date"
-                android:textAppearance="@style/RobotoBoldTextAppearance"
-                app:amount="500"
-                app:baseTextColor="@color/yellow"
-                app:baseTextSize="@dimen/_22sp"
-                app:decimalSeparator="."
-                app:symbol="$"
-                app:format="#.##"
-                app:symbolGravity="end|bottom"
-                app:symbolTextSize="@dimen/_16sp" />
-
-
-            <TextView
-                android:id="@+id/txt_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="end"
-                android:gravity="center"
-                android:text="2021/02/13"
-                android:textAppearance="@style/RobotoLightTextAppearance"
-                android:textColor="@color/gray_71"
-                android:textSize="@dimen/_14sp" />
         </RelativeLayout>
 
-    </RelativeLayout>
-
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

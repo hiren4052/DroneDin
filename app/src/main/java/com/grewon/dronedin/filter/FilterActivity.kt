@@ -1,5 +1,6 @@
-package com.grewon.dronedin.pilotfindjobs
+package com.grewon.dronedin.filter
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.android.flexbox.FlexDirection
@@ -7,17 +8,17 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
-import com.grewon.dronedin.pilotfindjobs.adapter.FilterCategoryAdapter
-import com.grewon.dronedin.pilotfindjobs.adapter.FilterEquipmentsAdapter
-import com.grewon.dronedin.pilotfindjobs.adapter.FilterSkillsAdapter
+import com.grewon.dronedin.filter.adapter.FilterCategoryAdapter
+import com.grewon.dronedin.filter.adapter.FilterEquipmentsAdapter
+import com.grewon.dronedin.filter.adapter.FilterSkillsAdapter
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ListUtils
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
-import kotlinx.android.synthetic.main.activity_find_jobs_filter.*
+import kotlinx.android.synthetic.main.activity_filter.*
 
 
-class FindJobsFilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSelected,
+class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSelected,
     FilterEquipmentsAdapter.OnFilterEquipmentsItemSelected,
     FilterCategoryAdapter.OnCategoryItemSelected, View.OnClickListener {
 
@@ -27,7 +28,7 @@ class FindJobsFilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkill
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_jobs_filter)
+        setContentView(R.layout.activity_filter)
         setClicks()
         initView()
         setCategoryAdapter()
@@ -70,6 +71,7 @@ class FindJobsFilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkill
         layout_skill.setOnClickListener(this)
         layout_equipments.setOnClickListener(this)
         img_back.setOnClickListener(this)
+        txt_apply.setOnClickListener(this)
     }
 
     private fun setSkillsAdapter() {
@@ -118,6 +120,9 @@ class FindJobsFilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkill
         when (v?.id) {
             R.id.img_back -> {
                 finish()
+            }
+            R.id.txt_apply -> {
+                startActivity(Intent(this, FilterResultActivity::class.java))
             }
             R.id.layout_category -> {
                 if (layout_category_recycle.visibility == View.GONE) {

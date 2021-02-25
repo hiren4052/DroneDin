@@ -19,6 +19,8 @@ import com.grewon.dronedin.server.EquipmentsDataBean
 import com.grewon.dronedin.server.IdentificationDocumentNameBean
 import com.grewon.dronedin.server.SkillsDataBean
 import com.grewon.dronedin.web.WebActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Hiren Gabani on 5/4/20.
@@ -160,6 +162,26 @@ class ListUtils {
 
         fun getCategoryStrings(list: ArrayList<CategoryDataBean.Result>): List<String> {
             return list.map { it.userProfileName.toString() }
+        }
+
+
+        fun getMonthList(): ArrayList<String> {
+            val montList = ArrayList<String>()
+            for (item in 1..12) {
+                montList.add("" + item)
+            }
+            return montList
+        }
+
+
+        fun getYearList(): ArrayList<String> {
+            val calendar = Calendar.getInstance()
+            val currentYear: Int = calendar.get(Calendar.YEAR)
+            val montList = ArrayList<String>()
+            for (item in currentYear..2050) {
+                montList.add("" + item)
+            }
+            return montList
         }
 
     }

@@ -1,5 +1,6 @@
 package com.grewon.dronedin.pilotactivejobs
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -34,7 +35,6 @@ class PilotActiveJobsActivity : BaseActivity(), PilotActiveJobsAdapter.OnItemCli
     }
 
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_back -> {
@@ -44,8 +44,8 @@ class PilotActiveJobsActivity : BaseActivity(), PilotActiveJobsAdapter.OnItemCli
 
     }
 
-    override fun onOffersItemClick(jobsDataBean: JobsDataBean.Result?) {
-
+    override fun onActiveItemClick(jobsDataBean: JobsDataBean.Result?) {
+        startActivity(Intent(this, PilotActiveJobsDetailActivity::class.java))
     }
 }
 

@@ -48,9 +48,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         } else {
             loadFragment(ClientJobsFragment())
 
-            bottom_navigation.menu.getItem(0).isVisible = false
-            bottom_navigation.menu.getItem(0).icon =
-                ContextCompat.getDrawable(this, R.drawable.ic_jobs_selector)
+            bottom_navigation.menu.getItem(1).isVisible = false
+            bottom_navigation.menu.getItem(0).icon = ContextCompat.getDrawable(this, R.drawable.ic_jobs_selector)
             bottom_navigation.background = ContextCompat.getDrawable(this, R.color.white)
 
             val colors = intArrayOf(

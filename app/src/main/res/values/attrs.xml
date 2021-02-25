@@ -15,5 +15,7 @@
         <attr name="imageError" format="reference"/>
         <attr name="blur" format="reference"/>
     </declare-styleable>
-
+    <declare-styleable name="CreditCardEditText">
+        <attr name="separator" format="string" />
+    </declare-styleable>
 </resources>

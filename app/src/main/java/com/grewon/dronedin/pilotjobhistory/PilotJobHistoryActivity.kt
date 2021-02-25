@@ -1,11 +1,13 @@
 package com.grewon.dronedin.pilotjobhistory
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.pilotactivejobs.adapter.PilotActiveJobsAdapter
 import com.grewon.dronedin.pilotjobhistory.adapter.PilotJobsHistoryAdapter
 import com.grewon.dronedin.server.JobsDataBean
@@ -41,6 +43,6 @@ class PilotJobHistoryActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onJobsHistoryItemClick(jobsDataBean: JobsDataBean.Result?) {
-
+        startActivity(Intent(this, PilotHistoryDetailsActivity::class.java))
     }
 }

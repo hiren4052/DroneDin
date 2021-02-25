@@ -1,16 +1,12 @@
-package com.grewon.dronedin.pilotfindjobs.adapter
+package com.grewon.dronedin.milestoneadapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.EquipmentsDataBean
 import com.grewon.dronedin.server.MilestonesDataBean
-import com.grewon.dronedin.utils.IconUtils
-import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 import kotlinx.android.synthetic.main.layout_mile_stone_item.view.*
 
 

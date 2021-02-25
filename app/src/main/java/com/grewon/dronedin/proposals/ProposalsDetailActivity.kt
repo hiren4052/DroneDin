@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
-import com.grewon.dronedin.pilotfindjobs.adapter.MileStoneAdapter
+import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
 import kotlinx.android.synthetic.main.activity_proposals_detail.*
 
 class ProposalsDetailActivity : BaseActivity(), View.OnClickListener {
@@ -46,7 +46,7 @@ class ProposalsDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when (R.id.img_back) {
+        when (v?.id) {
             R.id.img_back -> {
                 finish()
             }

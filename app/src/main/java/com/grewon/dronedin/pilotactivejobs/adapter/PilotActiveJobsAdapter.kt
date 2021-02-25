@@ -21,7 +21,7 @@ class PilotActiveJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onOffersItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onActiveItemClick(jobsDataBean: JobsDataBean.Result?)
 
 
     }
@@ -49,7 +49,7 @@ class PilotActiveJobsAdapter(
         //  val item = itemList[position]
 
         if (holder is ItemViewHolder) {
-
+            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(null) }
 
         }
 

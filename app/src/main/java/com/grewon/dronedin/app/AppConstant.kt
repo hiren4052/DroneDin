@@ -13,11 +13,10 @@ public class AppConstant {
         const val TERMS_OF_SERVICE_URL: String =
             "https://www.termsandcondiitionssample.com/"
 
-        // const val PRIVACY_URL: String = "https://www.chappydelivery.com.au/assets/documents/Chappy-Privacy-Policy-v1.0-FINAL.pdf"
-        const val PRIVACY_URL: String = "https://www.chappydelivery.com.au/privacy-policy"
+        const val PRIVACY_URL: String = "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
         const val FAQ_URL: String = "https://ubereats-city.appspot.com/en_sg/faq/"
         const val MICROSOFT_URL: String = "https://graph.microsoft.com/v1.0/me"
-        val CHANNEL_NAME: CharSequence = "chappy_restaurants"
+        val CHANNEL_NAME: CharSequence = "dronedin"
         const val AUTH_TOKEN: String = "auth_token"
         const val CONSTANT_CREDENTIALS: String = "login_credentials"
         const val REMEMBER_ME: String = "remember_me"

@@ -12,7 +12,11 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
-import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.*
+import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.txt_budget
+import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.txt_category_name
+import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.txt_job_title
+import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.txt_received_proposal
+import kotlinx.android.synthetic.main.layout_posted_client_jobs_item.view.txt_sent_invitation
 
 
 /**
@@ -56,12 +60,9 @@ class PostedJobsAdapter(
 
         if (holder is ItemViewHolder) {
 
-            Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
-                .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                .into(holder.imageUser)
 
 
+holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
 
 
 
@@ -78,12 +79,11 @@ class PostedJobsAdapter(
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageUser = itemView.img_user
         val textCategory = itemView.txt_category_name
-        val textJobLocation = itemView.txt_job_location
         val textJobTitle = itemView.txt_job_title
-        val textDate = itemView.txt_date
-        val textPrice = itemView.txt_price
+        val textPrice = itemView.txt_budget
+        val textInvitationsSent = itemView.txt_sent_invitation
+        val textProposalReceived = itemView.txt_received_proposal
     }
 
 

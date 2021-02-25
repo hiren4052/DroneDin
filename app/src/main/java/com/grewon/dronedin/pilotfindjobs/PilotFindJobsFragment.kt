@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
+import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.server.JobsDataBean
@@ -51,7 +52,7 @@ class PilotFindJobsFragment : Fragment(), View.OnClickListener,
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.im_search -> {
-                startActivity(Intent(context, FindJobsFilterActivity::class.java))
+                startActivity(Intent(context, FilterActivity::class.java))
             }
             R.id.image_map -> {
                 startActivity(Intent(context, JobsMapScreenActivity::class.java))

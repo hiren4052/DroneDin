@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".signin.SignInActivity">
+
+    <ImageView
+        android:id="@+id/im_back"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_48dp"
+        android:layout_marginStart="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_15dp"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/_10dp"
+        android:src="@drawable/ic_back_blue" />
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:id="@+id/top_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_20dp"
+        android:src="@drawable/credit_card_animation"
+        app:aspectRatio="0.5"
+        app:aspectRatioEnabled="true" />
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_image"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_intro_bottom" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_image"
+        android:layout_marginTop="-40dp"
+        android:fillViewport="true"
+
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_25dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/_2dp"
+                android:text="@string/card_details"
+                android:textAppearance="@style/RobotoBoldTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/card_holder_name"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sp" />
+
+
+            <EditText
+                android:id="@+id/edt_name"
+                style="@style/editTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="start"
+                android:hint="@string/example_john_bolt"
+                android:inputType="text"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray_b1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/card_number"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sp" />
+
+
+            <com.grewon.dronedin.cardutils.CreditCardEditText
+                android:id="@+id/edt_card_number"
+                style="@style/editTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="start"
+                android:hint="@string/xxxx_xxxx_xxxx_xxxx"
+                android:inputType="textNoSuggestions"
+                android:maxLength="19"
+                app:separator="-"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray_b1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginBottom="@dimen/_5dp"
+                        android:text="@string/expires"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10dp"
+                            android:layout_marginBottom="@dimen/_10dp"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/txt_month"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_rectangle_light_colorprimary"
+                                android:gravity="start|center_vertical"
+                                android:hint="12"
+                                android:padding="@dimen/_15dp"
+                                android:textColor="@drawable/white_text_selector"
+                                android:textColorHint="@color/gray_b1"
+                                android:textSize="@dimen/_16sp"
+                                app:drawableEndCompat="@drawable/ic_drop_down_white" />
+
+                            <Spinner
+                                android:id="@+id/month_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1dp"
+                                android:visibility="invisible" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10dp"
+                            android:layout_marginBottom="@dimen/_10dp"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/txt_year"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_rectangle_light_colorprimary"
+                                android:gravity="start|center_vertical"
+                                android:hint="2020"
+                                android:padding="@dimen/_15dp"
+                                android:textColor="@drawable/white_text_selector"
+                                android:textColorHint="@color/gray_b1"
+                                android:textSize="@dimen/_16sp"
+                                app:drawableEndCompat="@drawable/ic_drop_down_white" />
+
+                            <Spinner
+                                android:id="@+id/year_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1dp"
+                                android:visibility="invisible" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginBottom="@dimen/_5dp"
+                        android:gravity="center"
+                        android:text="@string/cvv_cvc"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_cvv"
+                        style="@style/editTextTheme"
+                        android:layout_width="@dimen/_80dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_rectangle_light_colorprimary"
+                        android:gravity="start"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/gray_b1" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_save"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_marginTop="@dimen/_40dp"
+                android:background="@drawable/ic_rectangle"
+                android:gravity="center"
+                android:text="@string/save"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_20sp" />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

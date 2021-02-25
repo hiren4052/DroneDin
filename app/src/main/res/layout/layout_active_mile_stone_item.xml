@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/_15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/txt_milestone_status"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txt_mile_stone_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We need a photographer for a short term project."
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_16sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price_"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_9a"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/txt_mile_stone_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="$100"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_9a"
+                    android:textSize="@dimen/_14sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/completed_on"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_9a"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/txt_started_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="22 Feb, 2021"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_9a"
+                    android:textSize="@dimen/_14sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_milestone_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_round_completed_background"
+            android:paddingStart="@dimen/_15dp"
+            android:paddingTop="@dimen/_5dp"
+            android:paddingEnd="@dimen/_15dp"
+            android:paddingBottom="@dimen/_5dp"
+            android:text="@string/completed"
+            android:textAllCaps="true"
+            android:textAppearance="@style/RobotoMediumTextAppearance"
+            android:textColor="@color/completed_text_color"
+            android:textSize="@dimen/_14sp"
+            tools:ignore="RtlSymmetry" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

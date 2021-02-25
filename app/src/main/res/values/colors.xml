@@ -76,9 +76,11 @@
     <color name="random_two">#CFE2E7</color>
     <color name="random_three">#BABCC8</color>
     <color name="random_four">#CFE2E7</color>
+    <color name="random_five">#34385A</color>
     <color name="gray_e9">#E9E9E9</color>
     <color name="gray_af">#AFAFAF</color>
     <color name="gray_eb">#EBEBEB</color>
     <color name="gray_b1">#B1B2C0</color>
+    <color name="top_green">#87AC87</color>
 
 </resources>

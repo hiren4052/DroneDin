@@ -1,13 +1,12 @@
-package com.grewon.dronedin.pilotfindjobs.adapter
+package com.grewon.dronedin.filter.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.EquipmentsDataBean
+import com.grewon.dronedin.server.CategoryDataBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 
@@ -15,15 +14,17 @@ import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class FilterEquipmentsAdapter(
-    val context: Context, val onFilterEquipmentsItemSelected: OnFilterEquipmentsItemSelected
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FilterCategoryAdapter(
+    val context: Context,val onCategoryItemSelected: OnCategoryItemSelected
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface OnFilterEquipmentsItemSelected {
-        fun onFilterEquipmentsItemSelected()
+
+    interface OnCategoryItemSelected {
+        fun onCategoryItemSelected()
     }
 
-    var itemList = ArrayList<EquipmentsDataBean.Result>()
+    var itemList = ArrayList<CategoryDataBean.Result>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,7 +47,7 @@ class FilterEquipmentsAdapter(
 
 
         if (holder is ItemViewHolder) {
-            holder.categoryName.text = item.userProfileName
+        holder.categoryName.text=item.userProfileName
 
             if (item.isSelected == 1) {
                 IconUtils.setFilterBackground(
@@ -85,8 +86,7 @@ class FilterEquipmentsAdapter(
                     )
 
                 }
-
-                onFilterEquipmentsItemSelected.onFilterEquipmentsItemSelected()
+                onCategoryItemSelected.onCategoryItemSelected()
             }
 
         }
@@ -94,16 +94,16 @@ class FilterEquipmentsAdapter(
 
     }
 
-    fun getSelectedItems(): List<EquipmentsDataBean.Result> {
-        return itemList.filter { it.isSelected == 1 }
-    }
 
-
-    fun addItemsList(list: ArrayList<EquipmentsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<CategoryDataBean.Result>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
+
+    fun getSelectedItems(): List<CategoryDataBean.Result> {
+        return itemList.filter { it.isSelected == 1 }
+    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

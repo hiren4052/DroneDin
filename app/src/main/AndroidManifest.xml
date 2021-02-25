@@ -21,6 +21,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".milestoneadapter.SubmitMilestoneActivity"></activity>
+        <activity android:name=".pilotactivejobs.PilotActiveJobsDetailActivity" />
+        <activity android:name=".pilotjobhistory.PilotHistoryDetailsActivity" />
+        <activity android:name=".clientjobs.history.ClientJobHistoryDetailsActivity" />
+        <activity android:name=".clientjobs.active.ClientActiveJobsDetailsActivity" />
+        <activity android:name=".clientjobs.clientoffers.ClientOffersDetailsActivity" />
+        <activity android:name=".clientjobs.clientoffers.ClientOffersActivity" />
+        <activity android:name=".clientjobs.posted.ClientProposalDetailsActivity" />
+        <activity android:name=".clientjobs.posted.ClientProposalsActivity" />
+        <activity android:name=".review.ReviewActivity" />
+        <activity
+            android:name=".addcard.AddCardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".addprofile.AddMoreProfileActivity"
             android:exported="true"
@@ -62,19 +76,15 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".pilotfindjobs.PilotFilterResultActivity"
+            android:name=".filter.FilterResultActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".pilotfindjobs.FindJobsFilterActivity"
+            android:name=".filter.FilterActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".clientjobs.posted.PostedJobDetailsActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".clientjobs.filter.FilterActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity

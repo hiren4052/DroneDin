@@ -10,19 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 
-
-
 open class BaseActivity : AppCompatActivity() {
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
-
-
 
 
     override fun attachBaseContext(newBase: Context) {
@@ -38,7 +32,6 @@ open class BaseActivity : AppCompatActivity() {
     fun isPilotAccount(): Boolean {
         return true
     }
-
 
 
 }

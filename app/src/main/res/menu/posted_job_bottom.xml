@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/im_saved_pilots"
+        android:icon="@drawable/ic_jobs_selector"
+        android:title="@string/saved_pilots" />
+
+
+    <item
+        android:id="@+id/im_sent_invitations"
+        android:icon="@drawable/ic_jobs_selector"
+        android:title="@string/sent_invitations" />
+
+    <item
+        android:id="@+id/im_sent_offers"
+        android:icon="@drawable/ic_messages_selector"
+        android:title="@string/sent_offers" />
+
+
+</menu>

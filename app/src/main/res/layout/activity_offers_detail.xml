@@ -324,7 +324,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10dp"
                     android:paddingBottom="@dimen/_10dp"
-                    android:text="@string/pictures"
+                    android:text="@string/attachments"
                     android:textAppearance="@style/MediumTextAppearance"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_18sp" />
@@ -338,111 +338,6 @@
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/_5dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/_15dp"
-                app:contentPaddingBottom="@dimen/_5dp"
-                app:contentPaddingLeft="@dimen/_15dp"
-                app:contentPaddingTop="@dimen/_5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txt_proposal_received"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="10"
-                            android:textAppearance="@style/RobotoMediumTextAppearance"
-                            android:textColor="@color/span_text_color"
-
-                            android:textSize="@dimen/_16sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/proposal_received"
-                            android:textAppearance="@style/RobotoLightTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txt_interviewing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10"
-                            android:textAppearance="@style/RobotoMediumTextAppearance"
-                            android:textColor="@color/span_text_color"
-
-                            android:textSize="@dimen/_16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/interviewing"
-                            android:textAppearance="@style/RobotoLightTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txt_invitations_sent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10"
-                            android:textAppearance="@style/RobotoMediumTextAppearance"
-                            android:textColor="@color/span_text_color"
-                            android:textSize="@dimen/_16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/invitations_sent"
-                            android:textAppearance="@style/RobotoLightTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"

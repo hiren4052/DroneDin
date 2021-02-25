@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.JobsDataBean
-import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.*
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.title_date
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.txt_budget
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.txt_category_name
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.txt_job_title
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.txt_jobs_status
+import kotlinx.android.synthetic.main.layout_pilot_history_jobs_item.view.txt_started_date
 
 
 /**
@@ -55,12 +60,15 @@ class PilotJobsHistoryAdapter(
                 holder.textjobStatus.background=ContextCompat.getDrawable(context,R.drawable.ic_round_completed_background)
                 holder.textjobStatus.setTextColor(ContextCompat.getColor(context,R.color.completed_text_color))
                 holder.textjobStatus.text=context.getText(R.string.completed)
+                holder.dateTitle.text=context.getText(R.string.completed_on)
             }else if(position==2){
                 holder.textjobStatus.background=ContextCompat.getDrawable(context,R.drawable.ic_round_cancelled_background)
                 holder.textjobStatus.setTextColor(ContextCompat.getColor(context,R.color.cancelled_text_color))
                 holder.textjobStatus.text=context.getText(R.string.cancelled)
+                holder.dateTitle.text=context.getText(R.string.completed_on)
             }
 
+            holder.itemView.setOnClickListener { onItemClickListeners.onJobsHistoryItemClick(null) }
 
         }
 
@@ -80,6 +88,8 @@ class PilotJobsHistoryAdapter(
         val textjobStatus = itemView.txt_jobs_status
         val textStartedDate = itemView.txt_started_date
         val textBudget = itemView.txt_budget
+        val dateTitle = itemView.title_date
+
     }
 
 

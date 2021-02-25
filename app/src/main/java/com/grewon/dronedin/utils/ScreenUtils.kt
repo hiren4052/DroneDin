@@ -30,6 +30,7 @@ class ScreenUtils {
             randomColorList.add(R.color.random_two)
             randomColorList.add(R.color.random_three)
             randomColorList.add(R.color.random_four)
+            randomColorList.add(R.color.random_five)
             return randomColorList[Random.nextInt(randomColorList.size)]
         }
 
