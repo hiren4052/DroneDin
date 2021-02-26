@@ -12,13 +12,7 @@ import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
 import com.grewon.dronedin.utils.ListUtils
 import com.plumillonforge.android.chipview.Chip
-import kotlinx.android.synthetic.main.activity_offers_detail.chip_equipments
-import kotlinx.android.synthetic.main.activity_offers_detail.chip_skills
-import kotlinx.android.synthetic.main.activity_offers_detail.image_recycle
-import kotlinx.android.synthetic.main.activity_offers_detail.img_back
-import kotlinx.android.synthetic.main.activity_offers_detail.mile_stone_recycle
-import kotlinx.android.synthetic.main.activity_offers_detail.txt_message
-import kotlinx.android.synthetic.main.activity_offers_detail.txt_send_proposal
+import kotlinx.android.synthetic.main.activity_offers_detail.*
 
 class OffersDetailActivity : BaseActivity(), View.OnClickListener {
     private var mileStoneAdapter: MileStoneAdapter? = null
@@ -33,8 +27,8 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener {
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
-        txt_message.setOnClickListener(this)
-        txt_send_proposal.setOnClickListener(this)
+        txt_accept.setOnClickListener(this)
+        txt_decline.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -67,11 +61,9 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener {
             R.id.img_back -> {
                 finish()
             }
-            R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+            R.id.txt_accept -> {
             }
-            R.id.txt_send_proposal -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+            R.id.txt_decline -> {
             }
         }
     }

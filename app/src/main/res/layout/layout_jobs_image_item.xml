@@ -11,9 +11,9 @@
         android:id="@+id/jobs_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_80dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:aspectRatio="1"
         app:aspectRatioEnabled="true"
         app:dominantMeasurement="height"
-        app:srcCompat="@drawable/img_dummy" />
+        app:srcCompat="@drawable/ic_attachment_background" />
 </androidx.cardview.widget.CardView>

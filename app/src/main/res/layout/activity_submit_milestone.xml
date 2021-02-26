@@ -1,9 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".milestoneadapter.SubmitMilestoneActivity">
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    tools:context=".pilotfindjobs.FindJobsDetailsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_16dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/notes"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_18sp" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/edt_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:gravity="start"
+                    android:hint="@string/write_your_comments_if_any"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:padding="@dimen/_15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/gray_af"
+                    android:textSize="@dimen/_16sp" />
+            </androidx.cardview.widget.CardView>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_5dp"
+                    android:text="@string/attach_files"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_18sp"
+                    app:drawableEndCompat="@drawable/ic_attachments" />
+
+                <ImageView
+                    android:id="@+id/im_add_attachments"
+                    android:layout_width="@dimen/_28dp"
+                    android:layout_height="@dimen/_28dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_plus_gray"
+                    app:tint="@color/colorPrimary" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/image_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false" />
+
+            <TextView
+                android:id="@+id/txt_submit"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginBottom="@dimen/_40dp"
+                android:background="@drawable/ic_rectangle"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_20sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -21,16 +21,55 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".milestoneadapter.SubmitMilestoneActivity"></activity>
-        <activity android:name=".pilotactivejobs.PilotActiveJobsDetailActivity" />
-        <activity android:name=".pilotjobhistory.PilotHistoryDetailsActivity" />
-        <activity android:name=".clientjobs.history.ClientJobHistoryDetailsActivity" />
-        <activity android:name=".clientjobs.active.ClientActiveJobsDetailsActivity" />
-        <activity android:name=".clientjobs.clientoffers.ClientOffersDetailsActivity" />
-        <activity android:name=".clientjobs.clientoffers.ClientOffersActivity" />
-        <activity android:name=".clientjobs.posted.ClientProposalDetailsActivity" />
-        <activity android:name=".clientjobs.posted.ClientProposalsActivity" />
-        <activity android:name=".review.ReviewActivity" />
+        <activity
+            android:name=".postjob.PostJobActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".milestoneadapter.MilestoneDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestoneadapter.SubmitMilestoneActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pilotactivejobs.PilotActiveJobsDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pilotjobhistory.PilotHistoryDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.history.ClientJobHistoryDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.active.ClientActiveJobsDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.clientoffers.ClientOffersDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.clientoffers.ClientOffersActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.posted.ClientProposalDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".clientjobs.posted.ClientProposalsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".review.ReviewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".addcard.AddCardActivity"
             android:exported="true"

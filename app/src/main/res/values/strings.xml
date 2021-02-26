@@ -175,4 +175,14 @@
     <string name="milestones">Milestones</string>
     <string name="submit_review">Submit Review</string>
     <string name="client_">Client:</string>
+    <string name="notes">Notes</string>
+    <string name="write_your_comments_if_any">Write your comments if any.</string>
+    <string name="submit_milestone">Submit Milestone</string>
+    <string name="amount">Amount</string>
+    <string name="notes_">Notes:</string>
+    <string name="files">Files</string>
+    <string name="add_document">Add Document</string>
+    <string name="no_app_found_to_handle">No app found to handle this file</string>
+    <string name="some_thing_went_wrong">Something wents wrong</string>
+    <string name="job_title">Job Title</string>
 </resources>

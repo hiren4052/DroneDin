@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    android:padding="@dimen/_20dp"
+    tools:context=".postjob.SelectFragmentFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_5dp"
+        app:cardElevation="@dimen/_3dp"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:id="@+id/txt_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="@string/select_category"
+            android:padding="@dimen/_15dp"
+            android:textColor="@color/gray_71"
+            android:textColorHint="@color/gray_b1"
+            android:textSize="@dimen/_16sp"
+            app:drawableEndCompat="@drawable/ic_drop_down" />
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:visibility="invisible" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_skillset"
+        android:layout_marginTop="@dimen/_10dp"
+        android:textAppearance="@style/RobotoTextAppearance"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/skills_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_5dp"
+        android:paddingBottom="@dimen/_5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_equipments"
+        android:layout_marginTop="@dimen/_10dp"
+        android:textAppearance="@style/RobotoTextAppearance"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_18sp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/equipments_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_5dp"
+        android:paddingBottom="@dimen/_5dp" />
+
+    <TextView
+        android:id="@+id/txt_next"
+        android:layout_width="@dimen/_200dp"
+        android:layout_height="@dimen/_45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_40dp"
+        android:background="@drawable/ic_rectangle"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textAppearance="@style/BoldTextAppearance"
+        android:textColor="@drawable/white_text_selector"
+        android:textSize="@dimen/_20sp" />
+
+</LinearLayout>

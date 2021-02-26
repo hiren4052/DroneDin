@@ -44,9 +44,18 @@ class JobsImageAdapter(
 
         if (holder is ItemViewHolder) {
 
-            Glide.with(context)
-                .load("https://www.sustainableplaces.eu/wp-content/uploads/2017/02/SmartBuilding.jpg")
-                .into(holder.jobsImage)
+
+
+            if(position%2==0){
+                Glide.with(context)
+                    .load(R.drawable.ic_attachment_background)
+
+                    .into(holder.jobsImage)
+            }else{
+                Glide.with(context)
+                    .load("https://www.sustainableplaces.eu/wp-content/uploads/2017/02/SmartBuilding.jpg")
+                    .into(holder.jobsImage)
+            }
 
 
         }

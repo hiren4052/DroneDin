@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.grewon.dronedin.helper.AspectImageView
+        android:id="@+id/dialog_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_image_bottom"
+        app:aspectRatio="0.7"
+        app:aspectRatioEnabled="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/dialog_image"
+        android:layout_marginBottom="@dimen/_30dp"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/txt_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_15dp"
+            android:gravity="center"
+            android:padding="@dimen/_10dp"
+            android:text="@string/add_document"
+            android:textAppearance="@style/RobotoBoldTextAppearance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_24sp"
+            app:drawableStartCompat="@drawable/ic_back_white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_camera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:padding="@dimen/_15dp">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_photo_camera" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:gravity="center"
+                    android:text="@string/camera"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:padding="@dimen/_15dp">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_gallery" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:gravity="center"
+                    android:text="@string/gallery"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_file"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:padding="@dimen/_15dp">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_medium"
+                    android:layout_height="@dimen/icon_size_medium"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_folder" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:gravity="center"
+                    android:text="@string/files"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -155,4 +155,33 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+    <style name="AppLibAppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="toolbarStyle">@style/LibAppTheme.Dark</item>
+        <item name="tabStyle">@style/PickerTabLayout</item>
+    </style>
+    <style name="LibAppTheme.Dark" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@android:color/white</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="toolbarStyle">@style/ToolbarTheme.Dark</item>
+        <item name="tabStyle">@style/PickerTabLayout.Dark</item>
+    </style>
+    <style name="PickerTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <!--        tab background-->
+        <item name="tabBackground">@color/colorPrimary</item>
+        <!--        tab text color selector : set selector accordingly to dark or light theme-->
+        <item name="tabTextColor">@color/white</item>
+        <!--        tab indicator color: set indicator color accordingly-->
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMaxWidth">0dp</item>
+    </style>
+
+
 </resources>

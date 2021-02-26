@@ -5,11 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -26,20 +23,28 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.server.LocationBean
+import com.grewon.dronedin.utils.FileUtils
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
 import com.theartofdev.edmodo.cropper.CropImage
+import droidninja.filepicker.FilePickerBuilder
+import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_add_profile.*
+import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.*
+import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_camera
+import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_gallery
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddProfileActivity : BaseActivity(), View.OnClickListener {
     private var picturePath: File? = null
+    private var filePath: String? = ""
     private var imageType: String = "front"
     private var serverFrontImage: String = ""
     private var serverBackImage: String = ""
@@ -328,6 +333,21 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.cancel_request))
                 }
             }
+            AppConstant.PICKFILE_REQUEST_CODE -> {
+                if (data != null) {
+                    if (resultCode == RESULT_OK) {
+                        val filePath =
+                            data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
+                        if (filePath != null) {
+                            LogX.E(filePath.toString())
+                        } else {
+                            Toast.makeText(this, R.string.some_thing_went_wrong, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+
+            }
 
             AppConstant.ADD_LOCATION_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
@@ -347,11 +367,11 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.front_image_layout -> {
                 imageType = "front"
-                openGalleryDialog()
+                openFileDialog()
             }
             R.id.back_image_layout -> {
                 imageType = "back"
-                openGalleryDialog()
+                openFileDialog()
             }
             R.id.edt_location -> {
                 passIntent()
@@ -360,6 +380,131 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
                 identification_spinner.performClick()
             }
         }
+    }
+
+
+    @SuppressLint("InflateParams")
+    private fun openFileDialog() {
+        val view = LayoutInflater.from(this)
+            .inflate(R.layout.file_bottom_dialog, null)
+        val dialog = BottomSheetDialog(
+            this, R.style.CustomBottomSheetDialogTheme
+        )
+        dialog.setContentView(view)
+
+        val linearCamera = view.ll_camera
+        val linearGallery = view.ll_gallery
+        val linearFile = view.ll_file
+        val textDialogTitle = view.txt_dialog_title
+
+
+        textDialogTitle.setOnClickListener { dialog.dismiss() }
+
+        linearCamera.setOnClickListener {
+
+            dialog.dismiss()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_DENIED
+                    || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                    || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ),
+                        AppConstant.CAMERA_PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    cameraIntent()
+                }
+            } else {
+                cameraIntent()
+            }
+        }
+
+        linearGallery.setOnClickListener {
+
+            dialog.dismiss()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ),
+                        AppConstant.GALLERY_PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    galleryIntent()
+                }
+            } else {
+                galleryIntent()
+            }
+        }
+
+        linearFile.setOnClickListener {
+
+            dialog.dismiss()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED || ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ),
+                        AppConstant.PICKFILE_PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    fileIntent()
+                }
+            } else {
+                fileIntent()
+            }
+        }
+
+
+
+        dialog.show()
+
+    }
+
+
+    private fun fileIntent() {
+
+        FilePickerBuilder.instance
+            .setMaxCount(1) //optional
+            .setActivityTheme(R.style.AppLibAppTheme) //optional
+            .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
+
     }
 
 

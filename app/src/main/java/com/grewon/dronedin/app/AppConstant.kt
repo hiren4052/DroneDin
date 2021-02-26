@@ -54,6 +54,8 @@ public class AppConstant {
         const val GALLERY_INTENT_REQUEST_CODE = 11
         const val CATEGORY_EDIT_REQUEST_CODE = 12
         const val PRODUCT_EDIT_REQUEST_CODE = 13
+        const val PICKFILE_REQUEST_CODE: Int=17
+        const val PICKFILE_PERMISSION_REQUEST_CODE: Int=19
 
 
         /*-------Analytics Constant*/

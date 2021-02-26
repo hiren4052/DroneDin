@@ -28,8 +28,8 @@ class InvitationsDetailActivity : BaseActivity(), View.OnClickListener {
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
-        txt_message.setOnClickListener(this)
         txt_send_proposal.setOnClickListener(this)
+        txt_message.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -58,7 +58,7 @@ class InvitationsDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when (R.id.img_back) {
+        when (v?.id) {
             R.id.img_back -> {
                 finish()
             }

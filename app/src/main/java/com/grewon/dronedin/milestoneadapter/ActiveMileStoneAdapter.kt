@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
+import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import kotlinx.android.synthetic.main.layout_active_mile_stone_item.view.*
 
@@ -15,10 +16,16 @@ import kotlinx.android.synthetic.main.layout_active_mile_stone_item.view.*
  * Created by Jeff Klima on 2019-08-20.
  */
 class ActiveMileStoneAdapter(
-    val context: Context
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    val context: Context, val onItemClickListeners: OnItemClickListeners
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
+    interface OnItemClickListeners {
+
+        fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean.Result?)
+
+
+    }
 
     var itemList = ArrayList<MilestonesDataBean.Result>()
 
@@ -44,7 +51,8 @@ class ActiveMileStoneAdapter(
 
         if (holder is ItemViewHolder) {
 
-            holder.txtMileStonetitle.text = (position + 1).toString() + ". We need a photographer for a short term project."
+            holder.txtMileStonetitle.text =
+                (position + 1).toString() + ". We need a photographer for a short term project."
             if (position == 2) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
@@ -56,6 +64,11 @@ class ActiveMileStoneAdapter(
                 )
                 holder.textMilestoneStatus.text = context.getText(R.string.cancelled)
                 holder.dateTitle.text = context.getText(R.string.cancelled_on)
+                holder.itemView.setOnClickListener {
+                    onItemClickListeners.onMilestoneItemClick(
+                        MilestonesDataBean.Result(userProfileName = "cancel")
+                    )
+                }
             } else if (position == 3) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_active_background)
@@ -67,6 +80,17 @@ class ActiveMileStoneAdapter(
                 )
                 holder.textMilestoneStatus.text = context.getText(R.string.active)
                 holder.dateTitle.text = context.getText(R.string.started_on_)
+                holder.itemView.setOnClickListener {
+                    onItemClickListeners.onMilestoneItemClick(
+                        MilestonesDataBean.Result(userProfileName = "active")
+                    )
+                }
+            } else {
+                holder.itemView.setOnClickListener {
+                    onItemClickListeners.onMilestoneItemClick(
+                        MilestonesDataBean.Result(userProfileName = "complete")
+                    )
+                }
             }
 
         }

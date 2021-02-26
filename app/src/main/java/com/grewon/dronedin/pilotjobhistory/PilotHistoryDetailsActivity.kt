@@ -10,12 +10,16 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestoneadapter.ActiveMileStoneAdapter
+import com.grewon.dronedin.milestoneadapter.MilestoneDetailActivity
+import com.grewon.dronedin.milestoneadapter.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.utils.ListUtils
 import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.synthetic.main.activity_pilot_history_details.*
 
-class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener {
+class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
+    ActiveMileStoneAdapter.OnItemClickListeners {
     private var mileStoneAdapter: ActiveMileStoneAdapter? = null
     private var jobsImageAdapter: JobsImageAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +56,7 @@ class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private fun setMileStoneAdapter() {
         mile_stone_recycle.layoutManager = LinearLayoutManager(this)
-        mileStoneAdapter = ActiveMileStoneAdapter(this)
+        mileStoneAdapter = ActiveMileStoneAdapter(this, this)
         mile_stone_recycle.adapter = mileStoneAdapter
     }
 
@@ -67,6 +71,14 @@ class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener {
             R.id.txt_message -> {
                 startActivity(Intent(this, ChatActivity::class.java))
             }
+        }
+    }
+
+    override fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean.Result?) {
+        if (jobsDataBean?.userProfileName == "active") {
+            startActivity(Intent(this, SubmitMilestoneActivity::class.java))
+        } else {
+            startActivity(Intent(this, MilestoneDetailActivity::class.java))
         }
     }
 }
