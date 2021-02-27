@@ -51,4 +51,10 @@
             android:textSize="@dimen/_16sp" />
     </androidx.cardview.widget.CardView>
 
+    <ImageView
+        android:layout_width="@dimen/_36dp"
+        android:layout_height="@dimen/_36dp"
+        android:padding="@dimen/_7dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_close" />
 </LinearLayout>

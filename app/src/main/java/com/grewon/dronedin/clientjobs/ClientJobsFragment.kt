@@ -15,6 +15,7 @@ import com.grewon.dronedin.clientjobs.adapter.PostedJobsAdapter
 import com.grewon.dronedin.clientjobs.history.ClientJobHistoryDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.filter.FilterActivity
+import com.grewon.dronedin.postjob.PostJobActivity
 import com.grewon.dronedin.server.JobsDataBean
 import kotlinx.android.synthetic.main.fragment_client_jobs.*
 
@@ -79,12 +80,17 @@ class ClientJobsFragment : Fragment(), View.OnClickListener,
     private fun setClicks() {
 
         im_search.setOnClickListener(this)
+        fab_add_job.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.im_search -> {
                 startActivity(Intent(context, FilterActivity::class.java))
+            }
+
+            R.id.fab_add_job -> {
+                startActivity(Intent(context, PostJobActivity::class.java))
             }
 
         }

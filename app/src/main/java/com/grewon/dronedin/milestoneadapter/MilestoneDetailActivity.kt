@@ -25,7 +25,7 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun initView() {
-        txt_toolbar_title.text = getString(R.string.submit_milestone)
+        txt_toolbar_title.text = getString(R.string.milestone_details)
         setImageAdapter()
     }
 

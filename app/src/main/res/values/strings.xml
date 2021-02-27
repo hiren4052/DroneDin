@@ -185,4 +185,13 @@
     <string name="no_app_found_to_handle">No app found to handle this file</string>
     <string name="some_thing_went_wrong">Something wents wrong</string>
     <string name="job_title">Job Title</string>
+    <string name="completed_jobs">Completed Jobs</string>
+    <string name="total_earnings">Total Earnings</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="about">About</string>
+    <string name="write_a_review">Write a review</string>
+    <string name="write_about_your_experience">Write about your experience.</string>
+    <string name="no_review_message">You don’t have any reviews yet!\nRequest your clients to leave a feedback !</string>
+    <string name="total_jobs">Total Jobs</string>
+    <string name="total_spending">Total Spending</string>
 </resources>

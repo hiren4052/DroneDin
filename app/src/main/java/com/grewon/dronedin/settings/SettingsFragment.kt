@@ -12,18 +12,18 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.app.BaseFragment
+import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.splash.SplashActivity
-import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.web.WebActivity
-import com.plumillonforge.android.chipview.Chip
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.logout_bottom_dialog.view.*
 
 
-class SettingsFragment : Fragment(), View.OnClickListener {
+class SettingsFragment : BaseFragment(), View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +64,11 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
             }
             R.id.im_edit -> {
+                if (isPilotAccount()) {
+                    startActivity(Intent(context, PilotProfileActivity::class.java))
+                } else {
+                    startActivity(Intent(context, ClientProfileActivity::class.java))
+                }
 
             }
             R.id.txt_payment_method -> {

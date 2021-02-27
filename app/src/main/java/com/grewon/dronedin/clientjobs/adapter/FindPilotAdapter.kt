@@ -5,11 +5,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
+import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
+import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.utils.ListUtils
-import com.plumillonforge.android.chipview.Chip
-import kotlinx.android.synthetic.main.activity_find_jobs_details.*
 import kotlinx.android.synthetic.main.layout_find_pilot_item.view.*
 
 
@@ -53,11 +56,23 @@ class FindPilotAdapter(
 
         if (holder is ItemViewHolder) {
 
-            val skillChipList: List<Chip> = ListUtils.getSkillsBean()
-            holder.chipSkills.chipList = skillChipList
 
-            val equipmentsChipList: List<Chip> = ListUtils.getEquipmentsBean()
-            holder.chipEquipments.chipList = equipmentsChipList
+
+            val layoutManager = FlexboxLayoutManager(context)
+            layoutManager.flexDirection = FlexDirection.ROW
+            layoutManager.justifyContent = JustifyContent.FLEX_START
+            holder.chipSkills.layoutManager = layoutManager
+            val skillsAdapter = ChipSkillsAdapter(context, R.color.gray_f4, R.color.gray_71)
+            holder.chipSkills.adapter = skillsAdapter
+            skillsAdapter.addItemsList(ListUtils.getSkillsBean())
+
+            val elayoutManager = FlexboxLayoutManager(context)
+            elayoutManager.flexDirection = FlexDirection.ROW
+            elayoutManager.justifyContent = JustifyContent.FLEX_START
+            holder.chipEquipments.layoutManager = elayoutManager
+            val equipmentsAdapter = ChipEquipmentsAdapter(context, R.color.light_sky_blue, R.color.gray_71)
+            holder.chipEquipments.adapter = equipmentsAdapter
+            equipmentsAdapter.addItemsList(ListUtils.getEquipmentsBean())
 
             holder.itemView.setOnClickListener { onItemClickListeners.onPilotItemClick(null) }
 

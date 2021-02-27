@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/top_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:id="@+id/refImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                app:aspectRatio="0.75"
+                app:aspectRatioEnabled="true" />
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:id="@+id/blur_img_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/refImage"
+                android:layout_alignBottom="@+id/refImage"
+                android:alpha="0.8"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_dummy" />
+
+            <RelativeLayout
+                android:id="@+id/rlToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize">
+
+                <ImageView
+                    android:id="@+id/im_back"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_15dp"
+                    android:src="@drawable/ic_back_white"
+                    android:visibility="visible" />
+
+
+                <ImageView
+                    android:id="@+id/im_message"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_15dp"
+                    android:src="@drawable/ic_messges_unselected"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlToolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
+                    android:src="@drawable/img_dummy" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kristen Hunter"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_18sp" />
+
+                    <TextView
+                        android:id="@+id/txt_ratings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_2dp"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="5.0"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_14sp"
+                        app:drawableStartCompat="@drawable/ic_baseline_star_24" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Toronto, Canada"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/bottom_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-130dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_setting_background"
+            android:visibility="visible" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-60dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_active_jobs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/span_text_color"
+                        android:textSize="@dimen/_20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_2dp"
+                        android:text="@string/active_jobs"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_total_jobs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/span_text_color"
+                        android:textSize="@dimen/_20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_2dp"
+                        android:text="@string/total_jobs"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_total_spending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/span_text_color"
+                        android:textSize="@dimen/_20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_2dp"
+                        android:text="@string/total_spending"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:background="@color/view_color" />
+
+            <LinearLayout
+                android:id="@+id/first_segment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_10dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_30dp"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:text="@string/about"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_30dp"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries_but_also_the_leap_into_electronic_typesetting_remaining_essentially_unchanged_it_was_popularised_in_the_1960s_with_the_release_of_letraset_sheets_containing_lorem_ipsum_passages_and_more_recently_with_desktop_publishing_software_like_aldus_pagemaker_including_versions_of_lorem_ipsum"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:background="@color/view_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_30dp"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:text="@string/reviews"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/review_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/layout_no_data"
+            layout="@layout/layout_no_data"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

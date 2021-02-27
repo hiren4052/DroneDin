@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/top_image"
-            android:layout_marginTop="-150dp"
+            android:layout_marginTop="-130dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_setting_background"
             android:visibility="visible" />
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/top_image"
-            android:layout_marginTop="-70dp"
+            android:layout_marginTop="-60dp"
             android:orientation="vertical"
             android:visibility="visible">
 

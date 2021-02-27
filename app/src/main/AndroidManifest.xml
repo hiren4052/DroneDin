@@ -21,11 +21,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".offers.CrateOffersActivity"></activity>
+        <activity
+            android:name=".clientprofile.ClientProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".review.SubmitReviewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pilotprofile.PilotProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".postjob.PostJobActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".milestoneadapter.MilestoneDetailActivity"
             android:exported="true"

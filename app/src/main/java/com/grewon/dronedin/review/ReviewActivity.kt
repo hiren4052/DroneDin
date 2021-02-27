@@ -26,6 +26,7 @@ class ReviewActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        txt_toolbar_title.text = getString(R.string.reviews)
         review_recycle.layoutManager = LinearLayoutManager(this)
         reviewsAdapter = WhiteScreenReviewsAdapter(this)
         review_recycle.adapter = reviewsAdapter

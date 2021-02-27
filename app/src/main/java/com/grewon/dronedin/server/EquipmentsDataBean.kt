@@ -3,7 +3,6 @@ package com.grewon.dronedin.server
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.parcel.Parcelize
 
 
@@ -129,9 +128,6 @@ data class EquipmentsDataBean(
         @SerializedName("user_profile_youtube")
         val userProfileYoutube: String? = "",
         var isSelected: Int = 0
-    ) : Parcelable, Chip {
-        override fun getText(): String {
-            return userProfileName.toString()
-        }
-    }
+    ) : Parcelable
+
 }

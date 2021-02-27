@@ -6,17 +6,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
+import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestoneadapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.milestoneadapter.MilestoneDetailActivity
 import com.grewon.dronedin.milestoneadapter.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.utils.ListUtils
-import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.synthetic.main.activity_client_job_history_details.*
+
 
 class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
     ActiveMileStoneAdapter.OnItemClickListeners {
@@ -39,11 +45,31 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         setMileStoneAdapter()
         setImageAdapter()
 
-        val skillChipList: List<Chip> = ListUtils.getSkillsBean()
-        chip_skills.chipList = skillChipList
+        setSkillsAdapter()
+        setEquipmentsData()
 
-        val equipmentsChipList: List<Chip> = ListUtils.getEquipmentsBean()
-        chip_equipments.chipList = equipmentsChipList
+    }
+
+    private fun setSkillsAdapter() {
+        val layoutManager = FlexboxLayoutManager(this)
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.FLEX_START
+        chip_skills.layoutManager = layoutManager
+        val skillsAdapter = ChipSkillsAdapter(this, R.color.gray_f4, R.color.gray_71)
+        chip_skills.adapter = skillsAdapter
+        skillsAdapter.addItemsList(ListUtils.getSkillsBean())
+
+    }
+
+    private fun setEquipmentsData() {
+
+        val layoutManager = FlexboxLayoutManager(this)
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.FLEX_START
+        chip_equipments.layoutManager = layoutManager
+        val equipmentsAdapter = ChipEquipmentsAdapter(this, R.color.light_sky_blue, R.color.gray_71)
+        chip_equipments.adapter = equipmentsAdapter
+        equipmentsAdapter.addItemsList(ListUtils.getEquipmentsBean())
 
     }
 
@@ -56,7 +82,7 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
 
     private fun setMileStoneAdapter() {
         mile_stone_recycle.layoutManager = LinearLayoutManager(this)
-        mileStoneAdapter = ActiveMileStoneAdapter(this,this)
+        mileStoneAdapter = ActiveMileStoneAdapter(this, this)
         mile_stone_recycle.adapter = mileStoneAdapter
     }
 
@@ -66,7 +92,7 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_submit_review -> {
-                finish()
+                startActivity(Intent(this, SubmitReviewActivity::class.java))
             }
             R.id.txt_message -> {
                 startActivity(Intent(this, ChatActivity::class.java))

@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,11 +24,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
+import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.review.ReviewActivity
 import com.grewon.dronedin.review.adapter.ReviewsAdapter
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ListUtils
-import com.plumillonforge.android.chipview.Chip
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.txt_category_name
 import kotlinx.android.synthetic.main.pilot_map_bottom_dialog.view.*
@@ -160,11 +164,21 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
         var chip_equipments = view.chip_equipments
         var txt_contact = view.txt_contact
 
-        val skillChipList: List<Chip> = ListUtils.getSkillsBean()
-        chip_skills.chipList = skillChipList
+        val layoutManager = FlexboxLayoutManager(this)
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.FLEX_START
+        chip_skills.layoutManager = layoutManager
+        val skillsAdapter = ChipSkillsAdapter(this, R.color.colorPrimary_3d, R.color.gray_d4)
+        chip_skills.adapter = skillsAdapter
+        skillsAdapter.addItemsList(ListUtils.getSkillsBean())
 
-        val equipmentsChipList: List<Chip> = ListUtils.getEquipmentsBean()
-        chip_equipments.chipList = equipmentsChipList
+        val elayoutManager = FlexboxLayoutManager(this)
+        elayoutManager.flexDirection = FlexDirection.ROW
+        elayoutManager.justifyContent = JustifyContent.FLEX_START
+        chip_equipments.layoutManager = elayoutManager
+        val equipmentsAdapter = ChipEquipmentsAdapter(this, R.color.colorPrimary_5d, R.color.white)
+        chip_equipments.adapter = equipmentsAdapter
+        equipmentsAdapter.addItemsList(ListUtils.getEquipmentsBean())
 
         dialog.show()
 
