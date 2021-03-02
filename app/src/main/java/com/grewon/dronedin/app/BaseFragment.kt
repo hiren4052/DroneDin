@@ -15,6 +15,6 @@ open class BaseFragment : Fragment() {
     }
 
     fun isPilotAccount(): Boolean {
-        return false
+        return true
     }
 }

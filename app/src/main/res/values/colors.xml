@@ -84,5 +84,6 @@
     <color name="gray_eb">#EBEBEB</color>
     <color name="gray_b1">#B1B2C0</color>
     <color name="top_green">#87AC87</color>
+    <color name="chart_dot_color">#A6CEE3</color>
 
 </resources>

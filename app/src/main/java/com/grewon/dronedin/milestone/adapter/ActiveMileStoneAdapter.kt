@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestoneadapter
+package com.grewon.dronedin.milestone.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import kotlinx.android.synthetic.main.layout_active_mile_stone_item.view.*
 

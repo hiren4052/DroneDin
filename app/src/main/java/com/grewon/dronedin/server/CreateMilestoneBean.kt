@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class CreateMilestoneBean(
-    val milestoneTitle: String = "",
+    val milestoneDesc: String = "",
     val milestonePrice: String = "",
 ) : Parcelable

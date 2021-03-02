@@ -1,7 +1,6 @@
 package com.grewon.dronedin.clientjobs.history
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +13,9 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
-import com.grewon.dronedin.milestoneadapter.ActiveMileStoneAdapter
-import com.grewon.dronedin.milestoneadapter.MilestoneDetailActivity
-import com.grewon.dronedin.milestoneadapter.SubmitMilestoneActivity
+import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
+import com.grewon.dronedin.milestone.MilestoneDetailActivity
+import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.MilestonesDataBean

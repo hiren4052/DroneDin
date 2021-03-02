@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/_10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kristen Hunter"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/txt_project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We need a photographer for one week long project."
+                android:textAppearance="@style/RobotoLightTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_12sp" />
+
+        </LinearLayout>
+
+        <TextView android:id="@+id/txt_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="04/01/2021"
+            android:textAppearance="@style/RobotoLightTextAppearance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_12sp" />
+
+
+        <TextView android:id="@+id/txt_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="$210"
+            android:layout_gravity="end"
+            android:textAppearance="@style/RobotoMediumTextAppearance"
+            android:textColor="@color/green_53"
+            android:textSize="@dimen/_14sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

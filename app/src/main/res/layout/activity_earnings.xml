@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".earnings.EarningsActivity">
+
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_green"
+        android:padding="@dimen/_15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/available_earnings"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/txt_available_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_5dp"
+                android:text="$25"
+                android:textAppearance="@style/RobotoBoldTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_see_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="@dimen/_5dp"
+            android:text="@string/withdraw"
+            android:textAppearance="@style/RobotoBoldTextAppearance"
+            android:textColor="@drawable/white_text_selector"
+            android:textSize="@dimen/_14sp"
+            app:drawableEndCompat="@drawable/ic_right_arrow"
+            app:drawableTint="@color/white"
+            tools:ignore="RtlSymmetry" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/segment_group"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_earnings_"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_total_earnings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="$25"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/top_green"
+                        android:textSize="@dimen/_18sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                    android:id="@+id/segment_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_horizontal"
+                    app:borderColor="@color/view_color"
+                    app:borderWidth="@dimen/_1dp"
+                    app:position="0"
+                    app:radius="@dimen/_10dp"
+                    app:ripple="false"
+                    app:selectedBackground="@color/span_text_color">
+
+                    <com.addisonelliott.segmentedbutton.SegmentedButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_8dp"
+                        app:rounded="true"
+                        app:selectedTextColor="@color/white"
+                        app:text="@string/monthly"
+                        app:textColor="@color/view_color"
+                        app:textSize="@dimen/_14sp" />
+
+
+                    <com.addisonelliott.segmentedbutton.SegmentedButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_8dp"
+                        app:rounded="true"
+                        app:selectedTextColor="@color/white"
+                        app:text="@string/weekly"
+                        app:textColor="@color/view_color"
+                        app:textSize="@dimen/_14sp" />
+
+
+                </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.grewon.dronedin.helper.AspectImageView
+                    android:id="@+id/line_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:aspectRatio="0.6"
+                    app:aspectRatioEnabled="true" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/line_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/line_image"
+                    android:layout_alignBottom="@id/line_image"
+                    android:background="@color/white"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_15dp"
+                android:paddingEnd="@dimen/_15dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/details"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.1"
+                    android:text="@string/date"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/amount"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/earning_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_15dp"
+                android:paddingEnd="@dimen/_15dp"
+                android:clipToPadding="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

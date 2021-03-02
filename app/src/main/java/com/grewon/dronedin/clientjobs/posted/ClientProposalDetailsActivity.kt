@@ -9,7 +9,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
-import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
+import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import kotlinx.android.synthetic.main.activity_client_proposal_details.*
 
 class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener {

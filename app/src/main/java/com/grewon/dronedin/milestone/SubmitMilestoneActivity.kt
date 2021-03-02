@@ -1,6 +1,5 @@
-package com.grewon.dronedin.milestoneadapter
+package com.grewon.dronedin.milestone
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,20 +11,18 @@ import com.grewon.dronedin.server.JobsImageDataBean
 import kotlinx.android.synthetic.main.activity_submit_milestone.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 
-class MilestoneDetailActivity : BaseActivity(), View.OnClickListener {
-
+class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener {
     private var jobsImageAdapter: JobsImageAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_milestone_detail)
-        initView()
+        setContentView(R.layout.activity_submit_milestone)
         setClicks()
+        initView()
     }
 
-
     private fun initView() {
-        txt_toolbar_title.text = getString(R.string.milestone_details)
+        txt_toolbar_title.text=getString(R.string.submit_milestone)
         setImageAdapter()
     }
 
@@ -38,17 +35,21 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener {
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
+        im_add_attachments.setOnClickListener(this)
+        txt_submit.setOnClickListener(this)
     }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_back -> {
                 finish()
             }
-
+            R.id.txt_submit -> {
+                finish()
+            }
+            R.id.im_add_attachments -> {
+                jobsImageAdapter?.addItems(JobsImageDataBean.Result())
+            }
         }
     }
-
-
 }

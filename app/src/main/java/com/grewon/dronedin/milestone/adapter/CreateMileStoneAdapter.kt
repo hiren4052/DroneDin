@@ -1,4 +1,4 @@
-package com.grewon.dronedin.submitproposal.adapter
+package com.grewon.dronedin.milestone.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -38,12 +38,17 @@ class CreateMileStoneAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-           val item = itemList[position]
-
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
+            holder.txtCount.text = (position + 1).toString() + "."
+            holder.txtMilstoneDesc.text = item.milestoneDesc
+            holder.txtPrice.text = context.getString(R.string.price_string, item.milestonePrice)
 
+            holder.imgClose.setOnClickListener {
+                removeItem(position)
+            }
 
         }
 
@@ -64,8 +69,10 @@ class CreateMileStoneAdapter(
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val editTitle = itemView.edt_title
-        val editPrice = itemView.edt_price
+        val txtCount = itemView.txt_count
+        val txtMilstoneDesc = itemView.txt_milestone_desc
+        val imgClose = itemView.img_close
+        val txtPrice = itemView.txt_price
     }
 
 

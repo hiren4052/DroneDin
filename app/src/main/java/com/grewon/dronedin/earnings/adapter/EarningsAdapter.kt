@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestoneadapter
+package com.grewon.dronedin.earnings.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -6,27 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.MilestonesDataBean
-import kotlinx.android.synthetic.main.layout_mile_stone_item.view.*
+import com.grewon.dronedin.server.EarningsDataBean
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class MileStoneAdapter(
+class EarningsAdapter(
     val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var itemList = ArrayList<MilestonesDataBean.Result>()
+    var itemList = ArrayList<EarningsDataBean.Result>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_mile_stone_item,
+                R.layout.layout_earnings_item,
                 parent,
                 false
             )
@@ -40,12 +39,8 @@ class MileStoneAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //   val item = itemList[position]
 
-
         if (holder is ItemViewHolder) {
 
-            holder.txtMileStonetitle.text = "Milestone " + (position + 1)
-            holder.txtMileStonePrice.text =
-                context.getString(R.string.price_string, (position * 10).toString())
 
         }
 
@@ -53,7 +48,7 @@ class MileStoneAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<MilestonesDataBean.Result>) {
+    fun addItemsList(list: ArrayList<EarningsDataBean.Result>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -61,8 +56,8 @@ class MileStoneAdapter(
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val txtMileStonetitle = itemView.txt_mile_stone_title
-        val txtMileStonePrice = itemView.txt_mile_stone_price
+
+
     }
 
 

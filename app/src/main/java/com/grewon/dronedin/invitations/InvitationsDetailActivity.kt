@@ -14,7 +14,7 @@ import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
-import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
+import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.submitproposal.SubmitProposalActivity
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.activity_invitations_detail.*

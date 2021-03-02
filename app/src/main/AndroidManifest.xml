@@ -21,7 +21,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".offers.CrateOffersActivity"></activity>
+        <activity
+            android:name=".earnings.EarningsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.MilestoneRejectActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.MilestoneCompletionRequestActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".paymentsummary.PaymentSummaryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".offers.CrateOffersActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".clientprofile.ClientProfileActivity"
             android:exported="true"
@@ -39,11 +58,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestoneadapter.MilestoneDetailActivity"
+            android:name=".milestone.MilestoneDetailActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestoneadapter.SubmitMilestoneActivity"
+            android:name=".milestone.SubmitMilestoneActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity

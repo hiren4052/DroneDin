@@ -12,9 +12,9 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
-import com.grewon.dronedin.milestoneadapter.ActiveMileStoneAdapter
-import com.grewon.dronedin.milestoneadapter.MilestoneDetailActivity
-import com.grewon.dronedin.milestoneadapter.SubmitMilestoneActivity
+import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
+import com.grewon.dronedin.milestone.MilestoneDetailActivity
+import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.utils.ListUtils

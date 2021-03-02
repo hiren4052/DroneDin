@@ -107,10 +107,10 @@
                 android:hint="@string/xxxx_xxxx_xxxx_xxxx"
                 android:inputType="textNoSuggestions"
                 android:maxLength="19"
-                app:separator="-"
                 android:padding="@dimen/_15dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/gray_b1" />
+                android:textColorHint="@color/gray_b1"
+                app:separator="-" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -234,6 +234,7 @@
                 android:id="@+id/txt_save"
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_40dp"
                 android:background="@drawable/ic_rectangle"
                 android:gravity="center"

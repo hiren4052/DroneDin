@@ -27,7 +27,7 @@ class SubmitReviewActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.img_back->{
+            R.id.im_back->{
                 finish()
             }
             R.id.txt_submit->{

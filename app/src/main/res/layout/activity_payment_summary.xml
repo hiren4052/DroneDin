@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    tools:context=".paymentsummary.PaymentSummaryActivity">
+
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_10dp"
+            android:paddingBottom="@dimen/_10dp"
+            android:text="@string/payment_summary"
+            android:textAppearance="@style/RobotoTextAppearance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_18sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_5dp"
+            app:cardElevation="@dimen/_5dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="@dimen/_10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/txt_milestone_price"
+                        android:text="@string/payment_for_first_milestone"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_milestone_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="$10"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:background="@color/gray_e9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/txt_app_charge"
+                        android:text="@string/dronedin_charges"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_app_charge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="$10"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:background="@color/gray_e9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/txt_total_amount"
+                        android:text="@string/total_amount"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="$20"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_10dp"
+            android:paddingBottom="@dimen/_10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_payment_method"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_18sp" />
+
+            <TextView
+                android:id="@+id/txt_add_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackground"
+                android:text="@string/add_change"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@color/span_text_color"
+                android:textSize="@dimen/_14sp" />
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_5dp"
+            app:cardElevation="@dimen/_5dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="@dimen/_15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/card_type"
+                    android:layout_width="@dimen/_32dp"
+                    android:layout_height="@dimen/_32dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_mastercard" />
+
+                <LinearLayout
+                    android:id="@+id/title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_toEndOf="@id/card_type"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:text="Kristen Hunter"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_16sp" />
+
+                    <TextView
+                        android:id="@+id/txt_card_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:paddingTop="@dimen/_2dp"
+                        android:text="****1100"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_pay_now"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_40dp"
+            android:background="@drawable/ic_rectangle_spann_color"
+            android:gravity="center"
+            android:text="@string/pay_now"
+            android:textAppearance="@style/BoldTextAppearance"
+            android:textColor="@drawable/white_text_selector"
+            android:textSize="@dimen/_20sp" />
+
+        <TextView
+            android:id="@+id/txt_cancel"
+            android:layout_width="@dimen/_200dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/ic_border_rectangle_spann_color"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textAppearance="@style/MediumTextAppearance"
+            android:textColor="@drawable/spann_text_selector"
+            android:textSize="@dimen/_20sp" />
+    </LinearLayout>
+
+</LinearLayout>

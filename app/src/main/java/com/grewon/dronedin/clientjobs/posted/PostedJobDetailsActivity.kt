@@ -15,7 +15,7 @@ import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
-import com.grewon.dronedin.milestoneadapter.MileStoneAdapter
+import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.activity_posted_job_details.*
 
