@@ -165,11 +165,15 @@ class EarningsActivity : BaseActivity(), View.OnClickListener, OnChartValueSelec
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
+        txt_withdraw.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_back -> {
+                finish()
+            }
+            R.id.txt_withdraw -> {
                 finish()
             }
         }

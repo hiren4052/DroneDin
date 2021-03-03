@@ -58,7 +58,7 @@
             android:text="$210"
             android:layout_gravity="end"
             android:textAppearance="@style/RobotoMediumTextAppearance"
-            android:textColor="@color/green_53"
+            android:textColor="@color/top_green"
             android:textSize="@dimen/_14sp" />
 
     </LinearLayout>

@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
+import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
@@ -47,6 +48,8 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
         txt_privacy.setOnClickListener(this)
         txt_terms.setOnClickListener(this)
         txt_membership.setOnClickListener(this)
+        txt_customer_support.setOnClickListener(this)
+        txt_dispute.setOnClickListener(this)
         txt_logout.setOnClickListener(this)
     }
 
@@ -75,7 +78,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(context, PaymentMethodActivity::class.java))
             }
             R.id.txt_change_password -> {
-
+                startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
             }
             R.id.txt_privacy -> {
                 startActivity(
@@ -96,6 +99,12 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
                 )
             }
             R.id.txt_membership -> {
+
+            }
+            R.id.txt_customer_support -> {
+
+            }
+            R.id.txt_dispute -> {
 
             }
             R.id.txt_logout -> {

@@ -227,4 +227,12 @@
     <string name="monthly">Monthly</string>
     <string name="weekly">Weekly</string>
     <string name="date">Date</string>
+    <string name="minus_price_string">-$%s</string>
+    <string name="dispute_resolution_center">Dispute Resolution Center</string>
+    <string name="customer_support">Customer Support</string>
+    <string name="old_password">Old Password</string>
+    <string name="type_old_password_here">Type old password here</string>
+    <string name="type_new_password_here">Type new password here</string>
+    <string name="new_password">New Password</string>
+    <string name="re_enter_password_here">Re-Enter password here</string>
 </resources>

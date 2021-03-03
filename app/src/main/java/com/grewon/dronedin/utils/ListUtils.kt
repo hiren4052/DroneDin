@@ -98,34 +98,129 @@ class ListUtils {
             identificationList.add(
                 SkillsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Thermal"
+                    userProfileName = "PHOTOGRAPHY"
                 )
             )
             identificationList.add(
                 SkillsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Mapping"
+                    userProfileName = "REAL ESTATE"
                 )
             )
             identificationList.add(
                 SkillsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Lidar"
+                    userProfileName = "FILM / MOVIES"
                 )
             )
             identificationList.add(
                 SkillsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Real estate"
+                    userProfileName = "THERMAL IMAGING"
                 )
             )
             identificationList.add(
                 SkillsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Other"
+                    userProfileName = "LIDAR"
                 )
             )
-
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "PHOTGRAMMETRY"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "ENERGY SECTOR"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "WIND TURBINE"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "SOLAR"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MINING"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "INSURANCE"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "CONSTRUCTION"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "INSPECTION"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "AGRICULTURE"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "ORTHOMOSAIC"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "FILM EDITING"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "WEDDINGS"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MISSION FLIGHTS"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "BASIC LICENSE"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "ADVANCED LICENSE"
+                )
+            )
+            identificationList.add(
+                SkillsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "FLIGHT REVIEWER"
+                )
+            )
             return identificationList
         }
 
@@ -134,29 +229,118 @@ class ListUtils {
             identificationList.add(
                 EquipmentsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Matrice 200"
+                    userProfileName = "THERMAL CAMERA"
                 )
             )
             identificationList.add(
                 EquipmentsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Mavic Zoom"
+                    userProfileName = "ZOOM CAMERA"
                 )
             )
             identificationList.add(
                 EquipmentsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Thermal camera"
+                    userProfileName = "LIDAR"
                 )
             )
 
             identificationList.add(
                 EquipmentsDataBean.Result(
                     isSelected = 0,
-                    userProfileName = "Other"
+                    userProfileName = "PHOTGRAMMETRY"
                 )
             )
-
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAPPING"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "PIX4D"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAVIC 2 ZOOM"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAVIC 2 PRO"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAVIC 2 ENTERPISE DUAL"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MATRICE 210"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "INSPIRE"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MATRICE 300"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAVIC MINI"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "ANAFI PARROT"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "AUTEL EVO"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "SKYDIO"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "RTK"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "PPK"
+                )
+            )
+            identificationList.add(
+                EquipmentsDataBean.Result(
+                    isSelected = 0,
+                    userProfileName = "MAVIC MINI 2"
+                )
+            )
             return identificationList
         }
 

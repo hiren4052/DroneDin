@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".changepassword.ChangePasswordActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".earnings.EarningsActivity"
             android:exported="true"
