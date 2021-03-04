@@ -7,6 +7,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.R
+import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TextUtils
@@ -34,7 +35,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_submit -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, AddProfileActivity::class.java))
             }
             R.id.txt_receive_code -> {
 

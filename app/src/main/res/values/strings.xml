@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DronedIN</string>
+    <string name="app_name">DronedIN Client</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -235,4 +235,6 @@
     <string name="type_new_password_here">Type new password here</string>
     <string name="new_password">New Password</string>
     <string name="re_enter_password_here">Re-Enter password here</string>
+    <string name="business_name_if_applicable">Business Name (If Applicable)</string>
+    <string name="full_name_business_name">Full Name / Business Name</string>
 </resources>

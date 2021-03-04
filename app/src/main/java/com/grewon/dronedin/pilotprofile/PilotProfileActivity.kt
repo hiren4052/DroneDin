@@ -19,6 +19,7 @@ import com.grewon.dronedin.utils.ListUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_pilot_profile.*
 
+
 class PilotProfileActivity : BaseActivity(), View.OnClickListener {
 
     private var reviewsAdapter: WhiteScreenReviewsAdapter? = null
@@ -54,6 +55,11 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener {
         first_segment_layout.visibility = if (position == 0) View.VISIBLE else View.GONE
         second_segment_layout.visibility = if (position == 1) View.VISIBLE else View.GONE
         third_segment_layout.visibility = if (position == 2) View.VISIBLE else View.GONE
+        if(position==1){
+            layout_no_data.visibility=View.VISIBLE
+        }else{
+            layout_no_data.visibility=View.GONE
+        }
     }
 
     private fun setSkillsAdapter() {

@@ -38,32 +38,33 @@ class ChipSkillsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return 6
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = itemList[position]
+        if (position <= 5) {
+            val item = itemList[position]
 
 
-        if (holder is ItemViewHolder) {
-            holder.txtChipName.text = item.userProfileName
+            if (holder is ItemViewHolder) {
+                holder.txtChipName.text = item.userProfileName
 
-            holder.txtChipName.setTextColor(ContextCompat.getColor(context, textColor))
+                holder.txtChipName.setTextColor(ContextCompat.getColor(context, textColor))
 
-            when (val background: Drawable = holder.txtChipName.background) {
-                is ShapeDrawable -> {
-                    background.paint.color = ContextCompat.getColor(context, backgroundColor)
+                when (val background: Drawable = holder.txtChipName.background) {
+                    is ShapeDrawable -> {
+                        background.paint.color = ContextCompat.getColor(context, backgroundColor)
+                    }
+                    is GradientDrawable -> {
+                        background.setColor(ContextCompat.getColor(context, backgroundColor))
+                    }
+                    is ColorDrawable -> {
+                        background.color = ContextCompat.getColor(context, backgroundColor)
+                    }
                 }
-                is GradientDrawable -> {
-                    background.setColor(ContextCompat.getColor(context, backgroundColor))
-                }
-                is ColorDrawable -> {
-                    background.color = ContextCompat.getColor(context, backgroundColor)
-                }
+
             }
-
         }
-
 
     }
 

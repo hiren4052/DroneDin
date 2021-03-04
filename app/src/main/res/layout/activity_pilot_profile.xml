@@ -282,10 +282,11 @@
             </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
 
 
-            <include
+            <include android:id="@+id/layout_no_data"
                 layout="@layout/layout_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_50dp" />
 
             <LinearLayout
@@ -295,7 +296,7 @@
                 android:orientation="vertical"
                 android:paddingTop="@dimen/_10dp"
                 android:paddingBottom="@dimen/_10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"

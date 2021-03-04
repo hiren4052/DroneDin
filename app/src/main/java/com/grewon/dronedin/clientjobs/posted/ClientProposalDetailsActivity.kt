@@ -10,6 +10,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
+import com.grewon.dronedin.offers.CrateOffersActivity
 import kotlinx.android.synthetic.main.activity_client_proposal_details.*
 
 class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener {
@@ -54,7 +55,7 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.txt_hire -> {
-                //startActivity(Intent())
+                startActivity(Intent(this, CrateOffersActivity::class.java))
             }
             R.id.txt_chat -> {
                 startActivity(Intent(this, ChatActivity::class.java))

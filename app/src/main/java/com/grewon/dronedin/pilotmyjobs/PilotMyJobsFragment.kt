@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
+import com.grewon.dronedin.earnings.EarningsActivity
 import com.grewon.dronedin.invitations.InvitationsDetailActivity
 import com.grewon.dronedin.invitations.adapter.InvitationsAdapter
 import com.grewon.dronedin.offers.OffersDetailActivity
@@ -59,6 +60,7 @@ class PilotMyJobsFragment : Fragment(), OffersAdapter.OnItemClickListeners,
     private fun setClicks() {
         card_active_jobs.setOnClickListener(this)
         card_job_history.setOnClickListener(this)
+        card_earnings.setOnClickListener(this)
     }
 
     private fun setProposalsAdapter() {
@@ -99,6 +101,9 @@ class PilotMyJobsFragment : Fragment(), OffersAdapter.OnItemClickListeners,
             }
             R.id.card_job_history -> {
                 startActivity(Intent(requireContext(), PilotJobHistoryActivity::class.java))
+            }
+            R.id.card_earnings -> {
+                startActivity(Intent(requireContext(), EarningsActivity::class.java))
             }
         }
     }

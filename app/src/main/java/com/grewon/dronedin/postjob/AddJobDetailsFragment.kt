@@ -102,8 +102,7 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                     }
                     else -> {
 
-                        edt_milestone_price.setText("")
-                        edt_milestone_description.setText("")
+
 
                         createMileStoneAdapter?.addItems(
                             CreateMilestoneBean(
@@ -111,7 +110,8 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                                 edt_milestone_price.text.toString()
                             )
                         )
-
+                        edt_milestone_price.setText("")
+                        edt_milestone_description.setText("")
                     }
                 }
             }

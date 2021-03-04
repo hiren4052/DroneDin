@@ -24,6 +24,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
+import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.server.LocationBean
 import com.grewon.dronedin.utils.FileUtils
@@ -65,31 +66,44 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        val expenseAdapter: ArrayAdapter<String> = ArrayAdapter(
-            this,
-            R.layout.simple_spinner_dropdown_item,
-            ListUtils.getIdentificationsDocumentStrings(ListUtils.getIdentificationsDocumentBean())
-        )
-        expenseAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-        identification_spinner.adapter = expenseAdapter
+        if (isPilotAccount()) {
+            pilot_layout.visibility = View.VISIBLE
+            input_business_name.visibility = View.GONE
+            input_name.hint=getString(R.string.full_name_business_name)
+            txt_save.text = getString(R.string.next)
 
-        identification_spinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
+            val expenseAdapter: ArrayAdapter<String> = ArrayAdapter(
+                this,
+                R.layout.simple_spinner_dropdown_item,
+                ListUtils.getIdentificationsDocumentStrings(ListUtils.getIdentificationsDocumentBean())
+            )
+            expenseAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            identification_spinner.adapter = expenseAdapter
+
+            identification_spinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                    }
+
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+
+                        edt_identification_document.setText(ListUtils.getIdentificationsDocumentBean()[position].documentName)
+                    }
 
                 }
+        } else {
+            input_name.hint=getString(R.string.full_name)
+            input_business_name.visibility = View.VISIBLE
+            pilot_layout.visibility = View.GONE
+            txt_save.text = getString(R.string.save)
 
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-
-                    edt_identification_document.setText(ListUtils.getIdentificationsDocumentBean()[position].documentName)
-                }
-
-            }
+        }
     }
 
     private fun setClicks() {
@@ -97,6 +111,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
         back_image_layout.setOnClickListener(this)
         edt_identification_document.setOnClickListener(this)
         edt_location.setOnClickListener(this)
+        txt_save.setOnClickListener(this)
     }
 
     private fun passIntent() {
@@ -378,6 +393,13 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.edt_identification_document -> {
                 identification_spinner.performClick()
+            }
+            R.id.txt_save -> {
+                if (isPilotAccount()) {
+                    startActivity(Intent(this, AddMoreProfileActivity::class.java))
+                } else {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
             }
         }
     }
