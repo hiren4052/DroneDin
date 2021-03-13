@@ -10,12 +10,19 @@ import android.os.StrictMode
 import android.widget.Toast
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.grewon.dronedin.dagger.component.AppComponent
+import com.grewon.dronedin.dagger.module.NetworkModule
 import com.grewon.dronedin.R
+import com.grewon.dronedin.dagger.component.DaggerAppComponent
+import com.grewon.dronedin.dagger.module.AppModule
+import com.grewon.dronedin.dagger.module.SignInModule
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 
 class DroneDinApp : MultiDexApplication() {
+
+    private lateinit var component: AppComponent
 
     companion object {
 
@@ -48,6 +55,22 @@ class DroneDinApp : MultiDexApplication() {
                 .build()
         )
 
+        initDagger()
+        createNotificationChannel()
+    }
+
+    private fun initDagger() {
+
+        component = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .networkModule(NetworkModule(this, AppConstant.API_URL))
+            .signInModule(SignInModule())
+            .build()
+    }
+
+
+    fun getAppComponent(): AppComponent {
+        return component
     }
 
     private fun createNotificationChannel() {
@@ -65,6 +88,18 @@ class DroneDinApp : MultiDexApplication() {
         message: String
     ) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    fun getAuthToken(): String {
+        val preference = getSharedPreferences(
+            "MainPreference",
+            Context.MODE_PRIVATE
+        )
+        return if (preference.getString(AppConstant.AUTH_TOKEN, "") != null) preference.getString(
+            AppConstant.AUTH_TOKEN,
+            ""
+        )!! else ""
     }
 
     fun isOnline(): Boolean {
@@ -95,7 +130,6 @@ class DroneDinApp : MultiDexApplication() {
         }
         return result
     }
-
 
 
 }

@@ -12,21 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="380dp"
         android:background="@drawable/map_bottom"
-        android:orientation="vertical"
         android:gravity="bottom"
+        android:orientation="vertical"
         android:paddingStart="@dimen/_20dp"
         android:paddingEnd="@dimen/_20dp"
         android:paddingBottom="@dimen/_30dp">
 
 
-        <com.grewon.dronedin.helper.AspectImageView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/_15dp"
-            android:src="@drawable/ic_splash"
-            app:aspectRatio="0.4"
-            app:aspectRatioEnabled="true" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_24sp" />
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-35dp"
+                android:src="@drawable/ic_splash"
+                app:aspectRatio="0.55"
+                app:aspectRatioEnabled="true" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

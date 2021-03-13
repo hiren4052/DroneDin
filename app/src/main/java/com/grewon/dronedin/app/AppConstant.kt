@@ -36,11 +36,11 @@ public class AppConstant {
         const val LONGITUDE: String = "longitude"
         const val ADDRESS: String = "address"
         const val USER_BEAN: String = "user_bean"
-        private const val BASE_URL = "https://www.app.staging.chappydelivery.com.au/"
+        private const val BASE_URL = "http://socialinfotech.in/development/dronedin/"
 
 
         // private const val BASE_URL = "http://socialinfotech.in/development/chappy/"
-        const val API_URL = BASE_URL + "api/v2/"
+        const val API_URL = BASE_URL + "api/v1/"
         private const val IMAGE_URL = BASE_URL + "uploads/"
         const val ORIGINAL_IMAGE_URL = IMAGE_URL + "original/"
         const val MEDIUM_IMAGE_URL = IMAGE_URL + "medium/"
@@ -59,14 +59,11 @@ public class AppConstant {
 
 
         /*-------Analytics Constant*/
-        const val KEY_DEVICE_NAME = "device"
-        const val KEY_USER_ID = "user_id"
-        const val KEY_APP_NAME = "app_name"
         const val KEY_API_NAME = "url"
-        const val KEY_RESPONSE = "message"
-
-        const val KEY_EVENT_INVALID_RESPONSE = "invalid_response"
-        const val KEY_EVENT_EXCEPTION_RESPONSE = "exception_response"
+        const val KEY_RESPONSE = "response"
+        const val KEY_PARAMS = "params"
+        const val KEY_DATE_TIME = "date_time"
+        const val AUTH_KEY = "auth"
 
     }
 }

@@ -31,14 +31,28 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_15dp">
 
-                <ImageView
-                    android:id="@+id/im_search"
-                    android:layout_width="@dimen/_48dp"
-                    android:layout_height="@dimen/_48dp"
-                    android:layout_gravity="end"
-                    android:background="?selectableItemBackground"
-                    android:padding="@dimen/_10dp"
-                    android:src="@drawable/ic_search" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/image_map"
+                        android:layout_width="@dimen/_48dp"
+                        android:layout_height="@dimen/_48dp"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/_10dp"
+                        android:src="@drawable/ic_filter_map"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/im_search"
+                        android:layout_width="@dimen/_48dp"
+                        android:layout_height="@dimen/_48dp"
+                        android:background="?selectableItemBackground"
+                        android:padding="@dimen/_10dp"
+                        android:src="@drawable/ic_search" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/title_user_name"
@@ -47,7 +61,7 @@
                     android:layout_marginTop="@dimen/_15dp"
                     android:text="@string/hello"
                     android:textAppearance="@style/BoldTextAppearance"
-                    android:textColor="@color/blue_b3"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_18sp" />
 
                 <TextView
@@ -55,39 +69,24 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/_2dp"
-                    android:text="@string/start_finding_an_excellent_pilot"
+                    android:text="@string/start_finding_an_namazing_job"
                     android:textAppearance="@style/MediumTextAppearance"
-                    android:textColor="@color/green_53"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_14sp" />
 
 
             </LinearLayout>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_15dp"
-            android:paddingEnd="@dimen/_15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/filters"
-                android:textAppearance="@style/RobotoMediumTextAppearance"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_20sp" />
-
-            <ImageView
-                android:id="@+id/image_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="?selectableItemBackground"
-                android:src="@drawable/ic_filter_map" />
-        </RelativeLayout>
+            android:paddingEnd="@dimen/_15dp"
+            android:text="@string/filters"
+            android:textAppearance="@style/RobotoMediumTextAppearance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/find_job_data_recycle"

@@ -3,15 +3,30 @@ package com.grewon.dronedin.signin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.evereats.app.server.UserData
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.main.MainActivity
+import com.grewon.dronedin.server.params.LoginParams
+import com.grewon.dronedin.signin.contract.SignInContract
 import com.grewon.dronedin.signup.SignUpTypeActivity
 import com.grewon.dronedin.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-class SignInActivity : BaseActivity(), View.OnClickListener {
+class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View {
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var signInPresenter: SignInContract.Presenter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -21,6 +36,10 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
         txt_sign_up.text = TextUtils.signUpColorSpannableString(this)
+
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        signInPresenter.attachApiInterface(retrofit)
+        signInPresenter.attachView(this)
     }
 
     private fun setClicks() {
@@ -39,7 +58,9 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
                 startActivity(Intent(this, SignUpTypeActivity::class.java))
             }
             R.id.txt_login -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                val loginParams=LoginParams()
+                signInPresenter.userLogin(loginParams)
+             //   startActivity(Intent(this, MainActivity::class.java))
             }
             R.id.txt_forgot_password -> {
                 startActivity(Intent(this, ForgotPasswordActivity::class.java))
@@ -56,5 +77,13 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
 
         }
 
+    }
+
+    override fun onUserLoggedInSuccessful(response: UserData) {
+
+    }
+
+    override fun onUserLoggedInFailed(error: Int) {
+        LogX.E(error.toString())
     }
 }
