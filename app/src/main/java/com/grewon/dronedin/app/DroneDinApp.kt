@@ -10,6 +10,7 @@ import android.os.StrictMode
 import android.widget.Toast
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.facebook.FacebookSdk
 import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.dagger.module.NetworkModule
 import com.grewon.dronedin.R
@@ -39,7 +40,6 @@ class DroneDinApp : MultiDexApplication() {
         instance = this
 
         MultiDex.install(this)
-
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
         ViewPump.init(
@@ -100,6 +100,10 @@ class DroneDinApp : MultiDexApplication() {
             AppConstant.AUTH_TOKEN,
             ""
         )!! else ""
+    }
+
+    fun getDeviceInformation(): String {
+        return Build.MODEL + "|" + Build.MANUFACTURER + "|" + Build.BRAND + "|" + Build.VERSION.SDK + "|" + Build.BRAND + "|" + Build.VERSION.RELEASE
     }
 
     fun isOnline(): Boolean {

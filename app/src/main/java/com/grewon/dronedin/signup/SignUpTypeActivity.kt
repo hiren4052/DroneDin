@@ -1,11 +1,11 @@
 package com.grewon.dronedin.signup
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import kotlinx.android.synthetic.main.activity_sign_up_type.*
 
@@ -31,11 +31,23 @@ class SignUpTypeActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_pilot -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        SignUpActivity::class.java
+                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_CLIENT)
+                )
             }
             R.id.txt_client -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        SignUpActivity::class.java
+                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_PILOT)
+                )
             }
+
+
         }
     }
 }

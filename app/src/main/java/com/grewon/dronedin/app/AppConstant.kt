@@ -4,6 +4,9 @@ package com.grewon.dronedin.app
 public class AppConstant {
     companion object {
 
+        const val USER_TYPE: String = "user_type"
+        const val USER_CLIENT: String = "client"
+        const val USER_PILOT: String = "pilot"
         const val STRIPE_LEGAL: String = " https://stripe.com/en-au/legal"
         val SESSION_BROADCAST: String = "session_broadcast"
         const val NOTIFICATION_BROADCAST: String = "notification_broadcast"
@@ -13,7 +16,8 @@ public class AppConstant {
         const val TERMS_OF_SERVICE_URL: String =
             "https://www.termsandcondiitionssample.com/"
 
-        const val PRIVACY_URL: String = "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
+        const val PRIVACY_URL: String =
+            "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
         const val FAQ_URL: String = "https://ubereats-city.appspot.com/en_sg/faq/"
         const val MICROSOFT_URL: String = "https://graph.microsoft.com/v1.0/me"
         val CHANNEL_NAME: CharSequence = "dronedin"
@@ -54,8 +58,8 @@ public class AppConstant {
         const val GALLERY_INTENT_REQUEST_CODE = 11
         const val CATEGORY_EDIT_REQUEST_CODE = 12
         const val PRODUCT_EDIT_REQUEST_CODE = 13
-        const val PICKFILE_REQUEST_CODE: Int=17
-        const val PICKFILE_PERMISSION_REQUEST_CODE: Int=19
+        const val PICKFILE_REQUEST_CODE: Int = 17
+        const val PICKFILE_PERMISSION_REQUEST_CODE: Int = 19
 
 
         /*-------Analytics Constant*/
@@ -64,6 +68,10 @@ public class AppConstant {
         const val KEY_PARAMS = "params"
         const val KEY_DATE_TIME = "date_time"
         const val AUTH_KEY = "auth"
+
+        const val LOGIN_GOOGLE = "google"
+        const val LOGIN_FACEBOOK = "facebook"
+        const val LOGIN_APPLE = "apple"
 
     }
 }

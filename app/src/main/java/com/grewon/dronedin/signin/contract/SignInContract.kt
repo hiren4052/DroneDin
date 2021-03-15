@@ -1,7 +1,7 @@
 package com.grewon.dronedin.signin.contract
 
-import com.evereats.app.server.*
 import com.grewon.dronedin.app.BaseContract
+import com.grewon.dronedin.server.UserData
 import com.grewon.dronedin.server.params.LoginParams
 import com.grewon.dronedin.server.params.SocialLoginParams
 
@@ -12,8 +12,11 @@ interface SignInContract {
 
         fun onUserLoggedInSuccessful(response: UserData)
 
-        fun onUserLoggedInFailed(error: Int)
+        fun onUserLoggedInFailed(loginParams: LoginParams)
 
+        fun onUserSocialLoggedInFailed(loginParams: SocialLoginParams)
+
+        fun onApiException(error: Int)
 
     }
 
@@ -22,7 +25,6 @@ interface SignInContract {
         fun userSocialLogin(params: SocialLoginParams)
 
         fun userLogin(params: LoginParams)
-
 
 
     }

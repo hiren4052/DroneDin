@@ -1,7 +1,7 @@
 package com.grewon.dronedin.utils
 
 import android.content.SharedPreferences
-import com.evereats.app.server.UserData
+import com.grewon.dronedin.server.UserData
 import com.google.gson.Gson
 import com.grewon.dronedin.app.AppConstant
 

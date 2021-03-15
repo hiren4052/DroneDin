@@ -6,9 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import coil.api.load
-import coil.transform.BlurTransformation
-import coil.transform.RoundedCornersTransformation
 import com.grewon.dronedin.R
 
 class BlurImageArtist : RelativeLayout {

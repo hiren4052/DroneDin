@@ -4,6 +4,7 @@ package com.grewon.dronedin.dagger.component
 import com.grewon.dronedin.dagger.module.NetworkModule
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.BaseFragment
+import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.dagger.module.AppModule
 import com.grewon.dronedin.dagger.module.SignInModule
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
@@ -11,6 +12,7 @@ import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.signin.SignInActivity
+import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
 
 import dagger.Component
@@ -28,6 +30,8 @@ interface AppComponent {
     fun inject(activity: SplashActivity)
     fun inject(activity: ForgotPasswordActivity)
     fun inject(activity: MainActivity)
+    fun inject(activity: SignUpActivity)
+    fun inject(activity: ChangePasswordActivity)
 
 
     //Fragments

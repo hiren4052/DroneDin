@@ -21,17 +21,17 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top_image"
         android:fillViewport="true"
-        android:overScrollMode="never"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_30dp"
             android:paddingStart="@dimen/_30dp"
-            android:paddingEnd="@dimen/_30dp">
+            android:paddingEnd="@dimen/_30dp"
+            android:paddingBottom="@dimen/_30dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_email"
@@ -137,14 +137,30 @@
                 android:gravity="center_vertical"
                 android:weightSum="3">
 
-                <ImageView
-                    android:id="@+id/im_facebook"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?selectableItemBackground"
-                    android:src="@drawable/ic_facebook"
-                    tools:ignore="ContentDescription" />
+                    android:layout_weight="1">
+
+
+                    <ImageView
+                        android:id="@+id/im_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?selectableItemBackground"
+                        android:src="@drawable/ic_facebook"
+                        tools:ignore="ContentDescription" />
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/fb_login_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/im_google"

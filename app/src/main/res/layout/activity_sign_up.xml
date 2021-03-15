@@ -135,6 +135,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/hint_text_color"
+                    android:minWidth="@dimen/_0dp"
+                    android:minHeight="@dimen/_0dp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -163,6 +165,98 @@
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center_vertical"
+                android:weightSum="3">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_weight="0.8"
+                    android:background="@color/view_color" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1.4"
+                    android:gravity="center"
+                    android:text="@string/or_sign_up_with"
+                    android:textColor="@color/hint_text_color"
+                    android:textSize="@dimen/_14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_weight="0.8"
+                    android:background="@color/view_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:gravity="center_vertical"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                    <ImageView
+                        android:id="@+id/im_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?selectableItemBackground"
+                        android:src="@drawable/ic_facebook"
+                        tools:ignore="ContentDescription" />
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/fb_login_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/im_google"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_google"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/im_apple"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_apple"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@color/view_color" />
 
             <TextView
                 android:id="@+id/txt_sign_in"
