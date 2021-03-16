@@ -11,19 +11,19 @@ import android.os.Parcelable
 @Parcelize
 data class SocialRegisterParams(
     @SerializedName("user_device")
-    val userDevice: String? = "android",
+    val userDevice: String?,
     @SerializedName("user_device_info")
-    val userDeviceInfo: String? = "",
+    val userDeviceInfo: String?,
     @SerializedName("user_email")
-    val userEmail: String? = "",
+    val userEmail: String? ,
     @SerializedName("user_fcm_token")
-    val userFcmToken: String? = "",
+    val userFcmToken: String?,
     @SerializedName("user_login_type")
-    val userLoginType: String? = "",
+    val userLoginType: String?,
     @SerializedName("user_name")
-    val userName: String? = "",
+    val userName: String?,
     @SerializedName("user_social_id")
-    val userSocialId: String? = "",
+    val userSocialId: String? ,
     @SerializedName("user_type")
-    val userType: String? = ""
+    val userType: String?
 ) : Parcelable

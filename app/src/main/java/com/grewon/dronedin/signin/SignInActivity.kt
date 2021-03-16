@@ -25,6 +25,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.helper.LogX
+import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.server.FacebookModel
 import com.grewon.dronedin.server.UserData
 import com.grewon.dronedin.server.params.LoginParams
@@ -34,6 +35,7 @@ import com.grewon.dronedin.signup.SignUpTypeActivity
 import com.grewon.dronedin.utils.TextChangeListeners
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.ValidationUtils
+import com.grewon.dronedin.verification.VerificationActivity
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -197,7 +199,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
                     input_email.error = getString(R.string.please_enter_email_address)
                 } else if (!ValidationUtils.isValidEmail(edit_email.text.toString())) {
                     input_email.error = getString(R.string.please_enter_valid_email_address)
-                } else if (!ValidationUtils.isValidEmail(edit_password.text.toString())) {
+                } else if (ValidationUtils.isEmptyFiled(edit_password.text.toString())) {
                     input_password.error = getString(R.string.please_enter_password)
                 } else {
                     apiCall()
@@ -237,6 +239,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
             // Get new FCM registration token
             val token = task.result
             val loginParams = LoginParams(
+                userDevice = "android",
                 userFcmToken = token,
                 userName = edit_email.text.toString(),
                 userPassword = edit_password.text.toString()
@@ -256,7 +259,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
             // Get new FCM registration token
             val token = task.result
             val socialLoginParams =
-                SocialLoginParams(
+                SocialLoginParams(userDevice = "android",
                     userEmail,
                     socialId,
                     loginType,
@@ -332,16 +335,23 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
         DroneDinApp.getAppInstance().showToast(response.msg.toString())
         if (response.data != null) {
             preferenceUtils.saveAuthToken(response.data.userApiToken.toString())
-            preferenceUtils.saveLoginCredential(response)
+            if (preferenceUtils.getLoginCredentials()?.data?.userVerified == "no") {
+                response.data.isStepComplete = false
+                preferenceUtils.saveLoginCredential(response)
+                startActivity(Intent(this, VerificationActivity::class.java))
+            } else {
+                response.data.isStepComplete = true
+                preferenceUtils.saveLoginCredential(response)
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+
         }
     }
 
     override fun onUserLoggedInFailed(loginParams: LoginParams) {
-
-
         when {
 
-            loginParams.userDevice != null -> {
+            loginParams.userDevice != null && !ValidationUtils.isEmptyFiled(loginParams.userDevice) -> {
                 DroneDinApp.getAppInstance().showToast(loginParams.userDevice)
             }
             loginParams.userName != null -> {

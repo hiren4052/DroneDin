@@ -8,14 +8,16 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.forgotpassword.contract.ForgotPasswordContract
-import com.grewon.dronedin.forgotpassword.presenter.ForgotPasswordPresenter
+
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.ForgotPasswordParams
 import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TextChangeListeners
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.ValidationUtils
+
 import kotlinx.android.synthetic.main.activity_forgot_password.*
+
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -47,7 +49,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener, ForgotPassw
     }
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.forgot_password_image).into(top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.forgot_password_image,top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)

@@ -85,7 +85,6 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
 
-
     override fun showProgress() {
         dialog = LoadingDialog(this)
         dialog.show()
@@ -108,7 +107,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
     fun isPilotAccount(): Boolean {
-        return false
+        return preferenceUtils.getLoginCredentials()?.data?.userType == AppConstant.USER_PILOT
     }
 
 

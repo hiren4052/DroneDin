@@ -7,9 +7,16 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.StrictMode
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.facebook.FacebookSdk
 import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.dagger.module.NetworkModule
@@ -20,6 +27,7 @@ import com.grewon.dronedin.dagger.module.SignInModule
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
+import kotlinx.android.synthetic.main.activity_sign_up_type.*
 
 class DroneDinApp : MultiDexApplication() {
 
@@ -71,6 +79,33 @@ class DroneDinApp : MultiDexApplication() {
 
     fun getAppComponent(): AppComponent {
         return component
+    }
+
+    fun loadGifImage(drawableImage: Int, imageView: ImageView) {
+        Glide.with(this).asGif().load(drawableImage)
+            .addListener(object : RequestListener<GifDrawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false;
+                }
+
+                override fun onResourceReady(
+                    resource: GifDrawable?,
+                    model: Any?,
+                    target: Target<GifDrawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource?.setLoopCount(1);
+                    return false;
+                }
+
+            }).into(imageView)
+
     }
 
     private fun createNotificationChannel() {

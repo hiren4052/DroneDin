@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+
 import kotlinx.android.synthetic.main.activity_milestone_completion_request.*
-import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
+
 
 class MilestoneCompletionRequestActivity : BaseActivity(), View.OnClickListener {
 
@@ -26,7 +28,7 @@ class MilestoneCompletionRequestActivity : BaseActivity(), View.OnClickListener 
 
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.completed_job).into(top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.completed_job,top_image)
         setImageAdapter()
     }
 

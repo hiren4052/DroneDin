@@ -8,8 +8,11 @@ import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.activity_add_card.*
+
+
 
 class AddCardActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +31,7 @@ class AddCardActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
 
-        Glide.with(this).asGif().load(R.drawable.credit_card_animation).into(top_image)
-
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.credit_card_animation,top_image)
 
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             this,

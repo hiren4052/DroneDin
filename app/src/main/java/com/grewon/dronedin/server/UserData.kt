@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class UserData(
@@ -31,6 +30,9 @@ data class UserData(
         @SerializedName("user_status")
         val userStatus: String? = "",
         @SerializedName("user_verified")
-        val userVerified: String? = ""
+        val userVerified: String? = "",
+        @SerializedName("user_type")
+        val userType: String? = "",
+        var isStepComplete: Boolean = false
     ) : Parcelable
 }

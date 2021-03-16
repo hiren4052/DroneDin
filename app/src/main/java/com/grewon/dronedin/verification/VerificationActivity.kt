@@ -4,14 +4,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.bumptech.glide.Glide
-import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_verification.*
+
 
 class VerificationActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.verifcation_image).into(top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.verifcation_image,top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
     }
 

@@ -10,11 +10,11 @@ import android.os.Parcelable
 @Parcelize
 data class LoginParams(
     @SerializedName("user_device")
-    val userDevice: String? = "android",
+    val userDevice: String?,
     @SerializedName("user_fcm_token")
-    val userFcmToken: String? = "",
+    val userFcmToken: String?,
     @SerializedName("user_name")
-    val userName: String? = "",
+    val userName: String?,
     @SerializedName("user_password")
-    val userPassword: String? = ""
+    val userPassword: String?
 ) : Parcelable

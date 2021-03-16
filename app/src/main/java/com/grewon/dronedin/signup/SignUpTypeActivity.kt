@@ -4,9 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import kotlinx.android.synthetic.main.activity_sign_up_type.*
 
 class SignUpTypeActivity : BaseActivity(), View.OnClickListener {
@@ -23,8 +29,8 @@ class SignUpTypeActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.signup_pilot).into(pilot_gif)
-        Glide.with(this).asGif().load(R.drawable.signup_client).into(client_gif)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.signup_pilot,pilot_gif)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.signup_client,client_gif)
 
     }
 

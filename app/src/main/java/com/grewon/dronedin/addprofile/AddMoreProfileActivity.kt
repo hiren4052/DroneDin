@@ -13,12 +13,14 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.adapter.ProfileEqipmentsAdapter
 import com.grewon.dronedin.addprofile.adapter.ProfileSkillsAdapter
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.activity_add_more_profile.*
 import kotlinx.android.synthetic.main.activity_add_more_profile.top_image
 import kotlinx.android.synthetic.main.activity_add_more_profile.txt_save
 import kotlinx.android.synthetic.main.activity_add_profile.*
+import kotlinx.android.synthetic.main.activity_sign_up_type.*
 
 
 class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
@@ -64,7 +66,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
 
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.add_profile).into(top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.add_profile,top_image)
         setCategoryAdapter()
         setSkillsAdapter()
         setEquipmentsAdapter()

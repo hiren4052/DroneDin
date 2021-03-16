@@ -210,22 +210,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                 if (ValidationUtils.isEmptyFiled(edit_name.text.toString())) {
                     input_name.error = getString(R.string.please_enter_full_name)
                 } else if (ValidationUtils.isEmptyFiled(edit_email.text.toString())) {
-                    edit_email.error = getString(R.string.please_enter_email_address)
+                    input_email.error = getString(R.string.please_enter_email_address)
                 } else if (!ValidationUtils.isValidEmail(edit_email.text.toString())) {
-                    edit_email.error = getString(R.string.please_enter_valid_email_address)
-                } else if (!ValidationUtils.isValidEmail(edit_number.text.toString())) {
-                    edit_number.error = getString(R.string.please_enter_phone_number)
-                } else if (!ValidationUtils.isValidEmail(edit_password.text.toString())) {
-                    edit_password.error = getString(R.string.please_enter_password)
-                } else if (!ValidationUtils.isValidEmail(edit_confirm_password.text.toString())) {
-                    edit_confirm_password.error = getString(R.string.please_enter_confirm_password)
+                    input_email.error = getString(R.string.please_enter_valid_email_address)
+                } else if (ValidationUtils.isEmptyFiled(edit_number.text.toString())) {
+                    input_number.error = getString(R.string.please_enter_phone_number)
+                } else if (ValidationUtils.isEmptyFiled(edit_password.text.toString())) {
+                    input_password.error = getString(R.string.please_enter_password)
+                } else if (ValidationUtils.isEmptyFiled(edit_confirm_password.text.toString())) {
+                    input_confirm_password.error = getString(R.string.please_enter_confirm_password)
                 } else if (!ValidationUtils.isPasswordMatch(
                         edit_password.text.toString(),
                         edit_confirm_password.text.toString()
                     )
                 ) {
-                    edit_password.error = getString(R.string.password_does_not_match)
-                    edit_confirm_password.error = getString(R.string.password_does_not_match)
+                    input_password.error = getString(R.string.password_does_not_match)
+                    input_confirm_password.error = getString(R.string.password_does_not_match)
                 } else if (!check_terms.isChecked) {
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_check_terms_and_conditions))
@@ -240,7 +240,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                         // Get new FCM registration token
                         val token = task.result
                         val registerParams = RegisterParams(
-                            "yes",
+                            "yes", userDevice = "android",
                             userDeviceInfo = DroneDinApp.getAppInstance().getDeviceInformation(),
                             userEmail = edit_email.text.toString(),
                             userFcmToken = token,
@@ -287,6 +287,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
             val token = task.result
             val socialLoginParams =
                 SocialRegisterParams(
+                    userDevice = "android",
                     userDeviceInfo = DroneDinApp.getAppInstance().getDeviceInformation(),
                     userEmail = userEmail,
                     userFcmToken = token,
@@ -365,7 +366,9 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
         DroneDinApp.getAppInstance().showToast(response.msg.toString())
         if (response.data != null) {
             preferenceUtils.saveAuthToken(response.data.userApiToken.toString())
+            response.data.isStepComplete = false
             preferenceUtils.saveLoginCredential(response)
+            startActivity(Intent(this, VerificationActivity::class.java))
         }
     }
 
@@ -374,7 +377,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
             loginParams.userAgree != null -> {
                 DroneDinApp.getAppInstance().showToast(loginParams.userAgree)
             }
-            loginParams.userDevice != null -> {
+            loginParams.userDevice != null && !ValidationUtils.isEmptyFiled(loginParams.userDevice) -> {
                 DroneDinApp.getAppInstance().showToast(loginParams.userDevice)
             }
             loginParams.userDeviceInfo != null -> {
@@ -402,7 +405,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
     }
 
     override fun onUserSocialRegisterFailed(loginParams: SocialRegisterParams) {
-        val yourHashMap = Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+        val yourHashMap =
+            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
 
         if (yourHashMap != null) {
 

@@ -6,7 +6,10 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
+
 import kotlinx.android.synthetic.main.activity_submit_review.*
+
 
 class SubmitReviewActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +25,7 @@ class SubmitReviewActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.review_animation).into(top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.review_animation,top_image)
     }
 
     override fun onClick(v: View?) {

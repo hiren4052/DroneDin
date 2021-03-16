@@ -2,7 +2,6 @@ package com.grewon.dronedin.utils
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -26,9 +25,16 @@ class TextChangeListeners {
                 override fun afterTextChanged(s: Editable?) {
                     if (textInputLayout.error != null) {
                         textInputLayout.error = null
+                        textInputLayout.isErrorEnabled = false
                     }
                 }
             })
+        }
+
+
+        fun addInputTextError(errorText: String, textInputLayout: TextInputLayout) {
+            textInputLayout.isErrorEnabled = true
+            textInputLayout.error = errorText
         }
 
 

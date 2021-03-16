@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_forgot_password.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ChangePasswordActivity : BaseActivity(), View.OnClickListener,
-    ChangePasswordContract.View {
+class ChangePasswordActivity : BaseActivity(), View.OnClickListener, ChangePasswordContract.View {
+
     @Inject
     lateinit var changePasswordPresenter: ChangePasswordContract.Presenter
 
