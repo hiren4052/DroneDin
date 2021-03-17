@@ -5,30 +5,50 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.adapter.ProfileEqipmentsAdapter
 import com.grewon.dronedin.addprofile.adapter.ProfileSkillsAdapter
+import com.grewon.dronedin.addprofile.contract.AddBioContract
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.main.MainActivity
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.JobInitBean
+import com.grewon.dronedin.server.ProfileBioDataBean
+import com.grewon.dronedin.server.params.BioUpdateParams
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_add_more_profile.*
 import kotlinx.android.synthetic.main.activity_add_more_profile.top_image
 import kotlinx.android.synthetic.main.activity_add_more_profile.txt_save
-import kotlinx.android.synthetic.main.activity_add_profile.*
-import kotlinx.android.synthetic.main.activity_sign_up_type.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
 class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
     ProfileSkillsAdapter.OnFilterSkillsItemSelected,
-    ProfileEqipmentsAdapter.OnFilterSkillsItemSelected {
+    ProfileEqipmentsAdapter.OnFilterSkillsItemSelected, AddBioContract.View {
+
+
+    @Inject
+    lateinit var addBioPresenter: AddBioContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var profileEquipmentsAdapter: ProfileEqipmentsAdapter? = null
     private var profileSkillsAdapter: ProfileSkillsAdapter? = null
+
+    private var categoryList: ArrayList<JobInitBean.Category>? = null
+    private var skillsList: ArrayList<JobInitBean.Skill>? = null
+    private var equipmentsList: ArrayList<JobInitBean.Equipment>? = null
+    private var selectedCategoryId: String = ""
+    private var selectedSkillsId: List<Int>? = null
+    private var selectedEquipmentsId: List<Int>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +64,155 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
 
     }
 
+
+    private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+
+        addBioPresenter.attachView(this)
+        addBioPresenter.attachApiInterface(retrofit)
+
+        addBioPresenter.getBio()
+
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.add_profile, top_image)
+
+
+    }
+
+
+    override fun onClick(v: View?) {
+
+        when (v?.id) {
+            R.id.txt_save -> {
+                if (ValidationUtils.isEmptyFiled(edt_profile_price.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_profile_price))
+                } else if (ValidationUtils.isEmptyFiled(edt_bio.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_bio))
+                } else if (ValidationUtils.isEmptyFiled(selectedCategoryId)) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_category))
+                } else if (profileSkillsAdapter != null && profileSkillsAdapter?.getSelectedItems()
+                        ?.isEmpty()!!
+                ) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_at_least_one_skill))
+                } else if (profileEquipmentsAdapter != null && profileEquipmentsAdapter?.getSelectedItems()
+                        ?.isEmpty()!!
+                ) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_at_least_one_equipment))
+                } else {
+                    apiCall()
+                }
+            }
+            R.id.txt_category -> {
+                category_spinner.performClick()
+            }
+            R.id.im_back -> {
+                finish()
+            }
+        }
+    }
+
+    private fun apiCall() {
+        val bioUpdateParams = BioUpdateParams(
+            categoryId = selectedCategoryId,
+            equipment = profileEquipmentsAdapter?.getSelectedItems()
+                ?.map { it.equipmentId!!.toInt() }!!,
+            skill = profileSkillsAdapter?.getSelectedItems()?.map { it.skillId!!.toInt() }!!,
+            profilePrice = edt_profile_price.text.toString(),
+            userBio = edt_bio.text.toString()
+        )
+
+        addBioPresenter.updateBio(bioUpdateParams)
+    }
+
+    override fun onFilterSkillsItemSelected() {
+
+    }
+
+    override fun onBioGetSuccessful(response: ProfileBioDataBean) {
+        if (response.data != null) {
+            setView(response.data)
+        }
+
+    }
+
+    private fun setView(data: ProfileBioDataBean.Data) {
+        edt_profile_price.setText(data.profilePrice)
+        edt_bio.setText(data.userBio)
+
+        if (data.category != null) {
+            selectedCategoryId = data.category.toString()
+        }
+
+        if (data.skill != null && data.skill.size > 0) {
+            selectedSkillsId = data.skill.map { it.skillId?.toInt()!! }
+        }
+
+        if (data.equipment != null && data.equipment.size > 0) {
+            selectedEquipmentsId = data.equipment.map { it.equipmentId?.toInt()!! }
+        }
+
+        addBioPresenter.getJobCommonData()
+    }
+
+    override fun onBioGetFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
+    override fun onBioUpdateSuccessFully(loginParams: ProfileBioDataBean) {
+        if (loginParams.data != null && loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+    }
+
+    override fun onBioUpdateFailed(loginParams: BioUpdateParams) {
+        val yourHashMap =
+            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+
+        if (yourHashMap != null) {
+            val keys: MutableSet<out Any> = yourHashMap.keys
+            for (key in keys) {
+                if (yourHashMap[key] != null) {
+                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
+                    return
+                }
+            }
+        }
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onJobCommonDataGetSuccessful(response: JobInitBean) {
+        if (response.category != null && response.category.size > 0) {
+            categoryList = response.category
+            setCategoryAdapter()
+        }
+
+        if (response.skill != null && response.skill.size > 0) {
+            skillsList = response.skill
+            setSkillsAdapter()
+        }
+
+        if (response.equipment != null && response.equipment.size > 0) {
+            equipmentsList = response.equipment
+            setEquipmentsAdapter()
+        }
+    }
+
+    override fun onJobCommonDataGetFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
     private fun setSkillsAdapter() {
         val layoutManager = FlexboxLayoutManager(this)
         layoutManager.flexDirection = FlexDirection.ROW
@@ -51,7 +220,10 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
         skills_recycle.layoutManager = layoutManager
         profileSkillsAdapter = ProfileSkillsAdapter(this, this)
         skills_recycle.adapter = profileSkillsAdapter
-        profileSkillsAdapter?.addItemsList(ListUtils.getSkillsBean())
+        profileSkillsAdapter?.addItemsList(skillsList!!)
+        if (selectedSkillsId != null && selectedSkillsId!!.isNotEmpty()) {
+            profileSkillsAdapter?.addSelectedItems(selectedSkillsId!!)
+        }
     }
 
     private fun setEquipmentsAdapter() {
@@ -61,15 +233,10 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
         equipments_recycle.layoutManager = layoutManager
         profileEquipmentsAdapter = ProfileEqipmentsAdapter(this, this)
         equipments_recycle.adapter = profileEquipmentsAdapter
-        profileEquipmentsAdapter?.addItemsList(ListUtils.getEquipmentsBean())
-    }
-
-
-    private fun initView() {
-        DroneDinApp.getAppInstance().loadGifImage(R.drawable.add_profile,top_image)
-        setCategoryAdapter()
-        setSkillsAdapter()
-        setEquipmentsAdapter()
+        profileEquipmentsAdapter?.addItemsList(equipmentsList!!)
+        if (selectedEquipmentsId != null && selectedEquipmentsId!!.isNotEmpty()) {
+            profileEquipmentsAdapter?.addSelectedItems(selectedEquipmentsId!!)
+        }
     }
 
     private fun setCategoryAdapter() {
@@ -77,7 +244,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
         val categoryAdapter: ArrayAdapter<String> = ArrayAdapter(
             this,
             R.layout.simple_spinner_dropdown_item,
-            ListUtils.getCategoryStrings(ListUtils.getCategoryBean())
+            ListUtils.getCategoryStrings(categoryList) as ArrayList<String>
         )
         categoryAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         category_spinner.adapter = categoryAdapter
@@ -94,30 +261,12 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
                     position: Int,
                     id: Long
                 ) {
-
-                    txt_category.text = ListUtils.getCategoryBean()[position].userProfileName
+                    selectedCategoryId = categoryList?.get(position)?.categoryId.toString()
+                    txt_category.text = categoryList?.get(position)?.categoryName
                 }
 
             }
     }
 
-    override fun onClick(v: View?) {
-
-        when (v?.id) {
-            R.id.txt_save -> {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
-            R.id.txt_category -> {
-                category_spinner.performClick()
-            }
-            R.id.im_back -> {
-                finish()
-            }
-        }
-    }
-
-    override fun onFilterSkillsItemSelected() {
-
-    }
 
 }

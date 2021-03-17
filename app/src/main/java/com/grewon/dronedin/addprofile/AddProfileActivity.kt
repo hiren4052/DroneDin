@@ -18,7 +18,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 import com.grewon.dronedin.R
+import com.grewon.dronedin.addprofile.contract.AddProfileContract
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
@@ -26,24 +28,39 @@ import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.MapScreenActivity
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.IdentificationBean
 import com.grewon.dronedin.server.LocationBean
-import com.grewon.dronedin.utils.FileUtils
+import com.grewon.dronedin.server.ProfileBean
+import com.grewon.dronedin.server.params.ProfileUpdateParams
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TextChangeListeners
+import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_add_profile.*
+
 import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
-import kotlinx.android.synthetic.main.image_bottom_dialog.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_camera
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_gallery
+import retrofit2.Retrofit
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
-class AddProfileActivity : BaseActivity(), View.OnClickListener {
+class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContract.View {
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var addProfilePresenter: AddProfileContract.Presenter
+
     private var picturePath: File? = null
     private var filePath: String? = ""
     private var imageType: String = "front"
@@ -53,6 +70,8 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var locationAddress: String = ""
+    private var identificationId: String? = ""
+    private var identificationList: ArrayList<IdentificationBean.IdentificationBeanItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,43 +82,35 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_add_profile)
         setClicks()
         initView()
+        addTextChangeListeners()
+    }
+
+    private fun addTextChangeListeners() {
+        TextChangeListeners.editErrorTextRemover(edit_name, input_name)
+        TextChangeListeners.editErrorTextRemover(edit_email, input_email)
+        TextChangeListeners.editErrorTextRemover(edit_number, input_number)
+        TextChangeListeners.editErrorTextRemover(edit_number, input_number)
+        TextChangeListeners.autoCompleteErrorTextRemover(edt_location, input_location)
+        TextChangeListeners.autoCompleteErrorTextRemover(
+            edt_identification_document,
+            input_identification
+        )
     }
 
     private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        addProfilePresenter.attachView(this)
+        addProfilePresenter.attachApiInterface(retrofit)
+
+        addProfilePresenter.getProfile()
+
         if (isPilotAccount()) {
             pilot_layout.visibility = View.VISIBLE
-            input_business_name.visibility = View.GONE
-            input_name.hint=getString(R.string.full_name_business_name)
             txt_save.text = getString(R.string.next)
 
-            val expenseAdapter: ArrayAdapter<String> = ArrayAdapter(
-                this,
-                R.layout.simple_spinner_dropdown_item,
-                ListUtils.getIdentificationsDocumentStrings(ListUtils.getIdentificationsDocumentBean())
-            )
-            expenseAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-            identification_spinner.adapter = expenseAdapter
+            addProfilePresenter.getIdentificationsData()
 
-            identification_spinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                    }
-
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long
-                    ) {
-
-                        edt_identification_document.setText(ListUtils.getIdentificationsDocumentBean()[position].documentName)
-                    }
-
-                }
         } else {
-            input_name.hint=getString(R.string.full_name)
-            input_business_name.visibility = View.VISIBLE
             pilot_layout.visibility = View.GONE
             txt_save.text = getString(R.string.save)
 
@@ -276,13 +287,10 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
                 if (resultCode == Activity.RESULT_OK) {
 
                     try {
-
-
                         CropImage.activity(Uri.fromFile(picturePath))
                             //.setFixAspectRatio(true)
                             // .setAspectRatio(16, 9)
                             .start(this)
-
                     } catch (e: Exception) {
                         Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                         e.printStackTrace()
@@ -327,10 +335,12 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
                         val filePath: String = FileValidationUtils.getPath(this, resultUri)
                         if (filePath != null) {
                             if (imageType == "front") {
+                                serverFrontImage = filePath
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(front_image)
                             } else {
+                                serverBackImage = filePath
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(back_image)
@@ -351,9 +361,21 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
             AppConstant.PICKFILE_REQUEST_CODE -> {
                 if (data != null) {
                     if (resultCode == RESULT_OK) {
-                        val filePath =
+                        val fileList =
                             data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
-                        if (filePath != null) {
+                        if (fileList != null) {
+                            val filePath: String = FileValidationUtils.getPath(this, fileList[0])
+                            if (imageType == "front") {
+                                serverFrontImage = filePath
+                                Glide.with(this)
+                                    .load(filePath)
+                                    .into(front_image)
+                            } else {
+                                serverBackImage = filePath
+                                Glide.with(this)
+                                    .load(filePath)
+                                    .into(back_image)
+                            }
                             LogX.E(filePath.toString())
                         } else {
                             Toast.makeText(this, R.string.some_thing_went_wrong, Toast.LENGTH_SHORT)
@@ -395,13 +417,56 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
                 identification_spinner.performClick()
             }
             R.id.txt_save -> {
-                if (isPilotAccount()) {
-                    startActivity(Intent(this, AddMoreProfileActivity::class.java))
+                if (ValidationUtils.isEmptyFiled(edit_name.text.toString())) {
+                    input_name.error = getString(R.string.please_enter_full_name_business_name)
+                } else if (ValidationUtils.isEmptyFiled(edit_email.text.toString())) {
+                    input_email.error = getString(R.string.please_enter_email_address)
+                } else if (ValidationUtils.isEmptyFiled(edit_number.text.toString())) {
+                    edit_number.error = getString(R.string.please_enter_phone_number)
+                } else if (ValidationUtils.isEmptyFiled(edt_location.text.toString())) {
+                    input_location.error = getString(R.string.please_select_location)
                 } else {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    if (isPilotAccount()) {
+                        when {
+                            ValidationUtils.isEmptyFiled(edt_identification_document.text.toString()) -> {
+                                input_identification.error =
+                                    getString(R.string.please_select_location)
+                            }
+                            ValidationUtils.isEmptyFiled(serverFrontImage) -> {
+                                DroneDinApp.getAppInstance()
+                                    .showToast(getString(R.string.please_select_front_side))
+                            }
+                            ValidationUtils.isEmptyFiled(serverBackImage) -> {
+                                DroneDinApp.getAppInstance()
+                                    .showToast(getString(R.string.please_select_back_side))
+                            }
+                            else -> {
+                                apiCall()
+                            }
+                        }
+                    } else {
+                        apiCall()
+                    }
                 }
+
+
             }
         }
+    }
+
+    private fun apiCall() {
+        val profileUpdateParams = ProfileUpdateParams(
+            userName = edit_name.text.toString(),
+            userPhoneNumber = edit_number.text.toString(),
+            userAddress = locationAddress,
+            userLatitude = latitude,
+            userLongitude = longitude,
+            proofId = identificationId,
+            proofFrontSide = serverFrontImage,
+            proofBackSide = serverBackImage
+        )
+        addProfilePresenter.updateProfile(profileUpdateParams)
+
     }
 
 
@@ -526,6 +591,125 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener {
             .setMaxCount(1) //optional
             .setActivityTheme(R.style.AppLibAppTheme) //optional
             .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
+
+    }
+
+    override fun onProfileGetSuccessful(response: ProfileBean) {
+        if (response.data != null) {
+            setView(response.data)
+        }
+    }
+
+    private fun setView(data: ProfileBean.Data) {
+
+        edit_name.setText(
+            data.userName.toString()
+        )
+        edit_email.setText(
+            data.userEmail.toString()
+        )
+        edit_number.setText(
+            data.userPhoneNumber.toString()
+        )
+        if (!ValidationUtils.isEmptyFiled(data.userAddress.toString())) {
+            locationAddress = data.userAddress.toString()
+            latitude = data.userLatitude?.toDouble()!!
+            longitude = data.userLongitude?.toDouble()!!
+
+            edt_location.setText(locationAddress, false)
+        }
+
+        if (isPilotAccount()) {
+            if (data.proof != null) {
+                edt_identification_document.setText(data.proof.proofName.toString(), false)
+            }
+            serverFrontImage = data.proofFrontSide.toString()
+            serverBackImage = data.proofBackSide.toString()
+            identificationId = data.proof?.proofId
+        }
+
+    }
+
+    override fun onProfileGetFailed(loginParams: ProfileUpdateParams) {
+        val yourHashMap =
+            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+        if (yourHashMap != null) {
+            val keys: MutableSet<out Any> = yourHashMap.keys
+            for (key in keys) {
+                if (yourHashMap[key] != null) {
+                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
+                    return
+                }
+            }
+        }
+    }
+
+    override fun onProfileUpdateSuccessFully(loginParams: ProfileBean) {
+        if (loginParams.data != null && loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            if (isPilotAccount()) {
+                startActivity(Intent(this, AddMoreProfileActivity::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+        }
+    }
+
+    override fun onProfileUpdateFailed(loginParams: ProfileUpdateParams) {
+        val yourHashMap =
+            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+        if (yourHashMap != null) {
+            val keys: MutableSet<out Any> = yourHashMap.keys
+            for (key in keys) {
+                if (yourHashMap[key] != null) {
+                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
+                    return
+                }
+            }
+        }
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onIdentificationsDataGetSuccessful(response: IdentificationBean) {
+        if (response != null) {
+            identificationList = response
+            setIdentificationSpinner()
+        }
+
+    }
+
+    private fun setIdentificationSpinner() {
+        val expenseAdapter: ArrayAdapter<String> = ArrayAdapter(
+            this,
+            R.layout.simple_spinner_dropdown_item,
+            ListUtils.getIdentificationsDocumentStrings(identificationList) as ArrayList<String>
+        )
+        expenseAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+        identification_spinner.adapter = expenseAdapter
+
+        identification_spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    identificationId = identificationList?.get(position)?.proofId
+                    edt_identification_document.setText(identificationList?.get(position)?.proofName)
+                }
+
+            }
+    }
+
+    override fun onIdentificationsDataFailed(loginParams: CommonMessageBean) {
 
     }
 

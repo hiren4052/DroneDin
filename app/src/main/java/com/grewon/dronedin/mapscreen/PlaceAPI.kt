@@ -39,7 +39,7 @@ class PlaceAPI {
             val sb = StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON)
             //sb.append("?key=" + mContext.getString(R.string.google_maps_key))
             sb.append("?key=" + API_KEY)
-            sb.append("&components=country:au")
+            sb.append("&components")
             sb.append("&types=geocode")
             // sb.append("&language=").append(language);
             sb.append("&input=").append(URLEncoder.encode(input, "utf8"))

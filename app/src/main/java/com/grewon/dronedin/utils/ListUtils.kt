@@ -1,24 +1,6 @@
 package com.grewon.dronedin.utils
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.view.View
-import androidx.core.content.ContextCompat
-import com.grewon.dronedin.R
-import com.grewon.dronedin.app.AppConstant
-import com.grewon.dronedin.server.CategoryDataBean
-import com.grewon.dronedin.server.EquipmentsDataBean
-import com.grewon.dronedin.server.IdentificationDocumentNameBean
-import com.grewon.dronedin.server.SkillsDataBean
-import com.grewon.dronedin.web.WebActivity
+import com.grewon.dronedin.server.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -35,8 +17,8 @@ class ListUtils {
             return identificationList
         }
 
-        fun getIdentificationsDocumentStrings(list: ArrayList<IdentificationDocumentNameBean>): List<String> {
-            return list.map { it.documentName }
+        fun getIdentificationsDocumentStrings(list: java.util.ArrayList<IdentificationBean.IdentificationBeanItem>?): List<String>? {
+            return list?.map { it.proofName.toString() }
         }
 
         fun getCategoryBean(): ArrayList<CategoryDataBean.Result> {
@@ -344,8 +326,8 @@ class ListUtils {
             return identificationList
         }
 
-        fun getCategoryStrings(list: ArrayList<CategoryDataBean.Result>): List<String> {
-            return list.map { it.userProfileName.toString() }
+        fun getCategoryStrings(list: ArrayList<JobInitBean.Category>?): List<String>? {
+            return list?.map { it.categoryName.toString() }
         }
 
 
@@ -368,9 +350,16 @@ class ListUtils {
             return montList
         }
 
+        fun getImageExtensionList(): ArrayList<String> {
+            val imageList = ArrayList<String>()
+            imageList.add("png")
+            imageList.add("jpg")
+            imageList.add("jpeg")
+            imageList.add("gif")
+            return imageList
+        }
+
     }
-
-
 
 
 }

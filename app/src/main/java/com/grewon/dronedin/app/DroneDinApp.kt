@@ -19,11 +19,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.facebook.FacebookSdk
 import com.grewon.dronedin.dagger.component.AppComponent
-import com.grewon.dronedin.dagger.module.NetworkModule
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dagger.component.DaggerAppComponent
-import com.grewon.dronedin.dagger.module.AppModule
-import com.grewon.dronedin.dagger.module.SignInModule
+import com.grewon.dronedin.dagger.module.*
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -73,6 +71,8 @@ class DroneDinApp : MultiDexApplication() {
             .appModule(AppModule(this))
             .networkModule(NetworkModule(this, AppConstant.API_URL))
             .signInModule(SignInModule())
+            .profileModule(ProfileModule())
+            .commonDataModule(CommonDataModule())
             .build()
     }
 

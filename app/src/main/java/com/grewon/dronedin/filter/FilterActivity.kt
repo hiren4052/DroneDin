@@ -8,35 +8,62 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.filter.adapter.FilterCategoryAdapter
 import com.grewon.dronedin.filter.adapter.FilterEquipmentsAdapter
 import com.grewon.dronedin.filter.adapter.FilterSkillsAdapter
+import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.utils.IconUtils
-import com.grewon.dronedin.utils.ListUtils
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import kotlinx.android.synthetic.main.activity_filter.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
 class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSelected,
     FilterEquipmentsAdapter.OnFilterEquipmentsItemSelected,
-    FilterCategoryAdapter.OnCategoryItemSelected, View.OnClickListener {
+    FilterCategoryAdapter.OnCategoryItemSelected, View.OnClickListener,
+    SkillsEquipmentsContract.View {
+
+
+    @Inject
+    lateinit var skillsEquipmentsPresenter: SkillsEquipmentsContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
 
     private var filterCategoryAdapter: FilterCategoryAdapter? = null
     private var filterEquipmentsAdapter: FilterEquipmentsAdapter? = null
     private var filterSkillsAdapter: FilterSkillsAdapter? = null
+
+    private var selectedCategoryId: List<Int>? = null
+    private var selectedSkillsId: List<Int>? = null
+    private var selectedEquipmentsId: List<Int>? = null
+    private var categoryList: ArrayList<JobInitBean.Category>? = null
+    private var skillsList: ArrayList<JobInitBean.Skill>? = null
+    private var equipmentsList: ArrayList<JobInitBean.Equipment>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
         setClicks()
         initView()
-        setCategoryAdapter()
-        setSkillsAdapter()
-        setEquipmentsAdapter()
+
     }
 
     private fun initView() {
+
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        skillsEquipmentsPresenter.attachView(this)
+        skillsEquipmentsPresenter.attachApiInterface(retrofit)
+
+        skillsEquipmentsPresenter.getJobCommonData()
+
+
         sb_range_selector.setProgress(1f, 100f)
         sb_range_selector.leftSeekBar.setIndicatorText("$1")
         sb_range_selector.rightSeekBar.setIndicatorText("$100")
@@ -81,7 +108,10 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         skills_recycle.layoutManager = layoutManager
         filterSkillsAdapter = FilterSkillsAdapter(this, this)
         skills_recycle.adapter = filterSkillsAdapter
-        filterSkillsAdapter?.addItemsList(ListUtils.getSkillsBean())
+        filterSkillsAdapter?.addItemsList(skillsList!!)
+        if (selectedSkillsId != null && selectedSkillsId!!.isNotEmpty()) {
+            filterSkillsAdapter?.addSelectedItems(selectedSkillsId!!)
+        }
     }
 
     private fun setEquipmentsAdapter() {
@@ -91,8 +121,12 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         equipments_recycle.layoutManager = layoutManager
         filterEquipmentsAdapter = FilterEquipmentsAdapter(this, this)
         equipments_recycle.adapter = filterEquipmentsAdapter
-        filterEquipmentsAdapter?.addItemsList(ListUtils.getEquipmentsBean())
+        filterEquipmentsAdapter?.addItemsList(equipmentsList!!)
+        if (selectedEquipmentsId != null && selectedEquipmentsId!!.isNotEmpty()) {
+            filterEquipmentsAdapter?.addSelectedItems(selectedEquipmentsId!!)
+        }
     }
+
 
     private fun setCategoryAdapter() {
         val layoutManager = FlexboxLayoutManager(this)
@@ -101,7 +135,10 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         category_recycle.layoutManager = layoutManager
         filterCategoryAdapter = FilterCategoryAdapter(this, this)
         category_recycle.adapter = filterCategoryAdapter
-        filterCategoryAdapter?.addItemsList(ListUtils.getCategoryBean())
+        filterCategoryAdapter?.addItemsList(categoryList!!)
+        if (selectedCategoryId != null && selectedCategoryId!!.isNotEmpty()) {
+            filterCategoryAdapter?.addSelectedItems(selectedCategoryId!!)
+        }
     }
 
     override fun onFilterSkillsItemSelected() {
@@ -179,4 +216,30 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         }
     }
 
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onJobCommonDataGetSuccessful(response: JobInitBean) {
+        if (response.category != null && response.category.size > 0) {
+            categoryList = response.category
+            setCategoryAdapter()
+        }
+
+        if (response.skill != null && response.skill.size > 0) {
+            skillsList = response.skill
+            setSkillsAdapter()
+        }
+
+        if (response.equipment != null && response.equipment.size > 0) {
+            equipmentsList = response.equipment
+            setEquipmentsAdapter()
+        }
+    }
+
+    override fun onJobCommonDataGetFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
 }

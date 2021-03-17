@@ -3,6 +3,8 @@ package com.grewon.dronedin.server
 
 import com.grewon.dronedin.server.params.*
 import io.reactivex.Single
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 
@@ -26,4 +28,28 @@ interface AppApi {
 
     @POST("profile_c/change_password")
     fun changePassword(@Body map: ChangePasswordParams): Single<CommonMessageBean>
+
+    @GET("profile_c/my_profile")
+    fun myProfile(): Single<ProfileBean>
+
+    @GET("profile_c/proof")
+    fun getIdentificationsData(): Single<IdentificationBean>
+
+    @GET("profile_c/job_init")
+    fun getJobCommanData(): Single<JobInitBean>
+
+    @Multipart
+    @POST("profile_c/update_profile")
+    fun updateProfile(
+        @Part frontSide: MultipartBody.Part?,
+        @Part backSide: MultipartBody.Part?,
+        @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
+    ): Single<ProfileBean>
+
+    @GET("profile_c/bio")
+    fun getBio(): Single<ProfileBioDataBean>
+
+    @POST("profile_c/bio_update")
+    fun bioUpdate(@Body map: BioUpdateParams): Single<ProfileBioDataBean>
+
 }

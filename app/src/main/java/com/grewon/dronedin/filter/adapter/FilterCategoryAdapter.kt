@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.CategoryDataBean
+import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
  * Created by Jeff Klima on 2019-08-20.
  */
 class FilterCategoryAdapter(
-    val context: Context,val onCategoryItemSelected: OnCategoryItemSelected
+    val context: Context, val onCategoryItemSelected: OnCategoryItemSelected
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -24,7 +25,7 @@ class FilterCategoryAdapter(
         fun onCategoryItemSelected()
     }
 
-    var itemList = ArrayList<CategoryDataBean.Result>()
+    var itemList = ArrayList<JobInitBean.Category>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,7 +48,7 @@ class FilterCategoryAdapter(
 
 
         if (holder is ItemViewHolder) {
-        holder.categoryName.text=item.userProfileName
+            holder.categoryName.text = item.categoryName?.trim()
 
             if (item.isSelected == 1) {
                 IconUtils.setFilterBackground(
@@ -95,15 +96,25 @@ class FilterCategoryAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<CategoryDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobInitBean.Category>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
-    fun getSelectedItems(): List<CategoryDataBean.Result> {
+    fun getSelectedItems(): List<JobInitBean.Category> {
         return itemList.filter { it.isSelected == 1 }
     }
+
+    fun addSelectedItems(selectedEquipmentsId: List<Int>) {
+        for (item in itemList) {
+            if (selectedEquipmentsId.contains(item.categoryId?.toInt())) {
+                item.isSelected = 1
+            }
+        }
+        notifyDataSetChanged()
+    }
+
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

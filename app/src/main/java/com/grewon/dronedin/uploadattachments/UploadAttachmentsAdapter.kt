@@ -1,32 +1,36 @@
-package com.grewon.dronedin.milestone.adapter
+package com.grewon.dronedin.uploadattachments
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.CreateMilestoneBean
-import kotlinx.android.synthetic.main.layout_create_mile_stone_item.view.*
+import com.grewon.dronedin.helper.FileValidationUtils
+import com.grewon.dronedin.server.JobsImageDataBean
+import com.grewon.dronedin.server.params.UploadAttachmentsParams
+import com.grewon.dronedin.utils.ListUtils
+import kotlinx.android.synthetic.main.layout_jobs_image_item.view.*
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class CreateMileStoneAdapter(
+class UploadAttachmentsAdapter(
     val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var itemList = ArrayList<CreateMilestoneBean>()
+    var itemList = ArrayList<UploadAttachmentsParams>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_create_mile_stone_item,
+                R.layout.layout_jobs_image_item,
                 parent,
                 false
             )
@@ -40,14 +44,19 @@ class CreateMileStoneAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = itemList[position]
 
+
         if (holder is ItemViewHolder) {
 
-            holder.txtCount.text = (position + 1).toString() + "."
-            holder.txtMilstoneDesc.text = item.details
-            holder.txtPrice.text = context.getString(R.string.price_string, item.price)
-
-            holder.imgClose.setOnClickListener {
-                removeItem(position)
+            if (ListUtils.getImageExtensionList()
+                    .contains(FileValidationUtils.getExtension(item.filePath))
+            ) {
+                Glide.with(context)
+                    .load(item.filePath)
+                    .into(holder.jobsImage)
+            } else {
+                Glide.with(context)
+                    .load(R.drawable.ic_attachment_background)
+                    .into(holder.jobsImage)
             }
 
         }
@@ -56,23 +65,20 @@ class CreateMileStoneAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<CreateMilestoneBean>) {
+    fun addItemsList(list: ArrayList<UploadAttachmentsParams>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun addItems(list: CreateMilestoneBean) {
-        itemList.add(list)
+    fun addItems(list: UploadAttachmentsParams) {
+        itemList.add(0, list)
         notifyDataSetChanged()
     }
 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val txtCount = itemView.txt_count
-        val txtMilstoneDesc = itemView.txt_milestone_desc
-        val imgClose = itemView.img_close
-        val txtPrice = itemView.txt_price
+        val jobsImage = itemView.jobs_image
     }
 
 

@@ -17,7 +17,10 @@ import androidx.core.content.ContextCompat
 import com.devs.readmoreoption.ReadMoreOption
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.web.WebActivity
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.text.DecimalFormat
 
 /**
@@ -192,6 +195,11 @@ class TextUtils {
         fun convertSingleDecimalFormat(value: Double): String? {
             val precision = DecimalFormat("0.0")
             return precision.format(value)
+        }
+
+        fun createPartFromString(partString: String): RequestBody {
+            LogX.E(partString)
+            return RequestBody.create(MultipartBody.FORM, partString)
         }
 
 

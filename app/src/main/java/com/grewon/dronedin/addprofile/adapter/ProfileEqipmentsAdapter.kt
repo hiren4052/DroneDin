@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.EquipmentsDataBean
+import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 
@@ -24,7 +25,7 @@ class ProfileEqipmentsAdapter(
         fun onFilterSkillsItemSelected()
     }
 
-    var itemList = ArrayList<EquipmentsDataBean.Result>()
+    var itemList = ArrayList<JobInitBean.Equipment>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,7 +48,7 @@ class ProfileEqipmentsAdapter(
 
 
         if (holder is ItemViewHolder) {
-            holder.categoryName.text = item.userProfileName
+            holder.categoryName.text = item.equipment?.trim()
 
             if (item.isSelected == 1) {
                 holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white))
@@ -105,13 +106,13 @@ class ProfileEqipmentsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<EquipmentsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobInitBean.Equipment>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
-    fun getSelectedItems(): List<EquipmentsDataBean.Result> {
+    fun getSelectedItems(): List<JobInitBean.Equipment> {
         return itemList.filter { it.isSelected == 1 }
     }
 
@@ -124,6 +125,15 @@ class ProfileEqipmentsAdapter(
     fun removeItem(adapterPosition: Int) {
         itemList.removeAt(adapterPosition)
         notifyItemRemoved(adapterPosition)
+    }
+
+    fun addSelectedItems(selectedEquipmentsId: List<Int>) {
+        for (item in itemList) {
+            if (selectedEquipmentsId.contains(item.equipmentId?.toInt())) {
+                item.isSelected = 1
+            }
+        }
+        notifyDataSetChanged()
     }
 
 

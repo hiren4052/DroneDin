@@ -33,6 +33,6 @@ data class UserData(
         val userVerified: String? = "",
         @SerializedName("user_type")
         val userType: String? = "",
-        var isStepComplete: Boolean = false
+        var isStepComplete: Boolean? = false
     ) : Parcelable
 }

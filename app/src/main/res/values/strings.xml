@@ -252,6 +252,7 @@
 
 
     <string name="please_enter_email_address">Please enter email address!</string>
+    <string name="please_enter_full_name_business_name">Please enter full name/business name!</string>
     <string name="please_enter_password">Please enter password!</string>
     <string name="please_enter_valid_email_address">Please enter valid email address!</string>
     <string name="please_enter_full_name">Please enter full name!</string>
@@ -261,4 +262,14 @@
     <string name="please_check_terms_and_conditions">Please check terms and conditions</string>
     <string name="please_enter_old_password">Please enter old password!</string>
     <string name="please_enter_new_password">Please enter new password!</string>
+    <string name="please_select_location">Please select location!</string>
+    <string name="please_select_front_side">Please select front side</string>
+    <string name="please_select_back_side">Please select back side</string>
+    <string name="profile_price">Profile Price</string>
+    <string name="minimum_profile_price">Minimum profile price</string>
+    <string name="please_enter_profile_price">Please enter profile price!</string>
+    <string name="please_enter_bio">Please enter profile bio!</string>
+    <string name="please_select_category">Please select category!</string>
+    <string name="please_select_at_least_one_skill">Please select at least one skill!</string>
+    <string name="please_select_at_least_one_equipment">Please select at least one equipment!</string>
 </resources>

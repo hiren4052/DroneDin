@@ -22,8 +22,6 @@ class SignInModule {
         return SignInPresenter()
     }
 
-
-
     @Singleton
     @Provides
     fun provideSignUpPresenter():  SignUpContract.Presenter {

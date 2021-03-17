@@ -27,11 +27,15 @@ abstract class NetworkCall<T> : SingleObserver<T> {
         when (e) {
             is HttpException -> {
                 if (e != null) {
-                    val body = e.response()?.errorBody()
-                    val adapter = Gson().getAdapter(Any::class.java)
-                    val errorParser = adapter.fromJson(body?.string())
-                    val json = Gson().toJson(errorParser)
-                    onFailedResponse(json)
+                    if(e.response().code()==401) {
+                        val body = e.response()?.errorBody()
+                        val adapter = Gson().getAdapter(Any::class.java)
+                        val errorParser = adapter.fromJson(body?.string())
+                        val json = Gson().toJson(errorParser)
+                        onFailedResponse(json)
+                    }else{
+                        onException(e)
+                    }
                 }
             }
             else -> {

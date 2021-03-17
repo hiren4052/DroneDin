@@ -49,23 +49,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_business_name"
-                style="@style/TextInputLayoutAppearance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5dp"
-                android:hint="@string/business_name_if_applicable">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_business_name"
-                    style="@style/editTextTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textSize="@dimen/_16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_email"
@@ -80,6 +63,7 @@
                     style="@style/editTextTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="textEmailAddress"
                     android:textSize="@dimen/_16sp" />
 

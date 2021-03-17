@@ -8,6 +8,8 @@ import com.grewon.dronedin.app.BaseActivity
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 
 class PostJobActivity : BaseActivity(), View.OnClickListener {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_job)

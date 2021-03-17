@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
@@ -27,10 +26,11 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.mapscreen.MapScreenActivity
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.server.LocationBean
+import com.grewon.dronedin.server.params.UploadAttachmentsParams
+import com.grewon.dronedin.uploadattachments.UploadAttachmentsAdapter
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -46,7 +46,7 @@ import java.util.*
 class AddJobDetailsFragment : Fragment(), View.OnClickListener {
 
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: UploadAttachmentsAdapter? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var locationAddress: String = ""
@@ -76,7 +76,7 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(requireContext())
+        jobsImageAdapter = UploadAttachmentsAdapter(requireContext())
         image_recycle.adapter = jobsImageAdapter
 
     }
@@ -101,7 +101,6 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                             .showToast(getString(R.string.please_enter_milestone_description))
                     }
                     else -> {
-
 
 
                         createMileStoneAdapter?.addItems(
@@ -377,6 +376,8 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                             FileValidationUtils.getPath(requireContext(), resultUri)
                         if (filePath != null) {
 
+                            jobsImageAdapter?.addItems(UploadAttachmentsParams(filePath))
+
                             //uploadPresenter.upload(filePath)
                         } else {
                             DroneDinApp.getAppInstance()
@@ -393,10 +394,13 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
             AppConstant.PICKFILE_REQUEST_CODE -> {
                 if (data != null) {
                     if (resultCode == AppCompatActivity.RESULT_OK) {
-                        val filePath =
+                        val fileList =
                             data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
-                        if (filePath != null) {
+                        if (fileList != null) {
+                            val filePath: String =
+                                FileValidationUtils.getPath(requireContext(), fileList[0])
                             LogX.E(filePath.toString())
+                            jobsImageAdapter?.addItems(UploadAttachmentsParams(filePath))
                         } else {
                             Toast.makeText(
                                 requireContext(),

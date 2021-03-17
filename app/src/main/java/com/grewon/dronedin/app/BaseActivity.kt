@@ -14,6 +14,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dialogs.LoadingDialog
 import com.grewon.dronedin.dialogs.SingleAlertViewDialog
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.splash.SplashActivity
 import com.grewon.dronedin.utils.PreferenceUtils
 
@@ -107,6 +108,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
     fun isPilotAccount(): Boolean {
+        LogX.E("-------"+preferenceUtils.getLoginCredentials()?.data?.userType.toString())
         return preferenceUtils.getLoginCredentials()?.data?.userType == AppConstant.USER_PILOT
     }
 

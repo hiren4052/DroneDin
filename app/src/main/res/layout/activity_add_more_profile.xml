@@ -31,7 +31,8 @@
             android:layout_height="@dimen/_250dp"
             app:aspectRatioEnabled="false" />
 
-        <ImageView android:id="@+id/curve_image"
+        <ImageView
+            android:id="@+id/curve_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/top_image"
@@ -49,7 +50,6 @@
             android:padding="@dimen/_25dp">
 
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,6 +63,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/profile_price"
+                android:textAppearance="@style/RobotoMediumTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sp" />
+
+            <EditText
+                android:id="@+id/edt_profile_price"
+                style="@style/editTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="start"
+                android:hint="@string/minimum_profile_price"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray_b1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
                 android:text="@string/bio"
                 android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/white"
@@ -79,7 +102,7 @@
                 android:gravity="start"
                 android:hint="@string/tell_us_more_about_you"
                 android:inputType="textMultiLine"
-                android:lines="3"
+                android:minLines="3"
                 android:padding="@dimen/_15dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/gray_b1" />

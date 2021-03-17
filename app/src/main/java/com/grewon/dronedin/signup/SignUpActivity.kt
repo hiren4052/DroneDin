@@ -405,8 +405,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
     }
 
     override fun onUserSocialRegisterFailed(loginParams: SocialRegisterParams) {
-        val yourHashMap =
-            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+        val yourHashMap = Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
 
         if (yourHashMap != null) {
 

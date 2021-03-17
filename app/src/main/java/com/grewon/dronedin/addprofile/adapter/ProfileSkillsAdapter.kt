@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.EquipmentsDataBean
+import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.server.SkillsDataBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
@@ -17,14 +17,15 @@ import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
  * Created by Jeff Klima on 2019-08-20.
  */
 class ProfileSkillsAdapter(
-    val context: Context,val onFilterSkillsItemSelected: OnFilterSkillsItemSelected
+    val context: Context, val onFilterSkillsItemSelected: OnFilterSkillsItemSelected
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnFilterSkillsItemSelected {
         fun onFilterSkillsItemSelected()
     }
-    var itemList = ArrayList<SkillsDataBean.Result>()
+
+    var itemList = ArrayList<JobInitBean.Skill>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,10 +48,10 @@ class ProfileSkillsAdapter(
 
 
         if (holder is ItemViewHolder) {
-            holder.categoryName.text = item.userProfileName
+            holder.categoryName.text = item.skill?.trim()
 
             if (item.isSelected == 1) {
-                holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.white))
+                holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white))
                 IconUtils.setFilterBackground(
                     context,
                     holder.categoryName,
@@ -59,7 +60,7 @@ class ProfileSkillsAdapter(
                 )
 
             } else {
-                holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.gray_b2))
+                holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.gray_b2))
                 IconUtils.setFilterBackground(
                     context,
                     holder.categoryName,
@@ -72,7 +73,7 @@ class ProfileSkillsAdapter(
             holder.itemView.setOnClickListener {
                 item.isSelected = if (item.isSelected == 1) 0 else 1
                 if (item.isSelected == 1) {
-                    holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.white))
+                    holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white))
                     IconUtils.setFilterBackground(
                         context,
                         holder.categoryName,
@@ -81,7 +82,12 @@ class ProfileSkillsAdapter(
                     )
 
                 } else {
-                    holder.categoryName.setTextColor(ContextCompat.getColor(context,R.color.gray_b2))
+                    holder.categoryName.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.gray_b2
+                        )
+                    )
                     IconUtils.setFilterBackground(
                         context,
                         holder.categoryName,
@@ -100,13 +106,13 @@ class ProfileSkillsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<SkillsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobInitBean.Skill>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
 
-    fun getSelectedItems(): List<SkillsDataBean.Result> {
+    fun getSelectedItems(): List<JobInitBean.Skill> {
         return itemList.filter { it.isSelected == 1 }
     }
 
@@ -119,6 +125,15 @@ class ProfileSkillsAdapter(
     fun removeItem(adapterPosition: Int) {
         itemList.removeAt(adapterPosition)
         notifyItemRemoved(adapterPosition)
+    }
+
+    fun addSelectedItems(selectedSkillsId: List<Int>) {
+        for (item in itemList) {
+            if (selectedSkillsId.contains(item.skillId?.toInt())) {
+                item.isSelected = 1
+            }
+        }
+        notifyDataSetChanged()
     }
 
 
