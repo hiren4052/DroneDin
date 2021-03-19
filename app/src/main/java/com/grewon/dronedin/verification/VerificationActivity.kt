@@ -8,12 +8,30 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
+import com.grewon.dronedin.main.MainActivity
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.UserData
+import com.grewon.dronedin.server.params.UserIdParams
+import com.grewon.dronedin.server.params.VerifyCodeParams
 import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TextUtils
+import com.grewon.dronedin.utils.ValidationUtils
+import com.grewon.dronedin.verification.contract.VerificationContract
+import com.grewon.dronedin.verification.presenter.VerificationPresenter
 import kotlinx.android.synthetic.main.activity_verification.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
-class VerificationActivity : BaseActivity(), View.OnClickListener {
+class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationContract.View {
+
+    @Inject
+    lateinit var verificationPresenter: VerificationContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ScreenUtils.changeStatusBarColor(this, Color.WHITE)
@@ -32,20 +50,73 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
         txt_number.text = preferenceUtils.getLoginCredentials()?.data?.userEmail.toString()
 
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        verificationPresenter.attachView(this)
+        verificationPresenter.attachApiInterface(retrofit)
+
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_submit -> {
-                startActivity(Intent(this, AddProfileActivity::class.java))
+                when {
+                    ValidationUtils.isEmptyFiled(otp_view.otp.toString()) -> {
+                        DroneDinApp.getAppInstance().showToast(getString(R.string.please_enter_otp))
+                    }
+                    otp_view.otp?.length != 4 -> {
+                        DroneDinApp.getAppInstance()
+                            .showToast(getString(R.string.please_enter_valid_otp))
+                    }
+                    else -> {
+                        val verifyCodeParams = VerifyCodeParams(
+                            preferenceUtils.getLoginCredentials()?.data?.userId,
+                            otp_view.otp
+                        )
+                        verificationPresenter.verifyUser(verifyCodeParams)
+                    }
+                }
+
             }
             R.id.txt_receive_code -> {
+                val verifyCodeParams = UserIdParams(
+                    preferenceUtils.getLoginCredentials()?.data?.userId
 
+                )
+                verificationPresenter.resendCode(verifyCodeParams)
             }
             R.id.im_back -> {
                 finish()
             }
         }
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+
+    }
+
+    override fun onVerificationSuccessful(response: UserData) {
+        if (response.msg != null) {
+            DroneDinApp.getAppInstance().showToast(response.msg)
+        }
+        preferenceUtils.saveAuthToken(response.data?.userApiToken.toString())
+        response.data?.isStepComplete = false
+        preferenceUtils.saveLoginCredential(response)
+        startActivity(Intent(this, AddProfileActivity::class.java))
+    }
+
+    override fun onVerificationFailed(loginParams: VerifyCodeParams) {
+        ErrorHandler.handleMapError(loginParams.toString())
+    }
+
+    override fun onResendCodeSuccessful(response: CommonMessageBean) {
+        if (response.msg != null) {
+            DroneDinApp.getAppInstance().showToast(response.msg)
+        }
+    }
+
+    override fun onResendCodeFailed(loginParams: UserIdParams) {
+        ErrorHandler.handleMapError(loginParams.toString())
     }
 
 

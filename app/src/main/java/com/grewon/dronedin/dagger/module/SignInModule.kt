@@ -9,6 +9,8 @@ import com.grewon.dronedin.signin.contract.SignInContract
 import com.grewon.dronedin.signin.presenter.SignInPresenter
 import com.grewon.dronedin.signup.contract.SignUpContract
 import com.grewon.dronedin.signup.presenter.SignUpPresenter
+import com.grewon.dronedin.verification.contract.VerificationContract
+import com.grewon.dronedin.verification.presenter.VerificationPresenter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -24,19 +26,27 @@ class SignInModule {
 
     @Singleton
     @Provides
-    fun provideSignUpPresenter():  SignUpContract.Presenter {
+    fun provideSignUpPresenter(): SignUpContract.Presenter {
         return SignUpPresenter()
     }
 
     @Singleton
     @Provides
-    fun provideForgotPasswordPresenter():  ForgotPasswordContract.Presenter {
+    fun provideForgotPasswordPresenter(): ForgotPasswordContract.Presenter {
         return ForgotPasswordPresenter()
     }
 
     @Singleton
     @Provides
-    fun provideChangePasswordPresenter():  ChangePasswordContract.Presenter {
+    fun provideChangePasswordPresenter(): ChangePasswordContract.Presenter {
         return ChangePasswordPresenter()
     }
+
+
+    @Singleton
+    @Provides
+    fun provideVerificationPresenter(): VerificationContract.Presenter {
+        return VerificationPresenter()
+    }
+
 }

@@ -24,6 +24,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.server.FacebookModel
 import com.grewon.dronedin.server.UserData
@@ -405,18 +406,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
     }
 
     override fun onUserSocialRegisterFailed(loginParams: SocialRegisterParams) {
-        val yourHashMap = Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-
-        if (yourHashMap != null) {
-
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(loginParams.toString())
         socialSignOut()
 
     }

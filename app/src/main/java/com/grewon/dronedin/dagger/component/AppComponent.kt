@@ -18,6 +18,7 @@ import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
+import com.grewon.dronedin.verification.VerificationActivity
 
 import dagger.Component
 import javax.inject.Singleton
@@ -39,6 +40,7 @@ interface AppComponent {
     fun inject(activity: AddMoreProfileActivity)
     fun inject(activity: FilterActivity)
     fun inject(activity: InvitePilotActivity)
+    fun inject(activity: VerificationActivity)
 
 
     //Fragments

@@ -1,7 +1,9 @@
 package com.grewon.dronedin.error
 
 
+import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.enum_class.ErrorType
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -34,6 +36,19 @@ class ErrorHandler {
                 }
             }
 
+        }
+
+        fun handleMapError(errorBeanString: String) {
+            val yourHashMap = Gson().fromJson(errorBeanString, HashMap::class.java) as HashMap<*, *>
+            if (yourHashMap != null) {
+                val keys: MutableSet<out Any> = yourHashMap.keys
+                for (key in keys) {
+                    if (yourHashMap[key] != null) {
+                        DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
+                        return
+                    }
+                }
+            }
         }
 
 

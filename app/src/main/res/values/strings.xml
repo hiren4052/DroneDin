@@ -285,4 +285,6 @@
     <string name="select_all">Select All</string>
     <string name="clear">Clear</string>
     <string name="please_select_at_least_one_pilot">Please select at least one pilot</string>
+    <string name="please_enter_valid_otp">Please enter valid OTP</string>
+    <string name="please_enter_otp">Please enter OTP</string>
 </resources>

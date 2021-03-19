@@ -19,12 +19,17 @@ interface AppApi {
     @POST("user_c/social_register")
     fun socialRegister(@Body map: SocialRegisterParams): Single<UserData>
 
-
     @POST("user_c/register")
     fun simpleRegister(@Body map: RegisterParams): Single<UserData>
 
     @POST("user_c/forgot_password")
     fun forgotPassword(@Body map: ForgotPasswordParams): Single<CommonMessageBean>
+
+    @POST("user_c/verify_code")
+    fun verifyUser(@Body map: VerifyCodeParams): Single<UserData>
+
+    @POST("user_c/resend_verification_code")
+    fun resendCode(@Body map: UserIdParams): Single<CommonMessageBean>
 
     @POST("profile_c/change_password")
     fun changePassword(@Body map: ChangePasswordParams): Single<CommonMessageBean>

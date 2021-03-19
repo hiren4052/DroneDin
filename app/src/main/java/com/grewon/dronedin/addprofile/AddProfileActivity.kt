@@ -24,6 +24,7 @@ import com.grewon.dronedin.addprofile.contract.AddProfileContract
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.main.MainActivity
@@ -631,17 +632,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     }
 
     override fun onProfileGetFailed(loginParams: ProfileUpdateParams) {
-        val yourHashMap =
-            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-        if (yourHashMap != null) {
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(loginParams.toString())
     }
 
     override fun onProfileUpdateSuccessFully(loginParams: ProfileBean) {
@@ -656,17 +647,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     }
 
     override fun onProfileUpdateFailed(loginParams: ProfileUpdateParams) {
-        val yourHashMap =
-            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-        if (yourHashMap != null) {
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(loginParams.toString())
     }
 
     override fun onApiException(error: Int) {
