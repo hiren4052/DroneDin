@@ -26,7 +26,7 @@ class FileValidationUtils {
     companion object {
         const val DOCUMENTS_DIR = "documents"
         // configured android:authorities in AndroidManifest (https://developer.android.com/reference/android/support/v4/content/FileProvider)
-        const val AUTHORITY = "YOUR_AUTHORITY.provider"
+        const val AUTHORITY = "com.dronedin.provider"
         const val HIDDEN_PREFIX = "."
         /**
          * TAG for log messages.

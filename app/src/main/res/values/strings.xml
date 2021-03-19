@@ -28,7 +28,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="by_logging_in_you_agree_with_the_terms_and_conditions_learn_more">By logging in you agree with the terms and conditions. Learn more</string>
     <string name="verification">Verification</string>
-    <string name="we_have_send_opt_via_sms_on_your_nphone_number_897">We have send OPT via SMS on your \nphone number *******897</string>
+    <string name="we_have_send_opt_via_sms_on_your_phone_number_897">We have send OTP via Email on your \nEmail Address %s</string>
     <string name="submit">Submit</string>
     <string name="didn_t_receive_the_code_resend">Didn’t receive the code? Resend</string>
     <string name="send">Send</string>
@@ -272,4 +272,17 @@
     <string name="please_select_category">Please select category!</string>
     <string name="please_select_at_least_one_skill">Please select at least one skill!</string>
     <string name="please_select_at_least_one_equipment">Please select at least one equipment!</string>
+    <string name="no_application_found_to_handle_this_file">No application found to handle this file</string>
+    <string name="remove_attachment_message">Are sure you want to remove attachment?</string>
+    <string name="please_enter_job_title">Please enter job title!</string>
+    <string name="please_enter_job_description">Please enter job description!</string>
+    <string name="please_select_job_location">Please select job location</string>
+    <string name="please_enter_total_project_price">Please enter total project price</string>
+    <string name="please_create_milestone">Please create at least one milestone</string>
+    <string name="job_has_been_posted_successfully">Job has been Posted Successfully!!</string>
+    <string name="you_can_now_directly_invite_pilots_with_required_skills_n_n_click_on_invite_button_to_invite_pilots_or_skip_to_return_to_your_home_screen">You can now directly invite pilots with required skills.\n\nClick on invite button to invite pilots or skip to return to your home screen.</string>
+    <string name="invite_pilots">Invite Pilots</string>
+    <string name="select_all">Select All</string>
+    <string name="clear">Clear</string>
+    <string name="please_select_at_least_one_pilot">Please select at least one pilot</string>
 </resources>

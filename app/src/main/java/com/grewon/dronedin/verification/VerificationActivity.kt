@@ -28,8 +28,10 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        DroneDinApp.getAppInstance().loadGifImage(R.drawable.verifcation_image,top_image)
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.verifcation_image, top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
+        txt_number.text = preferenceUtils.getLoginCredentials()?.data?.userEmail.toString()
+
     }
 
     override fun onClick(v: View?) {

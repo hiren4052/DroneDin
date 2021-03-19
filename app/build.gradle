@@ -117,4 +117,11 @@ dependencies {
     //Facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
+
+
+    def kotlin_coroutinesVersion = "1.2.1"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutinesVersion"
+
 }

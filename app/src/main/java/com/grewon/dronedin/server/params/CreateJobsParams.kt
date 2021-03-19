@@ -11,16 +11,16 @@ import com.grewon.dronedin.server.JobInitBean
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class CreateJobsParams(
-    val selectedCategoryId: String? = "",
-    val categoryList: List<JobInitBean.Category>? = null,
-    val equipmentsList: ArrayList<JobInitBean.Equipment>? = null,
-    val skillList: List<JobInitBean.Skill>? = null,
-    val jobTitle: String? = "",
-    val jobDescription: String? = "",
-    val jobAddress: String? = "",
-    val jobLatitude: Double? ,
-    val jobLongitude: Double? ,
-    val jobTotalPrice: String? = "",
-    val mileStones: ArrayList<CreateMilestoneBean>? = null,
-    val attachments: ArrayList<CreateMilestoneBean>? = null,
+    var selectedCategoryId: String? = "",
+    var categoryList: ArrayList<JobInitBean.Category>? = null,
+    var equipmentsList: ArrayList<JobInitBean.Equipment>? = null,
+    var skillList: ArrayList<JobInitBean.Skill>? = null,
+    var jobTitle: String? = "",
+    var jobDescription: String? = "",
+    var jobAddress: String? = "",
+    var jobLatitude: Double? =0.0,
+    var jobLongitude: Double? =0.0,
+    var jobTotalPrice: String? = "",
+    var mileStones: ArrayList<CreateMilestoneBean>? = null,
+    var attachments: ArrayList<UploadAttachmentsParams>? = null,
 ) : Parcelable

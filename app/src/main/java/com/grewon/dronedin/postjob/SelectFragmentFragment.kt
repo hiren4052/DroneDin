@@ -18,6 +18,7 @@ import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.fragment_select_fragment.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -62,11 +63,26 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
     }
 
     private fun initView() {
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         skillsEquipmentsPresenter.attachView(this)
         skillsEquipmentsPresenter.attachApiInterface(retrofit)
 
-        skillsEquipmentsPresenter.getJobCommonData()
+
+        if ((activity as PostJobActivity).createJobsParams?.categoryList != null && (activity as PostJobActivity).createJobsParams?.skillList != null && (activity as PostJobActivity).createJobsParams?.equipmentsList != null) {
+            categoryList = (activity as PostJobActivity).createJobsParams?.categoryList
+            skillsList = (activity as PostJobActivity).createJobsParams?.skillList
+            equipmentsList = (activity as PostJobActivity).createJobsParams?.equipmentsList
+            selectedCategoryId =
+                (activity as PostJobActivity).createJobsParams?.selectedCategoryId.toString()
+
+            setCategoryAdapter()
+            setSkillsAdapter()
+            setEquipmentsAdapter()
+        } else {
+            skillsEquipmentsPresenter.getJobCommonData()
+
+        }
 
 
     }
@@ -125,6 +141,20 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
                 }
 
             }
+
+        if (!ValidationUtils.isEmptyFiled(selectedCategoryId)) {
+            category_spinner.setSelection(setCategorySpinnerSelected())
+        }
+    }
+
+
+    private fun setCategorySpinnerSelected(): Int {
+        for ((position, item) in categoryList?.withIndex()!!) {
+            if (item.categoryId == selectedCategoryId) {
+                return position
+            }
+        }
+        return 0
     }
 
 
@@ -139,7 +169,26 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_next -> {
-                (activity as PostJobActivity).showFragment(AddJobDetailsFragment())
+                if (filterSkillsAdapter != null && filterSkillsAdapter?.getSelectedItems() != null && filterSkillsAdapter?.getSelectedItems()!!
+                        .isEmpty()
+                ) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_at_least_one_skill))
+                } else if (filterEquipmentsAdapter != null && filterEquipmentsAdapter?.getSelectedItems() != null && filterEquipmentsAdapter?.getSelectedItems()!!
+                        .isEmpty()
+                ) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_at_least_one_equipment))
+                } else {
+                    (activity as PostJobActivity).createJobsParams?.skillList =
+                        filterSkillsAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.equipmentsList =
+                        filterEquipmentsAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.selectedCategoryId =
+                        selectedCategoryId
+                    (activity as PostJobActivity).showFragment(AddJobDetailsFragment())
+                }
+
             }
             R.id.txt_category -> {
                 category_spinner.performClick()
@@ -154,22 +203,25 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
     override fun onJobCommonDataGetSuccessful(response: JobInitBean) {
         if (response.category != null && response.category.size > 0) {
             categoryList = response.category
+            (activity as PostJobActivity).createJobsParams?.categoryList = categoryList
             setCategoryAdapter()
         }
 
         if (response.skill != null && response.skill.size > 0) {
             skillsList = response.skill
+            (activity as PostJobActivity).createJobsParams?.skillList = skillsList
             setSkillsAdapter()
         }
 
         if (response.equipment != null && response.equipment.size > 0) {
             equipmentsList = response.equipment
+            (activity as PostJobActivity).createJobsParams?.equipmentsList = equipmentsList
             setEquipmentsAdapter()
         }
     }
 
     override fun onJobCommonDataGetFailed(loginParams: CommonMessageBean) {
-        if(loginParams.msg!=null){
+        if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }
     }

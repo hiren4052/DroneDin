@@ -73,6 +73,7 @@ class DroneDinApp : MultiDexApplication() {
             .signInModule(SignInModule())
             .profileModule(ProfileModule())
             .commonDataModule(CommonDataModule())
+            .inviteModule(InviteModule())
             .build()
     }
 

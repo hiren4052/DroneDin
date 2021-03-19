@@ -23,7 +23,7 @@ class ChipEquipmentsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var itemList = ArrayList<EquipmentsDataBean.Result>()
+    var itemList = ArrayList<String>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,40 +38,38 @@ class ChipEquipmentsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 6
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position <= 5) {
-            val item = itemList[position]
+        val item = itemList[position]
 
 
-            if (holder is ItemViewHolder) {
+        if (holder is ItemViewHolder) {
 
 
-                holder.txtChipName.text = item.userProfileName
-                holder.txtChipName.setTextColor(ContextCompat.getColor(context, textColor))
+            holder.txtChipName.text = item.trim()
+            holder.txtChipName.setTextColor(ContextCompat.getColor(context, textColor))
 
-                when (val background: Drawable = holder.txtChipName.background) {
-                    is ShapeDrawable -> {
-                        background.paint.color = ContextCompat.getColor(context, backgroundColor)
-                    }
-                    is GradientDrawable -> {
-                        background.setColor(ContextCompat.getColor(context, backgroundColor))
-                    }
-                    is ColorDrawable -> {
-                        background.color = ContextCompat.getColor(context, backgroundColor)
-                    }
+            when (val background: Drawable = holder.txtChipName.background) {
+                is ShapeDrawable -> {
+                    background.paint.color = ContextCompat.getColor(context, backgroundColor)
                 }
-
-
+                is GradientDrawable -> {
+                    background.setColor(ContextCompat.getColor(context, backgroundColor))
+                }
+                is ColorDrawable -> {
+                    background.color = ContextCompat.getColor(context, backgroundColor)
+                }
             }
+
+
         }
 
     }
 
 
-    fun addItemsList(list: ArrayList<EquipmentsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<String>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

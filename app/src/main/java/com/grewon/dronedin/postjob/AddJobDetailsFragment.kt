@@ -20,15 +20,22 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.dialogs.AlertViewDialog
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
+import com.grewon.dronedin.postjob.contract.JobPostContract
+import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
+import com.grewon.dronedin.server.CreateJobsBean
 import com.grewon.dronedin.server.LocationBean
+import com.grewon.dronedin.server.params.CreateJobsParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.uploadattachments.UploadAttachmentsAdapter
 import com.grewon.dronedin.utils.ValidationUtils
@@ -37,14 +44,24 @@ import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_add_job_details.*
+import retrofit2.Retrofit
 
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
-class AddJobDetailsFragment : Fragment(), View.OnClickListener {
+class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
+    UploadAttachmentsAdapter.OnItemLongClickListeners, JobPostContract.View {
 
+    @Inject
+    lateinit var postJobPresenter: JobPostContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private var alertDialog: AlertViewDialog? = null
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
     private var jobsImageAdapter: UploadAttachmentsAdapter? = null
     private var latitude: Double = 0.0
@@ -64,19 +81,59 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         setClicks()
         initView()
+
+    }
+
+    private fun setData() {
+        if (!ValidationUtils.isEmptyFiled((activity as PostJobActivity).createJobsParams?.jobTitle.toString())) {
+            edt_title.setText((activity as PostJobActivity).createJobsParams?.jobTitle.toString())
+        }
+
+        if (!ValidationUtils.isEmptyFiled((activity as PostJobActivity).createJobsParams?.jobDescription.toString())) {
+            edt_description.setText((activity as PostJobActivity).createJobsParams?.jobDescription.toString())
+        }
+
+        if (!ValidationUtils.isEmptyFiled((activity as PostJobActivity).createJobsParams?.jobAddress.toString())) {
+            txt_location.text =
+                (activity as PostJobActivity).createJobsParams?.jobAddress.toString()
+            locationAddress = (activity as PostJobActivity).createJobsParams?.jobAddress.toString()
+            latitude = (activity as PostJobActivity).createJobsParams?.jobLatitude!!
+            longitude = (activity as PostJobActivity).createJobsParams?.jobLongitude!!
+        }
+
+        if (!ValidationUtils.isEmptyFiled((activity as PostJobActivity).createJobsParams?.jobTotalPrice.toString())) {
+            edt_price.setText((activity as PostJobActivity).createJobsParams?.jobTotalPrice.toString())
+        }
+
+        if ((activity as PostJobActivity).createJobsParams?.attachments != null) {
+            jobsImageAdapter?.addItemsList((activity as PostJobActivity).createJobsParams?.attachments!!)
+        }
+
+        if ((activity as PostJobActivity).createJobsParams?.mileStones != null) {
+            createMileStoneAdapter?.addItemsList((activity as PostJobActivity).createJobsParams?.mileStones!!)
+        }
+
     }
 
     private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+
+        postJobPresenter.attachView(this)
+        postJobPresenter.attachApiInterface(retrofit)
+
+
         milestone_recycle.layoutManager = LinearLayoutManager(context)
         createMileStoneAdapter = CreateMileStoneAdapter(requireContext())
         milestone_recycle.adapter = createMileStoneAdapter
         setImageAdapter()
 
+        setData()
+
     }
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = UploadAttachmentsAdapter(requireContext())
+        jobsImageAdapter = UploadAttachmentsAdapter(requireContext(), this)
         image_recycle.adapter = jobsImageAdapter
 
     }
@@ -85,6 +142,7 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
         im_add_milestone.setOnClickListener(this)
         im_add_attachments.setOnClickListener(this)
         txt_location.setOnClickListener(this)
+        txt_submit.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -119,6 +177,39 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
             }
             R.id.txt_location -> {
                 passIntent()
+            }
+
+            R.id.txt_submit -> {
+                if (ValidationUtils.isEmptyFiled(edt_title.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_job_title))
+                } else if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_job_description))
+                } else if (ValidationUtils.isEmptyFiled(txt_location.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_job_location))
+                } else if (ValidationUtils.isEmptyFiled(edt_price.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_total_project_price))
+                } else if (createMileStoneAdapter != null && createMileStoneAdapter!!.itemList.size == 0) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_create_milestone))
+                } else {
+                    (activity as PostJobActivity).createJobsParams?.jobTitle =
+                        edt_title.text.toString()
+                    (activity as PostJobActivity).createJobsParams?.jobDescription =
+                        edt_description.text.toString()
+                    (activity as PostJobActivity).createJobsParams?.jobAddress = locationAddress
+                    (activity as PostJobActivity).createJobsParams?.jobLatitude = latitude
+                    (activity as PostJobActivity).createJobsParams?.jobLongitude = longitude
+                    (activity as PostJobActivity).createJobsParams?.jobTotalPrice =
+                        edt_price.text.toString()
+                    (activity as PostJobActivity).createJobsParams?.attachments =
+                        jobsImageAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.mileStones =
+                        createMileStoneAdapter?.itemList
+                }
             }
         }
     }
@@ -329,7 +420,7 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                         CropImage.activity(Uri.fromFile(picturePath))
                             //.setFixAspectRatio(true)
                             // .setAspectRatio(16, 9)
-                            .start(requireActivity())
+                            .start(requireContext(), this)
 
                     } catch (e: Exception) {
                         Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
@@ -358,7 +449,7 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                         CropImage.activity(selectedImage)
                             //.setFixAspectRatio(true)
                             // .setAspectRatio(16, 9)
-                            .start(requireActivity())
+                            .start(requireContext(), this)
 
                     } catch (e: Exception) {
                         Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
@@ -378,7 +469,6 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
 
                             jobsImageAdapter?.addItems(UploadAttachmentsParams(filePath))
 
-                            //uploadPresenter.upload(filePath)
                         } else {
                             DroneDinApp.getAppInstance()
                                 .showToast(getString(R.string.sometings_went_wrong))
@@ -424,8 +514,58 @@ class AddJobDetailsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
+            66 -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    activity?.finish()
+                }
+            }
+
 
         }
+    }
+
+    override fun onLongClick(adapterPosition: Int) {
+        openRemoveAlertDialog(adapterPosition)
+    }
+
+    private fun openRemoveAlertDialog(adapterPosition: Int) {
+        alertDialog = AlertViewDialog(requireContext(), R.style.DialogThme)
+        alertDialog!!.setTitle(getString(R.string.remove_attachment_message))
+        alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
+        alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
+        alertDialog!!.setOkListener(View.OnClickListener {
+            jobsImageAdapter?.removeItem(adapterPosition)
+            alertDialog?.dismiss()
+
+        })
+        alertDialog!!.show()
+    }
+
+    override fun onPostJobSuccessFully(loginParams: CreateJobsBean) {
+        if (loginParams.id != null) {
+            startActivityForResult(
+                Intent(requireContext(), PostJobSubmittedActivity::class.java).putExtra(AppConstant.ID,loginParams.id),
+                66
+            )
+        }
+
+    }
+
+    override fun onPostJobFailed(loginParams: CreateJobsParams) {
+        val yourHashMap = Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
+        if (yourHashMap != null) {
+            val keys: MutableSet<out Any> = yourHashMap.keys
+            for (key in keys) {
+                if (yourHashMap[key] != null) {
+                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
+                    return
+                }
+            }
+        }
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
     }
 
 }

@@ -97,9 +97,36 @@ class MapUtils {
                     if (addresses[0].postalCode != null) addresses[0].postalCode else ""
                 val knownName =
                     if (addresses[0].featureName != null) addresses[0].featureName else ""
-                val countryCode = if (addresses[0].countryCode != null) addresses[0].countryCode else ""
+                val countryCode =
+                    if (addresses[0].countryCode != null) addresses[0].countryCode else ""
 
                 return country
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return ""
+        }
+
+
+        fun getStateName(context: Context, latitude: Double, longitude: Double): String {
+            val geocoder = Geocoder(context, Locale.getDefault())
+            try {
+                val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+                val address =
+                    if (addresses[0].getAddressLine(0) != null) addresses[0].getAddressLine(0) else "" // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                val city = if (addresses[0].locality != null) addresses[0].locality else ""
+                val state = if (addresses[0].adminArea != null) addresses[0].adminArea else ""
+                val country = if (addresses[0].countryName != null) addresses[0].countryName else ""
+                val postalCode =
+                    if (addresses[0].postalCode != null) addresses[0].postalCode else ""
+                val knownName =
+                    if (addresses[0].featureName != null) addresses[0].featureName else ""
+                val countryCode =
+                    if (addresses[0].countryCode != null) addresses[0].countryCode else ""
+
+                return state
             } catch (e: Exception) {
                 e.printStackTrace()
             }

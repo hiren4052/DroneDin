@@ -27,7 +27,7 @@ abstract class NetworkCall<T> : SingleObserver<T> {
         when (e) {
             is HttpException -> {
                 if (e != null) {
-                    if(e.response().code()==401) {
+                    if(e.response().code()==400) {
                         val body = e.response()?.errorBody()
                         val adapter = Gson().getAdapter(Any::class.java)
                         val errorParser = adapter.fromJson(body?.string())

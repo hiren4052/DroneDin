@@ -52,4 +52,20 @@ interface AppApi {
     @POST("profile_c/bio_update")
     fun bioUpdate(@Body map: BioUpdateParams): Single<ProfileBioDataBean>
 
+
+    @Multipart
+    @POST("job_c/job")
+    fun postJob(
+        @Part attachmentsList: ArrayList<MultipartBody.Part>?,
+        @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
+    ): Single<CreateJobsBean>
+
+    @GET("pilot_c/pilot_list")
+    fun getPilotList(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<PilotDataBean>
+
+    @POST("job_c/send_invitation")
+    fun invitePilots(@Body map: PilotInviteParams): Single<CommonMessageBean>
+
 }
