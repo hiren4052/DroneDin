@@ -20,9 +20,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.grewon.dronedin.R
+import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.main.MainActivity
@@ -259,7 +261,8 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
             // Get new FCM registration token
             val token = task.result
             val socialLoginParams =
-                SocialLoginParams(userDevice = "android",
+                SocialLoginParams(
+                    userDevice = "android",
                     userEmail,
                     socialId,
                     loginType,
@@ -334,15 +337,26 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
     override fun onUserLoggedInSuccessful(response: UserData) {
         DroneDinApp.getAppInstance().showToast(response.msg.toString())
         if (response.data != null) {
+
             preferenceUtils.saveAuthToken(response.data.userApiToken.toString())
-            if (preferenceUtils.getLoginCredentials()?.data?.userVerified == "no") {
-                response.data.isStepComplete = false
-                preferenceUtils.saveLoginCredential(response)
-                startActivity(Intent(this, VerificationActivity::class.java))
-            } else {
-                response.data.isStepComplete = true
-                preferenceUtils.saveLoginCredential(response)
-                startActivity(Intent(this, MainActivity::class.java))
+            preferenceUtils.saveLoginCredential(response)
+
+            when {
+                preferenceUtils.getLoginCredentials()?.data?.userVerified?.trim() == AppConstant.NO_STATUS -> {
+                    response.data.isStepComplete = false
+                    preferenceUtils.saveLoginCredential(response)
+                    startActivity(Intent(this, VerificationActivity::class.java))
+                }
+                preferenceUtils.getLoginCredentials()?.data?.profileUpdate?.trim() == AppConstant.NO_STATUS -> {
+                    response.data.isStepComplete = false
+                    preferenceUtils.saveLoginCredential(response)
+                    startActivity(Intent(this, AddProfileActivity::class.java))
+                }
+                else -> {
+                    response.data.isStepComplete = true
+                    preferenceUtils.saveLoginCredential(response)
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
             }
 
         }
@@ -370,19 +384,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
     }
 
     override fun onUserSocialLoggedInFailed(loginParams: SocialLoginParams) {
-        val yourHashMap =
-            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-
-        if (yourHashMap != null) {
-
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
 
         socialSignOut()
     }

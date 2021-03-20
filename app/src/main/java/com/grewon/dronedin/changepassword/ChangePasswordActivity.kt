@@ -3,10 +3,12 @@ package com.grewon.dronedin.changepassword
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.changepassword.contract.ChangePasswordContract
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.forgotpassword.contract.ForgotPasswordContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.ChangePasswordParams
@@ -92,7 +94,7 @@ class ChangePasswordActivity : BaseActivity(), View.OnClickListener, ChangePassw
     }
 
     override fun onChangePasswordFailed(loginParams: ChangePasswordParams) {
-
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onApiException(error: Int) {

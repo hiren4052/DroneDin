@@ -74,6 +74,7 @@ class DroneDinApp : MultiDexApplication() {
             .profileModule(ProfileModule())
             .commonDataModule(CommonDataModule())
             .inviteModule(InviteModule())
+            .clientJobsModule(ClientJobsModule())
             .build()
     }
 
@@ -129,7 +130,7 @@ class DroneDinApp : MultiDexApplication() {
 
     fun getAuthToken(): String {
         val preference = getSharedPreferences(
-            "MainPreference",
+            AppConstant.PREFERENCE_NAME,
             Context.MODE_PRIVATE
         )
         return if (preference.getString(AppConstant.AUTH_TOKEN, "") != null) preference.getString(

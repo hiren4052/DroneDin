@@ -7,6 +7,7 @@ import android.os.Handler
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.intro.IntroActivity
+import com.grewon.dronedin.main.MainActivity
 
 class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +15,14 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
-            finishAffinity()
-        }, 3000)
+            if (preferenceUtils.getLoginCredentials() != null && preferenceUtils.getLoginCredentials()?.data != null && preferenceUtils.getLoginCredentials()?.data!!.isStepComplete!!) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finishAffinity()
+            } else {
+                startActivity(Intent(this, IntroActivity::class.java))
+                finishAffinity()
+            }
+
+        }, 1000)
     }
 }

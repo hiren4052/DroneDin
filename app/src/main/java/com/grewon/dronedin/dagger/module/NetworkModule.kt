@@ -52,8 +52,8 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
 
 
             if (!preferenceUtils.getAuthToken()?.isEmpty()!!) {
-               // val authToken: String = preferenceUtils.getAuthToken()!!
-                val authToken: String = "6049963ad5411Q0JIUWtuU2xPeUtqcldEOE5KZjU5TWJ0MzdwNHdGZ3EwRWN4R2loZA=="
+                val authToken: String = preferenceUtils.getAuthToken()!!
+                //val authToken: String = "6049963ad5411Q0JIUWtuU2xPeUtqcldEOE5KZjU5TWJ0MzdwNHdGZ3EwRWN4R2loZA=="
                 requestBuilder.addHeader("X-Auth-Token", authToken.trim())
                 LogX.E("X-Auth-Token -> " + preferenceUtils.getAuthToken())
 

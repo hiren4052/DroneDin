@@ -6,6 +6,7 @@ import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
+import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
@@ -25,7 +26,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class, InviteModule::class]
+    modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
+        InviteModule::class, ClientJobsModule::class]
 )
 interface AppComponent {
 
@@ -50,6 +52,7 @@ interface AppComponent {
     fun inject(fragment: ProfileFragment)
     fun inject(fragment: SelectFragmentFragment)
     fun inject(fragment: AddJobDetailsFragment)
+    fun inject(fragment: ClientJobsFragment)
 
 
 }

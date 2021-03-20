@@ -26,6 +26,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.dialogs.AlertViewDialog
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.mapscreen.MapScreenActivity
@@ -205,10 +206,9 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
                     (activity as PostJobActivity).createJobsParams?.jobLongitude = longitude
                     (activity as PostJobActivity).createJobsParams?.jobTotalPrice =
                         edt_price.text.toString()
-                    (activity as PostJobActivity).createJobsParams?.attachments =
-                        jobsImageAdapter?.itemList
-                    (activity as PostJobActivity).createJobsParams?.mileStones =
-                        createMileStoneAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.attachments = jobsImageAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.mileStones = createMileStoneAdapter?.itemList
+                    postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
                 }
             }
         }
@@ -552,16 +552,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onPostJobFailed(loginParams: CreateJobsParams) {
-        val yourHashMap = Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-        if (yourHashMap != null) {
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onApiException(error: Int) {

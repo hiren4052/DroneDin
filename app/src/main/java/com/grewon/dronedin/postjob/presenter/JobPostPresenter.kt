@@ -51,7 +51,7 @@ class JobPostPresenter : JobPostContract.Presenter {
         if (params.attachments != null) {
             for (item in params.attachments!!) {
                 val multipartData = MultipartBody.Part.createFormData(
-                    "attachment[]",
+                    "attachment",
                     File(item.filePath.toString()).name,
                     RequestBody.create(
                         MediaType.parse("multipart/form-data"),

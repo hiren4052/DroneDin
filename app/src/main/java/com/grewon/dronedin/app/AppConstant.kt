@@ -4,9 +4,16 @@ package com.grewon.dronedin.app
 public class AppConstant {
     companion object {
 
+
         const val USER_TYPE: String = "user_type"
+        const val YES_STATUS = "yes"
+        const val NO_STATUS = "no"
+        const val PREFERENCE_NAME: String = "MainPreference"
         const val USER_CLIENT: String = "client"
         const val USER_PILOT: String = "pilot"
+        const val POSTED_JOB_STATUS: String = "posted"
+        const val ACTIVE_JOB_STATUS: String = "active"
+        const val COMPLETED_JOB_STATUS: String = "completed"
         const val STRIPE_LEGAL: String = " https://stripe.com/en-au/legal"
         val SESSION_BROADCAST: String = "session_broadcast"
         const val NOTIFICATION_BROADCAST: String = "notification_broadcast"

@@ -30,14 +30,14 @@ class PostedJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onItemClick(jobsDataBean: JobsDataBean.Data?)
 
-        fun onDeleteItem(jobsDataBean: JobsDataBean.Result?, adapterPosition: Int)
+        fun onDeleteItem(jobsDataBean: JobsDataBean.Data?, adapterPosition: Int)
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Result>()
+    var itemList = ArrayList<JobsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -52,18 +52,21 @@ class PostedJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-      //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.jobTitle
+            holder.textPrice.text = context.getString(R.string.price_string, item.totalPrice.toString())
+            holder.textInvitationsSent.text = item.totalInvitation
+            holder.textProposalReceived.text = item.totalProposal
 
-
-holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
-
+            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(item) }
 
 
         }
@@ -72,7 +75,7 @@ holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

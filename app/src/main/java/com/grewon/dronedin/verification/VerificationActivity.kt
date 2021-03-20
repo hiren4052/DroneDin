@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
@@ -18,7 +19,6 @@ import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.ValidationUtils
 import com.grewon.dronedin.verification.contract.VerificationContract
-import com.grewon.dronedin.verification.presenter.VerificationPresenter
 import kotlinx.android.synthetic.main.activity_verification.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -43,12 +43,16 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
     private fun setClicks() {
         txt_submit.setOnClickListener(this)
         im_back.setOnClickListener(this)
+        txt_receive_code.setOnClickListener(this)
     }
 
     private fun initView() {
         DroneDinApp.getAppInstance().loadGifImage(R.drawable.verifcation_image, top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
-        txt_number.text = preferenceUtils.getLoginCredentials()?.data?.userEmail.toString()
+        txt_number.text = getString(
+            R.string.we_have_send_opt_via_sms_on_your_phone_number_897,
+            preferenceUtils.getLoginCredentials()?.data?.userEmail.toString()
+        )
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         verificationPresenter.attachView(this)
@@ -106,7 +110,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
     }
 
     override fun onVerificationFailed(loginParams: VerifyCodeParams) {
-        ErrorHandler.handleMapError(loginParams.toString())
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onResendCodeSuccessful(response: CommonMessageBean) {
@@ -116,7 +120,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
     }
 
     override fun onResendCodeFailed(loginParams: UserIdParams) {
-        ErrorHandler.handleMapError(loginParams.toString())
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
 

@@ -12,7 +12,7 @@ data class CreateJobsBean(
     @SerializedName("data")
     val `data`: List<Data?>? = listOf(),
     @SerializedName("id")
-    val id: Int? = 0,
+    val id: String? = "",
     @SerializedName("msg")
     val msg: String? = ""
 ) : Parcelable {

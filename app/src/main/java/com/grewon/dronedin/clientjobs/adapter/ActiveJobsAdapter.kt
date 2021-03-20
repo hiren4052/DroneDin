@@ -26,13 +26,13 @@ class ActiveJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onActiveItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onActiveItemClick(jobsDataBean: JobsDataBean.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Result>()
+    var itemList = ArrayList<JobsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -65,7 +65,7 @@ class ActiveJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

@@ -41,7 +41,7 @@ class SignUpTypeActivity : BaseActivity(), View.OnClickListener {
                     Intent(
                         this,
                         SignUpActivity::class.java
-                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_CLIENT)
+                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_PILOT)
                 )
             }
             R.id.txt_client -> {
@@ -49,7 +49,7 @@ class SignUpTypeActivity : BaseActivity(), View.OnClickListener {
                     Intent(
                         this,
                         SignUpActivity::class.java
-                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_PILOT)
+                    ).putExtra(AppConstant.USER_TYPE, AppConstant.USER_CLIENT)
                 )
             }
 

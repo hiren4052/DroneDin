@@ -129,6 +129,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
         txtCancel.setOnClickListener { dialog.dismiss() }
         txtLogout.setOnClickListener {
             dialog.dismiss()
+            preferenceUtils.flushData()
             startActivity(Intent(requireContext(), SplashActivity::class.java))
             activity?.finishAffinity()
         }

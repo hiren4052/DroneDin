@@ -42,7 +42,7 @@ class PilotJobHistoryActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onJobsHistoryItemClick(jobsDataBean: JobsDataBean.Result?) {
+    override fun onJobsHistoryItemClick(jobsDataBean: JobsDataBean.Data?) {
         startActivity(Intent(this, PilotHistoryDetailsActivity::class.java))
     }
 }

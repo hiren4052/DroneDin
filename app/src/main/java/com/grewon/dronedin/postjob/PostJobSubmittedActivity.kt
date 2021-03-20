@@ -39,17 +39,21 @@ class PostJobSubmittedActivity : BaseActivity(), View.OnClickListener {
                 )
             }
             R.id.txt_skip -> {
-                setResult(RESULT_OK)
-                finish()
+                onBackPressed()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        setResult(RESULT_OK)
+        finish()
+        super.onBackPressed()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 44 && resultCode == RESULT_OK) {
-            setResult(RESULT_OK)
-            finish()
+            onBackPressed()
         }
     }
 }

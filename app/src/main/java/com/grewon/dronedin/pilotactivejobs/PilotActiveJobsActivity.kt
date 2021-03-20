@@ -44,7 +44,7 @@ class PilotActiveJobsActivity : BaseActivity(), PilotActiveJobsAdapter.OnItemCli
 
     }
 
-    override fun onActiveItemClick(jobsDataBean: JobsDataBean.Result?) {
+    override fun onActiveItemClick(jobsDataBean: JobsDataBean.Data?) {
         startActivity(Intent(this, PilotActiveJobsDetailActivity::class.java))
     }
 }

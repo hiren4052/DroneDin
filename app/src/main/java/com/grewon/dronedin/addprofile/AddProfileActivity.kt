@@ -612,7 +612,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         edit_number.setText(
             data.userPhoneNumber.toString()
         )
-        if (!ValidationUtils.isEmptyFiled(data.userAddress.toString())) {
+        if (data.userAddress != null && !ValidationUtils.isEmptyFiled(data.userAddress.toString())) {
             locationAddress = data.userAddress.toString()
             latitude = data.userLatitude?.toDouble()!!
             longitude = data.userLongitude?.toDouble()!!
@@ -632,7 +632,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     }
 
     override fun onProfileGetFailed(loginParams: ProfileUpdateParams) {
-        ErrorHandler.handleMapError(loginParams.toString())
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onProfileUpdateSuccessFully(loginParams: ProfileBean) {
@@ -641,13 +641,16 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             if (isPilotAccount()) {
                 startActivity(Intent(this, AddMoreProfileActivity::class.java))
             } else {
+                val userData = preferenceUtils.getLoginCredentials()
+                userData?.data?.isStepComplete = true
+                preferenceUtils.saveLoginCredential(userData!!)
                 startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }
 
     override fun onProfileUpdateFailed(loginParams: ProfileUpdateParams) {
-        ErrorHandler.handleMapError(loginParams.toString())
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onApiException(error: Int) {

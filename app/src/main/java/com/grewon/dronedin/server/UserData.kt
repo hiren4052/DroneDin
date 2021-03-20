@@ -17,6 +17,12 @@ data class UserData(
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class Data(
+        @SerializedName("bank_verified")
+        val bankVerified: String? = "",
+        @SerializedName("profile_image")
+        val profileImage: String? = "",
+        @SerializedName("profile_update")
+        val profileUpdate: String? = "",
         @SerializedName("user_api_token")
         val userApiToken: String? = "",
         @SerializedName("user_email")
@@ -27,12 +33,10 @@ data class UserData(
         val userName: String? = "",
         @SerializedName("user_phone_number")
         val userPhoneNumber: String? = "",
-        @SerializedName("user_status")
-        val userStatus: String? = "",
-        @SerializedName("user_verified")
-        val userVerified: String? = "",
         @SerializedName("user_type")
         val userType: String? = "",
-        var isStepComplete: Boolean? = false
+        @SerializedName("user_verified")
+        val userVerified: String? = "",
+        var isStepComplete: Boolean = false
     ) : Parcelable
 }

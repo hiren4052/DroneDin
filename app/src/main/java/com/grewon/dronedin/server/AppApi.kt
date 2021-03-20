@@ -61,7 +61,7 @@ interface AppApi {
     @Multipart
     @POST("job_c/job")
     fun postJob(
-        @Part attachmentsList: ArrayList<MultipartBody.Part>?,
+        @Part attachmentsList: List<MultipartBody.Part>?,
         @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
     ): Single<CreateJobsBean>
 
@@ -72,5 +72,9 @@ interface AppApi {
 
     @POST("job_c/send_invitation")
     fun invitePilots(@Body map: PilotInviteParams): Single<CommonMessageBean>
+
+
+    @GET("job_c/job_list")
+    fun getClientJobs(@QueryMap requestPart: HashMap<String, Any>): Single<JobsDataBean>
 
 }

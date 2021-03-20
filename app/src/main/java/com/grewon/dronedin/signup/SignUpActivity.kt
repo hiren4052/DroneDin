@@ -406,7 +406,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
     }
 
     override fun onUserSocialRegisterFailed(loginParams: SocialRegisterParams) {
-        ErrorHandler.handleMapError(loginParams.toString())
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
         socialSignOut()
 
     }

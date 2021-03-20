@@ -49,7 +49,7 @@ class FilterResultActivity : BaseActivity(), PilotFindJobsAdapter.OnItemClickLis
         find_job_data_recycle.adapter = findJobsAdapter
     }
 
-    override fun onItemClick(jobsDataBean: JobsDataBean.Result?) {
+    override fun onItemClick(jobsDataBean: JobsDataBean.Data?) {
         startActivity(Intent(this, FindJobsDetailsActivity::class.java))
     }
 
@@ -66,7 +66,7 @@ class FilterResultActivity : BaseActivity(), PilotFindJobsAdapter.OnItemClickLis
         }
     }
 
-    override fun onPilotItemClick(jobsDataBean: JobsDataBean.Result?) {
+    override fun onPilotItemClick(jobsDataBean: JobsDataBean.Data?) {
 
     }
 }

@@ -61,7 +61,7 @@ class PilotFindJobsFragment : Fragment(), View.OnClickListener,
         }
     }
 
-    override fun onItemClick(jobsDataBean: JobsDataBean.Result?) {
+    override fun onItemClick(jobsDataBean: JobsDataBean.Data?) {
         startActivity(Intent(context, FindJobsDetailsActivity::class.java))
     }
 

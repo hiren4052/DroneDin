@@ -8,7 +8,9 @@ import android.os.Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class UserIdParams(
-    @SerializedName("user_id")
-    val userId: String? = ""
+data class GetJobsParams(
+    @SerializedName("job_type")
+    val jobType: String? = "",
+    @SerializedName("page")
+    val page: Int = 1
 ) : Parcelable

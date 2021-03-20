@@ -12,8 +12,8 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.AspectImageView
-import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.invitepilot.adapter.InvitePilotAdapter
 import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.server.CommonMessageBean
@@ -23,6 +23,7 @@ import com.grewon.dronedin.server.params.PilotInviteParams
 import com.grewon.dronedin.utils.ValidationUtils
 import com.malinskiy.superrecyclerview.OnMoreListener
 import kotlinx.android.synthetic.main.activity_invite_pilot.*
+import kotlinx.android.synthetic.main.fragment_client_jobs.*
 import retrofit2.Retrofit
 import java.util.HashMap
 import javax.inject.Inject
@@ -70,6 +71,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
                 false
             )
         )
+
         pilot_recycle.setRefreshListener(this)
         pilot_recycle.setRefreshingColorResources(
             R.color.colorPrimaryDark,
@@ -134,6 +136,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onRefresh() {
+        job_data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall(pageCount)
     }
@@ -178,18 +181,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onPilotInviteFailed(loginParams: PilotInviteParams) {
-        LogX.E(loginParams.toString())
-
-        val yourHashMap = Gson().fromJson(Gson().toJson(loginParams), HashMap::class.java) as HashMap<*, *>
-        if (yourHashMap != null) {
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onMoreAsked(

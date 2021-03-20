@@ -15,6 +15,7 @@ import com.grewon.dronedin.addprofile.adapter.ProfileSkillsAdapter
 import com.grewon.dronedin.addprofile.contract.AddBioContract
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobInitBean
@@ -172,18 +173,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onBioUpdateFailed(loginParams: BioUpdateParams) {
-        val yourHashMap =
-            Gson().fromJson(loginParams.toString(), HashMap::class.java) as HashMap<*, *>
-
-        if (yourHashMap != null) {
-            val keys: MutableSet<out Any> = yourHashMap.keys
-            for (key in keys) {
-                if (yourHashMap[key] != null) {
-                    DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
-                    return
-                }
-            }
-        }
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
     override fun onApiException(error: Int) {

@@ -22,13 +22,13 @@ class HistoryJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onHistoryItemClick(jobsDataBean: JobsDataBean.Result?)
+        fun onHistoryItemClick(jobsDataBean: JobsDataBean.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Result>()
+    var itemList = ArrayList<JobsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -85,7 +85,7 @@ class HistoryJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

@@ -11,6 +11,7 @@ import com.grewon.dronedin.intro.page.SecondFragment
 import com.grewon.dronedin.intro.page.ThirdFragment
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
+import com.grewon.dronedin.signup.SignUpTypeActivity
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.viewpager.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_intro.*
@@ -76,7 +77,7 @@ class IntroActivity : BaseActivity(), View.OnClickListener {
 
             }
             R.id.txt_sign_up -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
+                startActivity(Intent(this, SignUpTypeActivity::class.java))
             }
         }
 
