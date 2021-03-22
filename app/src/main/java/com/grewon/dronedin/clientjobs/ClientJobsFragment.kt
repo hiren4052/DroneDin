@@ -1,5 +1,6 @@
 package com.grewon.dronedin.clientjobs
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -185,18 +186,33 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onItemClick(jobsDataBean: JobsDataBean.Data?) {
-        startActivity(Intent(requireContext(), PostedJobDetailsActivity::class.java))
+        startActivityForResult(
+            Intent(requireContext(), PostedJobDetailsActivity::class.java).putExtra(
+                AppConstant.ID,
+                jobsDataBean?.jobId
+            ), 12
+        )
     }
 
     override fun onDeleteItem(jobsDataBean: JobsDataBean.Data?, adapterPosition: Int) {
     }
 
     override fun onHistoryItemClick(jobsDataBean: JobsDataBean.Data?) {
-        startActivity(Intent(requireContext(), ClientJobHistoryDetailsActivity::class.java))
+        startActivity(
+            Intent(
+                requireContext(),
+                ClientJobHistoryDetailsActivity::class.java
+            ).putExtra(AppConstant.ID, jobsDataBean?.jobId)
+        )
     }
 
     override fun onActiveItemClick(jobsDataBean: JobsDataBean.Data?) {
-        startActivity(Intent(requireContext(), ClientActiveJobsDetailsActivity::class.java))
+        startActivity(
+            Intent(
+                requireContext(),
+                ClientActiveJobsDetailsActivity::class.java
+            ).putExtra(AppConstant.ID, jobsDataBean?.jobId)
+        )
     }
 
     override fun onRefresh() {
@@ -297,6 +313,18 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
     override fun onApiException(error: Int) {
         if (pageCount == 1) {
             setEmptyView(getString(error), R.drawable.ic_connectivity)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 12) {
+                pageCount = 1
+                jobStatus = AppConstant.POSTED_JOB_STATUS
+                displayProgressView()
+                apiCall()
+            }
         }
     }
 

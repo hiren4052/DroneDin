@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,12 +32,11 @@ import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.postjob.contract.JobPostContract
-import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
 import com.grewon.dronedin.server.CreateJobsBean
 import com.grewon.dronedin.server.LocationBean
 import com.grewon.dronedin.server.params.CreateJobsParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
-import com.grewon.dronedin.uploadattachments.UploadAttachmentsAdapter
+import com.grewon.dronedin.attachments.UploadAttachmentsAdapter
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder

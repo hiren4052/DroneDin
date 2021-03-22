@@ -301,5 +301,6 @@
     <dimen name="round_icon_size">90dp</dimen>
     <dimen name="splash_icon_padding">0dp</dimen>
     <dimen name="_180dp">180dp</dimen>
+    <dimen name="_120dp">120dp</dimen>
 
 </resources>

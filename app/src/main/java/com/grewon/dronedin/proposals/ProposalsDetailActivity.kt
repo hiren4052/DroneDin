@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import kotlinx.android.synthetic.main.activity_proposals_detail.*
 
 class ProposalsDetailActivity : BaseActivity(), View.OnClickListener {
     private var mileStoneAdapter: MileStoneAdapter? = null
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: JobAttachmentsAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_proposals_detail)
@@ -34,7 +34,7 @@ class ProposalsDetailActivity : BaseActivity(), View.OnClickListener {
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(this)
+        jobsImageAdapter = JobAttachmentsAdapter(this)
         image_recycle.adapter = jobsImageAdapter
 
     }

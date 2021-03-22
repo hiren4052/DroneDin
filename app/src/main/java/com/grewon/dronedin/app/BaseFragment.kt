@@ -16,7 +16,7 @@ open class BaseFragment : Fragment(), BaseContract.View {
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
 
-    lateinit var dialog: LoadingDialog
+    private var dialog: LoadingDialog? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -28,13 +28,26 @@ open class BaseFragment : Fragment(), BaseContract.View {
     }
 
     override fun showProgress() {
+        if (dialog == null) {
+            initDialog()
+        } else {
+            if (dialog != null && dialog?.isShowing == true) {
+                dialog?.dismiss()
+                initDialog()
+            } else {
+                initDialog()
+            }
+        }
+    }
+
+    private fun initDialog() {
         dialog = LoadingDialog(requireContext())
-        dialog.show()
+        dialog?.show()
     }
 
     override fun hideProgress() {
-        if (dialog.isShowing) {
-            dialog.dismiss()
+        if (dialog?.isShowing == true) {
+            dialog?.dismiss()
         }
     }
 }

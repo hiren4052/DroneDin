@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_3dp"
-                    android:text="Woodhill ,Ontario L6S 0E7 Canada "
+                    android:visibility="gone"
                     android:textAppearance="@style/RobotoLightTextAppearance"
                     android:textColor="@color/gray_71"
                     android:textSize="@dimen/_16sp" />

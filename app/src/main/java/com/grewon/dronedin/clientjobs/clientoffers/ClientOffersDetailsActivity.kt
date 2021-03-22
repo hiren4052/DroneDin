@@ -11,7 +11,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.activity_client_offers_details.*
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_client_offers_details.*
 
 class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener {
     private var mileStoneAdapter: MileStoneAdapter? = null
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: JobAttachmentsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(this)
+        jobsImageAdapter = JobAttachmentsAdapter(this)
         image_recycle.adapter = jobsImageAdapter
 
     }

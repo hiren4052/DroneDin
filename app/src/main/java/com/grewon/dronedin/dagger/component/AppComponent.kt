@@ -7,6 +7,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientjobs.ClientJobsFragment
+import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
@@ -43,6 +44,7 @@ interface AppComponent {
     fun inject(activity: FilterActivity)
     fun inject(activity: InvitePilotActivity)
     fun inject(activity: VerificationActivity)
+    fun inject(activity: PostedJobDetailsActivity)
 
 
     //Fragments

@@ -6,6 +6,8 @@ import com.grewon.dronedin.addprofile.contract.AddProfileContract
 import com.grewon.dronedin.addprofile.presenter.AddBioPresenter
 import com.grewon.dronedin.addprofile.presenter.AddProfilePresenter
 import com.grewon.dronedin.clientjobs.contract.ClientJobsContract
+import com.grewon.dronedin.clientjobs.contract.ClientJobsDetailContract
+import com.grewon.dronedin.clientjobs.presenter.ClientJobDetailsPresenter
 import com.grewon.dronedin.clientjobs.presenter.ClientJobsPresenter
 import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
@@ -27,7 +29,11 @@ class ClientJobsModule {
         return ClientJobsPresenter()
     }
 
-
+    @Singleton
+    @Provides
+    fun provideClientJobsDetailPresenter(): ClientJobsDetailContract.Presenter {
+        return ClientJobDetailsPresenter()
+    }
 
 
 }

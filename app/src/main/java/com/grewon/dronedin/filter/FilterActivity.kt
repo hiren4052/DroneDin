@@ -1,21 +1,32 @@
 package com.grewon.dronedin.filter
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.filter.adapter.FilterCategoryAdapter
 import com.grewon.dronedin.filter.adapter.FilterEquipmentsAdapter
 import com.grewon.dronedin.filter.adapter.FilterSkillsAdapter
+import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobInitBean
+import com.grewon.dronedin.server.LocationBean
 import com.grewon.dronedin.utils.IconUtils
+import com.grewon.dronedin.utils.TextUtils
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import kotlinx.android.synthetic.main.activity_filter.*
@@ -46,6 +57,10 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
     private var categoryList: ArrayList<JobInitBean.Category>? = null
     private var skillsList: ArrayList<JobInitBean.Skill>? = null
     private var equipmentsList: ArrayList<JobInitBean.Equipment>? = null
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+    private var locationAddress: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +106,8 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
             override fun onStartTrackingTouch(view: RangeSeekBar, isLeft: Boolean) {}
             override fun onStopTrackingTouch(view: RangeSeekBar, isLeft: Boolean) {}
         })
+
+
     }
 
     private fun setClicks() {
@@ -99,6 +116,7 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         layout_equipments.setOnClickListener(this)
         img_back.setOnClickListener(this)
         txt_apply.setOnClickListener(this)
+        layout_location.setOnClickListener(this)
     }
 
     private fun setSkillsAdapter() {
@@ -213,8 +231,53 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
                     layout_equipments_recycle.visibility = View.GONE
                 }
             }
+            R.id.layout_location -> {
+                passIntent()
+            }
         }
     }
+
+    private fun passIntent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ),
+                    AppConstant.LOCATION_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                val locationsBean = LocationBean(latitude, longitude, locationAddress)
+                startActivityForResult(
+                    Intent(
+                        this,
+                        MapScreenActivity::class.java
+                    ).putExtra(AppConstant.LOCATION_BEAN, locationsBean),
+                    AppConstant.ADD_LOCATION_REQUEST_CODE
+                )
+            }
+        } else {
+            val locationsBean = LocationBean(latitude, longitude, locationAddress)
+            startActivityForResult(
+                Intent(
+                    this,
+                    MapScreenActivity::class.java
+                ).putExtra(AppConstant.LOCATION_BEAN, locationsBean),
+                AppConstant.ADD_LOCATION_REQUEST_CODE
+            )
+        }
+
+    }
+
 
     override fun onApiException(error: Int) {
         DroneDinApp.getAppInstance().showToast(getString(error))
@@ -242,4 +305,53 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+
+            AppConstant.ADD_LOCATION_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    latitude = data.getDoubleExtra(AppConstant.LATITUDE, 37.8136)
+                    longitude = data.getDoubleExtra(AppConstant.LONGITUDE, 144.9631)
+                    locationAddress = data.getStringExtra(AppConstant.ADDRESS)!!
+
+                    txt_location.text = locationAddress.trim()
+                }
+            }
+
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == AppConstant.LOCATION_PERMISSION_REQUEST_CODE) {
+
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                && grantResults[1] == PackageManager.PERMISSION_GRANTED
+
+            ) {
+                passIntent()
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.please_allow_location_permission),
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        }
+
+
+    }
+
+
 }

@@ -23,9 +23,8 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.server.CreateMilestoneBean
-import com.grewon.dronedin.server.JobsImageDataBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -40,7 +39,7 @@ import java.util.*
 class SubmitProposalActivity : BaseActivity(), View.OnClickListener {
 
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: JobAttachmentsAdapter? = null
     private var picturePath: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +62,7 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener {
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(this)
+        jobsImageAdapter = JobAttachmentsAdapter(this)
         image_recycle.adapter = jobsImageAdapter
 
     }

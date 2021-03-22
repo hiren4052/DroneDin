@@ -1,4 +1,4 @@
-package com.grewon.dronedin.uploadattachments
+package com.grewon.dronedin.attachments
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -11,16 +11,18 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.server.JobsImageDataBean
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.ListUtils
-import kotlinx.android.synthetic.main.layout_jobs_image_item.view.*
+import kotlinx.android.synthetic.main.layout_jobs_attachments_item.view.*
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
+
 class UploadAttachmentsAdapter(
     val context: Context, private val onItemLongCLickListeners: OnItemLongClickListeners
 ) :
@@ -38,7 +40,7 @@ class UploadAttachmentsAdapter(
 
         return ItemViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_jobs_image_item,
+                R.layout.layout_jobs_attachments_item,
                 parent,
                 false
             )
@@ -58,7 +60,8 @@ class UploadAttachmentsAdapter(
             LogX.E(FileValidationUtils.getExtension(item.filePath).toString())
             if (ListUtils.getImageExtensionList()
                     .contains(
-                        FileValidationUtils.getExtension(item.filePath).toString()?.toLowerCase()
+                        FileValidationUtils.getExtension(item.filePath).toString().toLowerCase(
+                            Locale.ROOT)
                     )
             ) {
                 Glide.with(context)

@@ -28,7 +28,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
 
-    lateinit var dialog: LoadingDialog
+    private var dialog: LoadingDialog? = null
 
     private var alertViewDialog: SingleAlertViewDialog? = null
 
@@ -87,13 +87,26 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
 
 
     override fun showProgress() {
+        if (dialog == null) {
+            initDialog()
+        } else {
+            if (dialog != null && dialog?.isShowing == true) {
+                dialog?.dismiss()
+                initDialog()
+            } else {
+                initDialog()
+            }
+        }
+    }
+
+    private fun initDialog() {
         dialog = LoadingDialog(this)
-        dialog.show()
+        dialog?.show()
     }
 
     override fun hideProgress() {
-        if (!isFinishing && dialog.isShowing) {
-            dialog.dismiss()
+        if (!isFinishing && dialog?.isShowing == true) {
+            dialog?.dismiss()
         }
     }
 
@@ -108,7 +121,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
     fun isPilotAccount(): Boolean {
-        LogX.E("-------"+preferenceUtils.getLoginCredentials()?.data?.userType.toString())
+        LogX.E("-------" + preferenceUtils.getLoginCredentials()?.data?.userType.toString())
         return preferenceUtils.getLoginCredentials()?.data?.userType == AppConstant.USER_PILOT
     }
 

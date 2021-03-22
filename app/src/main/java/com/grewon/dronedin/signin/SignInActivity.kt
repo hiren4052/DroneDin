@@ -356,6 +356,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
                     response.data.isStepComplete = true
                     preferenceUtils.saveLoginCredential(response)
                     startActivity(Intent(this, MainActivity::class.java))
+                    finishAffinity()
                 }
             }
 

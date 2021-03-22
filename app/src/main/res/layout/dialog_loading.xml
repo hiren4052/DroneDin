@@ -8,15 +8,36 @@
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/_5dp">
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/avi"
-        style="@style/AVLoadingIndicatorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_120dp"
+        android:layout_height="@dimen/_120dp"
         android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        app:indicatorColor="@color/white"
-        app:indicatorName="BallZigZagDeflectIndicator" />
+        app:cardCornerRadius="@dimen/_10dp">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:indicatorColor="@color/colorPrimary"
+                app:indicatorName="BallZigZagDeflectIndicator" />
+
+            <TextView android:id="@+id/loading_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:text="@string/loading"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_16sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

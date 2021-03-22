@@ -1,23 +1,21 @@
 package com.grewon.dronedin.milestone
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 
 import kotlinx.android.synthetic.main.activity_milestone_completion_request.*
 
 
 class MilestoneCompletionRequestActivity : BaseActivity(), View.OnClickListener {
 
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: JobAttachmentsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,7 @@ class MilestoneCompletionRequestActivity : BaseActivity(), View.OnClickListener 
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(this)
+        jobsImageAdapter = JobAttachmentsAdapter(this)
         image_recycle.adapter = jobsImageAdapter
 
     }

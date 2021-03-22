@@ -39,11 +39,10 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sp" />
 
-            <TextView
+            <TextView android:id="@+id/txt_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_10dp"
-                android:text="Real Estate"
                 android:textAllCaps="true"
                 android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/span_text_color"
@@ -61,6 +60,16 @@
             app:tint="@color/white" />
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_job_details" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -87,7 +96,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_5dp"
-                android:text="25"
                 android:textAppearance="@style/RobotoBoldTextAppearance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_18sp"
@@ -107,7 +115,7 @@
             android:textSize="@dimen/_14sp"
             app:drawableEndCompat="@drawable/ic_right_arrow"
             app:drawableTint="@color/white"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="MissingPrefix,RtlSymmetry" />
 
     </RelativeLayout>
 
@@ -174,7 +182,9 @@
                             android:id="@+id/txt_job_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:paddingStart="@dimen/_5dp"
+                            android:singleLine="true"
                             android:text="Toronto"
                             android:textAppearance="@style/RobotoLightTextAppearance"
                             android:textColor="@color/gray_71"

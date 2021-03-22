@@ -21,12 +21,12 @@ class ActiveMileStoneAdapter(
 
     interface OnItemClickListeners {
 
-        fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean.Result?)
+        fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean?)
 
 
     }
 
-    var itemList = ArrayList<MilestonesDataBean.Result>()
+    var itemList = ArrayList<MilestonesDataBean>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -65,7 +65,7 @@ class ActiveMileStoneAdapter(
                 holder.dateTitle.text = context.getText(R.string.cancelled_on)
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean.Result(userProfileName = "cancel")
+                        MilestonesDataBean(milestoneStatus = "cancel")
                     )
                 }
             } else if (position == 3) {
@@ -81,13 +81,13 @@ class ActiveMileStoneAdapter(
                 holder.dateTitle.text = context.getText(R.string.started_on_)
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean.Result(userProfileName = "active")
+                        MilestonesDataBean(milestoneStatus = "active")
                     )
                 }
             } else {
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean.Result(userProfileName = "complete")
+                        MilestonesDataBean(milestoneStatus = "complete")
                     )
                 }
             }
@@ -98,7 +98,7 @@ class ActiveMileStoneAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<MilestonesDataBean.Result>) {
+    fun addItemsList(list: ArrayList<MilestonesDataBean>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

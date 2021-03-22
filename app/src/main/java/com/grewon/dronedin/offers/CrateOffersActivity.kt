@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
@@ -27,9 +26,8 @@ import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
-import com.grewon.dronedin.pilotfindjobs.adapter.JobsImageAdapter
+import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.server.CreateMilestoneBean
-import com.grewon.dronedin.server.JobsImageDataBean
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -44,7 +42,7 @@ import java.util.*
 class CrateOffersActivity : BaseActivity(), View.OnClickListener {
     private var picturePath: File? = null
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
-    private var jobsImageAdapter: JobsImageAdapter? = null
+    private var jobsImageAdapter: JobAttachmentsAdapter? = null
     private var mileStoneAdapter: MileStoneAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +66,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobsImageAdapter(this)
+        jobsImageAdapter = JobAttachmentsAdapter(this)
         image_recycle.adapter = jobsImageAdapter
 
     }

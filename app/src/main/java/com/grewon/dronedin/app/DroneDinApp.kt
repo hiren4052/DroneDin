@@ -35,6 +35,7 @@ class DroneDinApp : MultiDexApplication() {
 
         lateinit var instance: DroneDinApp
 
+        var loadingDialogMessage: String = ""
 
         fun getAppInstance(): DroneDinApp {
             return instance
@@ -63,6 +64,11 @@ class DroneDinApp : MultiDexApplication() {
 
         initDagger()
         createNotificationChannel()
+        setDialogMessage(getString(R.string.loading))
+    }
+
+     fun setDialogMessage(message: String) {
+        loadingDialogMessage = message
     }
 
     private fun initDagger() {

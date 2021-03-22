@@ -58,12 +58,17 @@ interface AppApi {
     fun bioUpdate(@Body map: BioUpdateParams): Single<ProfileBioDataBean>
 
 
-    @Multipart
+//    @Multipart
+//    @POST("job_c/job")
+//    fun postJob(
+//        @Part attachmentsList: List<MultipartBody.Part>?,
+//        @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
+//    ): Single<CreateJobsBean>
+
+
     @POST("job_c/job")
-    fun postJob(
-        @Part attachmentsList: List<MultipartBody.Part>?,
-        @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
-    ): Single<CreateJobsBean>
+    fun postJob(@Body file: RequestBody): Single<CreateJobsBean>
+
 
     @GET("pilot_c/pilot_list")
     fun getPilotList(
@@ -76,5 +81,13 @@ interface AppApi {
 
     @GET("job_c/job_list")
     fun getClientJobs(@QueryMap requestPart: HashMap<String, Any>): Single<JobsDataBean>
+
+    @GET("job_c/job")
+    fun getPostedJobDetails(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<PostedJobDetailBean>
+
+    @DELETE("job_c/job/{job_id}")
+    fun deleteJobs(@Path("job_id") jobId: String): Single<CommonMessageBean>
 
 }

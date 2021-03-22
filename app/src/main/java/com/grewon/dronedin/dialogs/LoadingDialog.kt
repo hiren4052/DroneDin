@@ -7,6 +7,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import android.view.ViewGroup
 import android.view.Window
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.DroneDinApp
+import kotlinx.android.synthetic.main.dialog_loading.*
 
 
 class LoadingDialog(context: Context) : Dialog(context) {
@@ -16,9 +18,10 @@ class LoadingDialog(context: Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setCancelable(false)
-        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         window?.setBackgroundDrawable(AppCompatResources.getDrawable(context, R.color.transparent))
         setContentView(R.layout.dialog_loading)
+        loading_message.text = DroneDinApp.loadingDialogMessage
     }
 
 }
