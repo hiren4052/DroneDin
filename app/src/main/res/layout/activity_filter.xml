@@ -14,9 +14,9 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="?actionBarSize"
             android:layout_height="?actionBarSize"
-            android:id="@+id/img_back"
             android:background="?selectableItemBackground"
             android:padding="@dimen/_15dp"
             android:src="@drawable/ic_back_blue"
@@ -50,6 +50,7 @@
                 android:id="@+id/layout_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/_20dp"
                 android:paddingTop="@dimen/_10dp"
@@ -70,10 +71,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_3dp"
-                    android:visibility="gone"
                     android:textAppearance="@style/RobotoLightTextAppearance"
                     android:textColor="@color/gray_71"
-                    android:textSize="@dimen/_16sp" />
+                    android:textSize="@dimen/_16sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

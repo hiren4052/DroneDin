@@ -25,6 +25,7 @@ import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.server.LocationBean
+import com.grewon.dronedin.server.params.FilterParams
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.TextUtils
 import com.jaygoo.widget.OnRangeChangedListener
@@ -62,6 +63,11 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
     private var longitude: Double = 0.0
     private var locationAddress: String = ""
 
+    private var filterParams: FilterParams? = null
+
+    private var minValue: Int = 1
+    private var maxValue: Int = 10000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
@@ -81,7 +87,7 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
 
         sb_range_selector.setProgress(1f, 100f)
         sb_range_selector.leftSeekBar.setIndicatorText("$1")
-        sb_range_selector.rightSeekBar.setIndicatorText("$100")
+        sb_range_selector.rightSeekBar.setIndicatorText("$10000")
 
         sb_range_selector.setOnRangeChangedListener(object : OnRangeChangedListener {
             override fun onRangeChanged(
@@ -90,6 +96,9 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
                 rightValue: Float,
                 isFromUser: Boolean
             ) {
+
+                minValue = leftValue.toInt()
+                maxValue = rightValue.toInt()
 
                 view.leftSeekBar.setIndicatorText("$" + leftValue.toInt())
                 view.rightSeekBar.setIndicatorText("$" + rightValue.toInt())
@@ -177,7 +186,20 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
                 finish()
             }
             R.id.txt_apply -> {
-                startActivity(Intent(this, FilterResultActivity::class.java))
+                filterParams = FilterParams()
+                filterParams?.location = locationAddress
+                filterParams?.latitude = latitude
+                filterParams?.longitude = longitude
+                filterParams?.category = filterCategoryAdapter?.getSelectedItemsStrings()
+                filterParams?.skill = filterSkillsAdapter?.getSelectedItemsStrings()
+                filterParams?.equipment = filterEquipmentsAdapter?.getSelectedItemsStrings()
+                filterParams?.price = "$minValue-$maxValue"
+                startActivity(
+                    Intent(
+                        this,
+                        FilterResultActivity::class.java
+                    ).putExtra(AppConstant.BEAN, filterParams)
+                )
             }
             R.id.layout_category -> {
                 if (layout_category_recycle.visibility == View.GONE) {
@@ -316,12 +338,11 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
                     latitude = data.getDoubleExtra(AppConstant.LATITUDE, 37.8136)
                     longitude = data.getDoubleExtra(AppConstant.LONGITUDE, 144.9631)
                     locationAddress = data.getStringExtra(AppConstant.ADDRESS)!!
-
+                    txt_location.visibility = View.VISIBLE
                     txt_location.text = locationAddress.trim()
                 }
+
             }
-
-
         }
     }
 

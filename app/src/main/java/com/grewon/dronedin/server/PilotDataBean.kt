@@ -26,7 +26,7 @@ data class PilotDataBean(
         @SerializedName("rate")
         val rate: String? = "",
         @SerializedName("save_pilot")
-        val savePilot: String? = "",
+        var savePilot: String? = "",
         @SerializedName("skill")
         val skill: String? = "",
         @SerializedName("user_address")

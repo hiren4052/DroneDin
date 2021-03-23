@@ -29,7 +29,7 @@
                 android:layout_gravity="center"
                 android:visibility="visible"
                 app:indicatorColor="@color/colorPrimary"
-                app:indicatorName="BallZigZagDeflectIndicator" />
+                app:indicatorName="BallClipRotateMultipleIndicator" />
 
             <TextView android:id="@+id/loading_message"
                 android:layout_width="wrap_content"

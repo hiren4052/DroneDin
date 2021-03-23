@@ -43,7 +43,7 @@ class ClientProposalsActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Result?) {
+    override fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Data?) {
         startActivity(Intent(this, ClientProposalDetailsActivity::class.java))
     }
 }

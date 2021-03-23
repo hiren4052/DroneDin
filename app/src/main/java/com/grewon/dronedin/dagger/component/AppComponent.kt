@@ -10,10 +10,15 @@ import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.filter.FilterActivity
+import com.grewon.dronedin.filter.FilterResultActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
+import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
+import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
+import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
+import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
 import com.grewon.dronedin.postjob.AddJobDetailsFragment
 import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
@@ -28,7 +33,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
-        InviteModule::class, ClientJobsModule::class]
+        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class]
 )
 interface AppComponent {
 
@@ -45,6 +50,9 @@ interface AppComponent {
     fun inject(activity: InvitePilotActivity)
     fun inject(activity: VerificationActivity)
     fun inject(activity: PostedJobDetailsActivity)
+    fun inject(activity: FilterResultActivity)
+    fun inject(activity: JobsMapScreenActivity)
+    fun inject(activity: FindJobsDetailsActivity)
 
 
     //Fragments
@@ -55,6 +63,8 @@ interface AppComponent {
     fun inject(fragment: SelectFragmentFragment)
     fun inject(fragment: AddJobDetailsFragment)
     fun inject(fragment: ClientJobsFragment)
+    fun inject(fragment: PilotFindJobsFragment)
+    fun inject(fragment: PilotMyJobsFragment)
 
 
 }

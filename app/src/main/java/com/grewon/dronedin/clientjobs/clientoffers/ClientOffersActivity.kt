@@ -46,7 +46,7 @@ class ClientOffersActivity : BaseActivity(), View.OnClickListener,
     }
 
 
-    override fun onOffersItemClick(jobsDataBean: OffersDataBean.Result?) {
+    override fun onOffersItemClick(jobsDataBean: OffersDataBean.Data?) {
         startActivity(Intent(this, ClientOffersDetailsActivity::class.java))
     }
 }

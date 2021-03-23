@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.server.SkillsDataBean
@@ -127,5 +128,10 @@ class FilterSkillsAdapter(
         notifyItemRemoved(adapterPosition)
     }
 
+    fun getSelectedItemsStrings(): String {
+        return if (itemList.filter { it.isSelected == 1 }
+                .map { it.skillId?.toInt()!! } != null) return itemList.filter { it.isSelected == 1 }
+            .map { it.skillId?.toInt()!! }.joinToString(",") else ""
+    }
 
 }

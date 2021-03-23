@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.EquipmentsDataBean
 import com.grewon.dronedin.server.JobInitBean
@@ -117,6 +118,10 @@ class FilterEquipmentsAdapter(
             }
         }
         notifyDataSetChanged()
+    }
+
+    fun getSelectedItemsStrings(): String {
+        return if (itemList.filter { it.isSelected == 1 }.map { it.equipmentId?.toInt()!! } != null) return itemList.filter { it.isSelected == 1 }.map { it.equipmentId?.toInt()!! }.joinToString(",") else ""
     }
 
 

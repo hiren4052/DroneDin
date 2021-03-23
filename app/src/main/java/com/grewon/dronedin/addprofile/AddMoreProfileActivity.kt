@@ -168,6 +168,9 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
     override fun onBioUpdateSuccessFully(loginParams: ProfileBioDataBean) {
         if (loginParams.data != null && loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            val userData = preferenceUtils.getLoginCredentials()
+            userData?.data?.isStepComplete = true
+            preferenceUtils.saveLoginCredential(userData!!)
             startActivity(Intent(this, MainActivity::class.java))
         }
     }

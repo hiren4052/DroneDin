@@ -11,8 +11,9 @@ import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
-import com.grewon.dronedin.server.JobsDataBean
+import com.grewon.dronedin.server.PilotDataBean
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.MapUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_item.view.*
 
 
@@ -27,13 +28,15 @@ class FindPilotAdapter(
 
     interface OnItemClickListeners {
 
-        fun onPilotItemClick(jobsDataBean: JobsDataBean.Data?)
+        fun onPilotItemClick(jobsDataBean: PilotDataBean.Data?)
+
+        fun onPilotSaved(jobsDataBean: PilotDataBean.Data?, adapterPosition: Int)
 
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Data>()
+    var itemList = ArrayList<PilotDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -48,34 +51,74 @@ class FindPilotAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
 
+            if (item.userName != null) {
+                holder.txtUseName.text = item.userName
+            }
 
-            val layoutManager = FlexboxLayoutManager(context)
-            layoutManager.flexDirection = FlexDirection.ROW
-            layoutManager.justifyContent = JustifyContent.FLEX_START
-            holder.chipSkills.layoutManager = layoutManager
-            val skillsAdapter = ChipSkillsAdapter(context, R.color.gray_f4, R.color.gray_71)
-            holder.chipSkills.adapter = skillsAdapter
-            skillsAdapter.addItemsList(ListUtils.getSkillsBean())
+            holder.favouriteCheck.isChecked = item.savePilot != null
 
-            val elayoutManager = FlexboxLayoutManager(context)
-            elayoutManager.flexDirection = FlexDirection.ROW
-            elayoutManager.justifyContent = JustifyContent.FLEX_START
-            holder.chipEquipments.layoutManager = elayoutManager
-            val equipmentsAdapter = ChipEquipmentsAdapter(context, R.color.light_sky_blue, R.color.gray_71)
-            holder.chipEquipments.adapter = equipmentsAdapter
-            equipmentsAdapter.addItemsList(ListUtils.getEquipmentsBean())
+            if (item.rate != null) {
+                holder.txtRating.text = item.rate
+            }
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onPilotItemClick(null) }
+            if (item.userLatitude != null && item.userLongitude != null) {
+                holder.textJobLocation.text = MapUtils.getStateName(
+                    context,
+                    item.userLatitude.toDouble(),
+                    item.userLongitude.toDouble()
+                )
+            }
 
+            if (item.profilePrice != null) {
+                holder.textPrice.text = context.getString(R.string.price_string, item.profilePrice)
+            }
+
+            if (item.skill != null) {
+                holder.chipSkills.visibility = View.VISIBLE
+                val layoutManager = FlexboxLayoutManager(context)
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.justifyContent = JustifyContent.FLEX_START
+                holder.chipSkills.layoutManager = layoutManager
+                val skillsAdapter = ChipSkillsAdapter(context, R.color.gray_f4, R.color.gray_71)
+                holder.chipSkills.adapter = skillsAdapter
+                skillsAdapter.addItemsList(item.skill.split(",") as ArrayList<String>)
+            } else {
+                holder.chipSkills.visibility = View.GONE
+            }
+
+
+            if (item.equipment != null) {
+                holder.chipEquipments.visibility = View.VISIBLE
+                val elayoutManager = FlexboxLayoutManager(context)
+                elayoutManager.flexDirection = FlexDirection.ROW
+                elayoutManager.justifyContent = JustifyContent.FLEX_START
+                holder.chipEquipments.layoutManager = elayoutManager
+                val equipmentsAdapter =
+                    ChipEquipmentsAdapter(context, R.color.light_sky_blue, R.color.gray_71)
+                holder.chipEquipments.adapter = equipmentsAdapter
+                equipmentsAdapter.addItemsList(item.equipment.split(",") as ArrayList<String>)
+            } else {
+                holder.chipEquipments.visibility = View.GONE
+            }
+
+            holder.itemView.setOnClickListener { onItemClickListeners.onPilotItemClick(item) }
+
+
+            holder.favouriteCheck.setOnClickListener {
+                onItemClickListeners.onPilotSaved(
+                    item,
+                    holder.adapterPosition
+                )
+            }
 
         }
 
@@ -83,7 +126,7 @@ class FindPilotAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
+    fun addItemsList(list: ArrayList<PilotDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -103,6 +146,19 @@ class FindPilotAdapter(
     fun removeItem(adapterPosition: Int) {
         itemList.removeAt(adapterPosition)
         notifyItemRemoved(adapterPosition)
+    }
+
+    fun notifySavedItem(adapterPosition: Int) {
+        for ((index, item) in itemList.withIndex()) {
+            if (adapterPosition == index) {
+                if (item.savePilot != null) {
+                    item.savePilot = null
+                } else {
+                    item.savePilot = "1"
+                }
+            }
+        }
+        notifyDataSetChanged()
     }
 
 

@@ -21,13 +21,13 @@ class OffersAdapter(
 
     interface OnItemClickListeners {
 
-        fun onOffersItemClick(jobsDataBean: OffersDataBean.Result?)
+        fun onOffersItemClick(jobsDataBean: OffersDataBean.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<OffersDataBean.Result>()
+    var itemList = ArrayList<OffersDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -57,7 +57,7 @@ class OffersAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<OffersDataBean.Result>) {
+    fun addItemsList(list: ArrayList<OffersDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

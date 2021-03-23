@@ -121,10 +121,8 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
 
                 val user = authResult.user
                 val aUSer = authResult.additionalUserInfo
-                LogX.E(aUSer?.profile.toString())
                 LogX.E(user?.displayName.toString())
                 val firebaseUser = auth!!.currentUser
-                LogX.E(firebaseUser?.displayName.toString())
                 if (user != null) {
                     socialMediaLogin(user.email.toString(), user.uid, user.displayName.toString())
                 }

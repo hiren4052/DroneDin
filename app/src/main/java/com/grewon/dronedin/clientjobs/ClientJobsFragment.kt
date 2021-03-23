@@ -81,8 +81,7 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
         clientJobsPresenter.attachView(this)
         clientJobsPresenter.attachApiInterface(retrofit)
 
-        title_user_name.text =
-            getString(R.string.hello, preferenceUtils.getLoginCredentials()?.data?.userName)
+        title_user_name.text = getString(R.string.hello, preferenceUtils.getLoginCredentials()?.data?.userName)
 
         segment_group.setOnPositionChangedListener {
 

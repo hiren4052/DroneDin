@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.ProposalsDataBean
+import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_proposals_item.view.*
 
 
@@ -21,13 +23,13 @@ class ProposalsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Result?)
+        fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<ProposalsDataBean.Result>()
+    var itemList = ArrayList<ProposalsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,14 +44,28 @@ class ProposalsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.proposalTitle
+            holder.textClientName.text = item.userName
+            holder.textJobLocation.text =
+                MapUtils.getStateName(
+                    context, item.jobLatitude?.toDouble()!!,
+                    item.jobLongitude?.toDouble()!!
+                )
+
+
+            holder.textDate.text = TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
+
+            holder.textPrice.text =
+                context.getString(R.string.price_string, item.proposalTotalPrice)
 
             holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(null) }
         }
@@ -58,7 +74,7 @@ class ProposalsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<ProposalsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<ProposalsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -70,6 +86,7 @@ class ProposalsAdapter(
         val textClientName = itemView.txt_client_name
         val textJobLocation = itemView.txt_job_location
         val textPrice = itemView.txt_price
+        val textDate = itemView.txt_date
     }
 
 

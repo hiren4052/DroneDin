@@ -26,10 +26,14 @@ import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
+import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
+import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
+import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_submit_proposal.*
+
 import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import java.io.File
@@ -38,9 +42,11 @@ import java.util.*
 
 class SubmitProposalActivity : BaseActivity(), View.OnClickListener {
 
+    private var picturePath: File? = null
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
-    private var picturePath: File? = null
+    private var mileStoneAdapter: MileStoneAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,13 +57,11 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        milestone_recycle.layoutManager = LinearLayoutManager(this)
+        create_milestone_recycle.layoutManager = LinearLayoutManager(this)
         createMileStoneAdapter = CreateMileStoneAdapter(this)
-        milestone_recycle.adapter = createMileStoneAdapter
-        createMileStoneAdapter?.addItems(CreateMilestoneBean())
-
+        create_milestone_recycle.adapter = createMileStoneAdapter
         setImageAdapter()
-
+        setExistingMileStoneAdapter()
     }
 
     private fun setImageAdapter() {
@@ -67,22 +71,88 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    private fun setExistingMileStoneAdapter() {
+        existing_milestone_recycle.layoutManager = LinearLayoutManager(this)
+        mileStoneAdapter = MileStoneAdapter(this)
+        existing_milestone_recycle.adapter = mileStoneAdapter
+    }
+
     private fun setClicks() {
         im_add_milestone.setOnClickListener(this)
-        img_back.setOnClickListener(this)
         im_add_attachments.setOnClickListener(this)
+        existing_milestone_check.setOnClickListener(this)
+        new_milestone_check.setOnClickListener(this)
+        img_back.setOnClickListener(this)
+        txt_submit.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.img_back -> {
-                finish()
-            }
+
             R.id.im_add_milestone -> {
-                createMileStoneAdapter?.addItems(CreateMilestoneBean())
+                when {
+                    ValidationUtils.isEmptyFiled(edt_milestone_price.text.toString()) -> {
+                        DroneDinApp.getAppInstance()
+                            .showToast(getString(R.string.please_enter_milestone_price))
+                    }
+                    ValidationUtils.isEmptyFiled(edt_milestone_description.text.toString()) -> {
+                        DroneDinApp.getAppInstance()
+                            .showToast(getString(R.string.please_enter_milestone_description))
+                    }
+                    else -> {
+
+
+
+                        createMileStoneAdapter?.addItems(
+                            CreateMilestoneBean(
+                                edt_milestone_description.text.toString(),
+                                edt_milestone_price.text.toString()
+                            )
+                        )
+
+                        edt_milestone_price.setText("")
+                        edt_milestone_description.setText("")
+
+                    }
+                }
             }
             R.id.im_add_attachments -> {
                 openFileDialog()
+            }
+            R.id.img_back -> {
+                finish()
+            }
+            R.id.txt_submit -> {
+            }
+            R.id.existing_milestone_check -> {
+                if (existing_milestone_check.isChecked) {
+                    new_milestone_check.isChecked = false
+                    existing_milestone_layout.visibility = View.VISIBLE
+                    create_milestone_layout.visibility = View.GONE
+                    edit_price_layout.visibility = View.GONE
+                    existing_total_price.visibility = View.VISIBLE
+                } else {
+                    new_milestone_check.isChecked = true
+                    existing_milestone_layout.visibility = View.GONE
+                    create_milestone_layout.visibility = View.VISIBLE
+                    edit_price_layout.visibility = View.VISIBLE
+                    existing_total_price.visibility = View.GONE
+                }
+            }
+            R.id.new_milestone_check -> {
+                if (new_milestone_check.isChecked) {
+                    existing_milestone_check.isChecked = false
+                    existing_milestone_layout.visibility = View.GONE
+                    create_milestone_layout.visibility = View.VISIBLE
+                    edit_price_layout.visibility = View.VISIBLE
+                    existing_total_price.visibility = View.GONE
+                } else {
+                    existing_milestone_check.isChecked = true
+                    existing_milestone_layout.visibility = View.VISIBLE
+                    create_milestone_layout.visibility = View.GONE
+                    edit_price_layout.visibility = View.GONE
+                    existing_total_price.visibility = View.VISIBLE
+                }
             }
         }
     }

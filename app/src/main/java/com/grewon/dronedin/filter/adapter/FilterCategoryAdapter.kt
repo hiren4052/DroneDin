@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.CategoryDataBean
 import com.grewon.dronedin.server.JobInitBean
@@ -87,12 +88,22 @@ class FilterCategoryAdapter(
                     )
 
                 }
+                allSelectedFalse(holder.adapterPosition)
                 onCategoryItemSelected.onCategoryItemSelected()
             }
 
         }
 
 
+    }
+
+    private fun allSelectedFalse(adapterPosition: Int) {
+        for ((index, item) in itemList.withIndex()) {
+            if (index != adapterPosition) {
+                item.isSelected = 0
+            }
+        }
+        notifyDataSetChanged()
     }
 
 
@@ -104,6 +115,12 @@ class FilterCategoryAdapter(
 
     fun getSelectedItems(): List<JobInitBean.Category> {
         return itemList.filter { it.isSelected == 1 }
+    }
+
+    fun getSelectedItemsStrings(): String {
+        return if (itemList.filter { it.isSelected == 1 }
+                .map { it.categoryId?.toInt()!! } != null) return itemList.filter { it.isSelected == 1 }
+            .map { it.categoryId?.toInt()!! }.joinToString(",") else ""
     }
 
     fun addSelectedItems(selectedEquipmentsId: List<Int>) {

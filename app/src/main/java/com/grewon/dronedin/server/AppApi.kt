@@ -90,4 +90,30 @@ interface AppApi {
     @DELETE("job_c/job/{job_id}")
     fun deleteJobs(@Path("job_id") jobId: String): Single<CommonMessageBean>
 
+    @GET("pilot_c/save_pilot/{pilot_id}")
+    fun savePilots(@Path("pilot_id") jobId: String): Single<CommonMessageBean>
+
+    @GET("pilot_c/job_list")
+    fun getPilotFindJobs(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<PilotJobsDataBean>
+
+    @GET("pilot_c/save_job/{job_id}")
+    fun saveJobs(@Path("job_id") jobId: String): Single<CommonMessageBean>
+
+    @GET("pilot_c/my_job")
+    fun getPilotOffersJobs(@QueryMap requestPart: HashMap<String, Any>): Single<OffersDataBean>
+
+
+    @GET("pilot_c/my_job")
+    fun getPilotInvitationsJobs(@QueryMap requestPart: HashMap<String, Any>): Single<InvitationsDataBean>
+
+    @GET("pilot_c/my_job")
+    fun getPilotProposalsJobs(@QueryMap requestPart: HashMap<String, Any>): Single<ProposalsDataBean>
+
+    @GET("job_c/job")
+    fun getPilotFindJobsDetail(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<PilotFindJobsDetailBean>
+
 }

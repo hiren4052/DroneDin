@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.JobsDataBean
+import com.grewon.dronedin.server.PilotJobsDataBean
+import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 
 
@@ -21,13 +23,14 @@ class PilotFindJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: JobsDataBean.Data?)
+        fun onItemClick(jobsDataBean: PilotJobsDataBean.Data?)
 
+        fun onJobSaved(jobsDataBean: PilotJobsDataBean.Data?, adapterPosition: Int)
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Data>()
+    var itemList = ArrayList<PilotJobsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,16 +45,38 @@ class PilotFindJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(null) }
 
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.jobTitle?.trim()
+            holder.textJobDescription.text = item.jobDescription?.trim()
+            holder.textClientName.text = item.userName?.trim()
+            holder.textBudget.text =
+                context.getString(R.string.price_string, item.totalPrice?.trim())
+
+            if (item.jobLatitude != null && item.jobLongitude != null) {
+                holder.textJobLocation.text = MapUtils.getStateName(
+                    context,
+                    item.jobLatitude.toDouble(),
+                    item.jobLongitude.toDouble()
+                )
+            }
+
+            holder.textDate.text = TimeUtils.getLocalTimes(context, item.jobDatecreated.toString())
+
+            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(item) }
+
+
+            holder.favouriteCheck.setOnClickListener {
+                onItemClickListeners.onJobSaved(item, holder.adapterPosition)
+            }
 
         }
 
@@ -59,7 +84,7 @@ class PilotFindJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
+    fun addItemsList(list: ArrayList<PilotJobsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -73,12 +98,26 @@ class PilotFindJobsAdapter(
         val textClientName = itemView.txt_client_name
         val textJobLocation = itemView.txt_job_location
         val textBudget = itemView.txt_budget
+        val textDate = itemView.txt_date
     }
 
 
     fun removeItem(adapterPosition: Int) {
         itemList.removeAt(adapterPosition)
         notifyItemRemoved(adapterPosition)
+    }
+
+    fun notifySavedItem(adapterPosition: Int) {
+        for ((index, item) in itemList.withIndex()) {
+            if (adapterPosition == index) {
+                if (item.saveJob != null) {
+                    item.saveJob = null
+                } else {
+                    item.saveJob = "1"
+                }
+            }
+        }
+        notifyDataSetChanged()
     }
 
 

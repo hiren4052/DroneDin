@@ -24,19 +24,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
+import com.grewon.dronedin.filter.contract.FilterContract
 import com.grewon.dronedin.review.ReviewActivity
 import com.grewon.dronedin.review.adapter.ReviewsAdapter
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.PilotDataBean
+import com.grewon.dronedin.server.PilotJobsDataBean
+import com.grewon.dronedin.server.params.FilterParams
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ListUtils
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.txt_category_name
 import kotlinx.android.synthetic.main.pilot_map_bottom_dialog.view.*
+import retrofit2.Retrofit
+import java.util.ArrayList
+import javax.inject.Inject
 
 
 class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
-    View.OnClickListener, GoogleMap.OnMarkerClickListener {
+    View.OnClickListener, GoogleMap.OnMarkerClickListener, FilterContract.View {
 
 
     private var latitude: Double? = 0.0 // Latitude
@@ -44,22 +53,38 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
     private var mMap: GoogleMap? = null
     private var gpsTracker: GPSTracker? = null
 
+    @Inject
+    lateinit var filterPresenter: FilterContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private var filterParams: FilterParams? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jobs_map_screen)
 
+        initView()
         setClickListeners()
 
 
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
 
 
         mapFragment.getMapAsync(this)
 
 
+    }
+
+    private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        filterPresenter.attachView(this)
+        filterPresenter.attachApiInterface(retrofit)
+
+        filterParams = intent.getParcelableExtra(AppConstant.BEAN)
     }
 
     private fun setClickListeners() {
@@ -106,23 +131,9 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
         latitude = gpsTracker!!.latitude
         longitude = gpsTracker!!.longitude
 
-        if (isPilotAccount()) {
-            for (i in 0..5) {
-                mMap?.addMarker(
-                    MarkerOptions().icon(
-                        IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_jobs_map)
-                    ).position(LatLng(latitude!! + i, longitude!! + i))
-                )
-            }
-        } else {
-            for (i in 0..5) {
-                mMap?.addMarker(
-                    MarkerOptions().icon(
-                        IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_pilot_map)
-                    ).position(LatLng(latitude!! + i, longitude!! + i))
-                )
-            }
-        }
+        apiCall()
+
+
 
         mMap?.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
@@ -131,6 +142,17 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
                 ), 15f
             )
         )
+    }
+
+    private fun apiCall() {
+        if (isPilotAccount()) {
+            filterParams?.page = "0"
+            filterPresenter.getPilotJobs(filterParams!!)
+        } else {
+
+            filterParams?.page = "0"
+            filterPresenter.getPilotData(filterParams!!)
+        }
     }
 
 
@@ -213,6 +235,64 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
 
 
         dialog.show()
+
+    }
+
+    override fun onApiException(error: Int) {
+
+    }
+
+    override fun onPilotDataGetSuccessful(response: PilotDataBean) {
+        if (response.data != null) {
+            loadPilotMapData(response.data)
+        }
+    }
+
+    private fun loadPilotMapData(data: ArrayList<PilotDataBean.Data>) {
+        for (i in data) {
+            mMap?.addMarker(
+                MarkerOptions().icon(
+                    IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_pilot_map)
+                ).position(LatLng(i.userLatitude?.toDouble()!!, i.userLongitude?.toDouble()!!))
+            )
+        }
+    }
+
+    override fun onPilotDataGetFailed(loginParams: CommonMessageBean) {
+    }
+
+    override fun onPilotSaveSuccessful(response: CommonMessageBean) {
+    }
+
+    override fun onPilotSaveFailed(loginParams: CommonMessageBean) {
+
+    }
+
+    override fun onJobsDataGetSuccessful(response: PilotJobsDataBean) {
+        if (response.data != null) {
+            loadJobsMapData(response.data)
+        }
+    }
+
+    private fun loadJobsMapData(data: ArrayList<PilotJobsDataBean.Data>) {
+        for (i in data) {
+            mMap?.addMarker(
+                MarkerOptions().icon(
+                    IconUtils.bitmapDescriptorFromVector(this, R.drawable.ic_jobs_map)
+                ).position(LatLng(i.jobLongitude?.toDouble()!!, i.jobLongitude.toDouble()))
+            )
+        }
+    }
+
+    override fun onJobsDataGetFailed(loginParams: CommonMessageBean) {
+
+    }
+
+    override fun onJobsSaveSuccessful(response: CommonMessageBean) {
+
+    }
+
+    override fun onJobsSaveFailed(loginParams: CommonMessageBean) {
 
     }
 

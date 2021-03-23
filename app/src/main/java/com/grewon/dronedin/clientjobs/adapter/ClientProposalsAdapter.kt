@@ -21,13 +21,13 @@ class ClientProposalsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Result?)
+        fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<ProposalsDataBean.Result>()
+    var itemList = ArrayList<ProposalsDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,7 +58,7 @@ class ClientProposalsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<ProposalsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<ProposalsDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

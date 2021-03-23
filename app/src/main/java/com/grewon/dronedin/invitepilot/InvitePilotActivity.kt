@@ -23,7 +23,6 @@ import com.grewon.dronedin.server.params.PilotInviteParams
 import com.grewon.dronedin.utils.ValidationUtils
 import com.malinskiy.superrecyclerview.OnMoreListener
 import kotlinx.android.synthetic.main.activity_invite_pilot.*
-import kotlinx.android.synthetic.main.fragment_client_jobs.*
 import retrofit2.Retrofit
 import java.util.HashMap
 import javax.inject.Inject
@@ -136,7 +135,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onRefresh() {
-        job_data_recycle.setupMoreListener(this, 1)
+        pilot_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall(pageCount)
     }

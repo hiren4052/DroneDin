@@ -40,10 +40,10 @@
                 android:textSize="@dimen/_20sp" />
 
             <TextView
+                android:id="@+id/txt_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_10dp"
-                android:text="Real Estate"
                 android:textAllCaps="true"
                 android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/span_text_color"
@@ -52,6 +52,16 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_job_details"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

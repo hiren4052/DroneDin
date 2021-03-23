@@ -212,6 +212,7 @@
     <string name="use_existing_milestones_from_posted_job">Use Existing milestones from posted job</string>
     <string name="new_milestones">New Milestones</string>
     <string name="create_new_milestones_for_offer">Create new milestones for Offer</string>
+    <string name="create_new_milestones_for_proposal">Create new milestones for proposal</string>
     <string name="proceed_to_pay">Proceed to Pay</string>
     <string name="create_offer">Create Offer</string>
     <string name="pay_now">Pay Now</string>
@@ -291,4 +292,34 @@
     <string name="loading">Loading…</string>
     <string name="please_wait">Please wait…</string>
     <string name="please_allow_location_permission">Please allow location permission</string>
+
+    <!-- Date Util -->
+    <string name="year_ago">%1$d year ago</string>
+    <string name="last_year">Last year</string>
+    <string name="years_ago">%1$d years ago</string>
+
+    <string name="month_ago">%1$d month ago</string>
+    <string name="last_month">Last month</string>
+    <string name="months_ago">%1$d months ago</string>
+
+    <string name="day_ago">%1$d day ago</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="days_ago">%1$d days ago</string>
+
+    <string name="week_ago">%1$d week ago</string>
+    <string name="last_week">Last week</string>
+    <string name="weeks_ago">%1$d weeks ago</string>
+
+    <string name="hour_ago">%1$d hour ago</string>
+    <string name="one_hour">hour ago</string>
+    <string name="hours_ago">%1$d hours ago</string>
+
+    <string name="minute_ago">%1$d minute ago</string>
+    <string name="one_minute">minute ago</string>
+    <string name="minutes_ago">%1$d minutes ago</string>
+
+    <string name="just_now">Just now</string>
+    <string name="seconds_ago">%1$d seconds ago</string>
+
+
 </resources>

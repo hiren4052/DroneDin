@@ -26,6 +26,7 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import kotlinx.android.synthetic.main.activity_sign_up_type.*
+import net.danlew.android.joda.JodaTimeAndroid
 
 class DroneDinApp : MultiDexApplication() {
 
@@ -47,6 +48,7 @@ class DroneDinApp : MultiDexApplication() {
         instance = this
 
         MultiDex.install(this)
+        JodaTimeAndroid.init(this)
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
         ViewPump.init(
@@ -67,7 +69,7 @@ class DroneDinApp : MultiDexApplication() {
         setDialogMessage(getString(R.string.loading))
     }
 
-     fun setDialogMessage(message: String) {
+    fun setDialogMessage(message: String) {
         loadingDialogMessage = message
     }
 
@@ -81,6 +83,8 @@ class DroneDinApp : MultiDexApplication() {
             .commonDataModule(CommonDataModule())
             .inviteModule(InviteModule())
             .clientJobsModule(ClientJobsModule())
+            .filterModule(FilterModule())
+            .pilotJobsModule(PilotJobsModule())
             .build()
     }
 
