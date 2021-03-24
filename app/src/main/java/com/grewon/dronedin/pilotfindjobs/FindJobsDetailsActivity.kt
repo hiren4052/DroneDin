@@ -59,6 +59,8 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
     private var mileStoneAdapter: MileStoneAdapter? = null
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
 
+    private var pilotFindJobsBean: PilotFindJobsDetailBean? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_jobs_details)
@@ -128,7 +130,15 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                 startActivity(Intent(this, ChatActivity::class.java))
             }
             R.id.txt_send_proposal -> {
-                startActivity(Intent(this, SubmitProposalActivity::class.java))
+                startActivityForResult(
+                    Intent(
+                        this,
+                        SubmitProposalActivity::class.java
+                    ).putExtra(AppConstant.ID, jobId)
+                        .putExtra(AppConstant.BEAN, mileStoneAdapter?.itemList)
+                        .putExtra(AppConstant.PRICE, txt_budget.text.toString().replace("$", "")),
+                    12
+                )
             }
         }
     }
@@ -143,6 +153,7 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
 
     private fun setView(response: PilotFindJobsDetailBean) {
 
+        pilotFindJobsBean = response
 
         txt_proposal_received.text = response.totalProposal
         txt_interviewing.text = response.totalInterviewing
@@ -155,6 +166,13 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
         txt_budget.text = getString(R.string.price_string, response.totalPrice)
         txt_job_date.text = TimeUtils.getServerToAppDate(response.date.toString())
 
+
+        if (response.proposalId != null) {
+            txt_send_proposal.isEnabled = false
+            txt_send_proposal.alpha = 0.3f
+        } else {
+            txt_send_proposal.isEnabled = true
+        }
 
         if (response.milestone != null && response.milestone.size > 0) {
             milestone_layout.visibility = View.VISIBLE
@@ -217,6 +235,15 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
 
     override fun onApiException(error: Int) {
         setEmptyView(R.drawable.ic_connectivity, getString(error))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 12) {
+                pilotFindJobsDetailsPresenter.getPilotJobDetails(jobId, "pilot_job_detail")
+            }
+        }
     }
 
 

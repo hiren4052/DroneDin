@@ -79,7 +79,7 @@ class MapUtils {
                 Log.d("loction address", "Canont get Address!")
             }
 
-            return strAdd
+            return strAdd.trim()
         }
 
 

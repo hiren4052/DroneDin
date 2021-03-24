@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.ProposalsDataBean
+import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_client_proposals_item.view.*
 
 
@@ -42,16 +44,30 @@ class ClientProposalsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.proposalTitle
+            holder.textPrice.text =
+                context.getString(R.string.price_string, item.proposalTotalPrice)
+            holder.textClientName.text = item.userName
+            holder.textJobLocation.text = MapUtils.getStateName(
+                context,
+                item.userLatitude?.toDouble()!!, item.userLongitude?.toDouble()!!
+            )
+            if (item.rate != null) {
+                holder.textRatings.text = item.rate
+            }
+            holder.txtDate.text =
+                TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(null) }
+            holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(item) }
         }
 
 
@@ -71,6 +87,7 @@ class ClientProposalsAdapter(
         val textJobLocation = itemView.txt_location
         val textPrice = itemView.txt_price
         val textRatings = itemView.txt_ratings
+        val txtDate = itemView.txt_date
     }
 
 

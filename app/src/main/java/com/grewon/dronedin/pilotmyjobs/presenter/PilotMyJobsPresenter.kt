@@ -88,17 +88,17 @@ class PilotMyJobsPresenter : PilotMyJobsContract.Presenter {
 
         map["page"] = filterParams.page
 
-        api.getPilotProposalsJobs(map)
+        api.getPilotInvitationsJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProposalsDataBean>() {
+            .subscribe(object : NetworkCall<InvitationsDataBean>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: ProposalsDataBean) {
-                    view?.onProposalDataGetSuccessful(dataBean)
+                override fun onSuccessResponse(dataBean: InvitationsDataBean) {
+                    view?.onInvitationsDataGetSuccessful(dataBean)
 
                 }
 
@@ -129,17 +129,17 @@ class PilotMyJobsPresenter : PilotMyJobsContract.Presenter {
 
         map["page"] = filterParams.page
 
-        api.getPilotInvitationsJobs(map)
+        api.getPilotProposalsJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<InvitationsDataBean>() {
+            .subscribe(object : NetworkCall<ProposalsDataBean>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: InvitationsDataBean) {
-                    view?.onInvitationsDataGetSuccessful(dataBean)
+                override fun onSuccessResponse(dataBean: ProposalsDataBean) {
+                    view?.onProposalDataGetSuccessful(dataBean)
 
                 }
 

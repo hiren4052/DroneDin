@@ -40,6 +40,7 @@
                 android:textSize="@dimen/_20sp" />
 
             <TextView
+                android:id="@+id/txt_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_10dp"
@@ -52,6 +53,16 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_job_details"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -204,26 +215,6 @@
                             tools:ignore="RtlSymmetry" />
 
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/_10dp"
-                        android:paddingBottom="@dimen/_10dp"
-                        android:text="@string/skills_and_equipments_preferred"
-                        android:textAppearance="@style/RobotoTextAppearance"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/_16sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/chip_skills"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/chip_equipments"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

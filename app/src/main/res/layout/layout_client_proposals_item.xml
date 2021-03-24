@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_2dp"
                 android:paddingStart="@dimen/_5dp"
-                android:text="5.0"
+                android:text="0"
                 android:textAppearance="@style/RobotoTextAppearance"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/_14sp"

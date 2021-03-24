@@ -123,7 +123,12 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
                 clientJobsDetailPresenter.deleteJob(jobId)
             }
             R.id.txt_see_list -> {
-                startActivity(Intent(this, ClientProposalsActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        ClientProposalsActivity::class.java
+                    ).putExtra(AppConstant.ID, jobId)
+                )
             }
             R.id.img_toolbar -> {
                 openPopUpMenu()
@@ -146,7 +151,12 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
             } else if (it.itemId == R.id.im_sent_invitations) {
 
             } else if (it.itemId == R.id.im_sent_offers) {
-                startActivity(Intent(this, ClientOffersActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        ClientOffersActivity::class.java
+                    ).putExtra(AppConstant.ID, jobId)
+                )
             }
             true
         }

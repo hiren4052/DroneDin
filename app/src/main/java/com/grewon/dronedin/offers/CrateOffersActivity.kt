@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
@@ -27,7 +28,17 @@ import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.attachments.UploadAttachmentsAdapter
+import com.grewon.dronedin.dialogs.AlertViewDialog
+import com.grewon.dronedin.error.ErrorHandler
+import com.grewon.dronedin.offers.contract.CreateOffersContract
+import com.grewon.dronedin.offers.presenter.CreateOffersPresenter
+import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.CreateMilestoneBean
+import com.grewon.dronedin.server.MilestonesDataBean
+import com.grewon.dronedin.server.params.SubmitOfferParams
+import com.grewon.dronedin.server.params.SubmitProposalParams
+import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -35,15 +46,31 @@ import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_crate_offers.*
 import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
+import retrofit2.Retrofit
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class CrateOffersActivity : BaseActivity(), View.OnClickListener {
+class CrateOffersActivity : BaseActivity(), View.OnClickListener,
+    UploadAttachmentsAdapter.OnItemLongClickListeners, CreateOffersContract.View {
+
+
+    @Inject
+    lateinit var createOffersPresenter: CreateOffersContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private var alertDialog: AlertViewDialog? = null
     private var picturePath: File? = null
     private var createMileStoneAdapter: CreateMileStoneAdapter? = null
-    private var jobsImageAdapter: JobAttachmentsAdapter? = null
+    private var jobsImageAdapter: UploadAttachmentsAdapter? = null
     private var mileStoneAdapter: MileStoneAdapter? = null
+    private var jobId: String = ""
+    private var pilotId: String = ""
+    private var totalPrice: String = ""
+    private var existingMileStoneList = ArrayList<MilestonesDataBean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,16 +84,35 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
         txt_toolbar_title.text = getString(R.string.create_offer)
 
 
+
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        createOffersPresenter.attachView(this)
+        createOffersPresenter.attachApiInterface(retrofit)
+
+
+        jobId = intent.getStringExtra(AppConstant.ID).toString()
+        pilotId = intent.getStringExtra(AppConstant.USER_ID).toString()
+        totalPrice = intent.getStringExtra(AppConstant.PRICE).toString()
+        existingMileStoneList = intent.getParcelableArrayListExtra(AppConstant.BEAN)!!
+
+
+
+        existing_total_price.text = getString(R.string.price_string, totalPrice)
+
+
         create_milestone_recycle.layoutManager = LinearLayoutManager(this)
         createMileStoneAdapter = CreateMileStoneAdapter(this)
         create_milestone_recycle.adapter = createMileStoneAdapter
+
+
+
         setImageAdapter()
         setExistingMileStoneAdapter()
     }
 
     private fun setImageAdapter() {
         image_recycle.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        jobsImageAdapter = JobAttachmentsAdapter(this)
+        jobsImageAdapter = UploadAttachmentsAdapter(this, this)
         image_recycle.adapter = jobsImageAdapter
 
     }
@@ -75,6 +121,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
         existing_milestone_recycle.layoutManager = LinearLayoutManager(this)
         mileStoneAdapter = MileStoneAdapter(this)
         existing_milestone_recycle.adapter = mileStoneAdapter
+        mileStoneAdapter?.addItemsList(existingMileStoneList)
     }
 
 
@@ -103,7 +150,6 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
                     else -> {
 
 
-
                         createMileStoneAdapter?.addItems(
                             CreateMilestoneBean(
                                 edt_milestone_description.text.toString(),
@@ -124,7 +170,26 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.txt_pay -> {
-                startActivity(Intent(this, PaymentSummaryActivity::class.java))
+                if (ValidationUtils.isEmptyFiled(edt_title.text.toString())) {
+                    DroneDinApp.getAppInstance().showToast(getString(R.string.please_enter_title))
+                } else if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_description))
+                } else if (new_milestone_check.isChecked) {
+                    if (ValidationUtils.isEmptyFiled(edt_price.text.toString())) {
+                        DroneDinApp.getAppInstance()
+                            .showToast(getString(R.string.please_enter_proposal_price))
+                    } else if (createMileStoneAdapter != null && createMileStoneAdapter?.itemList?.size == 0) {
+                        DroneDinApp.getAppInstance()
+                            .showToast(getString(R.string.please_create_milestone))
+                    } else {
+                        apiCall()
+                    }
+                } else {
+                    apiCall()
+
+                }
+
             }
             R.id.existing_milestone_check -> {
                 if (existing_milestone_check.isChecked) {
@@ -158,6 +223,28 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    private fun apiCall() {
+        val params = SubmitOfferParams()
+        params.offer_title = edt_title.text.toString()
+        params.offer_description = edt_description.text.toString()
+        if (new_milestone_check.isChecked) {
+            params.offer_total_price = edt_price.text.toString()
+            params.offer_milestone = AppConstant.NEW_MILESTONE
+        } else {
+            params.offer_total_price =
+                existing_total_price.text.toString().replace("$", "")
+            params.offer_milestone = AppConstant.EXISTING_MILESTONE
+        }
+
+        params.attachments = jobsImageAdapter?.itemList
+        params.milestone = createMileStoneAdapter?.itemList
+        params.job_id = jobId
+        params.pilot_id = pilotId
+
+        createOffersPresenter.submitOffer(params)
+    }
+
 
     @SuppressLint("InflateParams")
     private fun openFileDialog() {
@@ -371,7 +458,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
                         val filePath: String = FileValidationUtils.getPath(this, resultUri)
                         if (filePath != null) {
 
-                            //uploadPresenter.upload(filePath)
+                            jobsImageAdapter?.addItems(UploadAttachmentsParams(filePath))
                         } else {
                             DroneDinApp.getAppInstance()
                                 .showToast(getString(R.string.sometings_went_wrong))
@@ -387,12 +474,19 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
             AppConstant.PICKFILE_REQUEST_CODE -> {
                 if (data != null) {
                     if (resultCode == RESULT_OK) {
-                        val filePath =
+                        val fileList =
                             data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
-                        if (filePath != null) {
+                        if (fileList != null) {
+                            val filePath: String =
+                                FileValidationUtils.getPath(this, fileList[0])
                             LogX.E(filePath.toString())
+                            jobsImageAdapter?.addItems(UploadAttachmentsParams(filePath))
                         } else {
-                            Toast.makeText(this, R.string.some_thing_went_wrong, Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this,
+                                R.string.some_thing_went_wrong,
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
@@ -401,8 +495,41 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener {
             }
 
 
+        }
+    }
+
+    override fun onLongClick(adapterPosition: Int) {
+        openRemoveAlertDialog(adapterPosition)
+    }
+
+    private fun openRemoveAlertDialog(adapterPosition: Int) {
+        alertDialog = AlertViewDialog(this, R.style.DialogThme)
+        alertDialog!!.setTitle(getString(R.string.remove_attachment_message))
+        alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
+        alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
+        alertDialog!!.setOkListener(View.OnClickListener {
+            jobsImageAdapter?.removeItem(adapterPosition)
+            alertDialog?.dismiss()
+
+        })
+        alertDialog!!.show()
+    }
+
+    override fun onSubmitOffersSuccessFully(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            startActivity(Intent(this, PaymentSummaryActivity::class.java))
 
         }
     }
+
+    override fun onSubmitOffersFailed(loginParams: SubmitOfferParams) {
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
 
 }

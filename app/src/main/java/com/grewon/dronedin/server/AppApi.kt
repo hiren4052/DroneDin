@@ -116,4 +116,42 @@ interface AppApi {
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<PilotFindJobsDetailBean>
 
+    @GET("job_c/job")
+    fun getProposalDetails(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<ProposalsDetailBean>
+
+    @POST("pilot_c/proposal")
+    fun submitProposal(@Body file: RequestBody): Single<CommonMessageBean>
+
+    @GET("pilot_c/withdraw_proposal/{proposal_id}")
+    fun withDrawProposals(@Path("proposal_id") proposalId: String): Single<CommonMessageBean>
+
+    @GET("job_c/proposal_list")
+    fun getClientProposalList(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<ProposalsDataBean>
+
+    @POST("job_c/offer")
+    fun submitOffer(@Body file: RequestBody): Single<CommonMessageBean>
+
+    @GET("job_c/offer_list")
+    fun getClientOffers(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<OffersDataBean>
+
+
+    @GET("job_c/job")
+    fun getOffersDetailsBean(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<OffersDetailBean>
+
+    @GET("job_c/withdraw_offer/{offers_id}")
+    fun withDrawOffers(@Path("offers_id") offersId: String): Single<CommonMessageBean>
+
+    @GET("pilot_c/offer_acc_dec")
+    fun offerAcceptDecline(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<CommonMessageBean>
+
 }

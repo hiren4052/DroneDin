@@ -23,6 +23,8 @@ data class ProposalsDataBean(
         val jobAddress: String? = "",
         @SerializedName("job_id")
         val jobId: String? = "",
+        @SerializedName("proposal_id")
+        val proposalId: String? = "",
         @SerializedName("job_latitude")
         val jobLatitude: String? = "",
         @SerializedName("job_longitude")
@@ -36,6 +38,12 @@ data class ProposalsDataBean(
         @SerializedName("proposal_total_price")
         val proposalTotalPrice: String? = "",
         @SerializedName("user_name")
-        val userName: String? = ""
+        val userName: String? = "",
+        @SerializedName("user_latitude")
+        val userLatitude: String? = "",
+        @SerializedName("user_longitude")
+        val userLongitude: String? = "",
+        @SerializedName("rate")
+        val rate: String? = ""
     ) : Parcelable
 }

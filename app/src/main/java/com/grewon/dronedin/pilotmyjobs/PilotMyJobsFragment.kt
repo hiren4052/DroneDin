@@ -1,8 +1,8 @@
 package com.grewon.dronedin.pilotmyjobs
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -164,14 +164,21 @@ class PilotMyJobsFragment : BaseFragment(), OffersAdapter.OnItemClickListeners,
 
 
     private fun displayProgressView() {
-        data_recycle.progressView.visibility = View.VISIBLE
-        data_recycle.emptyView.visibility = View.GONE
-        data_recycle.recyclerView.visibility = View.GONE
+        if (context != null && isVisible) {
+            data_recycle.progressView.visibility = View.VISIBLE
+            data_recycle.emptyView.visibility = View.GONE
+            data_recycle.recyclerView.visibility = View.GONE
+        }
     }
 
 
     override fun onOffersItemClick(jobsDataBean: OffersDataBean.Data?) {
-        startActivity(Intent(context, OffersDetailActivity::class.java))
+        startActivityForResult(
+            Intent(context, OffersDetailActivity::class.java).putExtra(
+                AppConstant.ID,
+                jobsDataBean?.offerId
+            ), 12
+        )
     }
 
     override fun onInvitationsItemClick(jobsDataBean: InvitationsDataBean.Data?) {
@@ -179,7 +186,12 @@ class PilotMyJobsFragment : BaseFragment(), OffersAdapter.OnItemClickListeners,
     }
 
     override fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Data?) {
-        startActivity(Intent(context, ProposalsDetailActivity::class.java))
+        startActivityForResult(
+            Intent(context, ProposalsDetailActivity::class.java).putExtra(
+                AppConstant.ID,
+                jobsDataBean?.proposalId
+            ), 13
+        )
     }
 
     override fun onClick(v: View?) {
@@ -305,6 +317,22 @@ class PilotMyJobsFragment : BaseFragment(), OffersAdapter.OnItemClickListeners,
         if (context != null && isVisible) {
             data_recycle.hideMoreProgress()
             data_recycle.setupMoreListener(null, 0)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 13) {
+                pageCount = 1
+                displayProgressView()
+                apiCall()
+            }
+            if (requestCode == 12) {
+                pageCount = 1
+                displayProgressView()
+                apiCall()
+            }
         }
     }
 

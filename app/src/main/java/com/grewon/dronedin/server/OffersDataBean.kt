@@ -21,18 +21,26 @@ data class OffersDataBean(
         val categoryName: String? = "",
         @SerializedName("job_address")
         val jobAddress: String? = "",
-        @SerializedName("job_id")
-        val jobId: String? = "",
-        @SerializedName("job_invitation_datecreated")
-        val jobInvitationDatecreated: String? = "",
+        @SerializedName("offer_datecreated")
+        val offerDatecreated: String? = "",
+        @SerializedName("offer_description")
+        val offerDescription: String? = "",
+        @SerializedName("offer_id")
+        val offerId: String? = "",
+        @SerializedName("offer_title")
+        val offerTitle: String? = "",
+        @SerializedName("offer_total_price")
+        val offerTotalPrice: String? = "",
+        @SerializedName("user_address")
+        val userAddress: String? = "",
+        @SerializedName("user_latitude")
+        val userLatitude: String? = "",
+        @SerializedName("user_longitude")
+        val userLongitude: String? = "",
         @SerializedName("job_latitude")
         val jobLatitude: String? = "",
         @SerializedName("job_longitude")
         val jobLongitude: String? = "",
-        @SerializedName("job_title")
-        val jobTitle: String? = "",
-        @SerializedName("total_price")
-        val totalPrice: String? = "",
         @SerializedName("user_name")
         val userName: String? = ""
     ) : Parcelable

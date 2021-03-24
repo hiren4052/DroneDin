@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.OffersDataBean
-import kotlinx.android.synthetic.main.layout_offers_item.view.*
+import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.layout_client_offers_item.view.*
 
 
 /**
@@ -42,14 +44,30 @@ class ClientOffersAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
-            holder.itemView.setOnClickListener { onItemClickListeners.onOffersItemClick(null) }
+
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.offerTitle
+            holder.textClientName.text = item.userName
+            holder.textJobLocation.text =
+                MapUtils.getStateName(
+                    context, item.userLatitude?.toDouble()!!,
+                    item.userLongitude?.toDouble()!!
+                )
+
+
+            holder.textDate.text =
+                TimeUtils.getLocalTimes(context, item.offerDatecreated.toString())
+
+            holder.textOfferedPrice.text =
+                context.getString(R.string.price_string, item.offerTotalPrice)
+            holder.itemView.setOnClickListener { onItemClickListeners.onOffersItemClick(item) }
 
         }
 
@@ -66,9 +84,10 @@ class ClientOffersAdapter(
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textCategory = itemView.txt_category_name
         val textJobTitle = itemView.txt_job_title
-        val textClientName = itemView.txt_client_name
-        val textJobLocation = itemView.txt_job_location
-        val textOfferedPrice = itemView.txt_offered_price
+        val textClientName = itemView.txt_pilot_name
+        val textJobLocation = itemView.txt_location
+        val textOfferedPrice = itemView.txt_price
+        val textDate = itemView.txt_date
     }
 
 

@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.enum_class.ErrorType
+import com.grewon.dronedin.utils.ValidationUtils
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -43,7 +44,7 @@ class ErrorHandler {
             if (yourHashMap != null) {
                 val keys: MutableSet<out Any> = yourHashMap.keys
                 for (key in keys) {
-                    if (yourHashMap[key] != null) {
+                    if (yourHashMap[key] != null && !ValidationUtils.isEmptyFiled(yourHashMap[key].toString())) {
                         DroneDinApp.getAppInstance().showToast(yourHashMap[key].toString())
                         return
                     }

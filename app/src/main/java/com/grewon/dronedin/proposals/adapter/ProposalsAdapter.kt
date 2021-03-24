@@ -62,12 +62,13 @@ class ProposalsAdapter(
                 )
 
 
-            holder.textDate.text = TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
+            holder.textDate.text =
+                TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
 
             holder.textPrice.text =
                 context.getString(R.string.price_string, item.proposalTotalPrice)
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(null) }
+            holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(item) }
         }
 
 

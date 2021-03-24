@@ -1,0 +1,88 @@
+package com.grewon.dronedin.pilotactivejobs.presenter
+
+
+import com.google.gson.Gson
+import com.grewon.dronedin.error.ErrorHandler
+import com.grewon.dronedin.helper.LogX
+import com.grewon.dronedin.network.NetworkCall
+import com.grewon.dronedin.pilotfindjobs.contract.PilotJobsContract
+import com.grewon.dronedin.server.*
+import com.grewon.dronedin.server.params.FilterParams
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Retrofit
+
+class PilotActiveJobsPresenter : PilotJobsContract.Presenter {
+
+
+    private var view: PilotJobsContract.View? = null
+    private lateinit var api: AppApi
+    private lateinit var retrofit: Retrofit
+    private val subscriptions = CompositeDisposable()
+
+
+
+    override fun attachView(view: PilotJobsContract.View) {
+        this.view = view
+    }
+
+    override fun detachView() {
+        subscriptions.clear()
+        this.view = null
+    }
+
+    override fun attachApiInterface(retrofit: Retrofit) {
+        this.retrofit = retrofit
+        this.api = retrofit.create(AppApi::class.java)
+    }
+
+
+
+
+
+    override fun getPilotJobs(filterParams: FilterParams) {
+        val map = HashMap<String, Any>()
+
+        if (filterParams.page != null) {
+            map["page"] = filterParams.page.toString()
+        }
+
+
+        api.getPilotFindJobs(map)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<PilotJobsDataBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: PilotJobsDataBean) {
+                    view?.onJobsDataGetSuccessful(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    LogX.E(errorBean.toString())
+                    view?.onJobsDataGetFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+    }
+
+
+
+
+
+}

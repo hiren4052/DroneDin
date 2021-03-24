@@ -204,8 +204,10 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
                     (activity as PostJobActivity).createJobsParams?.jobLongitude = longitude
                     (activity as PostJobActivity).createJobsParams?.jobTotalPrice =
                         edt_price.text.toString()
-                    (activity as PostJobActivity).createJobsParams?.attachments = jobsImageAdapter?.itemList
-                    (activity as PostJobActivity).createJobsParams?.mileStones = createMileStoneAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.attachments =
+                        jobsImageAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.mileStones =
+                        createMileStoneAdapter?.itemList
                     postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
                 }
             }
@@ -542,7 +544,10 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
     override fun onPostJobSuccessFully(loginParams: CreateJobsBean) {
         if (loginParams.id != null) {
             startActivityForResult(
-                Intent(requireContext(), PostJobSubmittedActivity::class.java).putExtra(AppConstant.ID,loginParams.id),
+                Intent(
+                    requireContext(),
+                    PostJobSubmittedActivity::class.java
+                ).putExtra(AppConstant.ID, loginParams.id),
                 66
             )
         }

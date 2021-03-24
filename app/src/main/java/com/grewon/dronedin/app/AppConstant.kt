@@ -5,6 +5,7 @@ public class AppConstant {
     companion object {
 
 
+        const val JOB_ID: String = "job_id"
         const val USER_TYPE: String = "user_type"
         const val YES_STATUS = "yes"
         const val NO_STATUS = "no"
@@ -12,6 +13,8 @@ public class AppConstant {
         const val USER_CLIENT: String = "client"
         const val USER_PILOT: String = "pilot"
         const val POSTED_JOB_STATUS: String = "posted"
+        const val OFFER_ACCEPT_STATUS: String = "accept"
+        const val OFFER_DECLINE_STATUS: String = "decline"
         const val OFFERED_DATA_STATUS: String = "offers"
         const val INVITATIONS_DATA_STATUS: String = "invitations"
         const val PROPOSALS_DATA_STATUS: String = "proposals"
@@ -22,6 +25,7 @@ public class AppConstant {
         const val NOTIFICATION_BROADCAST: String = "notification_broadcast"
         const val ORDER_BROADCAST: String = "order_broadcast"
         const val ID: String = "id"
+        const val USER_ID: String = "user_id"
         const val UPDATE_REQUEST_CODE: Int = 33
         const val TERMS_OF_SERVICE_URL: String =
             "https://www.termsandcondiitionssample.com/"
@@ -39,17 +43,20 @@ public class AppConstant {
         const val LOCATION_BEAN: String = "location_bean"
         const val CONTACTS_PERMISSION_REQUEST_CODE: Int = 12
         const val ADD_LOCATION_REQUEST_CODE: Int = 10
-        const val APP_NAME: String = "Chappy Restaurants"
+        const val APP_NAME: String = "DronedIN"
         const val CHANNEL_ID: String = "info_notification"
         const val LOCATION_PERMISSION_REQUEST_CODE: Int = 15
         const val LOCATION_CLICK_PERMISSION_REQUEST_CODE: Int = 19
         const val DATA_TYPE: String = "data_type"
         const val BEAN: String = "bean"
+        const val PRICE: String = "price"
         const val POSITION: String = "position"
         const val LATITUDE: String = "latitude"
         const val LONGITUDE: String = "longitude"
         const val ADDRESS: String = "address"
         const val USER_BEAN: String = "user_bean"
+        const val NEW_MILESTONE: String = "new"
+        const val EXISTING_MILESTONE: String = "existing"
         private const val BASE_URL = "http://socialinfotech.in/development/dronedin/"
 
 
