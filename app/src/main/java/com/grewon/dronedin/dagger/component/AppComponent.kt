@@ -19,6 +19,7 @@ import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
+import com.grewon.dronedin.milestone.MilestoneDetailActivity
 import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
@@ -44,7 +45,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
-        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class]
+        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class]
 )
 interface AppComponent {
 
@@ -75,6 +76,7 @@ interface AppComponent {
     fun inject(activity: PilotActiveJobsActivity)
     fun inject(activity: PilotActiveJobsDetailActivity)
     fun inject(activity: SubmitMilestoneActivity)
+    fun inject(activity: MilestoneDetailActivity)
 
 
     //Fragments

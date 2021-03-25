@@ -58,14 +58,6 @@ interface AppApi {
     fun bioUpdate(@Body map: BioUpdateParams): Single<ProfileBioDataBean>
 
 
-//    @Multipart
-//    @POST("job_c/job")
-//    fun postJob(
-//        @Part attachmentsList: List<MultipartBody.Part>?,
-//        @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
-//    ): Single<CreateJobsBean>
-
-
     @POST("job_c/job")
     fun postJob(@Body file: RequestBody): Single<CreateJobsBean>
 
@@ -166,5 +158,8 @@ interface AppApi {
 
     @POST("pilot_c/milestone_submit")
     fun submitMilestone(@Body file: RequestBody): Single<CommonMessageBean>
+
+    @POST("pilot_c/milestone/{milestone_id}")
+    fun getMileStoneDetail(@Path("milestone_id") mileStoneId: String): Single<MileStoneDetailsBean>
 
 }

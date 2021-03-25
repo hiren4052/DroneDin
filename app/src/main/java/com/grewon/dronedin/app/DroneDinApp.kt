@@ -85,6 +85,7 @@ class DroneDinApp : MultiDexApplication() {
             .clientJobsModule(ClientJobsModule())
             .filterModule(FilterModule())
             .pilotJobsModule(PilotJobsModule())
+            .milestoneModule(MilestoneModule())
             .build()
     }
 

@@ -10,6 +10,16 @@
 
     <include layout="@layout/layout_square_toolbar_with_back" />
 
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_job_details"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,6 +57,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/started_date_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3dp"
@@ -74,13 +85,13 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/complete_date_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/date_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/completed_on"
@@ -89,7 +100,7 @@
                             android:textSize="@dimen/_14sp" />
 
                         <TextView
-                            android:id="@+id/txt_job_date"
+                            android:id="@+id/txt_complete_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/_5dp"
@@ -101,6 +112,33 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/cancel_date_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancelled_on"
+                            android:textAppearance="@style/RobotoTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_cancel_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/_5dp"
+                            android:text="22 Feb 2021"
+                            android:textAppearance="@style/RobotoLightTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_14sp"
+                            tools:ignore="RtlSymmetry" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -145,7 +183,7 @@
                         android:textSize="@dimen/_14sp" />
 
                     <TextView
-                        android:id="@+id/txt_job_description"
+                        android:id="@+id/txt_note"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/_3dp"
