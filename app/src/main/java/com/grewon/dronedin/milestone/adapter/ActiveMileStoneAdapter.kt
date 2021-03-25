@@ -1,5 +1,6 @@
 package com.grewon.dronedin.milestone.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.MilestonesDataBean
+import com.grewon.dronedin.utils.TextUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_active_mile_stone_item.view.*
 
 
@@ -41,18 +45,26 @@ class ActiveMileStoneAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return itemList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //   val item = itemList[position]
+        val item = itemList[position]
 
 
         if (holder is ItemViewHolder) {
 
-            holder.txtMileStonetitle.text =
-                (position + 1).toString() + ". We need a photographer for a short term project."
-            if (position == 2) {
+            TextUtils.addExpandText(
+                context, holder.txtMileStonetitle, context.getString(
+                    R.string.milestone_count_string,
+                    (position + 1).toString(),
+                    item.milestoneDetails
+                )
+            )
+            holder.txtMileStonePrice.text =
+                context.getString(R.string.price_string, item.milestonePrice)
+            if (item.milestoneStatus == AppConstant.MILESTONE_CANCELLED_STATUS) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
                 holder.textMilestoneStatus.setTextColor(
@@ -65,10 +77,27 @@ class ActiveMileStoneAdapter(
                 holder.dateTitle.text = context.getText(R.string.cancelled_on)
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean(milestoneStatus = "cancel")
+                        item
                     )
                 }
-            } else if (position == 3) {
+            } else if (item.milestoneStatus == AppConstant.MILESTONE_PENDING_STATUS) {
+                holder.textMilestoneStatus.background =
+                    ContextCompat.getDrawable(context, R.drawable.ic_round_pending_background)
+                holder.textMilestoneStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.pending_text_color
+                    )
+                )
+                holder.dateLayout.visibility = View.GONE
+                holder.textMilestoneStatus.text = context.getText(R.string.pending)
+                holder.dateTitle.text = context.getText(R.string.started_on_)
+                holder.itemView.setOnClickListener {
+                    onItemClickListeners.onMilestoneItemClick(
+                        item
+                    )
+                }
+            } else if (item.milestoneStatus == AppConstant.MILESTONE_ACTIVE_STATUS) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_active_background)
                 holder.textMilestoneStatus.setTextColor(
@@ -81,13 +110,21 @@ class ActiveMileStoneAdapter(
                 holder.dateTitle.text = context.getText(R.string.started_on_)
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean(milestoneStatus = "active")
+                        item
                     )
                 }
+                if (item.milestoneStartedDate != null) {
+                    holder.textDate.text =
+                        TimeUtils.getServerToAppDate(item.milestoneStartedDate!!.toString())
+                }
             } else {
+                if (item.milestoneCompletedDate != null) {
+                    holder.textDate.text =
+                        TimeUtils.getServerToAppDate(item.milestoneCompletedDate!!)
+                }
                 holder.itemView.setOnClickListener {
                     onItemClickListeners.onMilestoneItemClick(
-                        MilestonesDataBean(milestoneStatus = "complete")
+                        item
                     )
                 }
             }
@@ -111,6 +148,7 @@ class ActiveMileStoneAdapter(
         val textDate = itemView.txt_started_date
         val dateTitle = itemView.title_date
         val textMilestoneStatus = itemView.txt_milestone_status
+        val dateLayout = itemView.date_layout
     }
 
 

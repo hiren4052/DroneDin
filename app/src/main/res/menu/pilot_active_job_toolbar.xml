@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/im_add_milestone"
+        android:icon="@drawable/ic_jobs_selector"
+        android:title="@string/add_milestone" />
+
+
+    <item
+        android:id="@+id/im_cancel_project"
+        android:icon="@drawable/ic_jobs_selector"
+        android:title="@string/cancel_project" />
+    <item
+        android:id="@+id/im_end_project"
+        android:icon="@drawable/ic_jobs_selector"
+        android:title="@string/end_complete_project" />
+
+    <item
+        android:id="@+id/im_message"
+        android:icon="@drawable/ic_messages_selector"
+        android:title="@string/message" />
+
+
+</menu>

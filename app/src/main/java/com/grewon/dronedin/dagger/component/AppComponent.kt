@@ -19,9 +19,12 @@ import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
+import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
 import com.grewon.dronedin.offers.OffersDetailActivity
+import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsActivity
+import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
 import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
 import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
@@ -69,6 +72,9 @@ interface AppComponent {
     fun inject(activity: ClientOffersActivity)
     fun inject(activity: ClientOffersDetailsActivity)
     fun inject(activity: OffersDetailActivity)
+    fun inject(activity: PilotActiveJobsActivity)
+    fun inject(activity: PilotActiveJobsDetailActivity)
+    fun inject(activity: SubmitMilestoneActivity)
 
 
     //Fragments

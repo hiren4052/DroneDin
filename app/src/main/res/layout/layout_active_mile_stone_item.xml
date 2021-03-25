@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="We need a photographer for a short term project."
                 android:textAppearance="@style/MediumTextAppearance"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/gray_9a"
                 android:textSize="@dimen/_16sp" />
 
 
@@ -40,10 +40,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/price_"
                     android:textAppearance="@style/RobotoTextAppearance"
-                    android:textColor="@color/gray_9a"
+                    android:textColor="@color/gray_71"
                     android:textSize="@dimen/_14sp" />
 
                 <TextView
@@ -60,6 +60,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -70,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/completed_on"
                     android:textAppearance="@style/RobotoTextAppearance"
-                    android:textColor="@color/gray_9a"
+                    android:textColor="@color/gray_71"
                     android:textSize="@dimen/_14sp" />
 
                 <TextView

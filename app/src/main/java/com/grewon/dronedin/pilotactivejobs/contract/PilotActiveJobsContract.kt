@@ -12,21 +12,17 @@ interface PilotActiveJobsContract {
 
         fun onApiException(error: Int)
 
-        fun onJobsDataGetSuccessful(response: PilotJobsDataBean)
+        fun onJobsDataGetSuccessful(response: PilotActiveJobsData)
 
         fun onJobsDataGetFailed(loginParams: CommonMessageBean)
 
-        fun onJobsSaveSuccessful(response: CommonMessageBean)
-
-        fun onJobsSaveFailed(loginParams: CommonMessageBean)
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
-        fun getPilotJobs(filterParams: FilterParams)
+        fun getPilotActiveJobs(getJobsParams: GetJobsParams)
 
-        fun saveJobs(jobId: String)
 
 
     }

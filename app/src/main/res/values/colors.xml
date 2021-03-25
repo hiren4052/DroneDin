@@ -70,7 +70,9 @@
     <color name="active_background_color">#E3F4E3</color>
     <color name="completed_background_color">#DDEEF1</color>
     <color name="cancelled_background_color">#F1DDDE</color>
+    <color name="pending_background_color">#FFF7D9</color>
     <color name="completed_text_color">#7EB8C4</color>
+    <color name="pending_text_color">#EAB602</color>
     <color name="cancelled_text_color">#D16267</color>
     <color name="active_text_color">#87AC87</color>
 

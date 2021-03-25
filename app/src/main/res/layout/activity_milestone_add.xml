@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_fa"
+    android:orientation="vertical"
+    tools:context=".pilotfindjobs.FindJobsDetailsActivity">
+
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:id="@+id/create_milestone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_milestones"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_18sp" />
+
+                <ImageView
+                    android:id="@+id/im_add_milestone"
+                    android:layout_width="@dimen/_28dp"
+                    android:layout_height="@dimen/_28dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_plus_gray"
+                    app:tint="@color/colorPrimary" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:text="@string/price_"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_milestone_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:hint="@string/enter_price"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af"
+                        android:textSize="@dimen/_16sp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details_"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_71"
+                    android:textSize="@dimen/_14sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5dp"
+                    app:cardElevation="@dimen/_5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <EditText
+                        android:id="@+id/edt_milestone_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:gravity="start"
+                        android:hint="@string/write_job_description_in_detail"
+                        android:inputType="textMultiLine"
+                        android:padding="@dimen/_15dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/gray_af"
+                        android:textSize="@dimen/_16sp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/create_milestone_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp" />
+
+
+            <TextView
+                android:id="@+id/txt_send_request"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_40dp"
+                android:background="@drawable/ic_rectangle"
+                android:gravity="center"
+                android:text="@string/send_request"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_20sp" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/_15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_new_milestones_request"
+                        android:textAppearance="@style/MediumTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:layout_marginBottom="@dimen/_5dp"
+                        android:background="@color/gray_e9" />
+
+                    <TextView
+                        android:id="@+id/text_about_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/milestone_add_pilot_description"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/gray_71"
+                        android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

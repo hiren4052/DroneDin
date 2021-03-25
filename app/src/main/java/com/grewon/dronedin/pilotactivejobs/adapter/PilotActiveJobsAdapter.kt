@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.JobsDataBean
-import kotlinx.android.synthetic.main.layout_offers_item.view.*
+import com.grewon.dronedin.server.PilotActiveJobsData
+import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.layout_pilot_active_jobs_item.view.*
 
 
 /**
@@ -21,13 +23,13 @@ class PilotActiveJobsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onActiveItemClick(jobsDataBean: JobsDataBean.Data?)
+        fun onActiveItemClick(jobsDataBean: PilotActiveJobsData.Data?)
 
 
     }
 
 
-    var itemList = ArrayList<JobsDataBean.Data>()
+    var itemList = ArrayList<PilotActiveJobsData.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,14 +44,30 @@ class PilotActiveJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
-            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(null) }
+
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.jobTitle
+            holder.textClientName.text = item.userName
+            holder.textJobLocation.text =
+                MapUtils.getStateName(
+                    context, item.jobLatitude?.toDouble()!!,
+                    item.jobLongitude?.toDouble()!!
+                )
+
+
+
+
+            holder.textOfferedPrice.text =
+                context.getString(R.string.price_string, item.offerTotalPrice)
+
+            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(item) }
 
         }
 
@@ -57,7 +75,7 @@ class PilotActiveJobsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<JobsDataBean.Data>) {
+    fun addItemsList(list: ArrayList<PilotActiveJobsData.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

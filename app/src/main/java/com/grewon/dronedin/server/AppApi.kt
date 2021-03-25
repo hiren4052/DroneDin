@@ -154,4 +154,17 @@ interface AppApi {
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<CommonMessageBean>
 
+    @GET("pilot_c/my_job")
+    fun getPilotActiveJobs(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<PilotActiveJobsData>
+
+    @GET("job_c/job")
+    fun getActiveJobsDetails(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<ActiveJobsDetails>
+
+    @POST("pilot_c/milestone_submit")
+    fun submitMilestone(@Body file: RequestBody): Single<CommonMessageBean>
+
 }

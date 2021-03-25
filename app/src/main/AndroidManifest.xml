@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".milestone.CancelMilestoneActivity"></activity>
+        <activity android:name=".milestone.MilestoneAddActivity" />
         <activity
             android:name=".invitepilot.InvitePilotActivity"
             android:exported="true" />

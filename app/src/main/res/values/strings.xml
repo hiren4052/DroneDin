@@ -92,7 +92,7 @@
     <string name="interviewing">Interviewing</string>
     <string name="invitations_sent">Invitations Sent</string>
     <string name="send_proposal">Send Proposal</string>
-    <string name="message">message</string>
+    <string name="message">Message</string>
     <string name="active_jobs">Active Jobs</string>
     <string name="job_history">Job History</string>
     <string name="earnings">My Earnings</string>
@@ -110,6 +110,7 @@
     <string name="decline">Decline</string>
     <string name="client_name">Client Name:</string>
     <string name="active">Active</string>
+    <string name="pending">Pending</string>
     <string name="completed">Completed</string>
     <string name="completed_on">Completed on:</string>
     <string name="cancelled">Cancelled</string>
@@ -324,6 +325,27 @@
     <string name="please_enter_title">Please enter title!</string>
     <string name="please_enter_description">Please enter description!</string>
     <string name="please_enter_proposal_price">Please enter proposal price!</string>
+
+    <string name="milestone_count_string">%s. %s</string>
+    <string name="add_milestone">Add Milestone</string>
+    <string name="cancel_project">Cancel Project</string>
+    <string name="end_complete_project">End/Complete Project</string>
+    <string name="cancel_milestone">Cancel Milestone</string>
+    <string name="submit_work">Submit Work</string>
+    <string name="send_request">Send Request</string>
+    <string name="about_milestone_cancellation">About Milestone Cancellation</string>
+    <string name="about_new_milestones_request">About New Milestones Request</string>
+    <string name="describe_your_reasons_for_cancelling_the_milestone">Describe your reasons for cancelling the Milestone.</string>
+
+    <string name="milestone_add_pilot_description">When you request new milestones in an active project , it will add new milestones only after the client accepts the request and the price of new milestones will be added in total project price.</string>
+    <string name="milestone_add_client_description">When you add new milestones in an active project , it will add new milestones after the last milestone you added and the price of new milestones will be added in total project price.</string>
+
+    <string name="cancel_milestone_pilot_description">Cancelling this milestone will terminate this particular milestone and other milestone will remain same . If you cancel this milestone , the amount will be send to the client once client accept the request.</string>
+    <string name="cancel_milestone_client_description">Cancelling this milestone will terminate this particular milestone and other milestone will remain same . If you cancel this milestone , the amount will be send to the pilot.</string>
+
+    <string name="cancel_project_client_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center .</string>
+    <string name="cancel_project_pilot_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center .</string>
+    <string name="please_add_comment">Please add comment</string>
 
 
 </resources>

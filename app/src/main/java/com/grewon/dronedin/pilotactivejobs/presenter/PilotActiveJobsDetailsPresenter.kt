@@ -5,27 +5,24 @@ import com.google.gson.Gson
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.network.NetworkCall
-import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsContract
+import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.server.*
-import com.grewon.dronedin.server.params.FilterParams
-import com.grewon.dronedin.server.params.GetJobsParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
-class PilotActiveJobsPresenter : PilotActiveJobsContract.Presenter {
+class PilotActiveJobsDetailsPresenter : PilotActiveJobsDetailsContract.Presenter {
 
 
-    private var view: PilotActiveJobsContract.View? = null
+    private var view: PilotActiveJobsDetailsContract.View? = null
     private lateinit var api: AppApi
     private lateinit var retrofit: Retrofit
     private val subscriptions = CompositeDisposable()
 
 
-
-    override fun attachView(view: PilotActiveJobsContract.View) {
+    override fun attachView(view: PilotActiveJobsDetailsContract.View) {
         this.view = view
     }
 
@@ -40,37 +37,32 @@ class PilotActiveJobsPresenter : PilotActiveJobsContract.Presenter {
     }
 
 
-
-
-
-    override fun getPilotActiveJobs(getJobsParams: GetJobsParams) {
+    override fun getJobsDetails(offersId: String, jobType: String) {
+        view?.showOnScreenProgress()
         val map = HashMap<String, Any>()
 
-        if (getJobsParams.page != null) {
-            map["page"] = getJobsParams.page.toString()
-        }
 
-        if (getJobsParams.jobType != null) {
-            map["job_type"] = getJobsParams.jobType.toString()
-        }
+        map["job_id"] = offersId
+        map["job_type"] = jobType
 
-
-        api.getPilotActiveJobs(map)
+        api.getActiveJobsDetails(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotActiveJobsData>() {
+            .subscribe(object : NetworkCall<ActiveJobsDetails>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: PilotActiveJobsData) {
-                    view?.onJobsDataGetSuccessful(dataBean)
+                override fun onSuccessResponse(dataBean: ActiveJobsDetails) {
+                    view?.hideOnScreenProgress()
+                    view?.onJobDetailSuccessfully(dataBean)
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideOnScreenProgress()
                     LogX.E(errorBean.toString())
-                    view?.onJobsDataGetFailed(
+                    view?.onJobDetailFailed(
                         Gson().fromJson(
                             errorBean.toString(),
                             CommonMessageBean::class.java
@@ -79,15 +71,13 @@ class PilotActiveJobsPresenter : PilotActiveJobsContract.Presenter {
                 }
 
                 override fun onException(throwable: Throwable?) {
+                    view?.hideOnScreenProgress()
                     view?.onApiException(ErrorHandler.handleError(throwable!!))
                 }
 
 
             })
     }
-
-
-
 
 
 }

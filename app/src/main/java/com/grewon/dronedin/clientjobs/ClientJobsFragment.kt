@@ -102,7 +102,7 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
                 }
                 2 -> {
                     pageCount = 1
-                    jobStatus = AppConstant.COMPLETED_JOB_STATUS
+                    jobStatus = AppConstant.HISTORY_JOB_STATUS
                     displayProgressView()
                     apiCall()
                 }

@@ -13,6 +13,10 @@ import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
 import com.grewon.dronedin.offers.contract.OffersDetailsContract
 import com.grewon.dronedin.offers.presenter.OffersDetailsPresenter
+import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsContract
+import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
+import com.grewon.dronedin.pilotactivejobs.presenter.PilotActiveJobsDetailsPresenter
+import com.grewon.dronedin.pilotactivejobs.presenter.PilotActiveJobsPresenter
 import com.grewon.dronedin.pilotfindjobs.contract.PilotJobsContract
 import com.grewon.dronedin.pilotfindjobs.presenter.PilotJobsPresenter
 import com.grewon.dronedin.pilotmyjobs.contract.PilotFindJobsDetailContract
@@ -70,5 +74,18 @@ class PilotJobsModule {
     @Provides
     fun provideOffersDetailsPresenter(): OffersDetailsContract.Presenter {
         return OffersDetailsPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun providePilotActiveJobsPresenter(): PilotActiveJobsContract.Presenter {
+        return PilotActiveJobsPresenter()
+    }
+
+
+    @Singleton
+    @Provides
+    fun providePilotActiveJobsDetailsPresenter(): PilotActiveJobsDetailsContract.Presenter {
+        return PilotActiveJobsDetailsPresenter()
     }
 }
