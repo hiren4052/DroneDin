@@ -2,14 +2,17 @@ package com.grewon.dronedin.milestone.presenter
 
 
 import com.google.gson.Gson
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.MileStoneDetailContract
+import com.grewon.dronedin.milestone.contract.AddMilestoneContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.MileStoneDetailsBean
+import com.grewon.dronedin.server.params.AddMileStoneParams
 import com.grewon.dronedin.server.params.SubmitMilestoneParams
+import com.grewon.dronedin.server.params.SubmitOfferParams
+import com.grewon.dronedin.server.params.SubmitProposalParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,16 +23,16 @@ import okhttp3.RequestBody
 import retrofit2.Retrofit
 import java.io.File
 
-class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
+class AddMilestonePresenter : AddMilestoneContract.Presenter {
 
 
-    private var view: MileStoneDetailContract.View? = null
+    private var view: AddMilestoneContract.View? = null
     private lateinit var api: AppApi
     private lateinit var retrofit: Retrofit
     private val subscriptions = CompositeDisposable()
 
 
-    override fun attachView(view: MileStoneDetailContract.View) {
+    override fun attachView(view: AddMilestoneContract.View) {
         this.view = view
     }
 
@@ -44,43 +47,49 @@ class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
     }
 
 
-    override fun getMilesStoneDetail(mileStoneId: String) {
+    override fun addMilestone(params: AddMileStoneParams) {
+
+        val map = HashMap<String, Any>()
+
+        map["job_id"] = params.job_id!!
+        map["milestone"] = Gson().toJson(params.mileStones)
 
 
-        view?.showOnScreenProgress()
+        view?.showProgress()
 
-        api.getMileStoneDetail(mileStoneId)
+        api.addMileStone(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MileStoneDetailsBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: MileStoneDetailsBean) {
-                    view?.hideOnScreenProgress()
-                    view?.onDataGetSuccessFully(dataBean)
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onSubmitSuccessFully(dataBean)
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
-                    view?.hideOnScreenProgress()
+                    view?.hideProgress()
                     LogX.E(errorBean.toString())
-                    view?.onDataGetFailed(
+                    view?.onSubmitFailed(
                         Gson().fromJson(
                             errorBean.toString(),
-                            CommonMessageBean::class.java
+                            AddMileStoneParams::class.java
                         )
                     )
                 }
 
                 override fun onException(throwable: Throwable?) {
-                    view?.hideOnScreenProgress()
+                    view?.hideProgress()
                     view?.onApiException(ErrorHandler.handleError(throwable!!))
                 }
 
 
             })
+
     }
 
 

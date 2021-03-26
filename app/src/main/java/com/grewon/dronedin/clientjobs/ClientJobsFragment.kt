@@ -210,7 +210,7 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
             Intent(
                 requireContext(),
                 ClientActiveJobsDetailsActivity::class.java
-            ).putExtra(AppConstant.ID, jobsDataBean?.jobId)
+            ).putExtra(AppConstant.ID, jobsDataBean?.offerId)
         )
     }
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
@@ -13,6 +14,7 @@ import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MileStoneDetailsBean
 import com.grewon.dronedin.utils.TimeUtils
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_milestone_detail.*
 import kotlinx.android.synthetic.main.layout_no_data.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
@@ -29,6 +31,7 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
     lateinit var mileStoneDetailPresenter: MileStoneDetailContract.Presenter
 
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
+    private var milestoneId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +43,12 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
 
     private fun initView() {
         txt_toolbar_title.text = getString(R.string.milestone_details)
+        milestoneId = intent.getStringExtra(AppConstant.ID).toString()
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         mileStoneDetailPresenter.attachView(this)
         mileStoneDetailPresenter.attachApiInterface(retrofit)
+        mileStoneDetailPresenter.getMilesStoneDetail(milestoneId)
     }
 
 
@@ -68,29 +74,34 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
 
     private fun setView(loginParams: MileStoneDetailsBean) {
         txt_milestone_title.text = loginParams.milestoneDetails
-        if (loginParams.milestoneStartedDate != null) {
+        if (loginParams.milestoneStartedDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneStartedDate)) {
             txt_started_date.text = TimeUtils.getServerToAppDate(loginParams.milestoneStartedDate)
         } else {
-            txt_started_date.visibility = View.GONE
+            started_date_layout.visibility = View.GONE
         }
-        if (loginParams.milestoneCompletedDate != null) {
+        if (loginParams.milestoneCompletedDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneCompletedDate)) {
             txt_complete_date.text =
                 TimeUtils.getServerToAppDate(loginParams.milestoneCompletedDate)
         } else {
-            txt_complete_date.visibility = View.GONE
+            complete_date_layout.visibility = View.GONE
         }
 
-        if (loginParams.milestoneCancelledDate != null) {
+        if (loginParams.milestoneCancelledDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneCancelledDate)) {
             txt_cancel_date.text = TimeUtils.getServerToAppDate(loginParams.milestoneCancelledDate)
         } else {
-            txt_cancel_date.visibility = View.GONE
+            cancel_date_layout.visibility = View.GONE
         }
 
-        if (loginParams.milestoneRequestNote != null) {
+        if (loginParams.milestoneRequestNote != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneRequestNote)) {
             txt_note.text = loginParams.milestoneRequestNote
         } else {
             txt_note.visibility = View.GONE
+            title_note.visibility = View.GONE
+            view_layout.visibility = View.GONE
         }
+
+
+
         txt_amount.text = getString(R.string.price_string, loginParams.milestonePrice)
 
         if (loginParams.attachment != null && loginParams.attachment.size > 0) {

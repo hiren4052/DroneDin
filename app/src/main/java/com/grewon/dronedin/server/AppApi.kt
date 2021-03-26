@@ -159,7 +159,24 @@ interface AppApi {
     @POST("pilot_c/milestone_submit")
     fun submitMilestone(@Body file: RequestBody): Single<CommonMessageBean>
 
-    @POST("pilot_c/milestone/{milestone_id}")
+    @GET("job_c/milestone/{milestone_id}")
     fun getMileStoneDetail(@Path("milestone_id") mileStoneId: String): Single<MileStoneDetailsBean>
+
+    @POST("pilot_c/add_milestone")
+    fun addMileStone(@FieldMap requestPart: HashMap<String, Any>): Single<CommonMessageBean>
+
+    @POST("job_c/milestone_cancel")
+    fun cancelMilestone(@Body file: CancelMilestoneParams): Single<CommonMessageBean>
+
+    @GET("job_c/cancel_project")
+    fun cancelProject(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<CommonMessageBean>
+
+    @GET("job_c/end_project")
+    fun endProject(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<CommonMessageBean>
+
 
 }

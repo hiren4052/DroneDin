@@ -343,9 +343,16 @@
     <string name="cancel_milestone_pilot_description">Cancelling this milestone will terminate this particular milestone and other milestone will remain same . If you cancel this milestone , the amount will be send to the client once client accept the request.</string>
     <string name="cancel_milestone_client_description">Cancelling this milestone will terminate this particular milestone and other milestone will remain same . If you cancel this milestone , the amount will be send to the pilot.</string>
 
-    <string name="cancel_project_client_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center .</string>
-    <string name="cancel_project_pilot_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center .</string>
+    <string name="cancel_project_client_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center.</string>
+    <string name="cancel_project_pilot_description">Cancelling the project will terminate all of your milestones. To cancel the project, first you will have to Complete or cancel the active milestones.\n\nIf pilot raises a problem with cancellation , the matter will go to dispute center.</string>
+
     <string name="please_add_comment">Please add comment</string>
+    <string name="about_project_cancellation">About Project Cancellation</string>
+    <string name="cancel_forcefully">Cancel Forcefully</string>
+    <string name="ending_the_project">Ending The Project</string>
+    <string name="end_project_about_description">The project ends successfully after all milestones are completed once you proceed from here. If you want to end project forcefully, the project will be registered as a dispute.</string>
+    <string name="project_completed">Project Completed</string>
+    <string name="end_forcefully">End Forcefully</string>
 
 
 </resources>

@@ -10,13 +10,15 @@ import android.os.Parcelable
 @Parcelize
 data class ActiveJobsDetails(
     @SerializedName("attachment")
-    val attachment: List<Attachment?>? = listOf(),
+    val attachment: ArrayList<Attachment>? = null,
     @SerializedName("category")
     val category: Category? = Category(),
+    @SerializedName("pilot")
+    val pilot: Pilot? = Pilot(),
     @SerializedName("date")
     val date: String? = "",
     @SerializedName("equipment")
-    val equipment: List<Equipment?>? = listOf(),
+    val equipment: ArrayList<Equipment>? = null,
     @SerializedName("job_address")
     val jobAddress: String? = "",
     @SerializedName("job_id")
@@ -40,7 +42,7 @@ data class ActiveJobsDetails(
     @SerializedName("offer_total_price")
     val offerTotalPrice: String? = "",
     @SerializedName("skill")
-    val skill: List<Skill?>? = listOf(),
+    val skill: ArrayList<Skill>? = null,
     @SerializedName("user_name")
     val userName: String? = ""
 ) : Parcelable {
@@ -97,5 +99,18 @@ data class ActiveJobsDetails(
         val skill: String? = "",
         @SerializedName("skill_id")
         val skillId: String? = ""
+    ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Pilot(
+        @SerializedName("user_id")
+        val userId: String? = "",
+        @SerializedName("user_name")
+        val userName: String? = "",
+        @SerializedName("user_latitude")
+        val userLatitude: String? = "",
+        @SerializedName("user_longitude")
+        val userLongitude: String? = ""
     ) : Parcelable
 }

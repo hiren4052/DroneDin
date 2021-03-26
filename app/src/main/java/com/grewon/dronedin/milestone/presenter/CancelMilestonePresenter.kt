@@ -2,14 +2,14 @@ package com.grewon.dronedin.milestone.presenter
 
 
 import com.google.gson.Gson
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.MileStoneDetailContract
+import com.grewon.dronedin.milestone.contract.CancelMilestoneContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.MileStoneDetailsBean
-import com.grewon.dronedin.server.params.SubmitMilestoneParams
+import com.grewon.dronedin.server.params.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,16 +20,16 @@ import okhttp3.RequestBody
 import retrofit2.Retrofit
 import java.io.File
 
-class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
+class CancelMilestonePresenter : CancelMilestoneContract.Presenter {
 
 
-    private var view: MileStoneDetailContract.View? = null
+    private var view: CancelMilestoneContract.View? = null
     private lateinit var api: AppApi
     private lateinit var retrofit: Retrofit
     private val subscriptions = CompositeDisposable()
 
 
-    override fun attachView(view: MileStoneDetailContract.View) {
+    override fun attachView(view: CancelMilestoneContract.View) {
         this.view = view
     }
 
@@ -44,43 +44,43 @@ class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
     }
 
 
-    override fun getMilesStoneDetail(mileStoneId: String) {
+    override fun cancelMilestone(params: CancelMilestoneParams) {
 
+        view?.showProgress()
 
-        view?.showOnScreenProgress()
-
-        api.getMileStoneDetail(mileStoneId)
+        api.cancelMilestone(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MileStoneDetailsBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: MileStoneDetailsBean) {
-                    view?.hideOnScreenProgress()
-                    view?.onDataGetSuccessFully(dataBean)
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onCancelSuccessFully(dataBean)
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
-                    view?.hideOnScreenProgress()
+                    view?.hideProgress()
                     LogX.E(errorBean.toString())
-                    view?.onDataGetFailed(
+                    view?.onCancelFailed(
                         Gson().fromJson(
                             errorBean.toString(),
-                            CommonMessageBean::class.java
+                            CancelMilestoneParams::class.java
                         )
                     )
                 }
 
                 override fun onException(throwable: Throwable?) {
-                    view?.hideOnScreenProgress()
+                    view?.hideProgress()
                     view?.onApiException(ErrorHandler.handleError(throwable!!))
                 }
 
 
             })
+
     }
 
 

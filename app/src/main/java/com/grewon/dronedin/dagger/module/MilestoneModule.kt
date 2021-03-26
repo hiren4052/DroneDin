@@ -11,10 +11,8 @@ import com.grewon.dronedin.clientjobs.presenter.ClientJobDetailsPresenter
 import com.grewon.dronedin.clientjobs.presenter.ClientJobsPresenter
 import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
-import com.grewon.dronedin.milestone.contract.MileStoneDetailContract
-import com.grewon.dronedin.milestone.contract.SubmitMilestoneContract
-import com.grewon.dronedin.milestone.presenter.MileStoneDetailPresenter
-import com.grewon.dronedin.milestone.presenter.SubmitMilestonePresenter
+import com.grewon.dronedin.milestone.contract.*
+import com.grewon.dronedin.milestone.presenter.*
 import com.grewon.dronedin.offers.contract.OffersDetailsContract
 import com.grewon.dronedin.offers.presenter.OffersDetailsPresenter
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsContract
@@ -54,6 +52,31 @@ class MilestoneModule {
     @Provides
     fun provideMileStoneDetailPresenter(): MileStoneDetailContract.Presenter {
         return MileStoneDetailPresenter()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideAddMilestonePresenter(): AddMilestoneContract.Presenter {
+        return AddMilestonePresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCancelMilestonePresenter(): CancelMilestoneContract.Presenter {
+        return CancelMilestonePresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCancelProjectPresenter(): CancelProjectContract.Presenter {
+        return CancelProjectPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideEndProjectPresenter(): EndProjectContract.Presenter {
+        return EndProjectPresenter()
     }
 
 }

@@ -7,6 +7,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientjobs.ClientJobsFragment
+import com.grewon.dronedin.clientjobs.active.ClientActiveJobsDetailsActivity
 import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersActivity
 import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalDetailsActivity
@@ -19,6 +20,8 @@ import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
+import com.grewon.dronedin.milestone.CancelMilestoneActivity
+import com.grewon.dronedin.milestone.MilestoneAddActivity
 import com.grewon.dronedin.milestone.MilestoneDetailActivity
 import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
@@ -77,6 +80,9 @@ interface AppComponent {
     fun inject(activity: PilotActiveJobsDetailActivity)
     fun inject(activity: SubmitMilestoneActivity)
     fun inject(activity: MilestoneDetailActivity)
+    fun inject(activity: ClientActiveJobsDetailsActivity)
+    fun inject(activity: MilestoneAddActivity)
+    fun inject(activity: CancelMilestoneActivity)
 
 
     //Fragments

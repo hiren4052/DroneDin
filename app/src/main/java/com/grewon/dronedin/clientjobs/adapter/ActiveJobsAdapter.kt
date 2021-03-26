@@ -11,6 +11,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.MapUtils
 import com.grewon.dronedin.utils.ScreenUtils
 import kotlinx.android.synthetic.main.layout_active_client_jobs_item.view.*
 
@@ -47,16 +48,22 @@ class ActiveJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.jobTitle
+            holder.textPilotName.text = item.pilot
+            holder.textLocation.text = MapUtils.getStateName(context, item.jobLatitude?.toDouble()!!, item.jobLongitude?.toDouble()!!)
+            holder.textPrice.text = context.getString(R.string.price_string, item.totalPrice)
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(null) }
+
+            holder.itemView.setOnClickListener { onItemClickListeners.onActiveItemClick(item) }
 
 
         }

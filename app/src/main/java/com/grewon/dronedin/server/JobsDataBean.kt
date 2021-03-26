@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class JobsDataBean(
@@ -28,7 +27,15 @@ data class JobsDataBean(
         val totalInvitation: String? = "",
         @SerializedName("total_price")
         val totalPrice: String? = "",
+        @SerializedName("pilot")
+        val pilot: String? = "",
         @SerializedName("total_proposal")
-        val totalProposal: String? = ""
+        val totalProposal: String? = "",
+        @SerializedName("job_latitude")
+        val jobLatitude: String? = "",
+        @SerializedName("job_longitude")
+        val jobLongitude: String? = "",
+        @SerializedName("offer_id")
+        val offerId: String? = ""
     ) : Parcelable
 }

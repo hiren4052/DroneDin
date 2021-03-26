@@ -25,24 +25,6 @@ import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContra
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.*
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_equipments
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_skills
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.image_recycle
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.img_back
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.img_toolbar
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.layout_progress
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.mile_stone_recycle
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.milestone_layout
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.no_data_layout
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.pictures_layout
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_budget
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_date
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_description
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_location
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_title
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_subtitle
-import kotlinx.android.synthetic.main.activity_posted_job_details.*
-
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -147,7 +129,12 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                 ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
             )
         } else {
-            startActivity(Intent(this, MilestoneDetailActivity::class.java))
+            startActivity(
+                Intent(this, MilestoneDetailActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobsDataBean?.milestoneId
+                )
+            )
         }
     }
 
@@ -176,13 +163,13 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
             val milestoneList = ArrayList<MilestonesDataBean>()
             for (item in response.milestone) {
                 val milesStone = MilestonesDataBean()
-                milesStone.milestoneDetails = item?.milestoneDetails
-                milesStone.milestonePrice = item?.milestonePrice
-                milesStone.milestoneId = item?.milestoneId
-                milesStone.milestoneRequestId = item?.milestoneRequestId
-                milesStone.milestoneStatus = item?.milestoneStatus
-                milesStone.milestoneCompletedDate = item?.milestoneCompletedDate
-                milesStone.milestoneStartedDate = item?.milestoneStartedDate
+                milesStone.milestoneDetails = item.milestoneDetails
+                milesStone.milestonePrice = item.milestonePrice
+                milesStone.milestoneId = item.milestoneId
+                milesStone.milestoneRequestId = item.milestoneRequestId
+                milesStone.milestoneStatus = item.milestoneStatus
+                milesStone.milestoneCompletedDate = item.milestoneCompletedDate
+                milesStone.milestoneStartedDate = item.milestoneStartedDate
                 milestoneList.add(milesStone)
             }
             setMileStoneAdapter(milestoneList)
@@ -231,11 +218,11 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.im_add_milestone -> {
-                    startActivity(
+                    startActivityForResult(
                         Intent(
                             this,
                             MilestoneAddActivity::class.java
-                        ).putExtra(AppConstant.ID, activeJobsDetails?.jobId)
+                        ).putExtra(AppConstant.ID, activeJobsDetails?.jobId), 12
                     )
                 }
                 R.id.im_cancel_project -> {
@@ -276,6 +263,15 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
         no_data_layout.visibility = View.VISIBLE
         txt_no_data_image.setImageResource(drawableId)
         txt_no_data_title.text = errorMessage
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 12) {
+                activeJobsDetailsPresenter.getJobsDetails(offerId, AppConstant.ACTIVE_JOB_STATUS)
+            }
+        }
     }
 
 

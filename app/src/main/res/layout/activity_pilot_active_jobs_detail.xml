@@ -44,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_10dp"
-                android:text="Real Estate"
                 android:textAllCaps="true"
                 android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/span_text_color"
