@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -27,7 +26,6 @@ import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.server.LocationBean
 import com.grewon.dronedin.server.params.FilterParams
 import com.grewon.dronedin.utils.IconUtils
-import com.grewon.dronedin.utils.TextUtils
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import kotlinx.android.synthetic.main.activity_filter.*
@@ -137,7 +135,7 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         skills_recycle.adapter = filterSkillsAdapter
         filterSkillsAdapter?.addItemsList(skillsList!!)
         if (selectedSkillsId != null && selectedSkillsId!!.isNotEmpty()) {
-            filterSkillsAdapter?.addSelectedItems(selectedSkillsId!!)
+            filterSkillsAdapter?.addSelectedIntItems(selectedSkillsId!!)
         }
     }
 
@@ -150,7 +148,7 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
         equipments_recycle.adapter = filterEquipmentsAdapter
         filterEquipmentsAdapter?.addItemsList(equipmentsList!!)
         if (selectedEquipmentsId != null && selectedEquipmentsId!!.isNotEmpty()) {
-            filterEquipmentsAdapter?.addSelectedItems(selectedEquipmentsId!!)
+            filterEquipmentsAdapter?.addSelectedIntItems(selectedEquipmentsId!!)
         }
     }
 

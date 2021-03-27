@@ -12,6 +12,7 @@ import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.contract.CancelMilestoneContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_cancel_milestone.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -75,7 +76,18 @@ class CancelMilestoneActivity : BaseActivity(), CancelMilestoneContract.View, Vi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_send_request -> {
+                if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
+                    DroneDinApp.getAppInstance().showToast(getString(R.string.please_enter_reason))
+                } else {
 
+                    val params = CancelMilestoneParams()
+                    params.jobId = jobId
+                    params.milestoneId = milestoneId
+                    params.milestoneStatus = "cancel"
+                    params.milestoneCancelDesc = edt_description.text.toString()
+
+                    cancelMilestonePresenter.cancelMilestone(params)
+                }
             }
         }
     }

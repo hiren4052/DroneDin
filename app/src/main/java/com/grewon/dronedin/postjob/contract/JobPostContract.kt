@@ -17,6 +17,14 @@ interface JobPostContract {
         fun onApiException(error: Int)
 
 
+        fun onDeleteMilestoneSuccessfully(commonMessageBean: CommonMessageBean)
+
+        fun onDeleteMilestoneFailed(commonMessageBean: CommonMessageBean)
+
+        fun onDeleteAttachmentSuccessfully(commonMessageBean: CommonMessageBean)
+
+        fun onDeleteAttachmentFailed(commonMessageBean: CommonMessageBean)
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -24,6 +32,11 @@ interface JobPostContract {
 
         fun postJob(params: CreateJobsParams)
 
+        fun editJob(jobId: String, params: CreateJobsParams)
+
+        fun deleteAttachment(attachmentId: String)
+
+        fun deleteMilestone(milestoneId: String)
 
     }
 

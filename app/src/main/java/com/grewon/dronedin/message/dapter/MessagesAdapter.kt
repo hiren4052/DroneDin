@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.grewon.dronedin.R
-import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.MessagesDataBean
-import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_messages_item.view.*
 
 
@@ -21,19 +21,18 @@ import kotlinx.android.synthetic.main.layout_messages_item.view.*
 class MessagesAdapter(
     val context: Context,
     private val onItemClickListeners: OnItemClickListeners
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: MessagesDataBean.Result?)
+        fun onItemClick(jobsDataBean: MessagesDataBean.Data?)
 
-        fun onDeleteItem(jobsDataBean: MessagesDataBean.Result?, adapterPosition: Int)
+        fun onDeleteItem(jobsDataBean: MessagesDataBean.Data?, adapterPosition: Int)
 
     }
 
 
-    var itemList = ArrayList<MessagesDataBean.Result>()
+    var itemList = ArrayList<MessagesDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -48,23 +47,55 @@ class MessagesAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
             Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
+                .load(item.userDetails?.profileImage)
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                 .into(holder.imageUser)
 
+            holder.textUserName.text = item.userDetails?.userName
+
+
+            if (item.lastMessageType == "Text") {
+                holder.textMessages.text = item.lastMessage
+                IconUtils.setLeftDrawableIconToTextWithTint(context, null, holder.textMessages)
+            } else if (item.lastMessageType == "Image") {
+                holder.textMessages.text = item.lastMessageType
+                IconUtils.setLeftDrawableIconToTextWithTint(
+                    context,
+                    R.drawable.ic_picture,
+                    holder.textMessages
+                )
+            } else {
+                holder.textMessages.text = item.lastMessageType
+                IconUtils.setLeftDrawableIconToTextWithTint(
+                    context,
+                    R.drawable.ic_folder,
+                    holder.textMessages
+                )
+            }
+
+            holder.textDate.text = TimeUtils.getChatTime(item.lastUpdate.toString())
+
+            if (item.totalUnread != "0") {
+                holder.textMessageCount.text = item.totalUnread
+                holder.textMessageCount.visibility = View.VISIBLE
+            } else {
+                holder.textMessageCount.visibility = View.GONE
+            }
 
             holder.itemView.setOnClickListener {
-                onItemClickListeners.onItemClick(null)
+                onItemClickListeners.onItemClick(item)
             }
+
 
         }
 
@@ -72,7 +103,7 @@ class MessagesAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<MessagesDataBean.Result>) {
+    fun addItemsList(list: ArrayList<MessagesDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

@@ -10,11 +10,11 @@ import android.os.Parcelable
 @Parcelize
 data class CancelMilestoneParams(
     @SerializedName("job_id")
-    val jobId: Int? = 0,
+    var jobId: String? = "",
     @SerializedName("milestone_cancel_desc")
-    val milestoneCancelDesc: String? = "",
+    var milestoneCancelDesc: String? = "",
     @SerializedName("milestone_id")
-    val milestoneId: String? = "",
+    var milestoneId: String? = "",
     @SerializedName("milestone_status")
-    val milestoneStatus: String? = ""
+    var milestoneStatus: String? = ""
 ) : Parcelable

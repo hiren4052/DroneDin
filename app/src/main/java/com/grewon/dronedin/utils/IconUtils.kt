@@ -68,9 +68,9 @@ class IconUtils {
 
         fun getDrawable(
             context: Context?,
-            drawableId: Int
+            drawableId: Int?
         ): Drawable? {
-            return AppCompatResources.getDrawable(context!!, drawableId)
+            return AppCompatResources.getDrawable(context!!, drawableId!!)
         }
 
         fun setImageViewBackGround(
@@ -94,11 +94,10 @@ class IconUtils {
 
         fun setLeftDrawableIconToTextWithTint(
             context: Context?,
-            drawableId: Int,
+            drawableId: Int?,
             view: TextView
         ) {
-            val drawable =
-                getDrawable(context, drawableId)
+            val drawable = getDrawable(context, drawableId!!)
             DrawableCompat.setTint(
                 drawable!!,
                 ContextCompat.getColor(context!!, R.color.colorPrimary)

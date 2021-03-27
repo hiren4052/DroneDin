@@ -13,6 +13,7 @@ import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.layout_jobs_attachments_item.view.*
 import java.io.File
 import java.util.*
@@ -32,7 +33,7 @@ class UploadAttachmentsAdapter(
     var itemList = ArrayList<UploadAttachmentsParams>()
 
     interface OnItemLongClickListeners {
-        fun onLongClick(adapterPosition: Int)
+        fun onLongClick(adapterPosition: Int, item: UploadAttachmentsParams)
     }
 
 
@@ -58,10 +59,12 @@ class UploadAttachmentsAdapter(
         if (holder is ItemViewHolder) {
 
             LogX.E(FileValidationUtils.getExtension(item.filePath).toString())
+
             if (ListUtils.getImageExtensionList()
                     .contains(
                         FileValidationUtils.getExtension(item.filePath).toString().toLowerCase(
-                            Locale.ROOT)
+                            Locale.ROOT
+                        )
                     )
             ) {
                 Glide.with(context)
@@ -75,12 +78,14 @@ class UploadAttachmentsAdapter(
 
             holder.itemView.setOnClickListener {
                 try {
-                    context.startActivity(
-                        FileValidationUtils.getViewIntent(
-                            context,
-                            File(item.filePath!!)
+                    if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
+                        context.startActivity(
+                            FileValidationUtils.getViewIntent(
+                                context,
+                                File(item.filePath!!)
+                            )
                         )
-                    )
+                    }
                 } catch (e: ActivityNotFoundException) {
                     DroneDinApp.getAppInstance()
                         .showToast(context.getString(R.string.no_application_found_to_handle_this_file))
@@ -89,7 +94,7 @@ class UploadAttachmentsAdapter(
             }
 
             holder.itemView.setOnLongClickListener {
-                onItemLongCLickListeners.onLongClick(holder.adapterPosition)
+                onItemLongCLickListeners.onLongClick(holder.adapterPosition, item)
                 true
             }
 

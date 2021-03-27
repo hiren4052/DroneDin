@@ -49,7 +49,7 @@
             android:padding="@dimen/_25dp">
 
             <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/ratingbar"
+                android:id="@+id/rating_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

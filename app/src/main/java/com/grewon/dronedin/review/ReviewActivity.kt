@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 class ReviewActivity : BaseActivity(), View.OnClickListener {
 
     private var reviewsAdapter: WhiteScreenReviewsAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review)

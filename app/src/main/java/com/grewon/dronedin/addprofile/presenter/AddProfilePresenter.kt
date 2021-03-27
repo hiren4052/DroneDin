@@ -86,6 +86,18 @@ class AddProfilePresenter : AddProfileContract.Presenter {
     override fun updateProfile(params: ProfileUpdateParams) {
         var frontSideImage: MultipartBody.Part? = null
         var backSideImage: MultipartBody.Part? = null
+        var profileImage: MultipartBody.Part? = null
+
+        profileImage =
+            MultipartBody.Part.createFormData(
+                "profile_image",
+                File(params.profileImage.toString()).name,
+                RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    File(params.profileImage.toString())
+                )
+            )
+
 
         if (!ValidationUtils.isEmptyFiled(params.proofId.toString())) {
             frontSideImage =
@@ -119,7 +131,7 @@ class AddProfilePresenter : AddProfileContract.Presenter {
 
         view?.showProgress()
 
-        api.updateProfile(frontSideImage, backSideImage, map)
+        api.updateProfile(profileImage, frontSideImage, backSideImage, map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : NetworkCall<ProfileBean>() {

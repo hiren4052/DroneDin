@@ -377,7 +377,7 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
         }
     }
 
-    override fun onLongClick(adapterPosition: Int) {
+    override fun onLongClick(adapterPosition: Int, item: UploadAttachmentsParams) {
         openRemoveAlertDialog(adapterPosition)
     }
 

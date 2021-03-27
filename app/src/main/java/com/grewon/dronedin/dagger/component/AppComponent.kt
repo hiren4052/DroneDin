@@ -20,10 +20,8 @@ import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
-import com.grewon.dronedin.milestone.CancelMilestoneActivity
-import com.grewon.dronedin.milestone.MilestoneAddActivity
-import com.grewon.dronedin.milestone.MilestoneDetailActivity
-import com.grewon.dronedin.milestone.SubmitMilestoneActivity
+import com.grewon.dronedin.message.MessageFragment
+import com.grewon.dronedin.milestone.*
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
 import com.grewon.dronedin.offers.OffersDetailActivity
@@ -36,6 +34,7 @@ import com.grewon.dronedin.postjob.AddJobDetailsFragment
 import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.proposals.ProposalsDetailActivity
+import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
@@ -48,7 +47,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
-        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class]
+        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class, MessageModule::class]
 )
 interface AppComponent {
 
@@ -83,6 +82,9 @@ interface AppComponent {
     fun inject(activity: ClientActiveJobsDetailsActivity)
     fun inject(activity: MilestoneAddActivity)
     fun inject(activity: CancelMilestoneActivity)
+    fun inject(activity: CancelProjectActivity)
+    fun inject(activity: EndProjectActivity)
+    fun inject(activity: SubmitReviewActivity)
 
 
     //Fragments
@@ -95,6 +97,7 @@ interface AppComponent {
     fun inject(fragment: ClientJobsFragment)
     fun inject(fragment: PilotFindJobsFragment)
     fun inject(fragment: PilotMyJobsFragment)
+    fun inject(fragment: MessageFragment)
 
 
 }

@@ -5,10 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.server.JobInitBean
-import com.grewon.dronedin.server.SkillsDataBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
 
@@ -102,8 +100,7 @@ class FilterSkillsAdapter(
         notifyDataSetChanged()
     }
 
-
-    fun addSelectedItems(selectedSkillsId: List<Int>) {
+    fun addSelectedIntItems(selectedSkillsId: List<Int>) {
         for (item in itemList) {
             if (selectedSkillsId.contains(item.skillId?.toInt())) {
                 item.isSelected = 1
@@ -113,8 +110,23 @@ class FilterSkillsAdapter(
     }
 
 
+
+    fun addSelectedItems(selectedSkillsId: ArrayList<String>) {
+        for (item in itemList) {
+            if (selectedSkillsId.contains(item.skillId)) {
+                item.isSelected = 1
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+
     fun getSelectedItems(): List<JobInitBean.Skill> {
         return itemList.filter { it.isSelected == 1 }
+    }
+
+    fun getSelectedIdsItems(): List<String> {
+        return itemList.filter { it.isSelected == 1 }.map { it.skillId.toString() }
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

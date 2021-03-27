@@ -5,9 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.gson.Gson
 import com.grewon.dronedin.R
-import com.grewon.dronedin.server.EquipmentsDataBean
 import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.utils.IconUtils
 import kotlinx.android.synthetic.main.layout_find_pilot_jobs_item.view.*
@@ -111,14 +109,29 @@ class FilterEquipmentsAdapter(
         val categoryName = itemView.txt_category_name
     }
 
-    fun addSelectedItems(selectedEquipmentsId: List<Int>) {
+    fun addSelectedIntItems(selectedSkillsId: List<Int>) {
         for (item in itemList) {
-            if (selectedEquipmentsId.contains(item.equipmentId?.toInt())) {
+            if (selectedSkillsId.contains(item.equipmentId?.toInt())) {
                 item.isSelected = 1
             }
         }
         notifyDataSetChanged()
     }
+
+
+    fun addSelectedItems(selectedEquipmentsId: ArrayList<String>) {
+        for (item in itemList) {
+            if (selectedEquipmentsId.contains(item.equipmentId)) {
+                item.isSelected = 1
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun getSelectedIdsItems(): List<String> {
+        return itemList.filter { it.isSelected == 1 }.map { it.equipmentId.toString() }
+    }
+
 
     fun getSelectedItemsStrings(): String {
         return if (itemList.filter { it.isSelected == 1 }.map { it.equipmentId?.toInt()!! } != null) return itemList.filter { it.isSelected == 1 }.map { it.equipmentId?.toInt()!! }.joinToString(",") else ""

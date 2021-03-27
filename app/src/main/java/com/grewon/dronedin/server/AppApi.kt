@@ -45,7 +45,7 @@ interface AppApi {
 
     @Multipart
     @POST("profile_c/update_profile")
-    fun updateProfile(
+    fun updateProfile(@Part profileImage: MultipartBody.Part?,
         @Part frontSide: MultipartBody.Part?,
         @Part backSide: MultipartBody.Part?,
         @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
@@ -61,6 +61,8 @@ interface AppApi {
     @POST("job_c/job")
     fun postJob(@Body file: RequestBody): Single<CreateJobsBean>
 
+    @POST("job_c/job_update/{job_id}")
+    fun editJob(@Body file: RequestBody, @Path("job_id") jobId: String): Single<CreateJobsBean>
 
     @GET("pilot_c/pilot_list")
     fun getPilotList(
@@ -81,6 +83,12 @@ interface AppApi {
 
     @DELETE("job_c/job/{job_id}")
     fun deleteJobs(@Path("job_id") jobId: String): Single<CommonMessageBean>
+
+    @DELETE("job_c/attachment/{attachment_id}")
+    fun deleteAttachment(@Path("attachment_id") attachmentId: String): Single<CommonMessageBean>
+
+    @DELETE("job_c/milestone/{milestone_id}")
+    fun deleteMilestone(@Path("milestone_id") milestoneId: String): Single<CommonMessageBean>
 
     @GET("pilot_c/save_pilot/{pilot_id}")
     fun savePilots(@Path("pilot_id") jobId: String): Single<CommonMessageBean>
@@ -178,5 +186,10 @@ interface AppApi {
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<CommonMessageBean>
 
+    @GET("chat_c/chat_room")
+    fun getMessages(): Single<MessagesDataBean>
+
+    @POST("pilot_c/submit_review")
+    fun submitReview(@Body params: SubmitReviewParams): Single<CommonMessageBean>
 
 }

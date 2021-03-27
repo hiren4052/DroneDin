@@ -37,8 +37,6 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
     private var filterEquipmentsAdapter: FilterEquipmentsAdapter? = null
     private var filterSkillsAdapter: FilterSkillsAdapter? = null
     private var selectedCategoryId: String = ""
-    private var selectedSkillsId: List<Int>? = null
-    private var selectedEquipmentsId: List<Int>? = null
     private var categoryList: ArrayList<JobInitBean.Category>? = null
     private var skillsList: ArrayList<JobInitBean.Skill>? = null
     private var equipmentsList: ArrayList<JobInitBean.Equipment>? = null
@@ -79,7 +77,9 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
             setCategoryAdapter()
             setSkillsAdapter()
             setEquipmentsAdapter()
+
         } else {
+            selectedCategoryId=(activity as PostJobActivity).createJobsParams?.selectedCategoryId.toString()
             skillsEquipmentsPresenter.getJobCommonData()
 
         }
@@ -96,8 +96,8 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
         filterSkillsAdapter = FilterSkillsAdapter(requireContext(), this)
         skills_recycle.adapter = filterSkillsAdapter
         filterSkillsAdapter?.addItemsList(skillsList!!)
-        if (selectedSkillsId != null && selectedSkillsId!!.isNotEmpty()) {
-            filterSkillsAdapter?.addSelectedItems(selectedSkillsId!!)
+        if ((activity as PostJobActivity).createJobsParams?.selectedSkillsIdList != null && (activity as PostJobActivity).createJobsParams?.selectedSkillsIdList!!.isNotEmpty()) {
+            filterSkillsAdapter?.addSelectedItems((activity as PostJobActivity).createJobsParams?.selectedSkillsIdList!!)
         }
     }
 
@@ -109,8 +109,8 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
         filterEquipmentsAdapter = FilterEquipmentsAdapter(requireContext(), this)
         equipments_recycle.adapter = filterEquipmentsAdapter
         filterEquipmentsAdapter?.addItemsList(equipmentsList!!)
-        if (selectedEquipmentsId != null && selectedEquipmentsId!!.isNotEmpty()) {
-            filterEquipmentsAdapter?.addSelectedItems(selectedEquipmentsId!!)
+        if ((activity as PostJobActivity).createJobsParams?.selectedEquipmentsIdList != null && (activity as PostJobActivity).createJobsParams?.selectedEquipmentsIdList!!.isNotEmpty()) {
+            filterEquipmentsAdapter?.addSelectedItems((activity as PostJobActivity).createJobsParams?.selectedEquipmentsIdList!!)
         }
     }
 
@@ -145,6 +145,7 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
         if (!ValidationUtils.isEmptyFiled(selectedCategoryId)) {
             category_spinner.setSelection(setCategorySpinnerSelected())
         }
+
     }
 
 
@@ -182,6 +183,10 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
                 } else {
                     (activity as PostJobActivity).createJobsParams?.skillList =
                         filterSkillsAdapter?.itemList
+                    (activity as PostJobActivity).createJobsParams?.selectedSkillsIdList =
+                        filterSkillsAdapter?.getSelectedIdsItems() as ArrayList<String>
+                    (activity as PostJobActivity).createJobsParams?.selectedEquipmentsIdList =
+                        filterEquipmentsAdapter?.getSelectedIdsItems() as ArrayList<String>
                     (activity as PostJobActivity).createJobsParams?.equipmentsList =
                         filterEquipmentsAdapter?.itemList
                     (activity as PostJobActivity).createJobsParams?.selectedCategoryId =
@@ -201,6 +206,7 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
     }
 
     override fun onJobCommonDataGetSuccessful(response: JobInitBean) {
+
         if (response.category != null && response.category.size > 0) {
             categoryList = response.category
             (activity as PostJobActivity).createJobsParams?.categoryList = categoryList
@@ -218,6 +224,7 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
             (activity as PostJobActivity).createJobsParams?.equipmentsList = equipmentsList
             setEquipmentsAdapter()
         }
+
     }
 
     override fun onJobCommonDataGetFailed(loginParams: CommonMessageBean) {

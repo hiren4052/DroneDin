@@ -30,13 +30,14 @@ import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.mapscreen.MapScreenActivity
 import com.grewon.dronedin.server.CreateMilestoneBean
-import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.postjob.contract.JobPostContract
 import com.grewon.dronedin.server.CreateJobsBean
 import com.grewon.dronedin.server.LocationBean
 import com.grewon.dronedin.server.params.CreateJobsParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.attachments.UploadAttachmentsAdapter
+import com.grewon.dronedin.milestone.adapter.CreateMileStoneJobAdapter
+import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -52,7 +53,8 @@ import javax.inject.Inject
 
 
 class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
-    UploadAttachmentsAdapter.OnItemLongClickListeners, JobPostContract.View {
+    UploadAttachmentsAdapter.OnItemLongClickListeners, JobPostContract.View,
+    CreateMileStoneJobAdapter.OnMilestoneRemoveClickListeners {
 
     @Inject
     lateinit var postJobPresenter: JobPostContract.Presenter
@@ -61,12 +63,14 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
     lateinit var retrofit: Retrofit
 
     private var alertDialog: AlertViewDialog? = null
-    private var createMileStoneAdapter: CreateMileStoneAdapter? = null
+    private var createMileStoneAdapter: CreateMileStoneJobAdapter? = null
     private var jobsImageAdapter: UploadAttachmentsAdapter? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var locationAddress: String = ""
     private var picturePath: File? = null
+    private var milestonePosition: Int = 0
+    private var attachmentPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -122,7 +126,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
 
 
         milestone_recycle.layoutManager = LinearLayoutManager(context)
-        createMileStoneAdapter = CreateMileStoneAdapter(requireContext())
+        createMileStoneAdapter = CreateMileStoneJobAdapter(requireContext(), this)
         milestone_recycle.adapter = createMileStoneAdapter
         setImageAdapter()
 
@@ -208,7 +212,16 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
                         jobsImageAdapter?.itemList
                     (activity as PostJobActivity).createJobsParams?.mileStones =
                         createMileStoneAdapter?.itemList
-                    postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
+
+                    if ((activity as PostJobActivity).screenTag == "edit") {
+                        postJobPresenter.editJob(
+                            (activity as PostJobActivity).jobId,
+                            (activity as PostJobActivity).createJobsParams!!
+                        )
+                    } else {
+                        postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
+
+                    }
                 }
             }
         }
@@ -524,17 +537,22 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
         }
     }
 
-    override fun onLongClick(adapterPosition: Int) {
-        openRemoveAlertDialog(adapterPosition)
+    override fun onLongClick(adapterPosition: Int, item: UploadAttachmentsParams) {
+        attachmentPosition = adapterPosition
+        openRemoveAlertDialog(adapterPosition, item)
     }
 
-    private fun openRemoveAlertDialog(adapterPosition: Int) {
+    private fun openRemoveAlertDialog(adapterPosition: Int, item: UploadAttachmentsParams) {
         alertDialog = AlertViewDialog(requireContext(), R.style.DialogThme)
         alertDialog!!.setTitle(getString(R.string.remove_attachment_message))
         alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
         alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
         alertDialog!!.setOkListener(View.OnClickListener {
-            jobsImageAdapter?.removeItem(adapterPosition)
+            if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
+                jobsImageAdapter?.removeItem(adapterPosition)
+            } else {
+                postJobPresenter.deleteAttachment(item.attachmentId)
+            }
             alertDialog?.dismiss()
 
         })
@@ -542,15 +560,22 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onPostJobSuccessFully(loginParams: CreateJobsBean) {
-        if (loginParams.id != null) {
-            startActivityForResult(
-                Intent(
-                    requireContext(),
-                    PostJobSubmittedActivity::class.java
-                ).putExtra(AppConstant.ID, loginParams.id),
-                66
-            )
+        if ((activity as PostJobActivity).screenTag == "edit") {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg!!)
+            activity?.setResult(Activity.RESULT_OK)
+            activity?.finish()
+        } else {
+            if (loginParams.id != null) {
+                startActivityForResult(
+                    Intent(
+                        requireContext(),
+                        PostJobSubmittedActivity::class.java
+                    ).putExtra(AppConstant.ID, loginParams.id),
+                    66
+                )
+            }
         }
+
 
     }
 
@@ -560,6 +585,38 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
 
     override fun onApiException(error: Int) {
         DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onDeleteMilestoneSuccessfully(commonMessageBean: CommonMessageBean) {
+        if (commonMessageBean.msg != null) {
+            DroneDinApp.getAppInstance().showToast(commonMessageBean.msg)
+            createMileStoneAdapter?.removeItem(milestonePosition)
+        }
+    }
+
+    override fun onDeleteMilestoneFailed(commonMessageBean: CommonMessageBean) {
+        if (commonMessageBean.msg != null) {
+            DroneDinApp.getAppInstance().showToast(commonMessageBean.msg)
+        }
+    }
+
+    override fun onDeleteAttachmentSuccessfully(commonMessageBean: CommonMessageBean) {
+        if (commonMessageBean.msg != null) {
+            DroneDinApp.getAppInstance().showToast(commonMessageBean.msg)
+            jobsImageAdapter?.removeItem(attachmentPosition)
+        }
+    }
+
+    override fun onDeleteAttachmentFailed(commonMessageBean: CommonMessageBean) {
+        if (commonMessageBean.msg != null) {
+            DroneDinApp.getAppInstance().showToast(commonMessageBean.msg)
+
+        }
+    }
+
+    override fun onMilestoneRemove(adapterPosition: Int, createMilestoneBean: CreateMilestoneBean) {
+        milestonePosition = adapterPosition
+        postJobPresenter.deleteMilestone(createMilestoneBean.milestoneId)
     }
 
 }

@@ -27,17 +27,14 @@ import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
-import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.attachments.UploadAttachmentsAdapter
 import com.grewon.dronedin.dialogs.AlertViewDialog
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.offers.contract.CreateOffersContract
-import com.grewon.dronedin.offers.presenter.CreateOffersPresenter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.server.params.SubmitOfferParams
-import com.grewon.dronedin.server.params.SubmitProposalParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
@@ -498,7 +495,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onLongClick(adapterPosition: Int) {
+    override fun onLongClick(adapterPosition: Int, item: UploadAttachmentsParams) {
         openRemoveAlertDialog(adapterPosition)
     }
 

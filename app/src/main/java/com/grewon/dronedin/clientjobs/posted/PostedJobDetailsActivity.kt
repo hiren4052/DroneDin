@@ -19,10 +19,10 @@ import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
-import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.JobAttachmentsBean
-import com.grewon.dronedin.server.MilestonesDataBean
-import com.grewon.dronedin.server.PostedJobDetailBean
+import com.grewon.dronedin.postjob.PostJobActivity
+import com.grewon.dronedin.server.*
+import com.grewon.dronedin.server.params.CreateJobsParams
+import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_posted_job_details.*
 import kotlinx.android.synthetic.main.layout_no_data.*
@@ -43,6 +43,7 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
 
     private var jobId: String = ""
+    private var postedJobDetailBean: PostedJobDetailBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +117,75 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_edit -> {
-                finish()
+                if (postedJobDetailBean != null) {
+
+                    val createJobsParams = CreateJobsParams()
+
+
+                    createJobsParams.jobTitle = postedJobDetailBean?.jobTitle
+                    createJobsParams.jobDescription = postedJobDetailBean?.jobDescription
+                    createJobsParams.jobTotalPrice = postedJobDetailBean?.totalPrice
+                    createJobsParams.jobAddress = postedJobDetailBean?.jobAddress
+                    createJobsParams.jobLatitude = postedJobDetailBean?.jobLatitude?.toDouble()
+                    createJobsParams.jobLongitude = postedJobDetailBean?.jobLongitude?.toDouble()
+                    createJobsParams.selectedCategoryId = postedJobDetailBean?.category?.categoryId
+
+
+                    val mileStoneList = ArrayList<CreateMilestoneBean>()
+                    if (postedJobDetailBean?.milestone != null) {
+                        for (item in postedJobDetailBean?.milestone!!) {
+                            mileStoneList.add(
+                                CreateMilestoneBean(
+                                    item.milestoneDetails!!,
+                                    item.milestonePrice!!,
+                                    item.milestoneId!!
+                                )
+                            )
+                        }
+                        createJobsParams.mileStones = mileStoneList
+                    }
+
+                    val attachmentList = ArrayList<UploadAttachmentsParams>()
+                    if (postedJobDetailBean?.attachment != null) {
+                        for (item in postedJobDetailBean?.attachment!!) {
+                            attachmentList.add(
+                                UploadAttachmentsParams(
+                                    item.attachment!!,
+                                    item.attachmentId!!
+
+                                )
+                            )
+                        }
+                        createJobsParams.attachments = attachmentList
+                    }
+
+
+                    val selectedSkillId = ArrayList<String>()
+                    if (postedJobDetailBean?.skill != null) {
+                        for (item in postedJobDetailBean?.skill!!) {
+                            selectedSkillId.add(item.skillId!!)
+                        }
+                        createJobsParams.selectedSkillsIdList = selectedSkillId
+                    }
+
+                    val selectedEquipmentsId = ArrayList<String>()
+                    if (postedJobDetailBean?.equipment != null) {
+                        for (item in postedJobDetailBean?.equipment!!) {
+                            selectedEquipmentsId.add(item.equipmentId!!)
+                        }
+                        createJobsParams.selectedEquipmentsIdList = selectedEquipmentsId
+                    }
+
+
+                    startActivityForResult(
+                        Intent(
+                            this,
+                            PostJobActivity::class.java
+                        ).putExtra(AppConstant.BEAN, createJobsParams)
+                            .putExtra(AppConstant.TAG, "edit").putExtra(AppConstant.ID, jobId), 12
+                    )
+
+                }
             }
             R.id.txt_delete -> {
                 DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.please_wait))
@@ -171,7 +240,7 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun setView(response: PostedJobDetailBean) {
-
+        postedJobDetailBean = response
 
         txt_received_proposal.text = response.totalProposal
         txt_subtitle.text = response.category?.categoryName
@@ -261,5 +330,14 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
         no_data_layout.visibility = View.VISIBLE
         txt_no_data_image.setImageResource(drawableId)
         txt_no_data_title.text = errorMessage
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 12) {
+                clientJobsDetailPresenter.getClientJobDetails(jobId, AppConstant.POSTED_JOB_STATUS)
+            }
+        }
     }
 }

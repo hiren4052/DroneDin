@@ -81,7 +81,8 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
         clientJobsPresenter.attachView(this)
         clientJobsPresenter.attachApiInterface(retrofit)
 
-        title_user_name.text = getString(R.string.hello, preferenceUtils.getLoginCredentials()?.data?.userName)
+        title_user_name.text =
+            getString(R.string.hello, preferenceUtils.getLoginCredentials()?.data?.userName)
 
         segment_group.setOnPositionChangedListener {
 
@@ -178,7 +179,12 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
             }
 
             R.id.fab_add_job -> {
-                startActivity(Intent(context, PostJobActivity::class.java))
+                startActivityForResult(
+                    Intent(context, PostJobActivity::class.java).putExtra(
+                        AppConstant.TAG,
+                        "add"
+                    ), 12
+                )
             }
 
         }

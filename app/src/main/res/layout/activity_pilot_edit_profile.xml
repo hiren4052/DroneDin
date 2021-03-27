@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/top_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:id="@+id/refImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                app:aspectRatio="0.7"
+                app:aspectRatioEnabled="true" />
+
+            <com.grewon.dronedin.helper.AspectImageView
+                android:id="@+id/blur_img_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/refImage"
+                android:layout_alignBottom="@+id/refImage"
+                android:alpha="0.8"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_dummy" />
+
+            <RelativeLayout
+                android:id="@+id/rlToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize">
+
+                <ImageView
+                    android:id="@+id/im_back"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_15dp"
+                    android:src="@drawable/ic_back_white"
+                    android:visibility="visible" />
+
+
+                <TextView
+                    android:id="@+id/im_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="?selectableItemBackground"
+                    android:padding="@dimen/_15dp"
+                    android:src="@drawable/ic_edit"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlToolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
+                    android:src="@drawable/img_dummy" />
+
+                <TextView
+                    android:id="@+id/txt_edit_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_10dp"
+                    android:padding="@dimen/_10dp"
+                    android:text="@string/edit_picture"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sp"
+                    app:drawableEndCompat="@drawable/ic_pencil" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/bottom_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-130dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_setting_background"
+            android:visibility="visible" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-60dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/segment_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_50dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_50dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                app:borderColor="@color/view_color"
+                app:borderWidth="@dimen/_1dp"
+                app:position="0"
+                app:radius="@dimen/_10dp"
+                app:ripple="false"
+                app:selectedBackground="@color/span_text_color">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_10dp"
+                    app:rounded="true"
+                    app:selectedTextColor="@color/white"
+                    app:text="@string/profile"
+                    app:textColor="@color/view_color"
+                    app:textSize="@dimen/_16sp" />
+
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_10dp"
+                    app:rounded="true"
+                    app:selectedTextColor="@color/white"
+                    app:text="@string/portfolio"
+                    app:textColor="@color/view_color"
+                    app:textSize="@dimen/_16sp" />
+
+
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingTop="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:text="@string/full_name"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/edt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:hint="@string/full_name"
+                    android:inputType="text"
+                    android:padding="@dimen/_15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/gray_af"
+                    android:textSize="@dimen/_16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingTop="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:text="@string/location"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/txt_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:hint="@string/location"
+                    android:padding="@dimen/_15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/gray_af"
+                    android:textSize="@dimen/_16sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow_24" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:text="@string/about"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/edt_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:gravity="start"
+                    android:hint="@string/tell_us_more_about_you"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:padding="@dimen/_15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/gray_af"
+                    android:textSize="@dimen/_16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:text="@string/skill_set"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

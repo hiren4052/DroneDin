@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.grewon.dronedin.R
@@ -63,16 +64,17 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     lateinit var addProfilePresenter: AddProfileContract.Presenter
 
     private var picturePath: File? = null
-    private var filePath: String? = ""
     private var imageType: String = "front"
     private var serverFrontImage: String = ""
     private var serverBackImage: String = ""
+    private var userImage: String = ""
 
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var locationAddress: String = ""
     private var identificationId: String? = ""
     private var identificationList: ArrayList<IdentificationBean.IdentificationBeanItem>? = null
+    private var isEdit: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +101,14 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     }
 
     private fun initView() {
+        isEdit = intent.getBooleanExtra(AppConstant.TAG, false)
+
+        if (isEdit) {
+            img_back.visibility = View.VISIBLE
+        } else {
+            img_back.visibility = View.GONE
+        }
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         addProfilePresenter.attachView(this)
         addProfilePresenter.attachApiInterface(retrofit)
@@ -124,6 +134,9 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         edt_identification_document.setOnClickListener(this)
         edt_location.setOnClickListener(this)
         txt_save.setOnClickListener(this)
+        user_layout.setOnClickListener(this)
+        floating_user.setOnClickListener(this)
+        img_back.setOnClickListener(this)
     }
 
     private fun passIntent() {
@@ -340,6 +353,11 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(front_image)
+                            } else if (imageType == "user") {
+                                userImage = filePath
+                                Glide.with(this)
+                                    .load(filePath)
+                                    .into(user_image)
                             } else {
                                 serverBackImage = filePath
                                 Glide.with(this)
@@ -405,11 +423,15 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         when (v?.id) {
             R.id.front_image_layout -> {
                 imageType = "front"
-                openFileDialog()
+                openGalleryDialog()
             }
             R.id.back_image_layout -> {
                 imageType = "back"
-                openFileDialog()
+                openGalleryDialog()
+            }
+            R.id.floating_user, R.id.user_layout -> {
+                imageType = "user"
+                openGalleryDialog()
             }
             R.id.edt_location -> {
                 passIntent()
@@ -417,8 +439,14 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             R.id.edt_identification_document -> {
                 identification_spinner.performClick()
             }
+            R.id.img_back -> {
+                finish()
+            }
             R.id.txt_save -> {
-                if (ValidationUtils.isEmptyFiled(edit_name.text.toString())) {
+                if (ValidationUtils.isEmptyFiled(userImage)) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_select_profile_image))
+                } else if (ValidationUtils.isEmptyFiled(edit_name.text.toString())) {
                     input_name.error = getString(R.string.please_enter_full_name_business_name)
                 } else if (ValidationUtils.isEmptyFiled(edit_email.text.toString())) {
                     input_email.error = getString(R.string.please_enter_email_address)
@@ -464,7 +492,8 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             userLongitude = longitude,
             proofId = identificationId,
             proofFrontSide = serverFrontImage,
-            proofBackSide = serverBackImage
+            proofBackSide = serverBackImage,
+            userImage
         )
         addProfilePresenter.updateProfile(profileUpdateParams)
 
@@ -620,13 +649,30 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             edt_location.setText(locationAddress, false)
         }
 
+        userImage = data.profileImage.toString()
+
+        Glide.with(this).load(userImage)
+            .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder)).into(user_image)
+
+
         if (isPilotAccount()) {
+
             if (data.proof != null) {
                 edt_identification_document.setText(data.proof.proofName.toString(), false)
             }
+
             serverFrontImage = data.proofFrontSide.toString()
             serverBackImage = data.proofBackSide.toString()
             identificationId = data.proof?.proofId
+
+            Glide.with(this).load(serverFrontImage)
+                .apply(RequestOptions().placeholder(R.drawable.ic_image_select_back))
+                .into(front_image)
+
+            Glide.with(this).load(serverBackImage)
+                .apply(RequestOptions().placeholder(R.drawable.ic_image_select_back))
+                .into(back_image)
+
         }
 
     }
@@ -638,13 +684,21 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     override fun onProfileUpdateSuccessFully(loginParams: ProfileBean) {
         if (loginParams.data != null && loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
-            if (isPilotAccount()) {
-                startActivity(Intent(this, AddMoreProfileActivity::class.java))
+            if (!isEdit) {
+                if (isPilotAccount()) {
+                    startActivity(Intent(this, AddMoreProfileActivity::class.java))
+                } else {
+                    val userData = preferenceUtils.getLoginCredentials()
+                    userData?.data?.isStepComplete = true
+                    preferenceUtils.saveLoginCredential(userData!!)
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
             } else {
                 val userData = preferenceUtils.getLoginCredentials()
                 userData?.data?.isStepComplete = true
                 preferenceUtils.saveLoginCredential(userData!!)
-                startActivity(Intent(this, MainActivity::class.java))
+                setResult(RESULT_OK)
+                finish()
             }
         }
     }

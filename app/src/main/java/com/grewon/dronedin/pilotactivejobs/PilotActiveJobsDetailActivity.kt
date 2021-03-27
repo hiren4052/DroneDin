@@ -16,11 +16,9 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
-import com.grewon.dronedin.milestone.MilestoneDetailActivity
-import com.grewon.dronedin.milestone.SubmitMilestoneActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersActivity
-import com.grewon.dronedin.milestone.MilestoneAddActivity
+import com.grewon.dronedin.milestone.*
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.utils.TimeUtils
@@ -115,7 +113,9 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.img_toolbar -> {
-                openPopUpMenu()
+                if (activeJobsDetails != null) {
+                    openPopUpMenu()
+                }
             }
         }
     }
@@ -226,10 +226,20 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                     )
                 }
                 R.id.im_cancel_project -> {
-
+                    startActivityForResult(
+                        Intent(this, CancelProjectActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            activeJobsDetails?.jobId
+                        ), 12
+                    )
                 }
                 R.id.im_end_project -> {
-
+                    startActivityForResult(
+                        Intent(this, EndProjectActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            activeJobsDetails?.jobId
+                        ), 12
+                    )
                 }
                 R.id.im_message -> {
 

@@ -30,13 +30,11 @@ import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
-import com.grewon.dronedin.postjob.PostJobActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.server.params.SubmitProposalParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.submitproposal.contract.SubmitProposalContract
-import com.grewon.dronedin.submitproposal.presenter.SubmitProposalPresenter
 import com.grewon.dronedin.utils.ValidationUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
@@ -487,7 +485,7 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onLongClick(adapterPosition: Int) {
+    override fun onLongClick(adapterPosition: Int, item: UploadAttachmentsParams) {
         openRemoveAlertDialog(adapterPosition)
     }
 

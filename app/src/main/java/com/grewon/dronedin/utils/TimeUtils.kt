@@ -59,9 +59,9 @@ class TimeUtils {
         }
 
         fun chatDateTime(serverdate: String): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-            val outputFormat = SimpleDateFormat("yyyy/MM/dd hh:mm a", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
             var date: Date? = null
             try {
                 date = inputFormat.parse(serverdate)

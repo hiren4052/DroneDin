@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.server.params.CreateJobsParams
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
@@ -12,12 +13,14 @@ import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 class PostJobActivity : BaseActivity(), View.OnClickListener {
 
     var createJobsParams: CreateJobsParams? = null
+    var screenTag: String = ""
+    var jobId: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_job)
         initView()
         setClicks()
-        loadFragment(SelectFragmentFragment())
     }
 
     private fun setClicks() {
@@ -25,8 +28,19 @@ class PostJobActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        createJobsParams = CreateJobsParams()
-        txt_toolbar_title.text = getString(R.string.post_new_job)
+        screenTag = intent.getStringExtra(AppConstant.TAG).toString()
+        jobId = intent.getStringExtra(AppConstant.ID).toString()
+        if (screenTag == "edit") {
+            txt_toolbar_title.text = getString(R.string.edit_job)
+            createJobsParams = intent.getParcelableExtra(AppConstant.BEAN)
+        } else {
+            txt_toolbar_title.text = getString(R.string.post_new_job)
+            createJobsParams = CreateJobsParams()
+
+        }
+
+        loadFragment(SelectFragmentFragment())
+
     }
 
     private fun loadFragment(fragment: Fragment) {

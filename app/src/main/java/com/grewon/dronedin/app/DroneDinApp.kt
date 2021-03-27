@@ -17,7 +17,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.facebook.FacebookSdk
 import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dagger.component.DaggerAppComponent
@@ -86,6 +85,7 @@ class DroneDinApp : MultiDexApplication() {
             .filterModule(FilterModule())
             .pilotJobsModule(PilotJobsModule())
             .milestoneModule(MilestoneModule())
+            .messageModule(MessageModule())
             .build()
     }
 

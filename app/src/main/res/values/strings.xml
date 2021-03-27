@@ -53,6 +53,7 @@
     <string name="start_finding_an_excellent_pilot">Start Finding an\namazing pilot!</string>
     <string name="hello">Hello %s,</string>
     <string name="post_new_job">Post new job</string>
+    <string name="edit_job">Edit job</string>
     <string name="capital_posted">POSTED</string>
     <string name="capital_active">ACTIVE</string>
     <string name="capital_history">HISTORY</string>
@@ -353,6 +354,11 @@
     <string name="end_project_about_description">The project ends successfully after all milestones are completed once you proceed from here. If you want to end project forcefully, the project will be registered as a dispute.</string>
     <string name="project_completed">Project Completed</string>
     <string name="end_forcefully">End Forcefully</string>
+    <string name="please_enter_reason">Please enter reason</string>
+    <string name="please_write_something_about_your_experince">Please write something about your experience!</string>
+    <string name="please_provide_rating">Please provide rating</string>
+    <string name="edit_picture">Edit Picture</string>
+    <string name="please_select_profile_image">Please select profile image!</string>
 
 
 </resources>

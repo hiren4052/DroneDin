@@ -35,7 +35,9 @@ data class ProfileBean(
         @SerializedName("user_name")
         val userName: String? = "",
         @SerializedName("user_phone_number")
-        val userPhoneNumber: String? = ""
+        val userPhoneNumber: String? = "",
+        @SerializedName("profile_image")
+        val profileImage: String? = ""
     ) : Parcelable {
         @SuppressLint("ParcelCreator")
         @Parcelize
