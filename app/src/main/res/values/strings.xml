@@ -185,6 +185,7 @@
     <string name="notes">Notes</string>
     <string name="write_your_comments_if_any">Write your comments if any.</string>
     <string name="submit_milestone">Submit Milestone</string>
+    <string name="new_project">New Project</string>
     <string name="amount">Amount</string>
     <string name="notes_">Notes:</string>
     <string name="files">Files</string>
@@ -326,6 +327,7 @@
     <string name="please_enter_title">Please enter title!</string>
     <string name="please_enter_description">Please enter description!</string>
     <string name="please_enter_proposal_price">Please enter proposal price!</string>
+    <string name="please_add_pictures">Please add pictures!</string>
 
     <string name="milestone_count_string">%s. %s</string>
     <string name="add_milestone">Add Milestone</string>
@@ -359,6 +361,9 @@
     <string name="please_provide_rating">Please provide rating</string>
     <string name="edit_picture">Edit Picture</string>
     <string name="please_select_profile_image">Please select profile image!</string>
+    <string name="add_pictures_up_to_5_pictures">Add Pictures( Up to 5 Pictures )</string>
+    <string name="write_a_short_project_title">Write a short project title</string>
+    <string name="describe_the_project_in_short">Describe the project in short.</string>
 
 
 </resources>

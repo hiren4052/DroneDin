@@ -31,11 +31,9 @@ public class AppConstant {
         const val ID: String = "id"
         const val USER_ID: String = "user_id"
         const val UPDATE_REQUEST_CODE: Int = 33
-        const val TERMS_OF_SERVICE_URL: String =
-            "https://www.termsandcondiitionssample.com/"
+        const val TERMS_OF_SERVICE_URL: String = "https://www.termsandcondiitionssample.com/"
 
-        const val PRIVACY_URL: String =
-            "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
+        const val PRIVACY_URL: String = "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
         const val FAQ_URL: String = "https://ubereats-city.appspot.com/en_sg/faq/"
         const val MICROSOFT_URL: String = "https://graph.microsoft.com/v1.0/me"
         val CHANNEL_NAME: CharSequence = "dronedin"
@@ -89,7 +87,6 @@ public class AppConstant {
         const val KEY_PARAMS = "params"
         const val KEY_DATE_TIME = "date_time"
         const val AUTH_KEY = "auth"
-
         const val LOGIN_GOOGLE = "google"
         const val LOGIN_FACEBOOK = "facebook"
         const val LOGIN_APPLE = "apple"

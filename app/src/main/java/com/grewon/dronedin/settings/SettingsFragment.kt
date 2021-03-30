@@ -18,6 +18,7 @@ import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.splash.SplashActivity
+import com.grewon.dronedin.utils.ValidationUtils
 import com.grewon.dronedin.web.WebActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -54,9 +55,32 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun initView() {
-        Glide.with(this).load(R.drawable.img_dummy)
-            .apply(RequestOptions.bitmapTransform(BlurTransformation(22, 3)))
-            .into(blur_img_user)
+        Glide.with(this)
+            .load(preferenceUtils.getLoginCredentials()?.data?.profileImage)
+            .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
+            .into(img_user)
+
+        txt_user_name.text = preferenceUtils.getLoginCredentials()?.data?.userName
+
+        if (preferenceUtils.getLoginCredentials()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
+                preferenceUtils.getLoginCredentials()?.data?.profileImage!!
+            )
+        ) {
+            Glide.with(this)
+                .load(preferenceUtils.getLoginCredentials()?.data?.profileImage!!)
+                .apply(
+                    RequestOptions.bitmapTransform(BlurTransformation(22, 3))
+                        .placeholder(R.drawable.drone_for_blur)
+                )
+                .into(blur_img_user)
+        } else {
+            Glide.with(this)
+                .load("https://media.wired.com/photos/59264bb5f3e2356fd8008c6e/master/pass/DroneHP_GettyImages-599365398.jpg")
+                .apply(
+                    RequestOptions.bitmapTransform(BlurTransformation(22, 3)))
+                .into(blur_img_user)
+        }
+
     }
 
     override fun onClick(v: View?) {

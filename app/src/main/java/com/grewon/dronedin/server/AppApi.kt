@@ -45,7 +45,8 @@ interface AppApi {
 
     @Multipart
     @POST("profile_c/update_profile")
-    fun updateProfile(@Part profileImage: MultipartBody.Part?,
+    fun updateProfile(
+        @Part profileImage: MultipartBody.Part?,
         @Part frontSide: MultipartBody.Part?,
         @Part backSide: MultipartBody.Part?,
         @PartMap requestPart: HashMap<String, @JvmSuppressWildcards RequestBody?>
@@ -191,5 +192,14 @@ interface AppApi {
 
     @POST("pilot_c/submit_review")
     fun submitReview(@Body params: SubmitReviewParams): Single<CommonMessageBean>
+
+    @POST("profile_c/portfolio")
+    fun createPortFolio(@Body file: RequestBody): Single<CommonMessageBean>
+
+    @POST("profile_c/portfolio/{port_folio_id}")
+    fun updatePortFolio(
+        @Body file: RequestBody,
+        @Path("port_folio_id") portFolioId: String
+    ): Single<CommonMessageBean>
 
 }

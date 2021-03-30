@@ -88,37 +88,77 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         var backSideImage: MultipartBody.Part? = null
         var profileImage: MultipartBody.Part? = null
 
-        profileImage =
-            MultipartBody.Part.createFormData(
-                "profile_image",
-                File(params.profileImage.toString()).name,
-                RequestBody.create(
-                    MediaType.parse("multipart/form-data"),
-                    File(params.profileImage.toString())
+        if (params.profileImage?.contains("http") == true) {
+            profileImage =
+                MultipartBody.Part.createFormData(
+                    "profile_image",
+                    "",
+                    RequestBody.create(
+                        MediaType.parse("multipart/form-data"),
+                        ""
+                    )
                 )
-            )
+        } else {
+            profileImage =
+                MultipartBody.Part.createFormData(
+                    "profile_image",
+                    File(params.profileImage.toString()).name,
+                    RequestBody.create(
+                        MediaType.parse("multipart/form-data"),
+                        File(params.profileImage.toString())
+                    )
+                )
+        }
 
 
         if (!ValidationUtils.isEmptyFiled(params.proofId.toString())) {
-            frontSideImage =
-                MultipartBody.Part.createFormData(
-                    "proof_front_side",
-                    File(params.proofFrontSide.toString()).name,
-                    RequestBody.create(
-                        MediaType.parse("multipart/form-data"),
-                        File(params.proofFrontSide.toString())
-                    )
-                )
 
-            backSideImage =
-                MultipartBody.Part.createFormData(
-                    "proof_back_side",
-                    File(params.proofBackSide.toString()).name,
-                    RequestBody.create(
-                        MediaType.parse("multipart/form-data"),
-                        File(params.proofBackSide.toString())
+            if (params.proofFrontSide?.contains("http") == true) {
+                frontSideImage =
+                    MultipartBody.Part.createFormData(
+                        "proof_front_side",
+                        "",
+                        RequestBody.create(
+                            MediaType.parse("multipart/form-data"),
+                            ""
+                        )
                     )
-                )
+            } else {
+                frontSideImage =
+                    MultipartBody.Part.createFormData(
+                        "proof_front_side",
+                        File(params.proofFrontSide.toString()).name,
+                        RequestBody.create(
+                            MediaType.parse("multipart/form-data"),
+                            File(params.proofFrontSide.toString())
+                        )
+                    )
+            }
+
+            if (params.proofBackSide?.contains("http") == true) {
+
+                backSideImage =
+                    MultipartBody.Part.createFormData(
+                        "proof_back_side",
+                        "",
+                        RequestBody.create(
+                            MediaType.parse("multipart/form-data"),
+                            ""
+                        )
+                    )
+            } else {
+                backSideImage =
+                    MultipartBody.Part.createFormData(
+                        "proof_back_side",
+                        File(params.proofBackSide.toString()).name,
+                        RequestBody.create(
+                            MediaType.parse("multipart/form-data"),
+                            File(params.proofBackSide.toString())
+                        )
+                    )
+            }
+
+
         }
 
         val map = HashMap<String, RequestBody?>()

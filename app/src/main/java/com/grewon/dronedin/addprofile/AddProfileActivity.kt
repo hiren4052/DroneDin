@@ -626,6 +626,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
 
     override fun onProfileGetSuccessful(response: ProfileBean) {
         if (response.data != null) {
+
             setView(response.data)
         }
     }
@@ -689,6 +690,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                     startActivity(Intent(this, AddMoreProfileActivity::class.java))
                 } else {
                     val userData = preferenceUtils.getLoginCredentials()
+                    userData?.data?.profileImage = loginParams.data.profileImage
                     userData?.data?.isStepComplete = true
                     preferenceUtils.saveLoginCredential(userData!!)
                     startActivity(Intent(this, MainActivity::class.java))

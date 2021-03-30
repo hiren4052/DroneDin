@@ -20,7 +20,7 @@ data class UserData(
         @SerializedName("bank_verified")
         val bankVerified: String? = "",
         @SerializedName("profile_image")
-        val profileImage: String? = "",
+        var profileImage: String? = "",
         @SerializedName("profile_update")
         val profileUpdate: String? = "",
         @SerializedName("user_api_token")

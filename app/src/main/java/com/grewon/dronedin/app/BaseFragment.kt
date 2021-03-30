@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dialogs.LoadingDialog
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.utils.PreferenceUtils
 import javax.inject.Inject
 
@@ -24,7 +25,9 @@ open class BaseFragment : Fragment(), BaseContract.View {
     }
 
     fun isPilotAccount(): Boolean {
-        return true
+        LogX.E("-------" + preferenceUtils.getLoginCredentials()?.data?.userType.toString())
+        LogX.E("-------" + preferenceUtils.getLoginCredentials()?.data?.userId.toString())
+        return preferenceUtils.getLoginCredentials()?.data?.userType == AppConstant.USER_PILOT
     }
 
     override fun showProgress() {
