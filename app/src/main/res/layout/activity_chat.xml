@@ -27,8 +27,7 @@
             android:layout_width="@dimen/_46dp"
             android:layout_height="@dimen/_46dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/im_back"
-            android:src="@drawable/img_dummy" />
+            android:layout_toEndOf="@id/im_back" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +41,6 @@
                 android:id="@+id/txt_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kristen Hunter"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sp" />
 
@@ -50,7 +48,6 @@
                 android:id="@+id/txt_online_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/online"
                 android:textColor="@color/span_text_color"
                 android:textSize="@dimen/_16sp" />
         </LinearLayout>
@@ -60,13 +57,26 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/top_layout"
-        android:layout_above="@id/bottom_layout">
+        android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/top_layout">
+
+        <ProgressBar
+            android:id="@+id/top_progress"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_recycle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_progress"
+            android:overScrollMode="never"
+            app:reverseLayout="false"
+            app:stackFromEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -7,6 +7,7 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.enum_class.ErrorType
 import com.grewon.dronedin.utils.ValidationUtils
 import retrofit2.HttpException
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -24,6 +25,9 @@ class ErrorHandler {
                     return ErrorType.ERROR_REQUEST_TIME_OUT.errorMessage
                 }
                 is UnknownHostException -> {
+                    return ErrorType.ERROR_CONNECTIVITY.errorMessage
+                }
+                is ConnectException -> {
                     return ErrorType.ERROR_CONNECTIVITY.errorMessage
                 }
                 is HttpException -> {

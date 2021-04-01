@@ -116,9 +116,14 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         addProfilePresenter.getProfile()
 
         if (isPilotAccount()) {
-            pilot_layout.visibility = View.VISIBLE
-            txt_save.text = getString(R.string.next)
 
+            pilot_layout.visibility = View.VISIBLE
+
+            if (isEdit) {
+                txt_save.text = getString(R.string.save)
+            } else {
+                txt_save.text = getString(R.string.next)
+            }
             addProfilePresenter.getIdentificationsData()
 
         } else {
@@ -697,6 +702,9 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                 }
             } else {
                 val userData = preferenceUtils.getLoginCredentials()
+                userData?.data?.profileImage = loginParams.data.profileImage
+                userData?.data?.userName = loginParams.data.userName
+                userData?.data?.userPhoneNumber = loginParams.data.userPhoneNumber
                 userData?.data?.isStepComplete = true
                 preferenceUtils.saveLoginCredential(userData!!)
                 setResult(RESULT_OK)

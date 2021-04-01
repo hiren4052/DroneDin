@@ -1,4 +1,4 @@
-package com.grewon.dronedin.message.dapter
+package com.grewon.dronedin.message.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -66,7 +66,7 @@ class MessagesAdapter(
 
             if (item.lastMessageType == "Text") {
                 holder.textMessages.text = item.lastMessage
-                IconUtils.setLeftDrawableIconToTextWithTint(context, null, holder.textMessages)
+                holder.textMessages.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
             } else if (item.lastMessageType == "Image") {
                 holder.textMessages.text = item.lastMessageType
                 IconUtils.setLeftDrawableIconToTextWithTint(
@@ -83,7 +83,7 @@ class MessagesAdapter(
                 )
             }
 
-            holder.textDate.text = TimeUtils.getChatTime(item.lastUpdate.toString())
+            holder.textDate.text = TimeUtils.getChatTimes(context, item.lastUpdate.toString())
 
             if (item.totalUnread != "0") {
                 holder.textMessageCount.text = item.totalUnread

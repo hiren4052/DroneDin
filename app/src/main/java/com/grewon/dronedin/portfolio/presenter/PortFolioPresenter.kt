@@ -9,6 +9,7 @@ import com.grewon.dronedin.portfolio.contract.PortFolioContract
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.AddPortFolioParams
+import com.grewon.dronedin.utils.ValidationUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -111,12 +112,14 @@ class PortFolioPresenter : PortFolioContract.Presenter {
 
         if (params.attachments != null) {
             for (item in params.attachments!!) {
-                val file = File(item.filePath!!)
-                builder.addFormDataPart(
-                    "attachment[]",
-                    file.name,
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                )
+                if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
+                    val file = File(item.filePath!!)
+                    builder.addFormDataPart(
+                        "attachment[]",
+                        file.name,
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    )
+                }
             }
         }
 
@@ -157,6 +160,77 @@ class PortFolioPresenter : PortFolioContract.Presenter {
 
 
             })
+    }
+
+    override fun deleteAttachment(attachmentId: String) {
+        api.deleteAttachment(attachmentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onDeleteAttachmentSuccessfully(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onDeleteAttachmentFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+    }
+
+    override fun deletePortFolio(portFolioId: String) {
+        api.deletePortFolio(portFolioId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onDeletePortFolioSuccessfully(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onDeletePortFolioFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+
     }
 
 

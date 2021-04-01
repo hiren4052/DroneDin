@@ -10,139 +10,75 @@ import kotlinx.android.parcel.Parcelize
 /**
  * Created by Hiren Gabani on 6/19/20.
  */
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class BankDataBean(
-    @SerializedName("default_card")
-    val defaultCard: String?,
-    @SerializedName("error")
-    val error: Boolean?,
-    @SerializedName("message")
-    val message: String?,
-    @SerializedName("Result")
-    val result: Result?,
-    @SerializedName("success")
-    val success: Boolean?
+    @SerializedName("bank_detail")
+    val bankDetail: BankDetail? = BankDetail(),
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
-    data class Result(
-        @SerializedName("data")
-        val `data`: ArrayList<Data>?,
-        @SerializedName("has_more")
-        val hasMore: Boolean?,
-        @SerializedName("object")
-        val objectX: String?,
-        @SerializedName("url")
-        val url: String?
+    data class BankDetail(
+        @SerializedName("bank")
+        val bank: ArrayList<Bank>? = null,
+        @SerializedName("default_bank")
+        val defaultBank: DefaultBank? = DefaultBank()
     ) : Parcelable {
         @SuppressLint("ParcelCreator")
         @Parcelize
-        data class Data(
-            @SerializedName("billing_details")
-            val billingDetails: BillingDetails?,
-            @SerializedName("card")
-            val card: Card?,
-            @SerializedName("created")
-            val created: Int?,
-            @SerializedName("customer")
-            val customer: String?,
+        data class Bank(
+            @SerializedName("account")
+            val account: String? = "",
+            @SerializedName("account_holder_name")
+            val accountHolderName: String? = "",
+            @SerializedName("account_holder_type")
+            val accountHolderType: String? = "",
+            @SerializedName("available_payout_methods")
+            val availablePayoutMethods: ArrayList<String>? = null,
+            @SerializedName("bank_name")
+            val bankName: String? = "",
+            @SerializedName("country")
+            val country: String? = "",
+            @SerializedName("currency")
+            val currency: String? = "",
+            @SerializedName("default_for_currency")
+            val defaultForCurrency: Boolean? = false,
+            @SerializedName("fingerprint")
+            val fingerprint: String? = "",
             @SerializedName("id")
-            val id: String?,
-            @SerializedName("livemode")
-            val livemode: Boolean?,
+            val id: String? = "",
+            @SerializedName("last4")
+            val last4: String? = "",
             @SerializedName("metadata")
-            val metadata: List<String?>?,
+            val metadata: ArrayList<String>? = null,
             @SerializedName("object")
-            val objectX: String?,
-            @SerializedName("type")
-            val type: String?
-        ) : Parcelable {
-            @SuppressLint("ParcelCreator")
-            @Parcelize
-            data class BillingDetails(
-                @SerializedName("address")
-                val address: Address?,
-                @SerializedName("email")
-                val email: String?,
-                @SerializedName("name")
-                val name: String?,
-                @SerializedName("phone")
-                val phone: String?
-            ) : Parcelable {
-                @SuppressLint("ParcelCreator")
-                @Parcelize
-                data class Address(
-                    @SerializedName("city")
-                    val city: String?,
-                    @SerializedName("country")
-                    val country: String?,
-                    @SerializedName("line1")
-                    val line1: String?,
-                    @SerializedName("line2")
-                    val line2: String?,
-                    @SerializedName("postal_code")
-                    val postalCode: String?,
-                    @SerializedName("state")
-                    val state: String?
-                ) : Parcelable
-            }
+            val objectX: String? = "",
+            @SerializedName("routing_number")
+            val routingNumber: String? = "",
+            @SerializedName("status")
+            val status: String? = ""
+        ) : Parcelable
 
-            @SuppressLint("ParcelCreator")
-            @Parcelize
-            data class Card(
-                @SerializedName("brand")
-                val brand: String?,
-                @SerializedName("checks")
-                val checks: Checks?,
-                @SerializedName("country")
-                val country: String?,
-                @SerializedName("exp_month")
-                val expMonth: Int?,
-                @SerializedName("exp_year")
-                val expYear: Int?,
-                @SerializedName("fingerprint")
-                val fingerprint: String?,
-                @SerializedName("funding")
-                val funding: String?,
-                @SerializedName("generated_from")
-                val generatedFrom: String?,
-                @SerializedName("last4")
-                val last4: String?,
-                @SerializedName("networks")
-                val networks: Networks?,
-                @SerializedName("three_d_secure_usage")
-                val threeDSecureUsage: ThreeDSecureUsage?,
-                @SerializedName("wallet")
-                val wallet: String?
-            ) : Parcelable {
-                @SuppressLint("ParcelCreator")
-                @Parcelize
-                data class Checks(
-                    @SerializedName("address_line1_check")
-                    val addressLine1Check: String?,
-                    @SerializedName("address_postal_code_check")
-                    val addressPostalCodeCheck: String?,
-                    @SerializedName("cvc_check")
-                    val cvcCheck: String?
-                ) : Parcelable
-
-                @SuppressLint("ParcelCreator")
-                @Parcelize
-                data class Networks(
-                    @SerializedName("available")
-                    val available: List<String?>?,
-                    @SerializedName("preferred")
-                    val preferred: String?
-                ) : Parcelable
-
-                @SuppressLint("ParcelCreator")
-                @Parcelize
-                data class ThreeDSecureUsage(
-                    @SerializedName("supported")
-                    val supported: Boolean?
-                ) : Parcelable
-            }
-        }
+        @SuppressLint("ParcelCreator")
+        @Parcelize
+        data class DefaultBank(
+            @SerializedName("user_bank_account_bank_id")
+            val userBankAccountBankId: String? = "",
+            @SerializedName("user_bank_account_bank_token")
+            val userBankAccountBankToken: String? = "",
+            @SerializedName("user_bank_account_datetime")
+            val userBankAccountDatetime: String? = "",
+            @SerializedName("user_bank_account_id")
+            val userBankAccountId: String? = "",
+            @SerializedName("user_bank_account_is_default")
+            val userBankAccountIsDefault: String? = "",
+            @SerializedName("user_bank_account_stripe_account_id")
+            val userBankAccountStripeAccountId: String? = "",
+            @SerializedName("user_id")
+            val userId: String? = ""
+        ) : Parcelable
     }
 }

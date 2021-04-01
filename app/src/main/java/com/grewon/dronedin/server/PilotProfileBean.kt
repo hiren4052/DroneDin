@@ -11,9 +11,9 @@ import android.os.Parcelable
 @Parcelize
 data class PilotProfileBean(
     @SerializedName("equipment")
-    val equipment: List<Equipment?>? = listOf(),
+    val equipment: List<Equipment>? = null,
     @SerializedName("portfolio")
-    val portfolio: List<Portfolio?>? = listOf(),
+    val portfolio: ArrayList<Portfolio>? = null,
     @SerializedName("profile_image")
     val profileImage: String? = "",
     @SerializedName("profile_update")
@@ -21,9 +21,9 @@ data class PilotProfileBean(
     @SerializedName("rate")
     val rate: String? = "",
     @SerializedName("review")
-    val review: List<String?>? = listOf(),
+    val review: List<String>? = null,
     @SerializedName("skill")
-    val skill: List<Skill?>? = listOf(),
+    val skill: List<Skill>? = null,
     @SerializedName("total_active_job")
     val totalActiveJob: String? = "",
     @SerializedName("total_complete_job")

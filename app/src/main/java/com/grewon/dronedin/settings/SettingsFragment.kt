@@ -75,9 +75,10 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
                 .into(blur_img_user)
         } else {
             Glide.with(this)
-                .load("https://media.wired.com/photos/59264bb5f3e2356fd8008c6e/master/pass/DroneHP_GettyImages-599365398.jpg")
+                .load(R.drawable.drone_for_blur)
                 .apply(
-                    RequestOptions.bitmapTransform(BlurTransformation(22, 3)))
+                    RequestOptions.bitmapTransform(BlurTransformation(22, 3))
+                )
                 .into(blur_img_user)
         }
 
@@ -92,9 +93,19 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.im_edit -> {
                 if (isPilotAccount()) {
-                    startActivity(Intent(context, PilotProfileActivity::class.java))
+                    startActivity(
+                        Intent(context, PilotProfileActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            preferenceUtils.getLoginCredentials()?.data?.userId
+                        ).putExtra(AppConstant.TAG, true)
+                    )
                 } else {
-                    startActivity(Intent(context, ClientProfileActivity::class.java))
+                    startActivity(
+                        Intent(context, ClientProfileActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            preferenceUtils.getLoginCredentials()?.data?.userId
+                        ).putExtra(AppConstant.TAG, true)
+                    )
                 }
 
             }

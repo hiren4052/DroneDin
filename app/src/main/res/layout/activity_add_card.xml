@@ -84,7 +84,8 @@
                 android:inputType="text"
                 android:padding="@dimen/_15dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/gray_b1" />
+                android:textColorHint="@color/gray_b1"
+                android:textCursorDrawable="@drawable/white_cursor" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -110,6 +111,7 @@
                 android:padding="@dimen/_15dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/gray_b1"
+                android:textCursorDrawable="@drawable/white_cursor"
                 app:separator="-" />
 
             <RelativeLayout
@@ -225,7 +227,8 @@
                         android:maxLength="3"
                         android:padding="@dimen/_15dp"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/gray_b1" />
+                        android:textColorHint="@color/gray_b1"
+                        android:textCursorDrawable="@drawable/white_cursor" />
 
                 </LinearLayout>
             </RelativeLayout>

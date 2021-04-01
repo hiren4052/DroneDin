@@ -24,11 +24,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:text="@string/account_details"
             android:paddingBottom="@dimen/_10dp"
+            android:text="@string/account_details"
             android:textAppearance="@style/RobotoMediumTextAppearance"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_18sp" />
+
+        <include
+            android:id="@+id/no_data_layout"
+            layout="@layout/layout_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_toolbar"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layout_progress"
+            layout="@layout/layout_shimmer_bank_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payment_method_recycle"
@@ -36,6 +51,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false" />
     </LinearLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_bank"
@@ -45,8 +61,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/_16dp"
         android:src="@android:drawable/ic_input_add"
-        app:tint="@color/white"
         app:backgroundTint="@color/yellow"
-        app:fabSize="normal" />
+        app:fabSize="normal"
+        app:tint="@color/white" />
 
 </RelativeLayout>

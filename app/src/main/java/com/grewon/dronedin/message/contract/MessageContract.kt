@@ -16,6 +16,7 @@ interface MessageContract {
 
         fun onMessageGetFailed(loginParams: CommonMessageBean)
 
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {

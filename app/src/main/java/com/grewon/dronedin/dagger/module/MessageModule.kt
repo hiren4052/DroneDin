@@ -11,7 +11,9 @@ import com.grewon.dronedin.clientjobs.presenter.ClientJobDetailsPresenter
 import com.grewon.dronedin.clientjobs.presenter.ClientJobsPresenter
 import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
+import com.grewon.dronedin.message.contract.ChatContract
 import com.grewon.dronedin.message.contract.MessageContract
+import com.grewon.dronedin.message.presenter.ChatPresenter
 import com.grewon.dronedin.message.presenter.MessagePresenter
 import com.grewon.dronedin.milestone.contract.*
 import com.grewon.dronedin.milestone.presenter.*
@@ -49,9 +51,11 @@ class MessageModule {
         return MessagePresenter()
     }
 
-
-
-
+    @Singleton
+    @Provides
+    fun provideChatPresenter(): ChatContract.Presenter {
+        return ChatPresenter()
+    }
 
 
 }

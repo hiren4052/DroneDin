@@ -22,6 +22,14 @@ interface PortFolioContract {
 
         fun onUpdatePortFolioFailed(loginParams: AddPortFolioParams)
 
+        fun onDeleteAttachmentSuccessfully(commonMessageBean: CommonMessageBean)
+
+        fun onDeleteAttachmentFailed(commonMessageBean: CommonMessageBean)
+
+        fun onDeletePortFolioSuccessfully(commonMessageBean: CommonMessageBean)
+
+        fun onDeletePortFolioFailed(commonMessageBean: CommonMessageBean)
+
     }
 
     interface Presenter : BaseContract.Presenter<View> {
@@ -30,6 +38,9 @@ interface PortFolioContract {
 
         fun updatePortFolio(params: AddPortFolioParams, portFolioId: String)
 
+        fun deleteAttachment(attachmentId: String)
+
+        fun deletePortFolio(portFolioId: String)
 
     }
 

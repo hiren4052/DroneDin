@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.PilotProfileBean
-import com.grewon.dronedin.server.PortFolioDataBean
-import com.grewon.dronedin.utils.MapUtils
-import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_port_folio_item.view.*
 import kotlinx.android.synthetic.main.layout_proposals_item.view.*
 
@@ -21,7 +19,8 @@ import kotlinx.android.synthetic.main.layout_proposals_item.view.*
  */
 class PortFolioAdapter(
     val context: Context,
-    private val onItemClickListeners: OnItemClickListeners
+    private val onItemClickListeners: OnItemClickListeners,
+    isEdit: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

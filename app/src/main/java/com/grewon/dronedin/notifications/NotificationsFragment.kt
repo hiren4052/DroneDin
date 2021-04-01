@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
-import com.grewon.dronedin.message.dapter.MessagesAdapter
 import com.grewon.dronedin.notifications.adapter.NotificationsAdapter
-import com.grewon.dronedin.server.MessagesDataBean
 import com.grewon.dronedin.server.NotificationDataBean
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.layout_square_toolbar.*

@@ -13,6 +13,7 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.adapter.ProfileEqipmentsAdapter
 import com.grewon.dronedin.addprofile.adapter.ProfileSkillsAdapter
 import com.grewon.dronedin.addprofile.contract.AddBioContract
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
@@ -50,6 +51,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
     private var selectedCategoryId: String = ""
     private var selectedSkillsId: List<Int>? = null
     private var selectedEquipmentsId: List<Int>? = null
+    private var isEdit: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +69,8 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
 
 
     private fun initView() {
+        isEdit = intent.getBooleanExtra(AppConstant.TAG, false)
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
 
         addBioPresenter.attachView(this)
@@ -171,7 +175,12 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
             val userData = preferenceUtils.getLoginCredentials()
             userData?.data?.isStepComplete = true
             preferenceUtils.saveLoginCredential(userData!!)
-            startActivity(Intent(this, MainActivity::class.java))
+            if (isEdit) {
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
     }
 

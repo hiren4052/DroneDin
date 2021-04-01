@@ -20,13 +20,13 @@ class BankDataAdapter(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var itemList = ArrayList<BankDataBean.Result.Data>()
+    var itemList = ArrayList<BankDataBean.BankDetail.Bank>()
 
     interface OnItemCLickListeners {
 
-        fun onDeleteItem(itemView: BankDataBean.Result.Data?, adapterPosition: Int)
+        fun onDeleteItem(itemView: BankDataBean.BankDetail.Bank?, adapterPosition: Int)
 
-        fun onDefaultSelect(itemView: BankDataBean.Result.Data?)
+        fun onDefaultSelect(itemView: BankDataBean.BankDetail.Bank?)
     }
 
 
@@ -42,18 +42,21 @@ class BankDataAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-       // val item = itemList[position]
+        val item = itemList[position]
         if (holder is ItemViewHolder) {
 
+            holder.txtBankName.text = item.bankName
+            holder.txtName.text = item.accountHolderName
+            holder.txtBankNumber.text = context.getString(R.string.card_number_string, item.last4)
 
 
             holder.data_select.setOnClickListener {
-               // onItemCLickListeners.onDefaultSelect(item)
-              //  setAllSelectedFalse(item.id!!)
+                onItemCLickListeners.onDefaultSelect(item)
+                setAllSelectedFalse(item.id!!)
             }
 
 
@@ -72,7 +75,7 @@ class BankDataAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<BankDataBean.Result.Data>) {
+    fun addItemsList(list: ArrayList<BankDataBean.BankDetail.Bank>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

@@ -17,10 +17,12 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.gson.Gson
 import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dagger.component.DaggerAppComponent
 import com.grewon.dronedin.dagger.module.*
+import com.grewon.dronedin.server.UserData
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -148,6 +150,18 @@ class DroneDinApp : MultiDexApplication() {
             AppConstant.AUTH_TOKEN,
             ""
         )!! else ""
+    }
+
+    fun getUserId(): String {
+        val preference = getSharedPreferences(
+            AppConstant.PREFERENCE_NAME,
+            Context.MODE_PRIVATE
+        )
+        val userData = Gson().fromJson(
+            preference.getString(AppConstant.CONSTANT_CREDENTIALS, ""),
+            UserData::class.java
+        )
+        return userData.data?.userId.toString()
     }
 
     fun getDeviceInformation(): String {

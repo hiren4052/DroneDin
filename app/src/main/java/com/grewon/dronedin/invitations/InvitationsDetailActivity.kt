@@ -9,6 +9,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
@@ -88,7 +89,10 @@ class InvitationsDetailActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+//                startActivity(Intent(this, ChatActivity::class.java).putExtra(
+//                    AppConstant.ID,
+//                    proposalsDetailBean?.pilot?.userId
+//                ))
             }
             R.id.txt_send_proposal -> {
                 startActivity(Intent(this, SubmitProposalActivity::class.java))

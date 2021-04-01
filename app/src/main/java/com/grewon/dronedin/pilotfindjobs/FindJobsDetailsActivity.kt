@@ -127,7 +127,10 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+                startActivity(Intent(this, ChatActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    pilotFindJobsBean?.userId
+                ))
             }
             R.id.txt_send_proposal -> {
                 startActivityForResult(

@@ -2,7 +2,6 @@ package com.grewon.dronedin.message
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +15,10 @@ import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.message.contract.MessageContract
-import com.grewon.dronedin.message.dapter.MessagesAdapter
+import com.grewon.dronedin.message.adapter.MessagesAdapter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.MessagesDataBean
 import kotlinx.android.synthetic.main.fragment_message.*
-import kotlinx.android.synthetic.main.fragment_pilot_my_jobs.*
 import kotlinx.android.synthetic.main.layout_square_toolbar.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -88,7 +86,12 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
 
 
     override fun onItemClick(jobsDataBean: MessagesDataBean.Data?) {
-        startActivity(Intent(requireContext(), ChatActivity::class.java))
+        startActivity(
+            Intent(requireContext(), ChatActivity::class.java).putExtra(
+                AppConstant.ID,
+                jobsDataBean?.userDetails?.userId
+            )
+        )
     }
 
     override fun onDeleteItem(jobsDataBean: MessagesDataBean.Data?, adapterPosition: Int) {

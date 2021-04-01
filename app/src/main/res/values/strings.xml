@@ -156,6 +156,8 @@
     <string name="card_holder_name">Card Holder Name</string>
     <string name="example_john_bolt">Example: John Bolt</string>
     <string name="card_number">Card Number</string>
+    <string name="card_number_string">****%s</string>
+    <string name="expiry_date_string">Expiry Date: %s/%s</string>
     <string name="xxxx_xxxx_xxxx_xxxx">XXXX - XXXX - XXXX - XXXX</string>
     <string name="expires">Expires</string>
     <string name="cvv_cvc">CVV</string>
@@ -186,6 +188,7 @@
     <string name="write_your_comments_if_any">Write your comments if any.</string>
     <string name="submit_milestone">Submit Milestone</string>
     <string name="new_project">New Project</string>
+    <string name="edit_project">Edit Project</string>
     <string name="amount">Amount</string>
     <string name="notes_">Notes:</string>
     <string name="files">Files</string>
@@ -200,7 +203,9 @@
     <string name="about">About</string>
     <string name="write_a_review">Write a review</string>
     <string name="write_about_your_experience">Write about your experience.</string>
-    <string name="no_review_message">You don’t have any reviews yet!\nRequest your clients to leave a feedback !</string>
+    <string name="no_review_pilot_message">You don’t have any reviews yet!\nRequest your clients to leave a feedback!</string>
+    <string name="no_review_client_message">You don’t have any reviews yet!\nRequest your pilots to leave a feedback!</string>
+    <string name="no_review_message">Don’t have any reviews yet!</string>
     <string name="total_jobs">Total Jobs</string>
     <string name="total_spending">Total Spending</string>
     <string name="total_project_price_usd">Total Project Price ( USD ) :</string>
@@ -364,6 +369,13 @@
     <string name="add_pictures_up_to_5_pictures">Add Pictures( Up to 5 Pictures )</string>
     <string name="write_a_short_project_title">Write a short project title</string>
     <string name="describe_the_project_in_short">Describe the project in short.</string>
-
+    <string name="maximum_5_image_allow">Maximum 5 image allow</string>
+    <string name="add_portfolio">Add Portfolio</string>
+    <string name="tip_a_portfolio_helps_you_showcase_your_work_and_land_more_jobs">Tip: A portfolio helps you showcase your work and land more jobs.</string>
+    <string name="your_projects">Your Projects</string>
+    <string name="please_type_message">Please type message</string>
+    <string name="please_enter_card_holder_name">Please enter card holder name!</string>
+    <string name="please_enter_card_number">Please enter card number!</string>
+    <string name="please_enter_card_cvv_number">Please enter a valid CVV/CVC number!</string>
 
 </resources>

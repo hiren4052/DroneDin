@@ -20,13 +20,13 @@ class CredtiCardDataAdapter(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var itemList = ArrayList<CardDataBean.Result>()
+    var itemList = ArrayList<CardDataBean.Data.Card>()
 
     interface OnCardItemCLickListeners {
 
-        fun onDeleteCardItem(itemView: CardDataBean.Result, adapterPosition: Int)
+        fun onDeleteCardItem(itemView: CardDataBean.Data.Card, adapterPosition: Int)
 
-        fun onDefaultCardSelect(itemView: CardDataBean.Result)
+        fun onDefaultCardSelect(itemView: CardDataBean.Data.Card)
     }
 
 
@@ -42,21 +42,30 @@ class CredtiCardDataAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        // val item = itemList[position]
+        val item = itemList[position]
         if (holder is ItemViewHolder) {
 
+            holder.txtName.text = item.billingDetails?.name
+            holder.txtCardNumber.text =
+                context.getString(R.string.card_number_string, item.card?.last4)
+            holder.txtExpiryDate.text = context.getString(
+                R.string.expiry_date_string,
+                item.card?.expMonth.toString(), item.card?.expYear.toString()
+            )
+
             if (position == 1) {
-               holder.cardType.setImageResource(R.drawable.ic_visa)
+                holder.cardType.setImageResource(R.drawable.ic_visa)
             }
 
+            holder.data_select.isChecked = item.id == defaultCard
 
             holder.data_select.setOnClickListener {
-                // onItemCLickListeners.onDefaultSelect(item)
-                //  setAllSelectedFalse(item.id!!)
+                onItemCLickListeners.onDefaultCardSelect(item)
+                setAllSelectedFalse(item.id!!)
             }
 
 
@@ -75,7 +84,7 @@ class CredtiCardDataAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<CardDataBean.Result>) {
+    fun addItemsList(list: ArrayList<CardDataBean.Data.Card>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

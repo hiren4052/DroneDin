@@ -1,6 +1,7 @@
 package com.grewon.dronedin.dagger.component
 
 
+import com.grewon.dronedin.addcard.AddCardActivity
 import com.grewon.dronedin.addprofile.AddMoreProfileActivity
 import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.BaseActivity
@@ -13,6 +14,7 @@ import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalsActivity
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
+import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.filter.FilterResultActivity
@@ -20,16 +22,20 @@ import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
+import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.milestone.*
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
 import com.grewon.dronedin.offers.OffersDetailActivity
+import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsActivity
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
 import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
 import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
+import com.grewon.dronedin.portfolio.PortFolioActivity
 import com.grewon.dronedin.postjob.AddJobDetailsFragment
 import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
@@ -47,8 +53,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
-        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class,
-        MessageModule::class,PortFolioModule::class]
+        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class,PaymentModule::class,
+        MessageModule::class, PortFolioModule::class]
 )
 interface AppComponent {
 
@@ -86,6 +92,12 @@ interface AppComponent {
     fun inject(activity: CancelProjectActivity)
     fun inject(activity: EndProjectActivity)
     fun inject(activity: SubmitReviewActivity)
+    fun inject(activity: PilotProfileActivity)
+    fun inject(activity: PortFolioActivity)
+    fun inject(activity: ClientProfileActivity)
+    fun inject(activity: ChatActivity)
+    fun inject(activity: PaymentMethodActivity)
+    fun inject(activity: AddCardActivity)
 
 
     //Fragments

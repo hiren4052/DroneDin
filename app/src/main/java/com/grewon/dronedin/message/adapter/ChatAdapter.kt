@@ -1,23 +1,22 @@
-package com.grewon.dronedin.message.dapter
+package com.grewon.dronedin.message.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.grewon.dronedin.R
-import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.server.ChatDataBean
-import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_chat_date_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_my_image_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_my_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_other_image_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_other_messages_item.view.*
-import kotlinx.android.synthetic.main.layout_chat_other_messages_item.view.txt_other_date
 
 
 /**
@@ -37,27 +36,27 @@ class ChatAdapter(
 
     interface OnItemClickListeners {
 
-        fun onImageItemClick(jobsDataBean: ChatDataBean.Result?)
+        fun onImageItemClick(jobsDataBean: ChatDataBean.Data?)
 
-        fun onImageDownloadClick(jobsDataBean: ChatDataBean.Result?)
+        fun onImageDownloadClick(jobsDataBean: ChatDataBean.Data?)
 
     }
 
 
-    var itemList = ArrayList<ChatDataBean.Result>()
+    var itemList = ArrayList<ChatDataBean.Data>()
 
     override fun getItemViewType(position: Int): Int {
-        if (itemList[position].messageType != "date") {
-            if (itemList[position].sendrId == 0.toLong()) {
-                if (itemList[position].messageType == "message") {
+        if (itemList[position].msgType != "date") {
+            if (itemList[position].senderId == DroneDinApp.getAppInstance().getUserId()) {
+                if (itemList[position].msgType == "Text") {
                     return MY_MESSAGE
-                } else if (itemList[position].messageType == "image") {
+                } else if (itemList[position].msgType == "Image") {
                     return MY_IMAGE_MESSAGE
                 }
             } else {
-                if (itemList[position].messageType == "message") {
+                if (itemList[position].msgType == "Text") {
                     return OTHER_MESSAGE
-                } else if (itemList[position].messageType == "image") {
+                } else if (itemList[position].msgType == "Image") {
                     return OTHER_IMAGE_MESSAGE
                 }
             }
@@ -102,8 +101,7 @@ class ChatAdapter(
                     false
                 )
             )
-        }
-        else if (viewType == DATE_VIEW_ITEM) {
+        } else if (viewType == DATE_VIEW_ITEM) {
             return DateViewHolder(
                 LayoutInflater.from(context).inflate(
                     R.layout.layout_chat_date_item,
@@ -122,46 +120,77 @@ class ChatAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is MyMessageViewHolder) {
 
+            holder.textMyMessage.text = item.msg?.trim()
+            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
 
         } else if (holder is MyImageMessageViewHolder) {
             Glide.with(context)
-                .load( "https://i.pinimg.com/originals/7d/85/43/7d854312c50a516d88dfda706245d67b.jpg")
+                .load(item.msg)
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                 .into(holder.myImage)
+            holder.textMyImageDate.text =
+                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
         } else if (holder is OtherMessageViewHolder) {
-
+            holder.textMyMessage.text = item.msg?.trim()
+            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
         } else if (holder is OtherImageMessageViewHolder) {
             Glide.with(context)
-                .load("https://i.pinimg.com/originals/7d/85/43/7d854312c50a516d88dfda706245d67b.jpg")
+                .load(item.msg)
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                 .into(holder.otherImage)
+            holder.textOtherImageDate.text =
+                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
         }
 
 
     }
 
-    fun addMessageItem(chatBean: ChatDataBean.Result) {
+    fun addMessageItem(chatBean: ChatDataBean.Data) {
         itemList.add(0, chatBean)
-        notifyItemInserted(itemList.size - 1)
+        notifyItemInserted(0)
     }
 
 
-    fun addMessageItemsList(list: ArrayList<ChatDataBean.Result>) {
+    fun addMessageItemsList(list: ArrayList<ChatDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun addOffsetMessageItemsList(list: ArrayList<ChatDataBean.Result>) {
+    fun addOldMessageItemsList(list: ArrayList<ChatDataBean.Data>) {
+        itemList.addAll(itemList.size, list)
+        notifyItemRangeChanged(itemList.size - list.size, itemList.size)
+    }
+
+
+
+    fun addOffsetMessageItemsList(list: ArrayList<ChatDataBean.Data>) {
         itemList.addAll(0, list)
         notifyItemRangeChanged(itemList.size - list.size, itemList.size)
+    }
+
+
+    fun getLastBottomId(): String {
+        return if (itemList.size == 0) {
+            "0"
+        } else {
+            itemList[itemList.size - 1].chatMsgId.toString()
+        }
+    }
+
+    fun getTopId(): String {
+        return if (itemList.size == 0) {
+            "0"
+        } else {
+            itemList[0].chatMsgId.toString()
+        }
     }
 
 

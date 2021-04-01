@@ -190,16 +190,66 @@ interface AppApi {
     @GET("chat_c/chat_room")
     fun getMessages(): Single<MessagesDataBean>
 
+
+    @POST("chat_c/chat_room")
+    fun createChatRoom(@Body createChatRoomParams: CreateChatRoomParams): Single<ChatRoomBean>
+
+    @POST("chat_c/chat_message")
+    fun sendMessage(@Body file: RequestBody): Single<SentChatBean>
+
+    @GET("chat_c/old_messages")
+    fun getOldMessage(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<ChatDataBean>
+
+    @GET("chat_c/new_message")
+    fun getNewMessage(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<ChatDataBean>
+
     @POST("pilot_c/submit_review")
     fun submitReview(@Body params: SubmitReviewParams): Single<CommonMessageBean>
 
     @POST("profile_c/portfolio")
     fun createPortFolio(@Body file: RequestBody): Single<CommonMessageBean>
 
-    @POST("profile_c/portfolio/{port_folio_id}")
+
+    @POST("profile_c/portfolio_update/{port_folio_id}")
     fun updatePortFolio(
         @Body file: RequestBody,
         @Path("port_folio_id") portFolioId: String
     ): Single<CommonMessageBean>
+
+    @GET("profile_c/profile/{pilot_id}")
+    fun getPilotDetail(
+        @Path("pilot_id") pilotId: String
+    ): Single<PilotProfileBean>
+
+    @GET("profile_c/profile/{client_id}")
+    fun getClientDetail(
+        @Path("client_id") pilotId: String
+    ): Single<ClientProfileBean>
+
+    @DELETE("profile_c/portfolio/{portfolio_id}")
+    fun deletePortFolio(@Path("portfolio_id") portFolioId: String): Single<CommonMessageBean>
+
+
+    @GET("profile_c/card")
+    fun getCardData(): Single<CardDataBean>
+
+    @POST("profile_c/card")
+    fun createCard(@Body params: AddCardParams): Single<CardDataBean>
+
+    @POST("profile_c/set_default_card")
+    fun saveDefaultCart(@Body defaultCardParams: DefaultCardParams): Single<CommonMessageBean>
+
+    @GET("profile_c/bank_detail")
+    fun getBankData(): Single<BankDataBean>
+
+    @POST("profile_c/bank_detail")
+    fun createBankAccount(@Body params: AddBankParams): Single<BankDataBean>
+
+    @POST("profile_c/set_default_bank")
+    fun saveDefaultBank(@Body defaultCardParams: DefaultCardParams): Single<CommonMessageBean>
 
 }

@@ -23,6 +23,7 @@ import org.joda.time.PeriodType
 class TimeUtils {
 
     companion object {
+
         fun getChatTime(server_time: String): String {
             var ourdate: String
             try {
@@ -31,7 +32,7 @@ class TimeUtils {
                 val value = formatter.parse(server_time)
                 val dateFormatter =
                     SimpleDateFormat(
-                        "MMM dd yyyy, hh:mm a",
+                        "yyyy/MM/dd",
                         Locale.getDefault()
                     ) //this format changeable
                 ourdate = dateFormatter.format(value)
@@ -513,6 +514,98 @@ class TimeUtils {
                             context.getString(R.string.last_month)
                     else if (months > 1)
                         return context.getString(R.string.months_ago, months)
+
+                } else if (days > 0) {
+
+                    return if (days == 1)
+                        if (numeric)
+                            context.getString(R.string.day_ago, 1)
+                        else
+                            context.getString(R.string.yesterday)
+                    else if (days in 7..14)
+                        if (numeric)
+                            context.getString(R.string.week_ago, 1)
+                        else
+                            context.getString(R.string.last_week)
+                    else if (days in 15..21)
+                        context.getString(R.string.weeks_ago, 2)
+                    else if (days in 22..28)
+                        context.getString(R.string.weeks_ago, 3)
+                    else
+                        context.getString(R.string.days_ago, days)
+
+                } else if (hours > 0) {
+
+                    if (hours == 1)
+                        return if (numeric)
+                            context.getString(R.string.hour_ago, 1)
+                        else
+                            context.getString(R.string.one_hour)
+                    else if (hours > 1)
+                        return context.getString(R.string.hours_ago, hours)
+
+                } else if (minutes > 0) {
+
+                    if (minutes == 1)
+                        return if (numeric)
+                            context.getString(R.string.minute_ago, 1)
+                        else
+                            context.getString(R.string.one_minute)
+                    else if (minutes > 1)
+                        return context.getString(R.string.minutes_ago, minutes)
+
+                } else if (seconds > 0) {
+
+                    if (seconds == 1)
+                        return context.getString(R.string.just_now)
+                    else if (seconds > 1)
+                        return context.getString(R.string.seconds_ago, seconds)
+                } else {
+
+                    return context.getString(R.string.just_now)
+                }
+
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+
+            return null
+        }
+
+
+        fun getChatTimes(context: Context, product_datetime: String): String? {
+
+            val language = Locale.getDefault().language
+            val numeric = false
+            var UTCDate: Date? = null
+            try {
+                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                simpleDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+                UTCDate = simpleDateFormat.parse(product_datetime)
+
+                simpleDateFormat.timeZone = TimeZone.getDefault()
+                val formattedDate = simpleDateFormat.format(UTCDate)
+                val LocalDate = simpleDateFormat.parse(formattedDate)
+
+                val sDate = DateTime()
+                val eDate = DateTime(LocalDate)
+
+                val period = Period(eDate, sDate, PeriodType.yearMonthDayTime())
+                val seconds = period.seconds
+                val minutes = period.minutes
+                val hours = period.hours
+                val days = period.days
+                val weeks = period.weeks
+                val months = period.months
+                val years = period.years
+
+
+                if (years > 0) {
+
+                    return getChatTime(product_datetime)
+                } else if (months > 0) {
+
+                    return getChatTime(product_datetime)
 
                 } else if (days > 0) {
 

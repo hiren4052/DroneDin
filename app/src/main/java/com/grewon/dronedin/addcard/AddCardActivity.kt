@@ -1,20 +1,32 @@
 package com.grewon.dronedin.addcard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.error.ErrorHandler
+import com.grewon.dronedin.addcard.contract.AddCardContract
+import com.grewon.dronedin.server.CardDataBean
+import com.grewon.dronedin.server.params.AddCardParams
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_add_card.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
+class AddCardActivity : BaseActivity(), View.OnClickListener, AddCardContract.View {
 
-class AddCardActivity : BaseActivity(), View.OnClickListener {
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var addCardPresenter: AddCardContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_card)
@@ -31,7 +43,12 @@ class AddCardActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
 
-        DroneDinApp.getAppInstance().loadGifImage(R.drawable.credit_card_animation,top_image)
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        addCardPresenter.attachView(this)
+        addCardPresenter.attachApiInterface(retrofit)
+
+
+        DroneDinApp.getAppInstance().loadGifImage(R.drawable.credit_card_animation, top_image)
 
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             this,
@@ -90,7 +107,26 @@ class AddCardActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.txt_save -> {
-                finish()
+                if (ValidationUtils.isEmptyFiled(edt_name.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_card_holder_name))
+                } else if (ValidationUtils.isEmptyFiled(edt_card_number.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_card_number))
+                } else if (ValidationUtils.isEmptyFiled(edt_cvv.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_card_cvv_number))
+                } else {
+                    val addCardParams = AddCardParams(
+                        edt_name.text.toString(),
+                        edt_card_number.creditCardNumber,
+                        edt_cvv.text.toString(),
+                        txt_month.text.toString(),
+                        txt_year.text.toString(),
+
+                        )
+                    addCardPresenter.createCard(addCardParams)
+                }
             }
             R.id.im_back -> {
                 finish()
@@ -103,4 +139,22 @@ class AddCardActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onCreateCardSuccessful(response: CardDataBean) {
+        if (response.msg != null) {
+            DroneDinApp.getAppInstance().showToast(response.msg)
+            setResult(RESULT_OK)
+            finish()
+        }
+
+    }
+
+    override fun onCreateCardFailed(loginParams: AddCardParams) {
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
+    }
+
 }

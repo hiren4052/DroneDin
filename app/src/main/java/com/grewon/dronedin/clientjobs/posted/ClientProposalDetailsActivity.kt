@@ -111,7 +111,12 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener,
                 )
             }
             R.id.txt_chat -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+                startActivity(
+                    Intent(this, ChatActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        proposalsDetailBean?.pilot?.userId
+                    )
+                )
             }
         }
     }

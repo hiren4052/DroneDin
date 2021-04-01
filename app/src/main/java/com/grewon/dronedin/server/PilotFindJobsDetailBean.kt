@@ -42,7 +42,9 @@ data class PilotFindJobsDetailBean(
     @SerializedName("total_proposal")
     val totalProposal: String? = "",
     @SerializedName("user_name")
-    val userName: String? = ""
+    val userName: String? = "",
+    @SerializedName("client_id")
+    val userId: String? = ""
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
