@@ -193,13 +193,13 @@ class ChatPresenter : ChatContract.Presenter {
                 }
 
                 override fun onSuccessResponse(dataBean: ChatDataBean) {
-                    view?.onOldMessageGetSuccessfully(dataBean)
+                    view?.onNewMessageGetSuccessfully(dataBean)
 
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
                     LogX.E(errorBean.toString())
-                    view?.onOldMessageGetFailed(
+                    view?.onNewMessageGetFailed(
                         Gson().fromJson(
                             errorBean.toString(),
                             CommonMessageBean::class.java

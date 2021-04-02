@@ -11,17 +11,18 @@ import kotlinx.android.parcel.Parcelize
  * Created by Hiren Gabani on 6/19/20.
  */
 
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class BankDataBean(
-    @SerializedName("bank_detail")
-    val bankDetail: BankDetail? = BankDetail(),
+    @SerializedName("data")
+    val `data`: Data? = Data(),
     @SerializedName("msg")
     val msg: String? = ""
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
-    data class BankDetail(
+    data class Data(
         @SerializedName("bank")
         val bank: ArrayList<Bank>? = null,
         @SerializedName("default_bank")
@@ -37,7 +38,7 @@ data class BankDataBean(
             @SerializedName("account_holder_type")
             val accountHolderType: String? = "",
             @SerializedName("available_payout_methods")
-            val availablePayoutMethods: ArrayList<String>? = null,
+            val availablePayoutMethods: ArrayList<String?>? = null,
             @SerializedName("bank_name")
             val bankName: String? = "",
             @SerializedName("country")
@@ -53,7 +54,7 @@ data class BankDataBean(
             @SerializedName("last4")
             val last4: String? = "",
             @SerializedName("metadata")
-            val metadata: ArrayList<String>? = null,
+            val metadata: List<String?>? = listOf(),
             @SerializedName("object")
             val objectX: String? = "",
             @SerializedName("routing_number")
@@ -65,8 +66,14 @@ data class BankDataBean(
         @SuppressLint("ParcelCreator")
         @Parcelize
         data class DefaultBank(
+            @SerializedName("user_bank_account_bank_dob")
+            val userBankAccountBankDob: String? = "",
+            @SerializedName("user_bank_account_bank_firstname")
+            val userBankAccountBankFirstname: String? = "",
             @SerializedName("user_bank_account_bank_id")
             val userBankAccountBankId: String? = "",
+            @SerializedName("user_bank_account_bank_lastname")
+            val userBankAccountBankLastname: String? = "",
             @SerializedName("user_bank_account_bank_token")
             val userBankAccountBankToken: String? = "",
             @SerializedName("user_bank_account_datetime")

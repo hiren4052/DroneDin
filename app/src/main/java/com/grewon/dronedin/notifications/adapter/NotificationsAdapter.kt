@@ -12,6 +12,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.NotificationDataBean
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_notifcation_item.view.*
 
 
@@ -26,14 +27,14 @@ class NotificationsAdapter(
 
     interface OnItemClickListeners {
 
-        fun onItemClick(jobsDataBean: NotificationDataBean.Result?)
+        fun onItemClick(jobsDataBean: NotificationDataBean.Data?)
 
-        fun onDeleteItem(jobsDataBean: NotificationDataBean.Result?, adapterPosition: Int)
+        fun onDeleteItem(jobsDataBean: NotificationDataBean.Data?, adapterPosition: Int)
 
     }
 
 
-    var itemList = ArrayList<NotificationDataBean.Result>()
+    var itemList = ArrayList<NotificationDataBean.Data>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -48,11 +49,11 @@ class NotificationsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
@@ -61,6 +62,9 @@ class NotificationsAdapter(
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomNotificationImage()))
                 .into(holder.typeImage)
 
+            holder.textMessages.text = item.notificationMessage
+            holder.textDate.text =
+                TimeUtils.getServerToAppDate(item.notificationDatecreated.toString())
 
         }
 
@@ -68,7 +72,7 @@ class NotificationsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<NotificationDataBean.Result>) {
+    fun addItemsList(list: ArrayList<NotificationDataBean.Data>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }

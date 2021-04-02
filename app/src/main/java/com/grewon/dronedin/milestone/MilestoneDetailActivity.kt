@@ -49,11 +49,17 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
         mileStoneDetailPresenter.attachView(this)
         mileStoneDetailPresenter.attachApiInterface(retrofit)
         mileStoneDetailPresenter.getMilesStoneDetail(milestoneId)
+
+
+        if (isPilotAccount()) {
+            txt_pay.visibility = View.GONE
+        }
     }
 
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
+        txt_pay.setOnClickListener(this)
     }
 
 
@@ -62,7 +68,9 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
             R.id.img_back -> {
                 finish()
             }
-
+            R.id.txt_pay -> {
+                finish()
+            }
         }
     }
 

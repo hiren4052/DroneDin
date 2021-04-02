@@ -19,6 +19,7 @@
         android:paddingStart="@dimen/_10dp"
         android:paddingTop="@dimen/_10dp"
         android:paddingEnd="@dimen/_25dp"
+        android:scaleType="centerCrop"
         android:paddingBottom="@dimen/_10dp"
         app:aspectRatio="0.75"
         app:aspectRatioEnabled="true"

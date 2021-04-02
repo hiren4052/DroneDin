@@ -38,6 +38,7 @@ class DroneDinApp : MultiDexApplication() {
         lateinit var instance: DroneDinApp
 
         var loadingDialogMessage: String = ""
+        var isChatScreen = false
 
         fun getAppInstance(): DroneDinApp {
             return instance
@@ -88,6 +89,7 @@ class DroneDinApp : MultiDexApplication() {
             .pilotJobsModule(PilotJobsModule())
             .milestoneModule(MilestoneModule())
             .messageModule(MessageModule())
+            .mainModule(MainModule())
             .build()
     }
 

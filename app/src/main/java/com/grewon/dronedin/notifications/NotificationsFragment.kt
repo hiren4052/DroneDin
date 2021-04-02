@@ -1,22 +1,41 @@
 package com.grewon.dronedin.notifications
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.BaseFragment
+import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.notifications.adapter.NotificationsAdapter
+import com.grewon.dronedin.notifications.contract.NotificationContract
+import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.NotificationDataBean
+import com.malinskiy.superrecyclerview.OnMoreListener
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.layout_square_toolbar.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
-class NotificationsFragment : Fragment(), NotificationsAdapter.OnItemClickListeners {
+class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickListeners,
+    SwipeRefreshLayout.OnRefreshListener, OnMoreListener, NotificationContract.View {
 
+
+    @Inject
+    lateinit var notificationsPresenter: NotificationContract.Presenter
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var notificationsAdapter: NotificationsAdapter? = null
+
+    private var pageCount: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,20 +48,120 @@ class NotificationsFragment : Fragment(), NotificationsAdapter.OnItemClickListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         txt_toolbar_title.text = getString(R.string.notifications)
-        setMessageAdapter()
+        initView()
     }
 
-    private fun setMessageAdapter() {
-        message_data_recycle.layoutManager = LinearLayoutManager(context)
+    private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        notificationsPresenter.attachView(this)
+        notificationsPresenter.attachApiInterface(retrofit)
+
+
+        message_data_recycle.setLayoutManager(
+            LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+        )
+
+        message_data_recycle.setRefreshListener(this)
+        message_data_recycle.setRefreshingColorResources(
+            R.color.colorPrimaryDark,
+            R.color.colorPrimaryDark,
+            R.color.colorPrimaryDark,
+            R.color.colorPrimaryDark
+        )
+        message_data_recycle.setupMoreListener(this, 1)
+
+        apiCall(pageCount)
+
+    }
+
+    private fun apiCall(pageCount: Int) {
+        notificationsPresenter.getNotification(pageCount.toString())
+    }
+
+
+
+    private fun initMessageAdapter() {
         notificationsAdapter = NotificationsAdapter(requireContext(), this)
         message_data_recycle.adapter = notificationsAdapter
     }
 
-    override fun onItemClick(jobsDataBean: NotificationDataBean.Result?) {
+    override fun onItemClick(jobsDataBean: NotificationDataBean.Data?) {
 
     }
 
-    override fun onDeleteItem(jobsDataBean: NotificationDataBean.Result?, adapterPosition: Int) {
+    override fun onDeleteItem(jobsDataBean: NotificationDataBean.Data?, adapterPosition: Int) {
+
     }
+
+
+    override fun onRefresh() {
+        message_data_recycle.setupMoreListener(this, 1)
+        pageCount = 1
+        apiCall(pageCount)
+    }
+
+    override fun onMoreAsked(
+        overallItemsCount: Int,
+        itemsBeforeMore: Int,
+        maxLastVisiblePosition: Int
+    ) {
+        pageCount += 1
+        apiCall(pageCount)
+    }
+
+    private fun setEmptyView(errorMessage: String, emptyDrawable: Int?) {
+        if (context != null && isVisible) {
+            initMessageAdapter()
+            if (emptyDrawable != null) {
+                val errorImage: AspectImageView =
+                    message_data_recycle.emptyView.findViewById(R.id.txt_no_data_image)
+                errorImage.setImageResource(emptyDrawable)
+            }
+            val error: TextView =
+                message_data_recycle.emptyView.findViewById(R.id.txt_no_data_title)
+            error.text = errorMessage
+        }
+
+    }
+
+    private fun stopMore() {
+        message_data_recycle.hideMoreProgress()
+        message_data_recycle.setupMoreListener(null, 0)
+    }
+
+    override fun onApiException(error: Int) {
+        if (pageCount == 0) {
+            setEmptyView(getString(error), R.drawable.ic_connectivity)
+        }
+    }
+
+    override fun onNotificationGetSuccessful(response: NotificationDataBean) {
+        if (context != null && isVisible) {
+            if (response.data != null && response.data.size > 0) {
+                if (pageCount == 0) {
+                    initMessageAdapter()
+                }
+                notificationsAdapter?.addItemsList(response.data)
+            } else {
+                if (pageCount == 0) {
+                    setEmptyView(response.msg.toString(), R.drawable.ic_no_data)
+                }
+                stopMore()
+            }
+        }
+    }
+
+    override fun onNotificationGetFailed(loginParams: CommonMessageBean) {
+        if (context != null && isVisible) {
+            if (loginParams.msg != null) {
+                setEmptyView(loginParams.msg, R.drawable.ic_no_data)
+            }
+        }
+    }
+
 
 }

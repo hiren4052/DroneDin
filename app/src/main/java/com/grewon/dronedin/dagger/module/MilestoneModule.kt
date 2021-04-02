@@ -15,6 +15,8 @@ import com.grewon.dronedin.milestone.contract.*
 import com.grewon.dronedin.milestone.presenter.*
 import com.grewon.dronedin.offers.contract.OffersDetailsContract
 import com.grewon.dronedin.offers.presenter.OffersDetailsPresenter
+import com.grewon.dronedin.paymentsummary.contract.ActiveMileStoneContract
+import com.grewon.dronedin.paymentsummary.presenter.ActiveMileStonePresenter
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsContract
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.pilotactivejobs.presenter.PilotActiveJobsDetailsPresenter
@@ -77,6 +79,12 @@ class MilestoneModule {
     @Provides
     fun provideEndProjectPresenter(): EndProjectContract.Presenter {
         return EndProjectPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideActiveMileStonePresenter(): ActiveMileStoneContract.Presenter {
+        return ActiveMileStonePresenter()
     }
 
 }

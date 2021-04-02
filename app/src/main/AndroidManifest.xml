@@ -21,12 +21,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".portfolio.PortFolioActivity"></activity>
-        <activity android:name=".editprofile.PilotEditProfileActivity" />
-        <activity android:name=".milestone.EndProjectActivity" />
-        <activity android:name=".milestone.CancelProjectActivity" />
-        <activity android:name=".milestone.CancelMilestoneActivity" />
-        <activity android:name=".milestone.MilestoneAddActivity" />
+        <activity
+            android:name=".portfolio.PortFolioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".editprofile.PilotEditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.EndProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.CancelProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.CancelMilestoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".milestone.MilestoneAddActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".invitepilot.InvitePilotActivity"
             android:exported="true" />
@@ -256,6 +268,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".paymentsummary.MilestoneSummaryActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

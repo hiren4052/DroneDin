@@ -19,6 +19,7 @@
         android:paddingTop="@dimen/_10dp"
         android:paddingEnd="@dimen/_10dp"
         android:paddingBottom="@dimen/_10dp"
+        android:scaleType="centerCrop"
         app:aspectRatio="0.75"
         app:aspectRatioEnabled="true"
         app:srcCompat="@drawable/ic_rectangle_spann_color" />

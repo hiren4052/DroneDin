@@ -39,6 +39,7 @@ public class AppConstant {
         val CHANNEL_NAME: CharSequence = "dronedin"
         const val AUTH_TOKEN: String = "auth_token"
         const val CONSTANT_CREDENTIALS: String = "login_credentials"
+        const val PROFILE_DATA: String = "profile_data"
         const val REMEMBER_ME: String = "remember_me"
         const val FONT_FAMILY: String = "Raleway-Regular.ttf"
         const val NOTIFICATION_BEAN: String = "notification_bean"

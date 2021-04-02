@@ -25,6 +25,8 @@ import javax.inject.Inject
 open class BaseActivity : AppCompatActivity(), BaseContract.View {
 
 
+
+
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
 
@@ -41,12 +43,12 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
         super.onResume()
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
-            notificationReceiver,
+            sessionReceiver,
             IntentFilter(AppConstant.SESSION_BROADCAST)
         )
     }
 
-    private val notificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private val sessionReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             if (intent != null) {
 
@@ -82,7 +84,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationReceiver)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(sessionReceiver)
     }
 
 

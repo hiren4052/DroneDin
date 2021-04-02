@@ -383,7 +383,7 @@ class TimeUtils {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
                         val d = dateFormat.parse(date)
 
-                        editText.text = SimpleDateFormat("dd-MM-yyyy").format(d!!)
+                        editText.text = SimpleDateFormat("yyyy-MM-dd").format(d!!)
 
                     } catch (e: Exception) {
                         e.printStackTrace()

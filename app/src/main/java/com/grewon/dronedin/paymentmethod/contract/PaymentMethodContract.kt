@@ -20,6 +20,10 @@ interface PaymentMethodContract {
 
         fun onCardSelectFailed(loginParams: CommonMessageBean)
 
+        fun onCardDeleteSuccessfully(loginParams: CommonMessageBean)
+
+        fun onCardDeleteFailed(loginParams: CommonMessageBean)
+
         fun onBankDataGetSuccessful(response: BankDataBean)
 
         fun onBankDataGetFailed(loginParams: CommonMessageBean)
@@ -27,6 +31,10 @@ interface PaymentMethodContract {
         fun onBankSelectSuccessfully(loginParams: CommonMessageBean)
 
         fun onBankSelectFailed(loginParams: CommonMessageBean)
+
+        fun onBankDeleteSuccessfully(loginParams: CommonMessageBean)
+
+        fun onBankDeleteFailed(loginParams: CommonMessageBean)
 
         fun onShowScreenProgress()
 
@@ -43,6 +51,11 @@ interface PaymentMethodContract {
         fun getBankData()
 
         fun setDefaultBankData(defaultCardParams: DefaultCardParams)
+
+        fun deleteCardData(cardId: String)
+
+        fun deleteBankData(bankId: String)
+
     }
 
 }

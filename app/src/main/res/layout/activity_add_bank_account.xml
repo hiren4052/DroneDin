@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,6 +30,14 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_30dp">
 
+                <TextView
+                    android:id="@+id/txt_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_12sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/txt_title_document"
@@ -37,7 +46,9 @@
                     android:text="@string/identity_document_front"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_16sp"
-                    android:visibility="visible" />
+
+                    android:visibility="gone" />
+
 
                 <RelativeLayout
                     android:id="@+id/im_identity_layout"
@@ -46,7 +57,7 @@
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_marginBottom="@dimen/_10dp"
                     android:padding="@dimen/_5dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <com.grewon.dronedin.helper.AspectImageView
                         android:id="@+id/identity_image"
@@ -102,8 +113,10 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/birth_date_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_5dp"
                     app:cardElevation="@dimen/_5dp"
@@ -182,9 +195,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_stripe"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/_10dp"/>
+                    android:layout_margin="@dimen/_10dp"
+                    android:src="@drawable/ic_stripe" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

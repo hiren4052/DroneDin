@@ -1,10 +1,19 @@
 package com.grewon.dronedin.message
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,11 +22,17 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.helper.FileValidationUtils
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.message.adapter.ChatAdapter
 import com.grewon.dronedin.message.contract.ChatContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentMessageParams
 import com.grewon.dronedin.utils.ValidationUtils
+import com.theartofdev.edmodo.cropper.CropImage
+import droidninja.filepicker.FilePickerBuilder
+import droidninja.filepicker.FilePickerConst
+import kotlinx.android.synthetic.main.activity_add_profile.*
 import kotlinx.android.synthetic.main.activity_chat.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -50,11 +65,18 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        DroneDinApp.isChatScreen = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        DroneDinApp.isChatScreen = false
+    }
+
     private fun setRecycleListeners() {
         chat_recycle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -72,7 +94,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         val runnable: Runnable = object : Runnable {
             override fun run() {
                 if (isOldMessageServiceCalled) {
-                   // chatPresenter.getNewMessage(chatAdapter?.getTopId().toString(), chatRoomId)
+                    chatPresenter.getNewMessage(chatAdapter?.getTopId().toString(), chatRoomId)
                 }
                 newMessageHandler?.postDelayed(this, 3000)
             }
@@ -90,7 +112,9 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun initAdapter() {
-        chat_recycle.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        chat_recycle.layoutManager = layoutManager
+        layoutManager.stackFromEnd = true
         chatAdapter = ChatAdapter(this, this)
         chat_recycle.adapter = chatAdapter
     }
@@ -139,10 +163,10 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                 finish()
             }
             R.id.im_camera -> {
-
+                openPhotosRequest()
             }
             R.id.im_attachments -> {
-
+                openFileRequest()
             }
             R.id.fab_send_message -> {
                 if (ValidationUtils.isEmptyFiled(edt_message.text.toString())) {
@@ -158,6 +182,87 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                     chatPresenter.sentMessage(chatParams)
                 }
             }
+        }
+    }
+
+    private fun openPhotosRequest() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    AppConstant.CAMERA_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                FilePickerBuilder.instance
+                    .setMaxCount(1) //optional
+                    .enableCameraSupport(true)
+                    .setActivityTheme(R.style.AppLibAppTheme) //optional
+                    .pickPhoto(this, AppConstant.PICKFILE_REQUEST_CODE)
+            }
+        } else {
+            FilePickerBuilder.instance
+                .setMaxCount(1) //optional
+                .enableCameraSupport(true)
+                .setActivityTheme(R.style.AppLibAppTheme) //optional
+                .pickPhoto(this, AppConstant.PICKFILE_REQUEST_CODE)
+        }
+    }
+
+
+    private fun openFileRequest() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+                || ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ),
+                    AppConstant.CAMERA_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                FilePickerBuilder.instance
+                    .setMaxCount(1) //optional
+                    .setActivityTheme(R.style.AppLibAppTheme) //optional
+                    .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
+            }
+        } else {
+            FilePickerBuilder.instance
+                .setMaxCount(1) //optional
+                .setActivityTheme(R.style.AppLibAppTheme) //optional
+                .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
         }
     }
 
@@ -186,12 +291,14 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun setView(recieverDetail: ChatRoomBean.Data.RecieverDetail?) {
-        Glide.with(this)
-            .load(recieverDetail?.profileImage!!)
-            .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
-            .into(img_user)
-        txt_user_name.text = recieverDetail.userName
-        if (recieverDetail.isUserOnline == AppConstant.YES_STATUS) {
+        if (!isFinishing) {
+            Glide.with(this)
+                .load(recieverDetail?.profileImage!!)
+                .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
+                .into(img_user)
+        }
+        txt_user_name.text = recieverDetail?.userName
+        if (recieverDetail?.isUserOnline == AppConstant.YES_STATUS) {
             txt_online_status.visibility = View.VISIBLE
         } else {
             txt_online_status.visibility = View.GONE
@@ -216,6 +323,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             chatDataBean.isRead = response.data.isRead
             chatDataBean.chatMsgId = response.data.chatMsgId
             setSingleItemToAdapter(chatDataBean)
+            scrollBottom()
         }
     }
 
@@ -229,23 +337,41 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     override fun onOldMessageGetSuccessfully(response: ChatDataBean) {
         if (response.data != null && response.data.size > 0) {
-            isOldMessageServiceCalled = true
             chatAdapter?.addOldMessageItemsList(response.data)
+            if (!isOldMessageServiceCalled) {
+                scrollToEnd()
+            }
+            isOldMessageServiceCalled = true
         }
 
     }
 
+    private fun scrollToEnd() {
+        Handler().postDelayed({
+            chat_recycle.smoothScrollToPosition(0)
+
+        },300)
+    }
+
+
     override fun onOldMessageGetFailed(loginParams: CommonMessageBean) {
         isOldMessageServiceCalled = true
+        mIsLastItem = true
     }
 
     override fun onNewMessageGetSuccessfully(response: ChatDataBean) {
         if (response.data != null && response.data.size > 0) {
             mIsLastItem = false
             chatAdapter?.addOffsetMessageItemsList(response.data)
+
         }
 
     }
+
+    private fun scrollBottom() {
+        chat_recycle.smoothScrollToPosition(0)
+    }
+
 
     override fun onNewMessageGetFailed(loginParams: CommonMessageBean) {
         mIsLastItem = true
@@ -260,4 +386,40 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         isLoading = false
         top_progress.visibility = View.GONE
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+
+            AppConstant.PICKFILE_REQUEST_CODE -> {
+                if (data != null) {
+                    if (resultCode == RESULT_OK) {
+                        val fileList =
+                            data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
+                        if (fileList != null) {
+
+                            val filePath: String = FileValidationUtils.getPath(this, fileList[0])
+                            val chatParams = SentMessageParams()
+                            chatParams.chat_room_id = chatRoomId
+                            chatParams.reciever_id = receiverId
+                            chatParams.msg = filePath
+                            chatParams.msg_type = "File"
+
+                            chatPresenter.sentMessage(chatParams)
+
+                            LogX.E(filePath)
+                        } else {
+                            Toast.makeText(this, R.string.some_thing_went_wrong, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
 }

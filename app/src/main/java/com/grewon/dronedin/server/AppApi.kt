@@ -247,9 +247,34 @@ interface AppApi {
     fun getBankData(): Single<BankDataBean>
 
     @POST("profile_c/bank_detail")
-    fun createBankAccount(@Body params: AddBankParams): Single<BankDataBean>
+    fun createBankAccount(@Body file: RequestBody): Single<BankDataBean>
 
     @POST("profile_c/set_default_bank")
     fun saveDefaultBank(@Body defaultCardParams: DefaultCardParams): Single<CommonMessageBean>
 
+    @GET("profile_c/retrive_stripe_account")
+    fun getRetrieveBank(): Single<RetriveAccount>
+
+    @POST("profile_c/update_stripe_account")
+    fun updateBankAccount(@Body file: RequestBody): Single<BankDataBean>
+
+    @DELETE("profile_c/card/{card_id}")
+    fun deleteCardData(@Path("card_id") cardId: String): Single<CommonMessageBean>
+
+    @DELETE("profile_c/bank_detail/{bank_id}")
+    fun deleteBankData(@Path("bank_id") bankId: String): Single<CommonMessageBean>
+
+    @GET("notification_c/{offset}")
+    fun getNotification(@Path("offset") offset: String): Single<NotificationDataBean>
+
+    @GET("profile_c/main_screen")
+    fun getMainScreenData( @QueryMap requestPart: HashMap<String, Any>): Single<MainScreenData>
+
+
+    @GET("profile_c/logout")
+    fun logoutUser(): Single<CommonMessageBean>
+
+
+    @POST("job_c/milestone_active")
+    fun activeMileStone(@Body activeMilestoneParams: ActiveMilestoneParams): Single<CommonMessageBean>
 }

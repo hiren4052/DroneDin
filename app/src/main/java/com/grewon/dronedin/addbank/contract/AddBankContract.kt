@@ -16,12 +16,23 @@ interface AddBankContract {
 
         fun onCreateBankFailed(loginParams: AddBankParams)
 
+        fun onRetrieveBankSuccessful(response: RetriveAccount)
+
+        fun onRetrieveBankFailed(loginParams: CommonMessageBean)
+
+        fun onUpdateBankSuccessful(response: BankDataBean)
+
+        fun onUpdateBankFailed(loginParams: UpdateBankParams)
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
         fun createBank(addCardParams: AddBankParams)
+
+        fun updateBank(addCardParams: UpdateBankParams)
+
+        fun retrieveBankAccount()
 
 
     }

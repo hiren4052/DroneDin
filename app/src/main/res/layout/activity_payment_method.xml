@@ -12,7 +12,7 @@
         android:id="@+id/layout_toolbar"
         layout="@layout/layout_square_toolbar_with_back" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_toolbar"
@@ -35,7 +35,8 @@
             layout="@layout/layout_no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/layout_toolbar"
+            android:layout_below="@id/txt_name"
+            android:layout_gravity="center"
             android:visibility="gone" />
 
         <include
@@ -43,14 +44,17 @@
             layout="@layout/layout_shimmer_bank_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/layout_toolbar" />
+            android:layout_below="@id/txt_name"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payment_method_recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false" />
-    </LinearLayout>
+            android:layout_below="@id/txt_name"
+            android:clipToPadding="false"
+            android:visibility="visible" />
+    </RelativeLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

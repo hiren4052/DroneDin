@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.grewon.dronedin.server.UserData
 import com.google.gson.Gson
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.server.MainScreenData
 
 
 /**
@@ -29,6 +30,18 @@ class PreferenceUtils(private val sharedPreferences: SharedPreferences) {
     fun saveLoginCredential(response: UserData) {
         val json = Gson().toJson(response)
         sharedPreferences.edit().putString(AppConstant.CONSTANT_CREDENTIALS, json).apply()
+    }
+
+    fun saveProfileData(response: MainScreenData) {
+        val json = Gson().toJson(response)
+        sharedPreferences.edit().putString(AppConstant.PROFILE_DATA, json).apply()
+    }
+
+    fun getProfileData(): MainScreenData? {
+        return Gson().fromJson(
+            sharedPreferences.getString(AppConstant.PROFILE_DATA, ""),
+            MainScreenData::class.java
+        )
     }
 
     fun getLoginCredentials(): UserData? {

@@ -7,11 +7,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.splash.SplashActivity
 
@@ -26,12 +28,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage.notification != null) {
+            LogX.E(remoteMessage.data.toString())
+            if (remoteMessage.data != null) {
+                if (remoteMessage.data["type"] == "Chat_Message") {
+                    if (!DroneDinApp.isChatScreen) {
+                        sendInfoNotification(remoteMessage.notification!!)
+                    }
+                } else {
+                    sendInfoNotification(remoteMessage.notification!!)
+                }
 
-//            val intent = Intent(AppConstant.NOTIFICATION_BROADCAST) //action: "msg"
-//            intent.putExtra(AppConstant.TAG, "received")
-//            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            } else {
+                sendInfoNotification(remoteMessage.notification!!)
+            }
+
+            val intent = Intent(AppConstant.NOTIFICATION_BROADCAST) //action: "msg"
+            intent.putExtra(AppConstant.TAG, "received")
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
             LogX.E(remoteMessage.notification.toString())
-            sendInfoNotification(remoteMessage.notification!!)
+
 
         }
 

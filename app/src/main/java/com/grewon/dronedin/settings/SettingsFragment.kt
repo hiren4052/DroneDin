@@ -13,19 +13,32 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
+import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
+import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.settings.contract.SettingsContract
 import com.grewon.dronedin.splash.SplashActivity
 import com.grewon.dronedin.utils.ValidationUtils
 import com.grewon.dronedin.web.WebActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.logout_bottom_dialog.view.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
-class SettingsFragment : BaseFragment(), View.OnClickListener {
+class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.View {
+
+    private var logoutDialog: BottomSheetDialog? = null
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var settingsPresenter: SettingsContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,19 +68,23 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun initView() {
+        DroneDinApp.getAppInstance().getAppComponent().inject(this)
+        settingsPresenter.attachView(this)
+        settingsPresenter.attachApiInterface(retrofit)
+
         Glide.with(this)
-            .load(preferenceUtils.getLoginCredentials()?.data?.profileImage)
+            .load(preferenceUtils.getProfileData()?.data?.profileImage)
             .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
             .into(img_user)
 
-        txt_user_name.text = preferenceUtils.getLoginCredentials()?.data?.userName
+        txt_user_name.text = preferenceUtils.getProfileData()?.data?.userName
 
-        if (preferenceUtils.getLoginCredentials()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
-                preferenceUtils.getLoginCredentials()?.data?.profileImage!!
+        if (preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
+                preferenceUtils.getProfileData()?.data?.profileImage!!
             )
         ) {
             Glide.with(this)
-                .load(preferenceUtils.getLoginCredentials()?.data?.profileImage!!)
+                .load(preferenceUtils.getProfileData()?.data?.profileImage!!)
                 .apply(
                     RequestOptions.bitmapTransform(BlurTransformation(22, 3))
                         .placeholder(R.drawable.drone_for_blur)
@@ -153,23 +170,48 @@ class SettingsFragment : BaseFragment(), View.OnClickListener {
     private fun openLogoutDialog() {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.logout_bottom_dialog, null)
-        val dialog = BottomSheetDialog(
+        logoutDialog = BottomSheetDialog(
             requireContext(), R.style.CustomBottomSheetDialogTheme
         )
-        dialog.setContentView(view)
+        logoutDialog?.setContentView(view)
 
         val txtCancel = view.txt_cancel
         val txtLogout = view.txt_logout
 
-        txtCancel.setOnClickListener { dialog.dismiss() }
+        txtCancel.setOnClickListener { logoutDialog?.dismiss() }
         txtLogout.setOnClickListener {
-            dialog.dismiss()
-            preferenceUtils.flushData()
-            startActivity(Intent(requireContext(), SplashActivity::class.java))
-            activity?.finishAffinity()
+
+            settingsPresenter.logoutUser()
         }
 
-        dialog.show()
+        logoutDialog?.show()
+    }
+
+    override fun onApiException(error: Int) {
+        DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onLogoutSuccessful(response: CommonMessageBean) {
+        if (response.msg != null) {
+            DroneDinApp.getAppInstance().showToast(response.msg)
+
+            if (logoutDialog != null) {
+                logoutDialog?.dismiss()
+            }
+            passIntent()
+        }
+    }
+
+    override fun onLogoutFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
+    private fun passIntent() {
+        preferenceUtils.flushData()
+        startActivity(Intent(requireContext(), SplashActivity::class.java))
+        activity?.finishAffinity()
     }
 
 }

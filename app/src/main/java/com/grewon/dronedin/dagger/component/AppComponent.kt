@@ -1,6 +1,7 @@
 package com.grewon.dronedin.dagger.component
 
 
+import com.grewon.dronedin.addbank.AddBankAccountActivity
 import com.grewon.dronedin.addcard.AddCardActivity
 import com.grewon.dronedin.addprofile.AddMoreProfileActivity
 import com.grewon.dronedin.addprofile.AddProfileActivity
@@ -41,6 +42,7 @@ import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.proposals.ProposalsDetailActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
+import com.grewon.dronedin.settings.SettingsFragment
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
@@ -53,8 +55,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
-        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class,PaymentModule::class,
-        MessageModule::class, PortFolioModule::class]
+        InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class, PaymentModule::class,
+        MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class]
 )
 interface AppComponent {
 
@@ -98,6 +100,7 @@ interface AppComponent {
     fun inject(activity: ChatActivity)
     fun inject(activity: PaymentMethodActivity)
     fun inject(activity: AddCardActivity)
+    fun inject(activity: AddBankAccountActivity)
 
 
     //Fragments
@@ -111,6 +114,7 @@ interface AppComponent {
     fun inject(fragment: PilotFindJobsFragment)
     fun inject(fragment: PilotMyJobsFragment)
     fun inject(fragment: MessageFragment)
+    fun inject(fragment: SettingsFragment)
 
 
 }

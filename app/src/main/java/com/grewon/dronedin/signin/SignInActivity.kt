@@ -206,6 +206,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
                 }
 
                 //  apiCall()
+
             }
             R.id.txt_forgot_password -> {
                 startActivity(Intent(this, ForgotPasswordActivity::class.java))

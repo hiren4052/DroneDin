@@ -284,6 +284,7 @@
     <string name="please_select_at_least_one_equipment">Please select at least one equipment!</string>
     <string name="no_application_found_to_handle_this_file">No application found to handle this file</string>
     <string name="remove_attachment_message">Are sure you want to remove attachment?</string>
+    <string name="delete_message">Are sure you want to delete?</string>
     <string name="please_enter_job_title">Please enter job title!</string>
     <string name="please_enter_job_description">Please enter job description!</string>
     <string name="please_select_job_location">Please select job location</string>
@@ -377,5 +378,10 @@
     <string name="please_enter_card_holder_name">Please enter card holder name!</string>
     <string name="please_enter_card_number">Please enter card number!</string>
     <string name="please_enter_card_cvv_number">Please enter a valid CVV/CVC number!</string>
-
+    <string name="please_enter_birth_date">Please select Birth Date</string>
+    <string name="please_enter_routing_number">Please enter BSB Number</string>
+    <string name="please_enter_account_number">Please enter account number</string>
+    <string name="please_upload_identity_image">Please upload identity image</string>
+    <string name="please_enter_account_holder_first_name">Please enter account holder first name</string>
+    <string name="please_enter_account_holder_last_name">Please enter account holder last name</string>
 </resources>

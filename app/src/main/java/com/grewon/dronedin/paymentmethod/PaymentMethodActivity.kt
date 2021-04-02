@@ -9,6 +9,7 @@ import com.grewon.dronedin.addbank.AddBankAccountActivity
 import com.grewon.dronedin.addcard.AddCardActivity
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.dialogs.AlertViewDialog
 import com.grewon.dronedin.paymentmethod.adapter.BankDataAdapter
 import com.grewon.dronedin.paymentmethod.adapter.CredtiCardDataAdapter
 import com.grewon.dronedin.paymentmethod.contract.PaymentMethodContract
@@ -39,6 +40,8 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     private var cardDataAdapter: CredtiCardDataAdapter? = null
     private var cardSelectId: String = ""
     private var bankSelectId: String = ""
+    private var alertDialog: AlertViewDialog? = null
+    private var adapterPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,11 +80,30 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
 
     }
 
-    override fun onDeleteItem(itemView: BankDataBean.BankDetail.Bank?, adapterPosition: Int) {
 
+    override fun onDeleteItem(itemView: BankDataBean.Data.Bank?, adapterPosition: Int) {
+        openDeleteAlertDialog(itemView?.id.toString(), adapterPosition)
     }
 
-    override fun onDefaultSelect(itemView: BankDataBean.BankDetail.Bank?) {
+    private fun openDeleteAlertDialog(deleteID: String, adapterPosition: Int) {
+        this.adapterPosition = adapterPosition
+        alertDialog = AlertViewDialog(this, R.style.DialogThme)
+        alertDialog!!.setTitle(getString(R.string.delete_message))
+        alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
+        alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
+        alertDialog!!.setOkListener(View.OnClickListener {
+            if (isPilotAccount()) {
+                paymentMethodPresenter.deleteBankData(deleteID)
+            } else {
+                paymentMethodPresenter.deleteCardData(deleteID)
+            }
+
+        })
+        alertDialog!!.show()
+    }
+
+
+    override fun onDefaultSelect(itemView: BankDataBean.Data.Bank?) {
         bankSelectId = itemView?.id.toString()
         paymentMethodPresenter.setDefaultBankData(DefaultCardParams(itemView?.id))
     }
@@ -104,7 +126,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
 
 
     override fun onDeleteCardItem(itemView: CardDataBean.Data.Card, adapterPosition: Int) {
-
+        openDeleteAlertDialog(itemView.id.toString(), adapterPosition)
     }
 
     override fun onDefaultCardSelect(itemView: CardDataBean.Data.Card) {
@@ -130,6 +152,8 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
         card: ArrayList<CardDataBean.Data.Card>,
         userCardinfoStripeSource: String?
     ) {
+        no_data_layout.visibility = View.GONE
+        payment_method_recycle.visibility = View.VISIBLE
         payment_method_recycle.layoutManager = LinearLayoutManager(this)
         cardDataAdapter = CredtiCardDataAdapter(this, userCardinfoStripeSource.toString(), this)
         payment_method_recycle.adapter = cardDataAdapter
@@ -137,9 +161,11 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     }
 
     private fun setBankAdapter(
-        bank: ArrayList<BankDataBean.BankDetail.Bank>,
+        bank: ArrayList<BankDataBean.Data.Bank>,
         userBankAccountBankId: String?
     ) {
+        no_data_layout.visibility = View.GONE
+        payment_method_recycle.visibility = View.VISIBLE
         payment_method_recycle.layoutManager = LinearLayoutManager(this)
         bankDataAdapter = BankDataAdapter(this, userBankAccountBankId.toString(), this)
         payment_method_recycle.adapter = bankDataAdapter
@@ -167,11 +193,27 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
         }
     }
 
+    override fun onCardDeleteSuccessfully(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            if (alertDialog != null) {
+                alertDialog?.dismiss()
+            }
+            cardDataAdapter?.removeCardData(adapterPosition)
+        }
+    }
+
+    override fun onCardDeleteFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
     override fun onBankDataGetSuccessful(response: BankDataBean) {
-        if (response.bankDetail?.bank != null) {
+        if (response.data?.bank != null) {
             setBankAdapter(
-                response.bankDetail?.bank,
-                response.bankDetail.defaultBank?.userBankAccountBankId
+                response.data?.bank,
+                response.data.defaultBank?.userBankAccountBankId
             )
         } else {
             if (response.msg != null) {
@@ -196,6 +238,22 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     }
 
     override fun onBankSelectFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
+    override fun onBankDeleteSuccessfully(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            bankDataAdapter?.removeBankData(adapterPosition)
+            if (alertDialog != null) {
+                alertDialog?.dismiss()
+            }
+        }
+    }
+
+    override fun onBankDeleteFailed(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }

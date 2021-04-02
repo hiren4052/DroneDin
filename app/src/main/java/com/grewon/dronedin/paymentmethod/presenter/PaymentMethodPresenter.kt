@@ -191,5 +191,77 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
 
     }
 
+    override fun deleteCardData(cardId: String) {
+        view?.showProgress()
+
+        api.deleteCardData(cardId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onCardDeleteSuccessfully(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onCardDeleteFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+            })
+    }
+
+    override fun deleteBankData(bankId: String) {
+        view?.showProgress()
+
+        api.deleteBankData(bankId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onBankDeleteSuccessfully(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onBankDeleteFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+            })
+    }
+
 
 }

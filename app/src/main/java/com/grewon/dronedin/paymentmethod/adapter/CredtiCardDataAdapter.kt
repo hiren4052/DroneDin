@@ -63,6 +63,16 @@ class CredtiCardDataAdapter(
 
             holder.data_select.isChecked = item.id == defaultCard
 
+            if (!holder.data_select.isChecked) {
+                holder.itemView.setOnLongClickListener {
+                    onItemCLickListeners.onDeleteCardItem(item, holder.adapterPosition)
+
+                    true
+                }
+
+            }else{
+                holder.itemView.setOnLongClickListener(null)
+            }
             holder.data_select.setOnClickListener {
                 onItemCLickListeners.onDefaultCardSelect(item)
                 setAllSelectedFalse(item.id!!)
@@ -81,6 +91,11 @@ class CredtiCardDataAdapter(
     fun setDefaultId(defaultCard: String) {
         this.defaultCard = defaultCard
         notifyDataSetChanged()
+    }
+
+    fun removeCardData(adapterPosition: Int) {
+        itemList.removeAt(adapterPosition)
+        notifyItemRemoved(adapterPosition)
     }
 
 
