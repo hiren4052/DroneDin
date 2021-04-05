@@ -1,19 +1,25 @@
 package com.grewon.dronedin.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.clientjobs.active.ClientActiveJobsDetailsActivity
+import com.grewon.dronedin.enum.NOTIFICATION_TYPE
 import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.notifications.adapter.NotificationsAdapter
 import com.grewon.dronedin.notifications.contract.NotificationContract
+import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.NotificationDataBean
 import com.malinskiy.superrecyclerview.OnMoreListener
@@ -83,13 +89,45 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
     }
 
 
-
     private fun initMessageAdapter() {
         notificationsAdapter = NotificationsAdapter(requireContext(), this)
         message_data_recycle.adapter = notificationsAdapter
     }
 
     override fun onItemClick(jobsDataBean: NotificationDataBean.Data?) {
+        if (jobsDataBean?.notificationTitle == NOTIFICATION_TYPE.Milestone_Submit.toString()) {
+            if (isPilotAccount()) {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        PilotActiveJobsDetailActivity::class.java
+                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        ClientActiveJobsDetailsActivity::class.java
+                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                )
+            }
+        } else if (jobsDataBean?.notificationTitle == NOTIFICATION_TYPE.Offer.toString()) {
+            if (isPilotAccount()) {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        PilotActiveJobsDetailActivity::class.java
+                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        ClientActiveJobsDetailsActivity::class.java
+                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                )
+            }
+        }
 
     }
 
@@ -102,6 +140,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
         message_data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall(pageCount)
+        message_data_recycle.setRefreshing(false)
     }
 
     override fun onMoreAsked(
@@ -144,6 +183,9 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
             if (response.data != null && response.data.size > 0) {
                 if (pageCount == 0) {
                     initMessageAdapter()
+                    val intent = Intent(AppConstant.NOTIFICATION_BROADCAST) //action: "msg"
+                    intent.putExtra(AppConstant.TAG, "received")
+                    LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
                 }
                 notificationsAdapter?.addItemsList(response.data)
             } else {

@@ -21,7 +21,8 @@
         android:layout_marginBottom="@dimen/_30dp"
         android:orientation="vertical">
 
-        <TextView android:id="@+id/txt_dialog_title"
+        <TextView
+            android:id="@+id/txt_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -109,7 +110,8 @@
                     android:layout_width="@dimen/icon_size_medium"
                     android:layout_height="@dimen/icon_size_medium"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_folder" />
+                    app:srcCompat="@drawable/ic_folder"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"

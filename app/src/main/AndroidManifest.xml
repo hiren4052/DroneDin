@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".savedpilots.SavedPilotsActivity"></activity>
+        <activity android:name=".savedjobs.SavedJobsActivity" />
         <activity
             android:name=".portfolio.PortFolioActivity"
             android:screenOrientation="portrait" />
@@ -34,10 +36,10 @@
             android:name=".milestone.CancelProjectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestone.CancelMilestoneActivity"
+            android:name=".milestone.milestonecancel.CancelMilestoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestone.MilestoneAddActivity"
+            android:name=".milestone.milestoneadd.MilestoneAddActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".invitepilot.InvitePilotActivity"
@@ -52,11 +54,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestone.MilestoneRejectActivity"
+            android:name=".milestone.milestonecomplete.MilestoneRejectActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestone.MilestoneCompletionRequestActivity"
+            android:name=".milestone.milestonecomplete.MilestoneCompletionRequestActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -88,7 +90,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".milestone.SubmitMilestoneActivity"
+            android:name=".milestone.milestonesubmit.SubmitMilestoneActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -269,6 +271,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".paymentsummary.MilestoneSummaryActivity" />
+        <activity android:name=".milestone.milestoneaddrequest.MilestoneAddRequestActivity" />
+        <activity android:name=".milestone.milestoneaddrequest.MilestoneAddRejectActivity" />
+        <activity android:name=".milestone.milestonecancel.MilestoneCancelRequestActivity" />
+        <activity android:name=".milestone.milestonecancel.MilestoneCancelRejectActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

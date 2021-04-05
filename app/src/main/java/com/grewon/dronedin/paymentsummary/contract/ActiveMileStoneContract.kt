@@ -13,6 +13,11 @@ interface ActiveMileStoneContract {
 
         fun onActiveMilestoneFailed(loginParams: CommonMessageBean)
 
+        fun onCardDataGetSuccessful(response: CardDataBean)
+
+        fun onCardDataGetFailed(loginParams: CommonMessageBean)
+
+
         fun onApiException(error: Int)
 
     }
@@ -21,6 +26,7 @@ interface ActiveMileStoneContract {
 
         fun activeMileStone(activeMilestoneParams: ActiveMilestoneParams)
 
+        fun getCardData()
 
     }
 

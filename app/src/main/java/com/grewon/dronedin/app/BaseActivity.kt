@@ -102,8 +102,10 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
     }
 
     private fun initDialog() {
-        dialog = LoadingDialog(this)
-        dialog?.show()
+        if (!isFinishing) {
+            dialog = LoadingDialog(this)
+            dialog?.show()
+        }
     }
 
     override fun hideProgress() {

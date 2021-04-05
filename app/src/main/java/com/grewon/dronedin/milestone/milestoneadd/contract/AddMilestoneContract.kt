@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestone.contract
+package com.grewon.dronedin.milestone.milestoneadd.contract
 
 import com.grewon.dronedin.app.BaseContract
 import com.grewon.dronedin.server.*

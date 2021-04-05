@@ -1,17 +1,15 @@
-package com.grewon.dronedin.milestone.presenter
+package com.grewon.dronedin.milestone.milestonesubmit.presenter
 
 
 import com.google.gson.Gson
-import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.SubmitMilestoneContract
+import com.grewon.dronedin.milestone.milestonesubmit.contract.SubmitMilestoneContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.params.CancelMilestoneStatusUpdateParams
 import com.grewon.dronedin.server.params.SubmitMilestoneParams
-import com.grewon.dronedin.server.params.SubmitOfferParams
-import com.grewon.dronedin.server.params.SubmitProposalParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -103,6 +101,7 @@ class SubmitMilestonePresenter : SubmitMilestoneContract.Presenter {
             })
 
     }
+
 
 
 }

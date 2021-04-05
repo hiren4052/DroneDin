@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestone
+package com.grewon.dronedin.milestone.milestonesubmit
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,7 +27,8 @@ import com.grewon.dronedin.dialogs.AlertViewDialog
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.SubmitMilestoneContract
+import com.grewon.dronedin.milestone.milestonecancel.CancelMilestoneActivity
+import com.grewon.dronedin.milestone.milestonesubmit.contract.SubmitMilestoneContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.SubmitMilestoneParams
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
@@ -116,11 +117,11 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
                 openFileDialog()
             }
             R.id.txt_cancel_milestone -> {
-                startActivity(
+                startActivityForResult(
                     Intent(
                         this,
                         CancelMilestoneActivity::class.java
-                    ).putExtra(AppConstant.JOB_ID, jobId).putExtra(AppConstant.ID, milestoneId)
+                    ).putExtra(AppConstant.JOB_ID, jobId).putExtra(AppConstant.ID, milestoneId), 11
                 )
             }
         }
@@ -372,6 +373,12 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
                 }
 
             }
+            11 -> {
+                if (resultCode == RESULT_OK) {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
 
 
         }
@@ -408,8 +415,11 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
         ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
+
+
     override fun onApiException(error: Int) {
         DroneDinApp.getAppInstance().showToast(getString(error))
     }
+
 
 }

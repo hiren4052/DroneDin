@@ -23,7 +23,6 @@ class PilotJobsPresenter : PilotJobsContract.Presenter {
     private val subscriptions = CompositeDisposable()
 
 
-
     override fun attachView(view: PilotJobsContract.View) {
         this.view = view
     }
@@ -37,9 +36,6 @@ class PilotJobsPresenter : PilotJobsContract.Presenter {
         this.retrofit = retrofit
         this.api = retrofit.create(AppApi::class.java)
     }
-
-
-
 
 
     override fun getPilotJobs(filterParams: FilterParams) {
@@ -64,6 +60,10 @@ class PilotJobsPresenter : PilotJobsContract.Presenter {
 
         if (filterParams.page != null) {
             map["page"] = filterParams.page.toString()
+        }
+
+        if (filterParams.saved != null) {
+            map["saved"] = filterParams.saved!!
         }
 
 
@@ -97,7 +97,6 @@ class PilotJobsPresenter : PilotJobsContract.Presenter {
 
             })
     }
-
 
 
     override fun saveJobs(jobId: String) {

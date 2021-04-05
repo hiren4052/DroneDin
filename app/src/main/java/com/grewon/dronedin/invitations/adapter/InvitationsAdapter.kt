@@ -62,7 +62,7 @@ class InvitationsAdapter(
             holder.textCategory.text = item.categoryName
             holder.textJobTitle.text = item.jobTitle
             holder.textClientName.text = item.userName
-            holder.textBudget.text = item.totalPrice
+            holder.textBudget.text = context.getString(R.string.price_string, item.totalPrice)
             holder.textJobLocation.text =
                 MapUtils.getStateName(
                     context, item.jobLatitude?.toDouble()!!,
@@ -70,7 +70,8 @@ class InvitationsAdapter(
                 )
 
 
-            holder.textDate.text = TimeUtils.getLocalTimes(context, item.jobInvitationDatecreated.toString())
+            holder.textDate.text =
+                TimeUtils.getLocalTimes(context, item.jobInvitationDatecreated.toString())
 
             holder.itemView.setOnClickListener { onItemClickListeners.onInvitationsItemClick(item) }
         }

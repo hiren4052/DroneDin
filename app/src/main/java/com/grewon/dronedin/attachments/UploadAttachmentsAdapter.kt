@@ -2,18 +2,21 @@ package com.grewon.dronedin.attachments
 
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.server.params.UploadAttachmentsParams
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ValidationUtils
+import com.grewon.dronedin.web.WebActivity
 import kotlinx.android.synthetic.main.layout_jobs_attachments_item.view.*
 import java.io.File
 import java.util.*
@@ -84,6 +87,14 @@ class UploadAttachmentsAdapter(
                                 context,
                                 File(item.filePath!!)
                             )
+                        )
+                    }else{
+                        context.startActivity(
+                            Intent(context, WebActivity::class.java).putExtra(
+                                AppConstant.WEB_URL,
+                                item.filePath!!
+                            ).putExtra(AppConstant.TAG, "Attachment")
+
                         )
                     }
                 } catch (e: ActivityNotFoundException) {

@@ -35,6 +35,8 @@ data class OffersDetailBean(
     val offerTotalPrice: String? = "",
     @SerializedName("user_name")
     val userName: String? = "",
+    @SerializedName("client_id")
+    val userId: String? = "",
     @SerializedName("pilot")
     val pilot: Pilot? = Pilot()
 ) : Parcelable {

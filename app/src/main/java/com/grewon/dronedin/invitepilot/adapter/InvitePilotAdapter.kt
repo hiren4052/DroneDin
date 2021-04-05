@@ -1,10 +1,10 @@
 package com.grewon.dronedin.invitepilot.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -89,7 +89,8 @@ class InvitePilotAdapter(
                 holder.chipSkills.layoutManager = layoutManager
                 val skillsAdapter = ChipSkillsAdapter(context, R.color.gray_f4, R.color.gray_71)
                 holder.chipSkills.adapter = skillsAdapter
-                skillsAdapter.addItemsList(item.skill.split(",") as ArrayList<String>)
+                val myNodeList: ArrayList<String> = ArrayList<String>(item.skill.split(","))
+                skillsAdapter.addItemsList(myNodeList)
             } else {
                 holder.chipSkills.visibility = View.GONE
             }
@@ -104,7 +105,8 @@ class InvitePilotAdapter(
                 val equipmentsAdapter =
                     ChipEquipmentsAdapter(context, R.color.light_sky_blue, R.color.gray_71)
                 holder.chipEquipments.adapter = equipmentsAdapter
-                equipmentsAdapter.addItemsList(item.equipment.split(",") as ArrayList<String>)
+                val myNodeList: ArrayList<String> = ArrayList<String>(item.equipment.split(","))
+                equipmentsAdapter.addItemsList(myNodeList)
             } else {
                 holder.chipEquipments.visibility = View.GONE
             }

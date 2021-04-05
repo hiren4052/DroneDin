@@ -16,16 +16,21 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
-import com.grewon.dronedin.milestone.MilestoneDetailActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
-import com.grewon.dronedin.milestone.CancelProjectActivity
-import com.grewon.dronedin.milestone.EndProjectActivity
-import com.grewon.dronedin.milestone.MilestoneAddActivity
+import com.grewon.dronedin.message.ChatActivity
+import com.grewon.dronedin.milestone.*
+import com.grewon.dronedin.milestone.milestoneadd.MilestoneAddActivity
+import com.grewon.dronedin.milestone.milestoneaddrequest.MilestoneAddRequestActivity
+import com.grewon.dronedin.milestone.milestonecancel.CancelMilestoneActivity
+import com.grewon.dronedin.milestone.milestonecancel.MilestoneCancelRequestActivity
+import com.grewon.dronedin.milestone.milestonecomplete.MilestoneCompletionRequestActivity
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.ActiveJobsDetails
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MilestonesDataBean
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_client_active_jobs_details.*
 import kotlinx.android.synthetic.main.layout_no_data.*
@@ -59,6 +64,10 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
     private fun setClicks() {
         img_back.setOnClickListener(this)
         img_toolbar.setOnClickListener(this)
+        txt_pilot_name.setOnClickListener(this)
+        view_milestone_request.setOnClickListener(this)
+        view_add_request.setOnClickListener(this)
+        view_cancel_request.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -120,6 +129,47 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             R.id.img_toolbar -> {
                 openPopUpMenu()
             }
+            R.id.view_milestone_request -> {
+                startActivityForResult(
+                    Intent(
+                        this,
+                        MilestoneCompletionRequestActivity::class.java
+                    ).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.cancelCompleteRequestMilestone?.milestoneRequestId
+                    ), 12
+                )
+            }
+            R.id.view_add_request -> {
+                startActivityForResult(
+                    Intent(
+                        this,
+                        MilestoneAddRequestActivity::class.java
+                    ).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.requestedMilestone?.milestoneRequestId
+                    ), 12
+                )
+            }
+            R.id.view_cancel_request -> {
+                startActivityForResult(
+                    Intent(
+                        this,
+                        MilestoneCancelRequestActivity::class.java
+                    ).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.cancelCompleteRequestMilestone?.milestoneRequestId
+                    ), 12
+                )
+            }
+            R.id.txt_pilot_name -> {
+                startActivity(
+                    Intent(
+                        this,
+                        PilotProfileActivity::class.java
+                    ).putExtra(AppConstant.ID, activeJobsDetails?.pilot?.userId)
+                )
+            }
         }
     }
 
@@ -160,7 +210,12 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                     )
                 }
                 R.id.im_message -> {
-
+                    startActivityForResult(
+                        Intent(this, ChatActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            activeJobsDetails?.pilot?.userId
+                        ), 12
+                    )
                 }
             }
             true
@@ -172,12 +227,22 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
 
     override fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean?) {
 
-        startActivity(
-            Intent(this, MilestoneDetailActivity::class.java).putExtra(
-                AppConstant.ID,
-                jobsDataBean?.milestoneId
+        if (jobsDataBean?.milestoneStatus == AppConstant.MILESTONE_ACTIVE_STATUS) {
+            startActivity(
+                Intent(this, CancelMilestoneActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobsDataBean.milestoneId
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
             )
-        )
+        } else {
+            startActivity(
+                Intent(this, MilestoneDetailActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobsDataBean?.milestoneId
+                ).putExtra(AppConstant.JOB_ID,activeJobsDetails?.jobId)
+            )
+        }
+
 
     }
 
@@ -190,6 +255,8 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
     private fun setView(response: ActiveJobsDetails) {
 
         activeJobsDetails = response
+
+        TextUtils.setTextViewUnderLine(txt_pilot_name)
 
         txt_subtitle.text = response.category?.categoryName
         txt_job_title.text = response.jobTitle
@@ -206,13 +273,13 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             val milestoneList = ArrayList<MilestonesDataBean>()
             for (item in response.milestone) {
                 val milesStone = MilestonesDataBean()
-                milesStone.milestoneDetails = item?.milestoneDetails
-                milesStone.milestonePrice = item?.milestonePrice
-                milesStone.milestoneId = item?.milestoneId
-                milesStone.milestoneRequestId = item?.milestoneRequestId
-                milesStone.milestoneStatus = item?.milestoneStatus
-                milesStone.milestoneCompletedDate = item?.milestoneCompletedDate
-                milesStone.milestoneStartedDate = item?.milestoneStartedDate
+                milesStone.milestoneDetails = item.milestoneDetails
+                milesStone.milestonePrice = item.milestonePrice
+                milesStone.milestoneId = item.milestoneId
+                milesStone.milestoneRequestId = item.milestoneRequestId
+                milesStone.milestoneStatus = item.milestoneStatus
+                milesStone.milestoneCompletedDate = item.milestoneCompletedDate
+                milesStone.milestoneStartedDate = item.milestoneStartedDate
                 milestoneList.add(milesStone)
             }
             setMileStoneAdapter(milestoneList)
@@ -221,12 +288,12 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
         }
 
         if (response.skill != null && response.skill.size > 0) {
-            val skillsList = response.skill.map { it?.skill.toString() }
+            val skillsList = response.skill.map { it.skill.toString() }
             setSkillsAdapter(skillsList)
         }
 
         if (response.equipment != null && response.equipment.size > 0) {
-            val skillsList = response.equipment.map { it?.equipment.toString() }
+            val skillsList = response.equipment.map { it.equipment.toString() }
             setEquipmentsData(skillsList)
         }
 
@@ -236,8 +303,8 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             val attachmentsList = ArrayList<JobAttachmentsBean>()
             for (item in response.attachment) {
                 val attachments = JobAttachmentsBean()
-                attachments.attachment = item?.attachment
-                attachments.attachmentId = item?.attachmentId
+                attachments.attachment = item.attachment
+                attachments.attachmentId = item.attachmentId
                 attachmentsList.add(attachments)
             }
             setAttachmentsAdapter(attachmentsList)
@@ -246,6 +313,26 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             pictures_layout.visibility = View.GONE
         }
 
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "complete") {
+            complete_milestone_request_layout.visibility = View.VISIBLE
+            txt_complete_milestone.text = response.cancelCompleteRequestMilestone.msg
+        } else {
+            complete_milestone_request_layout.visibility = View.GONE
+        }
+
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "cancel") {
+            cancel_milestone_request_layout.visibility = View.VISIBLE
+            txt_cancel_milestone.text = response.cancelCompleteRequestMilestone.msg
+        } else {
+            cancel_milestone_request_layout.visibility = View.GONE
+        }
+
+        if (response.requestedMilestone != null) {
+            add_milestone_request_layout.visibility = View.VISIBLE
+            txt_add_milestone.text = response.requestedMilestone.msg
+        } else {
+            add_milestone_request_layout.visibility = View.GONE
+        }
 
     }
 

@@ -65,6 +65,7 @@
     <color name="blue_b3">#3B3F63</color>
     <color name="green_53">#53A3B4</color>
     <color name="light_sky_blue">#E7F0F2</color>
+    <color name="milestone_title_color">#D6D7DE</color>
     <string name="black_transparent_50">#80000000</string>
     <color name="light_purple">#999DC0</color>
     <color name="active_background_color">#E3F4E3</color>

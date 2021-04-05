@@ -149,7 +149,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/amount"
+                            android:text="@string/amount_"
                             android:textAppearance="@style/RobotoTextAppearance"
                             android:textColor="@color/gray_71"
                             android:textSize="@dimen/_14sp" />
@@ -235,6 +235,20 @@
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />
+
+            <TextView
+                android:id="@+id/txt_cancel_milestone"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_15dp"
+                android:background="@drawable/ic_border_rectangle_spann_color"
+                android:gravity="center"
+                android:text="@string/cancel_milestone"
+                android:textAppearance="@style/MediumTextAppearance"
+                android:textColor="@drawable/spann_text_selector"
+                android:textSize="@dimen/_20sp" />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

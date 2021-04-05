@@ -58,13 +58,15 @@ class NotificationsAdapter(
         if (holder is ItemViewHolder) {
 
             Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
+                .load(ScreenUtils.getRandomNotificationImage())
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomNotificationImage()))
                 .into(holder.typeImage)
 
             holder.textMessages.text = item.notificationMessage
             holder.textDate.text =
                 TimeUtils.getServerToAppDate(item.notificationDatecreated.toString())
+
+            holder.itemView.setOnClickListener { onItemClickListeners.onItemClick(item) }
 
         }
 

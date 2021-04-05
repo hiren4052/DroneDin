@@ -13,5 +13,7 @@ data class FilterParams(
     var latitude: Double? = 0.0,
     var longitude: Double? = 0.0,
     var price: String? = "",
-    var page: String? = ""
+    var page: String? = "",
+    var saved: String? = "0"
+
 ) : Parcelable

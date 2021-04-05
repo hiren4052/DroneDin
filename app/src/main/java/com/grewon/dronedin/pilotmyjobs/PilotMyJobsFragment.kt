@@ -182,7 +182,7 @@ class PilotMyJobsFragment : BaseFragment(), OffersAdapter.OnItemClickListeners,
     }
 
     override fun onInvitationsItemClick(jobsDataBean: InvitationsDataBean.Data?) {
-        startActivity(Intent(context, InvitationsDetailActivity::class.java))
+        startActivity(Intent(context, InvitationsDetailActivity::class.java).putExtra(AppConstant.ID,jobsDataBean?.jobId))
     }
 
     override fun onProposalsItemClick(jobsDataBean: ProposalsDataBean.Data?) {

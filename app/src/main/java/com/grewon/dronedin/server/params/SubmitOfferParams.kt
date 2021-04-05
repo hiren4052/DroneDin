@@ -19,4 +19,6 @@ data class SubmitOfferParams(
     var offer_total_price: String? = "",
     var milestone: ArrayList<CreateMilestoneBean>? = null,
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
+    var user_wallet: String? = "",
+    var miles_stone_price: String? = ""
 ) : Parcelable

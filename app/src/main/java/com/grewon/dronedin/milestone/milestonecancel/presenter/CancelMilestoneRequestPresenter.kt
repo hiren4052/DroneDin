@@ -1,38 +1,31 @@
-package com.grewon.dronedin.milestone.presenter
+package com.grewon.dronedin.milestone.milestonecancel.presenter
 
 
 import com.google.gson.Gson
-import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.AddMilestoneContract
+import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneRequestContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.params.AddMileStoneParams
-import com.grewon.dronedin.server.params.SubmitMilestoneParams
-import com.grewon.dronedin.server.params.SubmitOfferParams
-import com.grewon.dronedin.server.params.SubmitProposalParams
+import com.grewon.dronedin.server.NewMilestoneRequest
+import com.grewon.dronedin.server.params.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Retrofit
-import java.io.File
 
-class AddMilestonePresenter : AddMilestoneContract.Presenter {
+class CancelMilestoneRequestPresenter : CancelMilestoneRequestContract.Presenter {
 
 
-    private var view: AddMilestoneContract.View? = null
+    private var view: CancelMilestoneRequestContract.View? = null
     private lateinit var api: AppApi
     private lateinit var retrofit: Retrofit
     private val subscriptions = CompositeDisposable()
 
 
-    override fun attachView(view: AddMilestoneContract.View) {
+    override fun attachView(view: CancelMilestoneRequestContract.View) {
         this.view = view
     }
 
@@ -47,17 +40,11 @@ class AddMilestonePresenter : AddMilestoneContract.Presenter {
     }
 
 
-    override fun addMilestone(params: AddMileStoneParams) {
 
-        val map = HashMap<String, Any>()
-
-        map["job_id"] = params.job_id!!
-        map["milestone"] = Gson().toJson(params.mileStones)
-
-
+    override fun milestoneStatusUpdate(params: CancelMilestoneStatusUpdateParams) {
         view?.showProgress()
 
-        api.addMileStone(map)
+        api.cancelMilestoneStatusUpdate(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : NetworkCall<CommonMessageBean>() {
@@ -68,16 +55,16 @@ class AddMilestonePresenter : AddMilestoneContract.Presenter {
 
                 override fun onSuccessResponse(dataBean: CommonMessageBean) {
                     view?.hideProgress()
-                    view?.onSubmitSuccessFully(dataBean)
+                    view?.onCancelMilestoneStatusSuccessFully(dataBean)
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
                     view?.hideProgress()
                     LogX.E(errorBean.toString())
-                    view?.onSubmitFailed(
+                    view?.onCancelMilestoneStatusFailed(
                         Gson().fromJson(
                             errorBean.toString(),
-                            AddMileStoneParams::class.java
+                            CommonMessageBean::class.java
                         )
                     )
                 }

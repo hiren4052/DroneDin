@@ -64,6 +64,9 @@ class FilterPresenter : FilterContract.Presenter {
             map["page"] = filterParams.page.toString()
         }
 
+        if (filterParams.saved != null) {
+            map["saved"] = filterParams.saved.toString()
+        }
 
         api.getPilotList(map)
             .subscribeOn(Schedulers.io())

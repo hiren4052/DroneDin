@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestone
+package com.grewon.dronedin.milestone.milestoneadd
 
 import android.os.Bundle
 import android.view.View
@@ -10,7 +10,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.adapter.CreateMileStoneAdapter
-import com.grewon.dronedin.milestone.contract.AddMilestoneContract
+import com.grewon.dronedin.milestone.milestoneadd.contract.AddMilestoneContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.CreateMilestoneBean
 import com.grewon.dronedin.server.params.AddMileStoneParams

@@ -20,6 +20,7 @@ import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.pilotfindjobs.contract.PilotJobsContract
+import com.grewon.dronedin.savedjobs.SavedJobsActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.PilotJobsDataBean
 import com.grewon.dronedin.server.params.FilterParams
@@ -86,6 +87,11 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         )
         find_job_data_recycle.setupMoreListener(this, 1)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         apiCall(pageCount)
     }
 
@@ -105,6 +111,7 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
     private fun setClicks() {
         im_search.setOnClickListener(this)
         image_map.setOnClickListener(this)
+        image_save.setOnClickListener(this)
     }
 
 
@@ -112,6 +119,9 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         when (v?.id) {
             R.id.im_search -> {
                 startActivity(Intent(context, FilterActivity::class.java))
+            }
+            R.id.image_save -> {
+                startActivity(Intent(context, SavedJobsActivity::class.java))
             }
             R.id.image_map -> {
                 filterParams = FilterParams()

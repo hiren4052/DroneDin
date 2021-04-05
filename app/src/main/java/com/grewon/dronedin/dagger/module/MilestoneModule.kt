@@ -1,40 +1,20 @@
 package com.grewon.dronedin.dagger.module
 
 
-import com.grewon.dronedin.addprofile.contract.AddBioContract
-import com.grewon.dronedin.addprofile.contract.AddProfileContract
-import com.grewon.dronedin.addprofile.presenter.AddBioPresenter
-import com.grewon.dronedin.addprofile.presenter.AddProfilePresenter
-import com.grewon.dronedin.clientjobs.contract.ClientJobsContract
-import com.grewon.dronedin.clientjobs.contract.ClientJobsDetailContract
-import com.grewon.dronedin.clientjobs.presenter.ClientJobDetailsPresenter
-import com.grewon.dronedin.clientjobs.presenter.ClientJobsPresenter
-import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
-import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
 import com.grewon.dronedin.milestone.contract.*
+import com.grewon.dronedin.milestone.milestoneadd.contract.AddMilestoneContract
+import com.grewon.dronedin.milestone.milestoneadd.presenter.AddMilestonePresenter
+import com.grewon.dronedin.milestone.milestoneaddrequest.contract.NewMilestoneRequestContract
+import com.grewon.dronedin.milestone.milestoneaddrequest.presenter.NewMilestoneRequestPresenter
+import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneRequestContract
+import com.grewon.dronedin.milestone.milestonecancel.presenter.CancelMilestoneRequestPresenter
+import com.grewon.dronedin.milestone.milestonecomplete.contract.CompleteMilestoneContract
+import com.grewon.dronedin.milestone.milestonesubmit.contract.SubmitMilestoneContract
+import com.grewon.dronedin.milestone.milestonecomplete.presenter.CompleteMilestonePresenter
+import com.grewon.dronedin.milestone.milestonesubmit.presenter.SubmitMilestonePresenter
 import com.grewon.dronedin.milestone.presenter.*
-import com.grewon.dronedin.offers.contract.OffersDetailsContract
-import com.grewon.dronedin.offers.presenter.OffersDetailsPresenter
 import com.grewon.dronedin.paymentsummary.contract.ActiveMileStoneContract
 import com.grewon.dronedin.paymentsummary.presenter.ActiveMileStonePresenter
-import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsContract
-import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
-import com.grewon.dronedin.pilotactivejobs.presenter.PilotActiveJobsDetailsPresenter
-import com.grewon.dronedin.pilotactivejobs.presenter.PilotActiveJobsPresenter
-import com.grewon.dronedin.pilotfindjobs.contract.PilotJobsContract
-import com.grewon.dronedin.pilotfindjobs.presenter.PilotJobsPresenter
-import com.grewon.dronedin.pilotmyjobs.contract.PilotFindJobsDetailContract
-import com.grewon.dronedin.pilotmyjobs.contract.PilotMyJobsContract
-import com.grewon.dronedin.pilotmyjobs.presenter.PilotFindJobDetailsPresenter
-import com.grewon.dronedin.pilotmyjobs.presenter.PilotMyJobsPresenter
-import com.grewon.dronedin.postjob.contract.JobPostContract
-import com.grewon.dronedin.postjob.contract.SkillsEquipmentsContract
-import com.grewon.dronedin.postjob.presenter.JobPostPresenter
-import com.grewon.dronedin.postjob.presenter.SkillsEquipmentsPresenter
-import com.grewon.dronedin.proposals.contract.ProposalsDetailContract
-import com.grewon.dronedin.proposals.presenter.ProposalsDetailsPresenter
-import com.grewon.dronedin.submitproposal.contract.SubmitProposalContract
-import com.grewon.dronedin.submitproposal.presenter.SubmitProposalPresenter
 
 import dagger.Module
 import dagger.Provides
@@ -85,6 +65,26 @@ class MilestoneModule {
     @Provides
     fun provideActiveMileStonePresenter(): ActiveMileStoneContract.Presenter {
         return ActiveMileStonePresenter()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideCompleteMilestonePresenter(): CompleteMilestoneContract.Presenter {
+        return CompleteMilestonePresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewMilestonePresenter(): NewMilestoneRequestContract.Presenter {
+        return NewMilestoneRequestPresenter()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideCancelMilestoneRequestPresenter(): CancelMilestoneRequestContract.Presenter {
+        return CancelMilestoneRequestPresenter()
     }
 
 }

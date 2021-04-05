@@ -90,7 +90,8 @@ class FindPilotAdapter(
                 holder.chipSkills.layoutManager = layoutManager
                 val skillsAdapter = ChipSkillsAdapter(context, R.color.gray_f4, R.color.gray_71)
                 holder.chipSkills.adapter = skillsAdapter
-                skillsAdapter.addItemsList(item.skill.split(",") as ArrayList<String>)
+                val list=ArrayList<String>(item.skill.split(","))
+                skillsAdapter.addItemsList(list)
             } else {
                 holder.chipSkills.visibility = View.GONE
             }
@@ -105,7 +106,8 @@ class FindPilotAdapter(
                 val equipmentsAdapter =
                     ChipEquipmentsAdapter(context, R.color.light_sky_blue, R.color.gray_71)
                 holder.chipEquipments.adapter = equipmentsAdapter
-                equipmentsAdapter.addItemsList(item.equipment.split(",") as ArrayList<String>)
+                val list=ArrayList<String>(item.equipment.split(","))
+                equipmentsAdapter.addItemsList(list)
             } else {
                 holder.chipEquipments.visibility = View.GONE
             }

@@ -2,16 +2,20 @@ package com.grewon.dronedin.attachments
 
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.ValidationUtils
+import com.grewon.dronedin.web.WebActivity
 import kotlinx.android.synthetic.main.layout_jobs_attachments_item.view.*
 import java.io.File
 import java.util.*
@@ -46,7 +50,7 @@ class JobAttachmentsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-           val item = itemList[position]
+        val item = itemList[position]
 
 
         if (holder is ItemViewHolder) {
@@ -54,7 +58,8 @@ class JobAttachmentsAdapter(
             if (ListUtils.getImageExtensionList()
                     .contains(
                         FileValidationUtils.getExtension(item.attachment).toString().toLowerCase(
-                            Locale.ROOT)
+                            Locale.ROOT
+                        )
                     )
             ) {
                 Glide.with(context)
@@ -68,19 +73,28 @@ class JobAttachmentsAdapter(
 
             holder.itemView.setOnClickListener {
                 try {
-                    context.startActivity(
-                        FileValidationUtils.getViewIntent(
-                            context,
-                            File(item.attachment!!)
+                    if (ValidationUtils.isEmptyFiled(item.attachmentId!!)) {
+                        context.startActivity(
+                            FileValidationUtils.getViewIntent(
+                                context,
+                                File(item.attachment!!)
+                            )
                         )
-                    )
+                    } else {
+                        context.startActivity(
+                            Intent(context, WebActivity::class.java).putExtra(
+                                AppConstant.WEB_URL,
+                                item.attachment!!
+                            ).putExtra(AppConstant.TAG, "Attachment")
+
+                        )
+                    }
                 } catch (e: ActivityNotFoundException) {
                     DroneDinApp.getAppInstance()
                         .showToast(context.getString(R.string.no_application_found_to_handle_this_file))
                 }
 
             }
-
 
 
         }
@@ -95,7 +109,7 @@ class JobAttachmentsAdapter(
     }
 
     fun addItems(list: JobAttachmentsBean) {
-        itemList.add(0,list)
+        itemList.add(0, list)
         notifyDataSetChanged()
     }
 

@@ -16,5 +16,7 @@ data class CancelMilestoneParams(
     @SerializedName("milestone_id")
     var milestoneId: String? = "",
     @SerializedName("milestone_status")
-    var milestoneStatus: String? = ""
+    var milestoneStatus: String? = "",
+    @SerializedName("msg")
+    var msg: String? = ""
 ) : Parcelable

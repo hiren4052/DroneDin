@@ -20,16 +20,28 @@ import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.filter.FilterResultActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
+import com.grewon.dronedin.invitations.InvitationsDetailActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.milestone.*
+import com.grewon.dronedin.milestone.milestoneadd.MilestoneAddActivity
+import com.grewon.dronedin.milestone.milestoneaddrequest.MilestoneAddRejectActivity
+import com.grewon.dronedin.milestone.milestoneaddrequest.MilestoneAddRequestActivity
+import com.grewon.dronedin.milestone.milestonecancel.CancelMilestoneActivity
+import com.grewon.dronedin.milestone.milestonecancel.MilestoneCancelRejectActivity
+import com.grewon.dronedin.milestone.milestonecancel.MilestoneCancelRequestActivity
+import com.grewon.dronedin.milestone.milestonecomplete.MilestoneCompletionRequestActivity
+import com.grewon.dronedin.milestone.milestonecomplete.MilestoneRejectActivity
+import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
 import com.grewon.dronedin.offers.OffersDetailActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
+import com.grewon.dronedin.paymentsummary.MilestoneSummaryActivity
+import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsActivity
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
@@ -42,6 +54,8 @@ import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.proposals.ProposalsDetailActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
+import com.grewon.dronedin.savedjobs.SavedJobsActivity
+import com.grewon.dronedin.savedpilots.SavedPilotsActivity
 import com.grewon.dronedin.settings.SettingsFragment
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
@@ -101,6 +115,17 @@ interface AppComponent {
     fun inject(activity: PaymentMethodActivity)
     fun inject(activity: AddCardActivity)
     fun inject(activity: AddBankAccountActivity)
+    fun inject(activity: MilestoneSummaryActivity)
+    fun inject(activity: PaymentSummaryActivity)
+    fun inject(activity: InvitationsDetailActivity)
+    fun inject(activity: SavedJobsActivity)
+    fun inject(activity: SavedPilotsActivity)
+    fun inject(activity: MilestoneCompletionRequestActivity)
+    fun inject(activity: MilestoneRejectActivity)
+    fun inject(activity: MilestoneAddRequestActivity)
+    fun inject(activity: MilestoneAddRejectActivity)
+    fun inject(activity: MilestoneCancelRejectActivity)
+    fun inject(activity: MilestoneCancelRequestActivity)
 
 
     //Fragments
@@ -115,6 +140,5 @@ interface AppComponent {
     fun inject(fragment: PilotMyJobsFragment)
     fun inject(fragment: MessageFragment)
     fun inject(fragment: SettingsFragment)
-
 
 }

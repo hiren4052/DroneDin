@@ -1,18 +1,25 @@
 package com.grewon.dronedin.milestone
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.contract.MileStoneDetailContract
+import com.grewon.dronedin.paymentsummary.MilestoneSummaryActivity
+import com.grewon.dronedin.paymentsummary.PaymentSummaryActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MileStoneDetailsBean
+import com.grewon.dronedin.server.MilestonesDataBean
+import com.grewon.dronedin.server.params.CancelMilestoneParams
 import com.grewon.dronedin.utils.TimeUtils
 import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_milestone_detail.*
@@ -32,6 +39,8 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
 
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
     private var milestoneId: String = ""
+    private var jobId: String = ""
+    private var mileStoneDetailsBean: MileStoneDetailsBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +53,7 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
     private fun initView() {
         txt_toolbar_title.text = getString(R.string.milestone_details)
         milestoneId = intent.getStringExtra(AppConstant.ID).toString()
+        jobId = intent.getStringExtra(AppConstant.JOB_ID).toString()
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         mileStoneDetailPresenter.attachView(this)
@@ -51,15 +61,13 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
         mileStoneDetailPresenter.getMilesStoneDetail(milestoneId)
 
 
-        if (isPilotAccount()) {
-            txt_pay.visibility = View.GONE
-        }
     }
 
 
     private fun setClicks() {
         img_back.setOnClickListener(this)
         txt_pay.setOnClickListener(this)
+        txt_cancel_milestone.setOnClickListener(this)
     }
 
 
@@ -69,7 +77,22 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
                 finish()
             }
             R.id.txt_pay -> {
-                finish()
+                startActivity(
+                    Intent(
+                        this,
+                        MilestoneSummaryActivity::class.java
+                    ).putExtra(AppConstant.ID, milestoneId)
+                        .putExtra(AppConstant.PRICE, mileStoneDetailsBean?.milestonePrice)
+                )
+            }
+            R.id.txt_cancel_milestone -> {
+                val params = CancelMilestoneParams()
+                params.jobId = jobId
+                params.milestoneId = milestoneId
+                params.milestoneStatus = "cancel"
+                params.milestoneCancelDesc = ""
+
+                mileStoneDetailPresenter.cancelMilestone(params)
             }
         }
     }
@@ -81,6 +104,7 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
     }
 
     private fun setView(loginParams: MileStoneDetailsBean) {
+        mileStoneDetailsBean = loginParams
         txt_milestone_title.text = loginParams.milestoneDetails
         if (loginParams.milestoneStartedDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneStartedDate)) {
             txt_started_date.text = TimeUtils.getServerToAppDate(loginParams.milestoneStartedDate)
@@ -109,6 +133,26 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
         }
 
 
+        if (loginParams.milestoneStatus == AppConstant.MILESTONE_PENDING_STATUS) {
+            if (isPilotAccount()) {
+                txt_pay.visibility = View.GONE
+            } else {
+                txt_pay.visibility = View.VISIBLE
+            }
+        } else {
+            txt_pay.visibility = View.GONE
+        }
+        if (loginParams.milestoneStatus == AppConstant.MILESTONE_ACTIVE_STATUS) {
+            if (isPilotAccount()) {
+                txt_cancel_milestone.visibility = View.GONE
+            } else {
+                txt_cancel_milestone.visibility = View.VISIBLE
+            }
+        } else {
+            txt_cancel_milestone.visibility = View.GONE
+        }
+
+
 
         txt_amount.text = getString(R.string.price_string, loginParams.milestonePrice)
 
@@ -133,6 +177,20 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
         if (loginParams.msg != null)
             setEmptyView(R.drawable.ic_no_data, loginParams.msg)
     }
+
+    override fun onCancelSuccessFully(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            setResult(RESULT_OK)
+            finish()
+        }
+
+    }
+
+    override fun onCancelFailed(loginParams: CancelMilestoneParams) {
+        ErrorHandler.handleMapError(Gson().toJson(loginParams))
+    }
+
 
     override fun showOnScreenProgress() {
         layout_progress.visibility = View.VISIBLE

@@ -15,7 +15,7 @@ import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.milestone.MilestoneDetailActivity
-import com.grewon.dronedin.milestone.SubmitMilestoneActivity
+import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.MilestonesDataBean

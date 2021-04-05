@@ -64,6 +64,7 @@
 
     <include
         android:id="@+id/layout_progress"
+        android:visibility="visible"
         layout="@layout/layout_shimmer_job_details" />
 
     <include

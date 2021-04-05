@@ -50,14 +50,8 @@ import java.util.*
 import javax.inject.Inject
 
 class CrateOffersActivity : BaseActivity(), View.OnClickListener,
-    UploadAttachmentsAdapter.OnItemLongClickListeners, CreateOffersContract.View {
+    UploadAttachmentsAdapter.OnItemLongClickListeners {
 
-
-    @Inject
-    lateinit var createOffersPresenter: CreateOffersContract.Presenter
-
-    @Inject
-    lateinit var retrofit: Retrofit
 
     private var alertDialog: AlertViewDialog? = null
     private var picturePath: File? = null
@@ -79,12 +73,6 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
 
     private fun initView() {
         txt_toolbar_title.text = getString(R.string.create_offer)
-
-
-
-        DroneDinApp.getAppInstance().getAppComponent().inject(this)
-        createOffersPresenter.attachView(this)
-        createOffersPresenter.attachApiInterface(retrofit)
 
 
         jobId = intent.getStringExtra(AppConstant.ID).toString()
@@ -225,13 +213,15 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
         val params = SubmitOfferParams()
         params.offer_title = edt_title.text.toString()
         params.offer_description = edt_description.text.toString()
+
         if (new_milestone_check.isChecked) {
             params.offer_total_price = edt_price.text.toString()
             params.offer_milestone = AppConstant.NEW_MILESTONE
+            params.miles_stone_price = createMileStoneAdapter?.itemList?.get(0)?.price
         } else {
-            params.offer_total_price =
-                existing_total_price.text.toString().replace("$", "")
+            params.offer_total_price = existing_total_price.text.toString().replace("$", "")
             params.offer_milestone = AppConstant.EXISTING_MILESTONE
+            params.miles_stone_price = existingMileStoneList[0].milestonePrice
         }
 
         params.attachments = jobsImageAdapter?.itemList
@@ -239,7 +229,12 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
         params.job_id = jobId
         params.pilot_id = pilotId
 
-        createOffersPresenter.submitOffer(params)
+        startActivityForResult(
+            Intent(this, PaymentSummaryActivity::class.java).putExtra(
+                AppConstant.BEAN,
+                params
+            ), 11
+        )
     }
 
 
@@ -490,6 +485,12 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
                 }
 
             }
+            11 -> {
+                if (resultCode == RESULT_OK) {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
 
 
         }
@@ -510,22 +511,6 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
 
         })
         alertDialog!!.show()
-    }
-
-    override fun onSubmitOffersSuccessFully(loginParams: CommonMessageBean) {
-        if (loginParams.msg != null) {
-            DroneDinApp.getAppInstance().showToast(loginParams.msg)
-            startActivity(Intent(this, PaymentSummaryActivity::class.java))
-
-        }
-    }
-
-    override fun onSubmitOffersFailed(loginParams: SubmitOfferParams) {
-        ErrorHandler.handleMapError(Gson().toJson(loginParams))
-    }
-
-    override fun onApiException(error: Int) {
-        DroneDinApp.getAppInstance().showToast(getString(error))
     }
 
 

@@ -10,10 +10,11 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.contract.EndProjectContract
-import com.grewon.dronedin.milestone.presenter.EndProjectPresenter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
 import kotlinx.android.synthetic.main.activity_end_project.*
+import kotlinx.android.synthetic.main.activity_end_project.txt_end_project
+import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -35,11 +36,13 @@ class EndProjectActivity : BaseActivity(), View.OnClickListener, EndProjectContr
     }
 
     private fun setClicks() {
+        img_back.setOnClickListener(this)
         txt_end_project.setOnClickListener(this)
         txt_end_forcefully.setOnClickListener(this)
     }
 
     private fun initView() {
+        txt_toolbar_title.text = getString(R.string.end_complete_project)
         jobId = intent.getStringExtra(AppConstant.ID).toString()
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
@@ -51,6 +54,9 @@ class EndProjectActivity : BaseActivity(), View.OnClickListener, EndProjectContr
         when (v?.id) {
             R.id.txt_end_project -> {
                 endProjectPresenter.endProject(jobId, "success")
+            }
+            R.id.img_back -> {
+                finish()
             }
             R.id.txt_end_forcefully -> {
                 endProjectPresenter.endProject(jobId, "forcely")

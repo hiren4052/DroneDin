@@ -9,6 +9,8 @@ import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.MileStoneDetailsBean
+import com.grewon.dronedin.server.params.CancelMilestoneParams
+import com.grewon.dronedin.server.params.CancelMilestoneStatusUpdateParams
 import com.grewon.dronedin.server.params.SubmitMilestoneParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -82,6 +84,46 @@ class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
 
             })
     }
+
+    override fun cancelMilestone(params: CancelMilestoneParams) {
+
+        view?.showProgress()
+
+        api.cancelMilestone(params)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    view?.hideProgress()
+                    view?.onCancelSuccessFully(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onCancelFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CancelMilestoneParams::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+
+    }
+
 
 
 }

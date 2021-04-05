@@ -1,5 +1,6 @@
 package com.grewon.dronedin.clientjobs.clientoffers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,9 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.clientjobs.contract.ClientOffersDetailContract
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.*
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_client_offers_details.*
 import kotlinx.android.synthetic.main.layout_no_data.*
@@ -31,6 +34,7 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
     private var mileStoneAdapter: MileStoneAdapter? = null
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
     private var offersId: String = ""
+    private var offerBean: OffersDetailBean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,8 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
     private fun setClicks() {
         img_back.setOnClickListener(this)
         txt_withdraw_offer.setOnClickListener(this)
+        txt_withdraw_offer.setOnClickListener(this)
+        txt_pilot_name.setOnClickListener(this)
     }
 
     private fun setAttachmentsAdapter(attachmentsList: ArrayList<JobAttachmentsBean>) {
@@ -71,7 +77,6 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
     }
 
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_back -> {
@@ -81,6 +86,15 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
                 DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.please_wait))
                 clientOffersDetailsPresenter.withDrawOffers(offersId)
             }
+            R.id.txt_pilot_name -> {
+                startActivity(
+                    Intent(
+                        this,
+                        PilotProfileActivity::class.java
+                    ).putExtra(AppConstant.ID, offerBean?.pilot?.userId)
+                )
+            }
+
         }
     }
 
@@ -123,6 +137,9 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun setView(response: OffersDetailBean) {
+        offerBean = response
+        TextUtils.setTextViewUnderLine(txt_pilot_name)
+
         txt_subtitle.text = response.category?.categoryName
         txt_job_title.text = response.offerTitle
         txt_job_description.text = response.offerDescription
@@ -138,9 +155,9 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
             val milestoneList = ArrayList<MilestonesDataBean>()
             for (item in response.milestone) {
                 val milesStone = MilestonesDataBean()
-                milesStone.milestoneDetails = item?.milestoneDetails
-                milesStone.milestonePrice = item?.milestonePrice
-                milesStone.milestoneId = item?.milestoneId
+                milesStone.milestoneDetails = item.milestoneDetails
+                milesStone.milestonePrice = item.milestonePrice
+                milesStone.milestoneId = item.milestoneId
                 milestoneList.add(milesStone)
             }
             setMileStoneAdapter(milestoneList)

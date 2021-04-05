@@ -76,5 +76,43 @@ class ActiveMileStonePresenter : ActiveMileStoneContract.Presenter {
             })
     }
 
+    override fun getCardData() {
+
+        view?.showProgress()
+
+        api.getCardData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CardDataBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CardDataBean) {
+                    view?.hideProgress()
+                    view?.onCardDataGetSuccessful(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onCardDataGetFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+    }
+
 
 }

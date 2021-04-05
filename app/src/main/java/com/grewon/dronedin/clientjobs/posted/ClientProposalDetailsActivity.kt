@@ -13,12 +13,14 @@ import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.offers.CrateOffersActivity
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.proposals.contract.ProposalsDetailContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.server.ProposalsDetailBean
 import com.grewon.dronedin.utils.MapUtils
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_client_proposal_details.*
 import kotlinx.android.synthetic.main.activity_client_proposal_details.image_recycle
@@ -69,6 +71,7 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener,
         img_back.setOnClickListener(this)
         txt_hire.setOnClickListener(this)
         txt_chat.setOnClickListener(this)
+        txt_pilot_name.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -118,6 +121,14 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener,
                     )
                 )
             }
+            R.id.txt_pilot_name -> {
+                startActivity(
+                    Intent(
+                        this,
+                        PilotProfileActivity::class.java
+                    ).putExtra(AppConstant.ID, proposalsDetailBean?.pilot?.userId)
+                )
+            }
         }
     }
 
@@ -128,6 +139,9 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun setView(response: ProposalsDetailBean) {
+
+        TextUtils.setTextViewUnderLine(txt_pilot_name)
+
         proposalsDetailBean = response
         txt_subtitle.text = response.category?.categoryName
         txt_job_title.text = response.proposalTitle
@@ -148,9 +162,9 @@ class ClientProposalDetailsActivity : BaseActivity(), View.OnClickListener,
             val milestoneList = ArrayList<MilestonesDataBean>()
             for (item in response.milestone) {
                 val milesStone = MilestonesDataBean()
-                milesStone.milestoneDetails = item?.milestoneDetails
-                milesStone.milestonePrice = item?.milestonePrice
-                milesStone.milestoneId = item?.milestoneId
+                milesStone.milestoneDetails = item.milestoneDetails
+                milesStone.milestonePrice = item.milestonePrice
+                milesStone.milestoneId = item.milestoneId
                 milestoneList.add(milesStone)
             }
             setMileStoneAdapter(milestoneList)

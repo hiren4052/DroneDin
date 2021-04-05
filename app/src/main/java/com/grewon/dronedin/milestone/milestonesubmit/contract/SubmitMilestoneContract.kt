@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestone.contract
+package com.grewon.dronedin.milestone.milestonesubmit.contract
 
 import com.grewon.dronedin.app.BaseContract
 import com.grewon.dronedin.server.*
@@ -14,6 +14,8 @@ interface SubmitMilestoneContract {
 
         fun onSubmitFailed(loginParams: SubmitMilestoneParams)
 
+
+
         fun onApiException(error: Int)
 
 
@@ -23,6 +25,7 @@ interface SubmitMilestoneContract {
 
 
         fun submitMilestone(params: SubmitMilestoneParams)
+
 
 
     }

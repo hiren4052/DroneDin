@@ -40,6 +40,7 @@
                 android:textSize="@dimen/_20sp" />
 
             <TextView
+                android:id="@+id/txt_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_10dp"
@@ -52,6 +53,16 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_job_details"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -115,6 +126,7 @@
                             android:id="@+id/txt_client_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
                             android:paddingStart="@dimen/_5dp"
                             android:text="Kristen Hunter"
                             android:textAppearance="@style/RobotoLightTextAppearance"

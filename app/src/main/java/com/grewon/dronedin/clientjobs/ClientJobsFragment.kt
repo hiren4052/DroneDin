@@ -24,6 +24,7 @@ import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.postjob.PostJobActivity
+import com.grewon.dronedin.savedpilots.SavedPilotsActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobsDataBean
 import com.grewon.dronedin.server.params.GetJobsParams
@@ -73,6 +74,7 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
     private fun setClicks() {
         im_search.setOnClickListener(this)
         fab_add_job.setOnClickListener(this)
+        im_save.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -176,6 +178,9 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
         when (v?.id) {
             R.id.im_search -> {
                 startActivity(Intent(context, FilterActivity::class.java))
+            }
+            R.id.im_save -> {
+                startActivity(Intent(context, SavedPilotsActivity::class.java))
             }
 
             R.id.fab_add_job -> {

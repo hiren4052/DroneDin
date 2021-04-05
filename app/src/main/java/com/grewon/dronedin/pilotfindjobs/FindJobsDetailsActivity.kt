@@ -16,31 +16,15 @@ import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.pilotmyjobs.contract.PilotFindJobsDetailContract
-import com.grewon.dronedin.pilotmyjobs.presenter.PilotFindJobDetailsPresenter
-import com.grewon.dronedin.pilotmyjobs.presenter.PilotMyJobsPresenter
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.submitproposal.SubmitProposalActivity
-import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_find_jobs_details.*
-import kotlinx.android.synthetic.main.activity_find_jobs_details.chip_equipments
-import kotlinx.android.synthetic.main.activity_find_jobs_details.chip_skills
-import kotlinx.android.synthetic.main.activity_find_jobs_details.image_recycle
-import kotlinx.android.synthetic.main.activity_find_jobs_details.img_back
-import kotlinx.android.synthetic.main.activity_find_jobs_details.layout_progress
-import kotlinx.android.synthetic.main.activity_find_jobs_details.mile_stone_recycle
-import kotlinx.android.synthetic.main.activity_find_jobs_details.milestone_layout
-import kotlinx.android.synthetic.main.activity_find_jobs_details.no_data_layout
-import kotlinx.android.synthetic.main.activity_find_jobs_details.pictures_layout
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_budget
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_job_date
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_job_description
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_job_location
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_job_title
-import kotlinx.android.synthetic.main.activity_find_jobs_details.txt_subtitle
-import kotlinx.android.synthetic.main.activity_posted_job_details.*
+
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -72,6 +56,7 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
         img_back.setOnClickListener(this)
         txt_message.setOnClickListener(this)
         txt_send_proposal.setOnClickListener(this)
+        txt_client_name.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -127,10 +112,20 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java).putExtra(
-                    AppConstant.ID,
-                    pilotFindJobsBean?.userId
-                ))
+                startActivity(
+                    Intent(this, ChatActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        pilotFindJobsBean?.userId
+                    )
+                )
+            }
+            R.id.txt_client_name -> {
+                startActivity(
+                    Intent(this, ClientProfileActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        pilotFindJobsBean?.userId
+                    )
+                )
             }
             R.id.txt_send_proposal -> {
                 startActivityForResult(
@@ -155,6 +150,8 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun setView(response: PilotFindJobsDetailBean) {
+
+        TextUtils.setTextViewUnderLine(txt_client_name)
 
         pilotFindJobsBean = response
 
@@ -182,9 +179,9 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             val milestoneList = ArrayList<MilestonesDataBean>()
             for (item in response.milestone) {
                 val milesStone = MilestonesDataBean()
-                milesStone.milestoneDetails = item?.milestoneDetails
-                milesStone.milestonePrice = item?.milestonePrice
-                milesStone.milestoneId = item?.milestoneId
+                milesStone.milestoneDetails = item.milestoneDetails
+                milesStone.milestonePrice = item.milestonePrice
+                milesStone.milestoneId = item.milestoneId
                 milestoneList.add(milesStone)
             }
             setMileStoneAdapter(milestoneList)

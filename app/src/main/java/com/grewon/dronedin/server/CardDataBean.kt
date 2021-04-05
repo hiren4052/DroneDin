@@ -146,6 +146,8 @@ data class CardDataBean(
             val userCardinfoLast4: String? = "",
             @SerializedName("user_cardinfo_stripe_source")
             val userCardinfoStripeSource: String? = "",
+            @SerializedName("card_holder_name")
+            val cardHolderName: String? = "",
             @SerializedName("user_id")
             val userId: String? = ""
         ) : Parcelable

@@ -17,12 +17,31 @@ import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
-import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersActivity
+import com.grewon.dronedin.clientprofile.ClientProfileActivity
+import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestone.*
+import com.grewon.dronedin.milestone.milestoneadd.MilestoneAddActivity
+import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.server.*
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.*
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_equipments
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_skills
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.image_recycle
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.img_back
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.layout_progress
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.mile_stone_recycle
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.milestone_layout
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.no_data_layout
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.pictures_layout
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_budget
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_date
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_description
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_location
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_title
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_subtitle
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -55,6 +74,7 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
     private fun setClicks() {
         img_back.setOnClickListener(this)
         img_toolbar.setOnClickListener(this)
+        txt_pilot_name.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -117,23 +137,29 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                     openPopUpMenu()
                 }
             }
+            R.id.txt_pilot_name -> {
+                startActivity(Intent(this, ClientProfileActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    activeJobsDetails?.userId
+                ))
+            }
         }
     }
 
     override fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean?) {
         if (jobsDataBean?.milestoneStatus == "active") {
-            startActivity(
+            startActivityForResult(
                 Intent(this, SubmitMilestoneActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean.milestoneId
-                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId),12
             )
         } else {
             startActivity(
                 Intent(this, MilestoneDetailActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean?.milestoneId
-                )
+                ).putExtra(AppConstant.JOB_ID,activeJobsDetails?.jobId)
             )
         }
     }
@@ -145,7 +171,7 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun setView(response: ActiveJobsDetails) {
-
+        TextUtils.setTextViewUnderLine(txt_pilot_name)
         activeJobsDetails = response
 
         txt_subtitle.text = response.category?.categoryName
@@ -242,7 +268,10 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                     )
                 }
                 R.id.im_message -> {
-
+                    startActivity(Intent(this, ChatActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.userId
+                    ))
                 }
             }
             true

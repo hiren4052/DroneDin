@@ -58,8 +58,7 @@ class PilotFindJobsAdapter(
             holder.textJobTitle.text = item.jobTitle?.trim()
             holder.textJobDescription.text = item.jobDescription?.trim()
             holder.textClientName.text = item.userName?.trim()
-            holder.textBudget.text =
-                context.getString(R.string.price_string, item.totalPrice?.trim())
+            holder.textBudget.text = context.getString(R.string.price_string, item.totalPrice?.trim())
 
             if (item.jobLatitude != null && item.jobLongitude != null) {
                 holder.textJobLocation.text = MapUtils.getStateName(
@@ -68,6 +67,8 @@ class PilotFindJobsAdapter(
                     item.jobLongitude.toDouble()
                 )
             }
+
+            holder.favouriteCheck.isChecked = item.saveJob!=null
 
             holder.textDate.text = TimeUtils.getLocalTimes(context, item.jobDatecreated.toString())
 

@@ -55,6 +55,22 @@ interface AppApi {
     @GET("profile_c/bio")
     fun getBio(): Single<ProfileBioDataBean>
 
+    @GET("pilot_c/milestone_request/{milestone_request_id}")
+    fun getCompleteMilestoneRequest(@Path("milestone_request_id") milestoneRequestId: String): Single<CompleteMilestoneRequest>
+
+
+    @POST("pilot_c/milestone_req_status_update")
+    fun completeMilestoneStatusUpdate(@Body map: CompleteMilestoneStatusUpdateParams): Single<CommonMessageBean>
+
+    @GET("pilot_c/milestone_request/{milestone_request_id}")
+    fun getNewMilestoneRequest(@Path("milestone_request_id") milestoneRequestId: String): Single<NewMilestoneRequest>
+
+    @POST("job_c/milestone_add_request")
+    fun newMilestoneStatusUpdate(@Body map: NewMilestoneStatusUpdateParams): Single<CommonMessageBean>
+
+    @POST("job_c/milestone_cancel_request")
+    fun cancelMilestoneStatusUpdate(@Body map: CancelMilestoneStatusUpdateParams): Single<CommonMessageBean>
+
     @POST("profile_c/bio_update")
     fun bioUpdate(@Body map: BioUpdateParams): Single<ProfileBioDataBean>
 
@@ -171,7 +187,8 @@ interface AppApi {
     @GET("job_c/milestone/{milestone_id}")
     fun getMileStoneDetail(@Path("milestone_id") mileStoneId: String): Single<MileStoneDetailsBean>
 
-    @POST("pilot_c/add_milestone")
+    @FormUrlEncoded
+    @POST("job_c/add_milestone")
     fun addMileStone(@FieldMap requestPart: HashMap<String, Any>): Single<CommonMessageBean>
 
     @POST("job_c/milestone_cancel")
@@ -268,7 +285,7 @@ interface AppApi {
     fun getNotification(@Path("offset") offset: String): Single<NotificationDataBean>
 
     @GET("profile_c/main_screen")
-    fun getMainScreenData( @QueryMap requestPart: HashMap<String, Any>): Single<MainScreenData>
+    fun getMainScreenData(@QueryMap requestPart: HashMap<String, Any>): Single<MainScreenData>
 
 
     @GET("profile_c/logout")

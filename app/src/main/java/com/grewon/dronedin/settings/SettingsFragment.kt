@@ -79,7 +79,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
         txt_user_name.text = preferenceUtils.getProfileData()?.data?.userName
 
-        if (preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
+        if (preferenceUtils.getProfileData()!=null&&preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
                 preferenceUtils.getProfileData()?.data?.profileImage!!
             )
         ) {

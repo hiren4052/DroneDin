@@ -95,6 +95,8 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
                     startActivityForResult(Intent(this, PortFolioActivity::class.java), 12)
                 }
             }
+
+
         }
     }
 

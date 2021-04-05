@@ -164,6 +164,7 @@
     <string name="skills_and_equipments">Skills and Equipments</string>
     <string name="reviews">Reviews</string>
     <string name="view_all">View All</string>
+    <string name="view">View</string>
     <string name="invite">Invite</string>
     <string name="proposal_received_">Proposal Received:</string>
     <string name="invitations_sent_">Invitations Sent:</string>
@@ -178,6 +179,7 @@
     <string name="sent_by">Sent By:</string>
     <string name="withdraw_offer">Withdraw Offer</string>
     <string name="saved_pilots">Saved Pilots</string>
+    <string name="saved_jobs">Saved Jobs</string>
     <string name="sent_invitations">Sent Invitations</string>
     <string name="sent_offers">Sent Offers</string>
     <string name="total_price_">Total Price:</string>
@@ -190,6 +192,7 @@
     <string name="new_project">New Project</string>
     <string name="edit_project">Edit Project</string>
     <string name="amount">Amount</string>
+    <string name="amount_">Amount:</string>
     <string name="notes_">Notes:</string>
     <string name="files">Files</string>
     <string name="add_document">Add Document</string>
@@ -227,7 +230,9 @@
     <string name="pay_now">Pay Now</string>
     <string name="payment_summary">Payment Summary</string>
     <string name="payment_for_first_milestone">Payment for first milestone</string>
-    <string name="dronedin_charges">DronedIN Charges</string>
+    <string name="payment_for_milestone">Payment for milestone</string>
+    <string name="dronedin_charges">DronedIN Charges(%s%%)</string>
+    <string name="used_wallet_amount">Used Wallet Amount</string>
     <string name="select_payment_method">Select Payment Method</string>
     <string name="add_change">Add/Change</string>
     <string name="payment_details">Payment Details</string>
@@ -384,4 +389,17 @@
     <string name="please_upload_identity_image">Please upload identity image</string>
     <string name="please_enter_account_holder_first_name">Please enter account holder first name</string>
     <string name="please_enter_account_holder_last_name">Please enter account holder last name</string>
+    <string name="use_wallet_amount">Use wallet amount($%s)</string>
+    <string name="payment_method_not_added_please_add_to_pay_amount">Payment method not added, please add to pay amount</string>
+    <string name="accept_decline">Accept/Decline</string>
+    <string name="accept_reject">Accept/Reject</string>
+    <string name="you_have_received_complete_request_for">You have received complete request for %s</string>
+    <string name="new_milestone_request">New Milestone Request!</string>
+    <string name="the_pilot_has_requested_to_add_new_milestones_in_the_current_project">The pilot has requested to add new milestones in the current project!</string>
+    <string name="new_milestone_rejection">New Milestone Rejection!</string>
+    <string name="explain_the_reasons_for_rejecting_the_new_milestone_request">Explain the reasons for rejecting the new milestone request.</string>
+    <string name="milestone_cancellation_request">Milestone Cancellation Request!</string>
+    <string name="the_pilot_has_requested_to_cancel_milestone_in_the_current_project">The pilot has requested to cancel milestone in the current project!</string>
+    <string name="milestone_cancellation_request_rejection">Milestone Cancellation Request Rejection!</string>
+    <string name="explain_the_reasons_for_rejecting_the_milestone_cancellation_request">Explain the reasons for rejecting the milestone cancellation request.</string>
 </resources>

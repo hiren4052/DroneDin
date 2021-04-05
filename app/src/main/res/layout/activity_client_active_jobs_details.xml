@@ -80,12 +80,118 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/_16dp">
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/complete_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_complete_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_milestone_request"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/view_milestone_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/view"
+                    android:textAppearance="@style/RobotoBoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_14sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
+                    app:drawableTint="@color/white"
+                    tools:ignore="MissingPrefix,RtlSymmetry" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_add_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_add_request"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/view_add_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/view"
+                    android:textAppearance="@style/RobotoBoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_14sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
+                    app:drawableTint="@color/white"
+                    tools:ignore="MissingPrefix,RtlSymmetry" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/cancel_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_cancel_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_cancel_request"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/view_cancel_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/view"
+                    android:textAppearance="@style/RobotoBoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_14sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
+                    app:drawableTint="@color/white"
+                    tools:ignore="MissingPrefix,RtlSymmetry" />
+
+            </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginTop="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/_5dp"
                 app:cardUseCompatPadding="true"
@@ -254,7 +360,9 @@
                 android:id="@+id/pictures_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -279,7 +387,10 @@
                 android:id="@+id/milestone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_16dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:paddingBottom="@dimen/_16dp">
 
                 <TextView
                     android:layout_width="match_parent"

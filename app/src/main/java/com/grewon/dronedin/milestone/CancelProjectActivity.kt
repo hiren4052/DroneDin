@@ -9,7 +9,6 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.contract.CancelProjectContract
-import com.grewon.dronedin.milestone.presenter.CancelProjectPresenter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
 import kotlinx.android.synthetic.main.activity_cancel_project.*
@@ -39,6 +38,7 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
         txt_send_request.setOnClickListener(this)
         txt_cancel_forcefully.setOnClickListener(this)
         txt_cancel_project.setOnClickListener(this)
+        img_back.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -62,6 +62,9 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.img_back -> {
+                finish()
+            }
             R.id.txt_send_request -> {
                 cancelProjectPresenter.cancelProject(jobId, "")
             }

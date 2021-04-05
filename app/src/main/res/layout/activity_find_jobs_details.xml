@@ -127,6 +127,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/_5dp"
                             android:text="Kristen Hunter"
+                            android:background="?selectableItemBackground"
                             android:textAppearance="@style/RobotoLightTextAppearance"
                             android:textColor="@color/gray_71"
                             android:textSize="@dimen/_14sp"

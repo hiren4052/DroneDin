@@ -8,9 +8,9 @@ import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.offers.contract.CreateOffersContract
 import com.grewon.dronedin.server.AppApi
+import com.grewon.dronedin.server.CardDataBean
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.SubmitOfferParams
-import com.grewon.dronedin.server.params.SubmitProposalParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -58,6 +58,7 @@ class CreateOffersPresenter : CreateOffersContract.Presenter {
         builder.addFormDataPart("offer_description", params.offer_description.toString())
         builder.addFormDataPart("offer_milestone", params.offer_milestone.toString())
         builder.addFormDataPart("offer_total_price", params.offer_total_price.toString())
+        builder.addFormDataPart("user_wallet", params.user_wallet.toString())
         if (params.offer_milestone == AppConstant.NEW_MILESTONE) {
             builder.addFormDataPart("milestone", Gson().toJson(params.milestone))
         }
@@ -98,6 +99,45 @@ class CreateOffersPresenter : CreateOffersContract.Presenter {
                         Gson().fromJson(
                             errorBean.toString(),
                             SubmitOfferParams::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+    }
+
+
+    override fun getCardData() {
+
+        view?.showProgress()
+
+        api.getCardData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CardDataBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CardDataBean) {
+                    view?.hideProgress()
+                    view?.onCardDataGetSuccessful(dataBean)
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideProgress()
+                    LogX.E(errorBean.toString())
+                    view?.onCardDataGetFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
                         )
                     )
                 }

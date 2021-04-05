@@ -3,6 +3,7 @@ package com.grewon.dronedin.utils
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
@@ -91,6 +92,7 @@ class TextUtils {
 
             return spannableString
         }
+
         fun receiveCodeColorSpannableString(
             context: Context
         ): SpannableString {
@@ -138,7 +140,10 @@ class TextUtils {
             val clickableSpan: ClickableSpan = object : ClickableSpan() {
                 override fun onClick(textView: View) {
                     context.startActivity(
-                        Intent(context, WebActivity::class.java).putExtra(AppConstant.WEB_URL, AppConstant.TERMS_OF_SERVICE_URL)
+                        Intent(context, WebActivity::class.java).putExtra(
+                            AppConstant.WEB_URL,
+                            AppConstant.TERMS_OF_SERVICE_URL
+                        )
 
                     )
                 }
@@ -179,6 +184,30 @@ class TextUtils {
                 .build()
             readMoreOption.addReadMoreTo(textView, text)
 
+        }
+
+        fun addWhiteExpandText(
+            context: Context?,
+            textView: TextView?,
+            text: String?
+        ) {
+            // OR using options to customize
+            val readMoreOption = ReadMoreOption.Builder(context)
+                .textLength(100, ReadMoreOption.TYPE_CHARACTER)
+                .moreLabel("See More")
+                .lessLabel("See Less")
+                .moreLabelColor(Color.WHITE)
+                .lessLabelColor(Color.WHITE)
+                .labelUnderLine(false)
+                .expandAnimation(false)
+                .build()
+            readMoreOption.addReadMoreTo(textView, text)
+
+        }
+
+
+        fun setTextViewUnderLine(textView: TextView) {
+            textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         }
 
 

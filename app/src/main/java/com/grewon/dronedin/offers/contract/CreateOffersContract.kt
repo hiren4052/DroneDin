@@ -14,6 +14,10 @@ interface CreateOffersContract {
 
         fun onSubmitOffersFailed(loginParams: SubmitOfferParams)
 
+        fun onCardDataGetSuccessful(response: CardDataBean)
+
+        fun onCardDataGetFailed(loginParams: CommonMessageBean)
+
         fun onApiException(error: Int)
 
 
@@ -24,6 +28,7 @@ interface CreateOffersContract {
 
         fun submitOffer(params: SubmitOfferParams)
 
+        fun getCardData()
 
     }
 

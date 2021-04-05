@@ -40,7 +40,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
     private var pageCount: Int = 1
 
     private var invitePilotAdapter: InvitePilotAdapter? = null
-    private var jobId: String = ""
+    private var jobId: String = "1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,6 @@
 package com.grewon.dronedin.offers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.offers.contract.OffersDetailsContract
 import com.grewon.dronedin.server.CommonMessageBean
@@ -21,8 +23,24 @@ import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.server.OffersDetailBean
 import com.grewon.dronedin.utils.ListUtils
+import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.activity_find_jobs_details.*
 import kotlinx.android.synthetic.main.activity_offers_detail.*
+import kotlinx.android.synthetic.main.activity_offers_detail.image_recycle
+import kotlinx.android.synthetic.main.activity_offers_detail.img_back
+import kotlinx.android.synthetic.main.activity_offers_detail.layout_progress
+import kotlinx.android.synthetic.main.activity_offers_detail.mile_stone_recycle
+import kotlinx.android.synthetic.main.activity_offers_detail.milestone_layout
+import kotlinx.android.synthetic.main.activity_offers_detail.no_data_layout
+import kotlinx.android.synthetic.main.activity_offers_detail.pictures_layout
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_budget
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_client_name
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_job_date
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_job_description
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_job_location
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_job_title
+import kotlinx.android.synthetic.main.activity_offers_detail.txt_subtitle
 
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
@@ -41,6 +59,7 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener, OffersDetails
     private var mileStoneAdapter: MileStoneAdapter? = null
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
     private var offersId: String = ""
+    private var offerDetailBean:OffersDetailBean?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +72,7 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener, OffersDetails
         img_back.setOnClickListener(this)
         txt_accept.setOnClickListener(this)
         txt_decline.setOnClickListener(this)
+        txt_client_name.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -96,6 +116,13 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener, OffersDetails
                     AppConstant.OFFER_DECLINE_STATUS
                 )
             }
+            R.id.txt_client_name -> {
+                startActivity(
+                    Intent(this, ClientProfileActivity::class.java).putExtra(
+                    AppConstant.ID,
+                        offerDetailBean?.userId
+                ))
+            }
         }
     }
 
@@ -136,6 +163,8 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener, OffersDetails
     }
 
     private fun setView(response: OffersDetailBean) {
+        TextUtils.setTextViewUnderLine(txt_client_name)
+        offerDetailBean=response
         txt_subtitle.text = response.category?.categoryName
         txt_job_title.text = response.offerTitle
         txt_job_description.text = response.offerDescription

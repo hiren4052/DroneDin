@@ -9,13 +9,14 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.milestone.MilestoneDetailActivity
-import com.grewon.dronedin.milestone.SubmitMilestoneActivity
+import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.MilestonesDataBean
@@ -27,6 +28,7 @@ class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
     ActiveMileStoneAdapter.OnItemClickListeners {
     private var mileStoneAdapter: ActiveMileStoneAdapter? = null
     private var jobsImageAdapter: JobAttachmentsAdapter? = null
+    private var jobId: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilot_history_details)
@@ -91,7 +93,7 @@ class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_submit_review -> {
-                startActivity(Intent(this,SubmitReviewActivity::class.java))
+                startActivity(Intent(this, SubmitReviewActivity::class.java))
             }
             R.id.txt_message -> {
                 startActivity(Intent(this, ChatActivity::class.java))
@@ -103,7 +105,12 @@ class PilotHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         if (jobsDataBean?.milestoneStatus == "active") {
             startActivity(Intent(this, SubmitMilestoneActivity::class.java))
         } else {
-            startActivity(Intent(this, MilestoneDetailActivity::class.java))
+            startActivity(
+                Intent(this, MilestoneDetailActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobsDataBean?.milestoneId
+                ).putExtra(AppConstant.JOB_ID, jobId)
+            )
         }
     }
 }

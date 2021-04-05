@@ -14,6 +14,10 @@ interface MileStoneDetailContract {
 
         fun onDataGetFailed(loginParams: CommonMessageBean)
 
+        fun onCancelSuccessFully(loginParams: CommonMessageBean)
+
+        fun onCancelFailed(loginParams: CancelMilestoneParams)
+
         fun onApiException(error: Int)
 
         fun showOnScreenProgress()
@@ -28,6 +32,7 @@ interface MileStoneDetailContract {
         fun getMilesStoneDetail(mileStoneId: String)
 
 
+        fun cancelMilestone(params: CancelMilestoneParams)
     }
 
 }

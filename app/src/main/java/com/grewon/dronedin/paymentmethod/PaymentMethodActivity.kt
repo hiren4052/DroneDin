@@ -139,7 +139,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     }
 
     override fun onCardDataGetSuccessful(response: CardDataBean) {
-        if (response.data?.card != null) {
+        if (response.data?.card != null && response.data?.card.size > 0) {
             setCardAdapter(response.data.card, response.data.defaultCard?.userCardinfoStripeSource)
         } else {
             if (response.msg != null) {
@@ -210,7 +210,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     }
 
     override fun onBankDataGetSuccessful(response: BankDataBean) {
-        if (response.data?.bank != null) {
+        if (response.data?.bank != null && response.data?.bank.size > 0) {
             setBankAdapter(
                 response.data?.bank,
                 response.data.defaultBank?.userBankAccountBankId

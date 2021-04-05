@@ -1,6 +1,5 @@
-package com.grewon.dronedin.milestone
+package com.grewon.dronedin.milestone.milestonecancel
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.gson.Gson
@@ -14,6 +13,7 @@ import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
 import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_cancel_milestone.*
+import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -38,9 +38,11 @@ class CancelMilestoneActivity : BaseActivity(), CancelMilestoneContract.View, Vi
 
     private fun setClicks() {
         txt_send_request.setOnClickListener(this)
+        img_back.setOnClickListener(this)
     }
 
     private fun initView() {
+        txt_toolbar_title.text=getString(R.string.cancel_milestone)
         jobId = intent.getStringExtra(AppConstant.JOB_ID).toString()
         milestoneId = intent.getStringExtra(AppConstant.ID).toString()
 
@@ -88,6 +90,9 @@ class CancelMilestoneActivity : BaseActivity(), CancelMilestoneContract.View, Vi
 
                     cancelMilestonePresenter.cancelMilestone(params)
                 }
+            }
+            R.id.img_back -> {
+                finish()
             }
         }
     }

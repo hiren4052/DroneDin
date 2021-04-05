@@ -215,9 +215,7 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
 
         //registering popup with OnMenuItemClickListener
         popup.setOnMenuItemClickListener {
-            if (it.itemId == R.id.im_saved_pilots) {
-
-            } else if (it.itemId == R.id.im_sent_invitations) {
+            if (it.itemId == R.id.im_sent_invitations) {
 
             } else if (it.itemId == R.id.im_sent_offers) {
                 startActivity(
