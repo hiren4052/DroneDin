@@ -212,7 +212,7 @@ class ClientJobsFragment : BaseFragment(), View.OnClickListener,
             Intent(
                 requireContext(),
                 ClientJobHistoryDetailsActivity::class.java
-            ).putExtra(AppConstant.ID, jobsDataBean?.jobId)
+            ).putExtra(AppConstant.ID, jobsDataBean?.offerId)
         )
     }
 

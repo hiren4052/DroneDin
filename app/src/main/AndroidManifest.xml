@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".savedpilots.SavedPilotsActivity"></activity>
+        <activity android:name=".dispute.DisputeActivity"></activity>
+        <activity android:name=".savedpilots.SavedPilotsActivity" />
         <activity android:name=".savedjobs.SavedJobsActivity" />
         <activity
             android:name=".portfolio.PortFolioActivity"

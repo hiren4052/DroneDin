@@ -20,6 +20,7 @@ import com.grewon.dronedin.milestone.MilestoneDetailActivity
 import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
+import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.ActiveJobsDetails
 import com.grewon.dronedin.server.CommonMessageBean
@@ -62,6 +63,7 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         img_back.setOnClickListener(this)
         txt_submit_review.setOnClickListener(this)
         txt_message.setOnClickListener(this)
+        txt_pilot_name.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -120,10 +122,28 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_submit_review -> {
-                startActivity(Intent(this, SubmitReviewActivity::class.java))
+                startActivity(
+                    Intent(
+                        this,
+                        SubmitReviewActivity::class.java
+                    ).putExtra(AppConstant.ID, activeJobsDetails?.jobId)
+                )
+            }
+            R.id.txt_pilot_name -> {
+                startActivity(
+                    Intent(
+                        this,
+                        PilotProfileActivity::class.java
+                    ).putExtra(AppConstant.ID, activeJobsDetails?.pilot?.userId)
+                )
             }
             R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java))
+                startActivity(
+                    Intent(this, ChatActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.pilot?.userId
+                    )
+                )
             }
         }
     }
@@ -132,7 +152,12 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         if (jobsDataBean?.milestoneStatus == "active") {
             startActivity(Intent(this, SubmitMilestoneActivity::class.java))
         } else {
-            startActivity(Intent(this, MilestoneDetailActivity::class.java))
+            startActivity(
+                Intent(this, MilestoneDetailActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobsDataBean?.milestoneId
+                )
+            )
         }
     }
 
@@ -144,8 +169,8 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         TextUtils.setTextViewUnderLine(txt_pilot_name)
 
         txt_subtitle.text = response.category?.categoryName
-        txt_job_title.text = response.jobTitle
-        txt_job_description.text = response.jobDescription
+        txt_job_title.text = response.offerTitle
+        txt_job_description.text = response.offerDescription
         txt_job_location.text = response.jobAddress
         txt_pilot_name.text = response.pilot?.userName
         txt_budget.text = getString(R.string.price_string, response.offerTotalPrice)
@@ -197,7 +222,6 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
         } else {
             pictures_layout.visibility = View.GONE
         }
-
 
 
     }

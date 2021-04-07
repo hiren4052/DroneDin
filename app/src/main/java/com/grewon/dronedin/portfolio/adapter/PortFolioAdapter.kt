@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.layout_proposals_item.view.*
 class PortFolioAdapter(
     val context: Context,
     private val onItemClickListeners: OnItemClickListeners,
-    isEdit: Boolean
+    private val isEdit: Boolean
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -53,6 +53,12 @@ class PortFolioAdapter(
         val item = itemList[position]
 
         if (holder is ItemViewHolder) {
+
+            if (isEdit) {
+                holder.imEdit.visibility = View.VISIBLE
+            } else {
+                holder.imEdit.visibility = View.GONE
+            }
 
             holder.textTitle.text = item.title
             holder.textDescription.text = item.description

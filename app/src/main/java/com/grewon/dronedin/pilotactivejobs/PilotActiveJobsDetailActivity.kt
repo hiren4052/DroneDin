@@ -312,6 +312,4 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
             }
         }
     }
-
-
 }

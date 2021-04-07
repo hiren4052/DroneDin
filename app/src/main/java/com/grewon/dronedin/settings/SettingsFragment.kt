@@ -16,6 +16,7 @@ import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
+import com.grewon.dronedin.dispute.DisputeActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.CommonMessageBean
@@ -79,7 +80,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
         txt_user_name.text = preferenceUtils.getProfileData()?.data?.userName
 
-        if (preferenceUtils.getProfileData()!=null&&preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
+        if (preferenceUtils.getProfileData() != null && preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
                 preferenceUtils.getProfileData()?.data?.profileImage!!
             )
         ) {
@@ -157,7 +158,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
             }
             R.id.txt_dispute -> {
-
+                startActivity(Intent(context, DisputeActivity::class.java))
             }
             R.id.txt_logout -> {
                 openLogoutDialog()

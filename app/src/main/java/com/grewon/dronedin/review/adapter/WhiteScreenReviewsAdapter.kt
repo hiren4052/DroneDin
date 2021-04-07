@@ -12,6 +12,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.ReviewsDataBean
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_white_screen_reviews_item.view.*
 
 
@@ -24,7 +25,7 @@ class WhiteScreenReviewsAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var itemList = ArrayList<ReviewsDataBean.Result>()
+    var itemList = ArrayList<ReviewsDataBean>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -39,27 +40,32 @@ class WhiteScreenReviewsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
             Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
+                .load(item.profileImage)
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                 .into(holder.imageUser)
 
+            holder.textUserName.text=item.userName
 
+            holder.textDate.text=TimeUtils.getServerToAppDate(item.date.toString())
+
+            holder.textDescription.text=item.review
+            holder.textRatings.text=item.rate
         }
 
 
     }
 
 
-    fun addItemsList(list: ArrayList<ReviewsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<ReviewsDataBean>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -70,6 +76,7 @@ class WhiteScreenReviewsAdapter(
         val textDescription = itemView.txt_description
         val textUserName = itemView.txt_user_name
         val textDate = itemView.txt_date
+        val textRatings = itemView.txt_ratings
     }
 
 

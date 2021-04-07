@@ -24,6 +24,7 @@ import com.grewon.dronedin.portfolio.adapter.PortFolioAdapter
 import com.grewon.dronedin.review.adapter.WhiteScreenReviewsAdapter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.PilotProfileBean
+import com.grewon.dronedin.server.ReviewsDataBean
 import com.grewon.dronedin.utils.ValidationUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_pilot_profile.*
@@ -77,7 +78,12 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
                         ), 12
                     )
                 } else {
-                    startActivity(Intent(this, ChatActivity::class.java).putExtra(AppConstant.ID,profileId))
+                    startActivity(
+                        Intent(this, ChatActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            profileId
+                        )
+                    )
                 }
             }
             R.id.im_more_edit -> {
@@ -125,7 +131,11 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
 
         if (isEdit) {
             im_more_edit.visibility = View.VISIBLE
+            add_portfolio_layout.visibility = View.VISIBLE
             im_message.setImageResource(R.drawable.ic_edit)
+        } else {
+            add_portfolio_layout.visibility = View.GONE
+            im_more_edit.visibility = View.GONE
         }
 
 
@@ -160,12 +170,13 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
 
     }
 
-    private fun setReviewAdapter(review: List<String>) {
+    private fun setReviewAdapter(review: ArrayList<ReviewsDataBean>?) {
         no_review_layout.visibility = View.GONE
         review_recycle.visibility = View.VISIBLE
         review_recycle.layoutManager = LinearLayoutManager(this)
         reviewsAdapter = WhiteScreenReviewsAdapter(this)
         review_recycle.adapter = reviewsAdapter
+        reviewsAdapter?.addItemsList(review!!)
     }
 
 
@@ -242,10 +253,10 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
         } else {
             no_review_layout.visibility = View.VISIBLE
             review_recycle.visibility = View.GONE
-            if(isEdit){
-             txt_no_review.text=getString(R.string.no_review_pilot_message)
-            }else{
-                txt_no_review.text=getString(R.string.no_review_message)
+            if (isEdit) {
+                txt_no_review.text = getString(R.string.no_review_pilot_message)
+            } else {
+                txt_no_review.text = getString(R.string.no_review_message)
             }
         }
 

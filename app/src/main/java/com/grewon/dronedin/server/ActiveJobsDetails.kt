@@ -24,6 +24,8 @@ data class ActiveJobsDetails(
     val jobAddress: String? = "",
     @SerializedName("job_description")
     val jobDescription: String? = "",
+    @SerializedName("offer_description")
+    val offerDescription: String? = "",
     @SerializedName("job_id")
     val jobId: String? = "",
     @SerializedName("job_latitude")
@@ -32,6 +34,8 @@ data class ActiveJobsDetails(
     val jobLongitude: String? = "",
     @SerializedName("job_title")
     val jobTitle: String? = "",
+    @SerializedName("offer_title")
+    val offerTitle: String? = "",
     @SerializedName("milestone")
     val milestone: ArrayList<Milestone>? = null,
     @SerializedName("offer_milestone")

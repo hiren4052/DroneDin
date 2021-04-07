@@ -10,9 +10,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.server.ReviewsDataBean
-import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
-import kotlinx.android.synthetic.main.layout_reviews_item.view.*
+import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.layout_reviews_item.view.img_user
+import kotlinx.android.synthetic.main.layout_reviews_item.view.txt_description
+import kotlinx.android.synthetic.main.layout_reviews_item.view.txt_ratings
+import kotlinx.android.synthetic.main.layout_reviews_item.view.txt_user_name
 
 
 /**
@@ -24,7 +27,7 @@ class ReviewsAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var itemList = ArrayList<ReviewsDataBean.Result>()
+    var itemList = ArrayList<ReviewsDataBean>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -39,18 +42,24 @@ class ReviewsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+          val item = itemList[position]
 
         if (holder is ItemViewHolder) {
 
             Glide.with(context)
-                .load(AppConstant.ORIGINAL_IMAGE_URL + "")
+                .load(item.profileImage)
                 .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                 .into(holder.imageUser)
+
+            holder.textUserName.text=item.userName
+
+
+            holder.textDescription.text=item.review
+            holder.textRatings.text=item.rate
 
 
         }
@@ -59,7 +68,7 @@ class ReviewsAdapter(
     }
 
 
-    fun addItemsList(list: ArrayList<ReviewsDataBean.Result>) {
+    fun addItemsList(list: ArrayList<ReviewsDataBean>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -69,6 +78,7 @@ class ReviewsAdapter(
         val imageUser = itemView.img_user
         val textDescription = itemView.txt_description
         val textUserName = itemView.txt_user_name
+        val textRatings = itemView.txt_ratings
     }
 
 

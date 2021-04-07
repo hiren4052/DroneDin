@@ -402,4 +402,5 @@
     <string name="the_pilot_has_requested_to_cancel_milestone_in_the_current_project">The pilot has requested to cancel milestone in the current project!</string>
     <string name="milestone_cancellation_request_rejection">Milestone Cancellation Request Rejection!</string>
     <string name="explain_the_reasons_for_rejecting_the_milestone_cancellation_request">Explain the reasons for rejecting the milestone cancellation request.</string>
+    <string name="disputes">Dispute</string>
 </resources>
