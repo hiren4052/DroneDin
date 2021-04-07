@@ -43,13 +43,17 @@ class HistoryJobsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return itemList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  val item = itemList[position]
+        val item = itemList[position]
 
         if (holder is ItemViewHolder) {
+
+            holder.textCategory.text = item.categoryName
+            holder.textJobTitle.text = item.jobTitle
+            holder.textBudget.text = context.getString(R.string.price_string, item.totalPrice)
 
             if (position == 1) {
                 holder.textjobStatus.background =
@@ -76,7 +80,7 @@ class HistoryJobsAdapter(
             }
 
 
-            holder.itemView.setOnClickListener { onItemClickListeners.onHistoryItemClick(null) }
+            holder.itemView.setOnClickListener { onItemClickListeners.onHistoryItemClick(item) }
 
 
         }

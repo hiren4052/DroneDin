@@ -64,8 +64,7 @@ class ClientProposalsAdapter(
             if (item.rate != null) {
                 holder.textRatings.text = item.rate
             }
-            holder.txtDate.text =
-                TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
+            holder.txtDate.text = TimeUtils.getLocalTimes(context, item.proposalDatecreated.toString())
 
             holder.itemView.setOnClickListener { onItemClickListeners.onProposalsItemClick(item) }
         }

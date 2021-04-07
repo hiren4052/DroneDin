@@ -12,6 +12,7 @@ import com.grewon.dronedin.clientjobs.ClientJobsFragment
 import com.grewon.dronedin.clientjobs.active.ClientActiveJobsDetailsActivity
 import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersActivity
 import com.grewon.dronedin.clientjobs.clientoffers.ClientOffersDetailsActivity
+import com.grewon.dronedin.clientjobs.history.ClientJobHistoryDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalsActivity
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
@@ -126,6 +127,7 @@ interface AppComponent {
     fun inject(activity: MilestoneAddRejectActivity)
     fun inject(activity: MilestoneCancelRejectActivity)
     fun inject(activity: MilestoneCancelRequestActivity)
+    fun inject(activity: ClientJobHistoryDetailsActivity)
 
 
     //Fragments

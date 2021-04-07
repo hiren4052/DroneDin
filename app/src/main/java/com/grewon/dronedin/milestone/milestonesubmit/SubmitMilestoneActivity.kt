@@ -121,7 +121,7 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
                     Intent(
                         this,
                         CancelMilestoneActivity::class.java
-                    ).putExtra(AppConstant.JOB_ID, jobId).putExtra(AppConstant.ID, milestoneId), 11
+                    ).putExtra(AppConstant.JOB_ID, jobId).putExtra(AppConstant.ID, milestoneId), 14
                 )
             }
         }
@@ -373,7 +373,7 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
                 }
 
             }
-            11 -> {
+            14 -> {
                 if (resultCode == RESULT_OK) {
                     setResult(RESULT_OK)
                     finish()

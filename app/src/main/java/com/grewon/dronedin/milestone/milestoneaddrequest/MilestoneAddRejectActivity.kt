@@ -104,4 +104,5 @@ class MilestoneAddRejectActivity : BaseActivity(), View.OnClickListener,
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }
     }
+
 }
