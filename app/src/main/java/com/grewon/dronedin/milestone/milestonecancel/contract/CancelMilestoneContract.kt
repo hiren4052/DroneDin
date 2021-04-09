@@ -1,11 +1,11 @@
-package com.grewon.dronedin.milestone.contract
+package com.grewon.dronedin.milestone.milestonecancel.contract
 
 import com.grewon.dronedin.app.BaseContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.*
 
 
-interface CancelProjectContract {
+interface CancelMilestoneContract {
 
     interface View : BaseContract.View {
 
@@ -22,7 +22,7 @@ interface CancelProjectContract {
     interface Presenter : BaseContract.Presenter<View> {
 
 
-        fun cancelProject(jobId: String, requestType: String)
+        fun cancelMilestone(params: CancelMilestoneParams)
 
 
     }

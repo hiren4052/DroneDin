@@ -6,7 +6,9 @@ import com.grewon.dronedin.milestone.milestoneadd.contract.AddMilestoneContract
 import com.grewon.dronedin.milestone.milestoneadd.presenter.AddMilestonePresenter
 import com.grewon.dronedin.milestone.milestoneaddrequest.contract.NewMilestoneRequestContract
 import com.grewon.dronedin.milestone.milestoneaddrequest.presenter.NewMilestoneRequestPresenter
+import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneContract
 import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneRequestContract
+import com.grewon.dronedin.milestone.milestonecancel.presenter.CancelMilestonePresenter
 import com.grewon.dronedin.milestone.milestonecancel.presenter.CancelMilestoneRequestPresenter
 import com.grewon.dronedin.milestone.milestonecomplete.contract.CompleteMilestoneContract
 import com.grewon.dronedin.milestone.milestonesubmit.contract.SubmitMilestoneContract
@@ -15,6 +17,10 @@ import com.grewon.dronedin.milestone.milestonesubmit.presenter.SubmitMilestonePr
 import com.grewon.dronedin.milestone.presenter.*
 import com.grewon.dronedin.paymentsummary.contract.ActiveMileStoneContract
 import com.grewon.dronedin.paymentsummary.presenter.ActiveMileStonePresenter
+import com.grewon.dronedin.project.cancelproject.contract.CancelProjectContract
+import com.grewon.dronedin.project.cancelproject.presenter.CancelProjectPresenter
+import com.grewon.dronedin.project.endproject.contract.EndProjectContract
+import com.grewon.dronedin.project.endproject.presenter.EndProjectPresenter
 
 import dagger.Module
 import dagger.Provides

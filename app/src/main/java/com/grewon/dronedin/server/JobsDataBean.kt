@@ -29,6 +29,10 @@ data class JobsDataBean(
         val totalPrice: String? = "",
         @SerializedName("pilot")
         val pilot: String? = "",
+        @SerializedName("offer_status")
+        val offerStatus: String? = "",
+        @SerializedName("offer_status_change_date")
+        val offerStatusChangeDate: String? = "",
         @SerializedName("total_proposal")
         val totalProposal: String? = "",
         @SerializedName("job_latitude")

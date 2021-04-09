@@ -275,6 +275,7 @@ class PilotMyJobsFragment : BaseFragment(), OffersAdapter.OnItemClickListeners,
         data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall()
+        data_recycle.setRefreshing(false)
     }
 
     override fun onMoreAsked(

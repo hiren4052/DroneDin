@@ -13,7 +13,7 @@ data class ActiveJobsDetails(
     @SerializedName("attachment")
     val attachment: ArrayList<Attachment>? = null,
     @SerializedName("cancel_complete_request_milestone")
-    val cancelCompleteRequestMilestone: CancelCompleteRequestMilestone? =null,
+    val cancelCompleteRequestMilestone: CancelCompleteRequestMilestone? = null,
     @SerializedName("category")
     val category: Category? = Category(),
     @SerializedName("date")
@@ -34,6 +34,8 @@ data class ActiveJobsDetails(
     val jobLongitude: String? = "",
     @SerializedName("job_title")
     val jobTitle: String? = "",
+    @SerializedName("offer_status")
+    val offerStatus: String? = "",
     @SerializedName("offer_title")
     val offerTitle: String? = "",
     @SerializedName("milestone")
@@ -75,7 +77,9 @@ data class ActiveJobsDetails(
         @SerializedName("milestone_request_id")
         val milestoneRequestId: String? = "",
         @SerializedName("milestone_request_type")
-        val milestoneRequestType: String? = ""
+        val milestoneRequestType: String? = "",
+        @SerializedName("milestone_request_status")
+        val milestoneRequestStatus: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")
@@ -144,7 +148,9 @@ data class ActiveJobsDetails(
         @SerializedName("milestone_request_id")
         val milestoneRequestId: String? = "",
         @SerializedName("milestone_request_type")
-        val milestoneRequestType: String? = ""
+        val milestoneRequestType: String? = "",
+        @SerializedName("milestone_request_status")
+        val milestoneRequestStatus: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")

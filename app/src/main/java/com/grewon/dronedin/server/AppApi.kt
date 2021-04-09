@@ -126,6 +126,9 @@ interface AppApi {
     fun getPilotInvitationsJobs(@QueryMap requestPart: HashMap<String, Any>): Single<InvitationsDataBean>
 
     @GET("pilot_c/my_job")
+    fun getPilotHistoryJobs(@QueryMap requestPart: HashMap<String, Any>): Single<PilotJobHistoryBean>
+
+    @GET("pilot_c/my_job")
     fun getPilotProposalsJobs(@QueryMap requestPart: HashMap<String, Any>): Single<ProposalsDataBean>
 
     @GET("job_c/job")
@@ -152,11 +155,16 @@ interface AppApi {
     @POST("job_c/offer")
     fun submitOffer(@Body file: RequestBody): Single<CommonMessageBean>
 
+    @GET("job_c/milestone_request_read/{job_id}")
+    fun readMilestoneRequest(
+        @Path("job_id") jobId: String
+    ): Single<CommonMessageBean>
+
+
     @GET("job_c/offer_list")
     fun getClientOffers(
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<OffersDataBean>
-
 
     @GET("job_c/job")
     fun getOffersDetailsBean(

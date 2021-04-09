@@ -233,7 +233,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
             Intent(this, PaymentSummaryActivity::class.java).putExtra(
                 AppConstant.BEAN,
                 params
-            ), 11
+            ), 19
         )
     }
 
@@ -485,7 +485,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
                 }
 
             }
-            11 -> {
+            19 -> {
                 if (resultCode == RESULT_OK) {
                     setResult(RESULT_OK)
                     finish()

@@ -79,5 +79,28 @@ class PilotActiveJobsDetailsPresenter : PilotActiveJobsDetailsContract.Presenter
             })
     }
 
+    override fun readSentRequest(jobId: String) {
+        api.readMilestoneRequest(jobId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+
+                }
+
+                override fun onException(throwable: Throwable?) {
+                }
+            })
+    }
+
 
 }

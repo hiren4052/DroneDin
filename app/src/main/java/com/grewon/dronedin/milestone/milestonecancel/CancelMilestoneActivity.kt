@@ -8,7 +8,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
-import com.grewon.dronedin.milestone.contract.CancelMilestoneContract
+import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
 import com.grewon.dronedin.utils.ValidationUtils

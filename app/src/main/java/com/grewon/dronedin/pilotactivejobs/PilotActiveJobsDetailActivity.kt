@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
@@ -18,29 +19,39 @@ import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
+import com.grewon.dronedin.enum.MILESTONE_REQUEST_STATUS
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestone.*
 import com.grewon.dronedin.milestone.milestoneadd.MilestoneAddActivity
 import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
+import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
+import com.grewon.dronedin.project.endproject.EndProjectActivity
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
-import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.*
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.add_milestone_request_layout
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.cancel_milestone_request_layout
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_equipments
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.chip_skills
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.complete_milestone_request_layout
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.image_recycle
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.img_back
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.img_toolbar
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.layout_progress
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.mile_stone_recycle
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.milestone_layout
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.no_data_layout
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.pictures_layout
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_add_milestone
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_budget
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_cancel_milestone
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_complete_milestone
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_date
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_description
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_location
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_job_title
+import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_pilot_name
 import kotlinx.android.synthetic.main.activity_pilot_active_jobs_detail.txt_subtitle
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
@@ -138,10 +149,12 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                 }
             }
             R.id.txt_pilot_name -> {
-                startActivity(Intent(this, ClientProfileActivity::class.java).putExtra(
-                    AppConstant.ID,
-                    activeJobsDetails?.userId
-                ))
+                startActivity(
+                    Intent(this, ClientProfileActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.userId
+                    )
+                )
             }
         }
     }
@@ -152,14 +165,14 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                 Intent(this, SubmitMilestoneActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean.milestoneId
-                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId),12
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId), 12
             )
         } else {
             startActivity(
                 Intent(this, MilestoneDetailActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean?.milestoneId
-                ).putExtra(AppConstant.JOB_ID,activeJobsDetails?.jobId)
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
             )
         }
     }
@@ -204,12 +217,12 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
         }
 
         if (response.skill != null && response.skill.size > 0) {
-            val skillsList = response.skill.map { it?.skill.toString() }
+            val skillsList = response.skill.map { it.skill.toString() }
             setSkillsAdapter(skillsList)
         }
 
         if (response.equipment != null && response.equipment.size > 0) {
-            val skillsList = response.equipment.map { it?.equipment.toString() }
+            val skillsList = response.equipment.map { it.equipment.toString() }
             setEquipmentsData(skillsList)
         }
 
@@ -219,8 +232,8 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
             val attachmentsList = ArrayList<JobAttachmentsBean>()
             for (item in response.attachment) {
                 val attachments = JobAttachmentsBean()
-                attachments.attachment = item?.attachment
-                attachments.attachmentId = item?.attachmentId
+                attachments.attachment = item.attachment
+                attachments.attachmentId = item.attachmentId
                 attachmentsList.add(attachments)
             }
             setAttachmentsAdapter(attachmentsList)
@@ -229,6 +242,61 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
             pictures_layout.visibility = View.GONE
         }
 
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "complete") {
+            if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.reject.name) {
+                complete_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.red)
+            } else {
+                complete_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.top_green)
+            }
+            complete_milestone_request_layout.visibility = View.VISIBLE
+            txt_complete_milestone.text = response.cancelCompleteRequestMilestone.msg
+        } else {
+            complete_milestone_request_layout.visibility = View.GONE
+        }
+
+
+
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "cancel") {
+
+            if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.reject.name) {
+                cancel_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.red)
+            } else {
+                cancel_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.top_green)
+            }
+
+            cancel_milestone_request_layout.visibility = View.VISIBLE
+            txt_cancel_milestone.text = response.cancelCompleteRequestMilestone.msg
+
+        } else {
+
+            cancel_milestone_request_layout.visibility = View.GONE
+
+        }
+
+        if (response.requestedMilestone != null) {
+
+            if (response.requestedMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.reject.name) {
+                add_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.red)
+            } else {
+                add_milestone_request_layout.background =
+                    ContextCompat.getDrawable(this, R.color.top_green)
+            }
+
+            add_milestone_request_layout.visibility = View.VISIBLE
+            txt_add_milestone.text = response.requestedMilestone.msg
+
+        } else {
+
+            add_milestone_request_layout.visibility = View.GONE
+
+        }
+
+        activeJobsDetailsPresenter.readSentRequest(response.jobId.toString())
 
     }
 
@@ -268,10 +336,12 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
                     )
                 }
                 R.id.im_message -> {
-                    startActivity(Intent(this, ChatActivity::class.java).putExtra(
-                        AppConstant.ID,
-                        activeJobsDetails?.userId
-                    ))
+                    startActivity(
+                        Intent(this, ChatActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            activeJobsDetails?.userId
+                        )
+                    )
                 }
             }
             true
@@ -312,4 +382,5 @@ class PilotActiveJobsDetailActivity : BaseActivity(), View.OnClickListener,
             }
         }
     }
+
 }

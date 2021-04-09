@@ -11,6 +11,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.enum.MILESTONE_STATUS
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.milestone.contract.MileStoneDetailContract
 import com.grewon.dronedin.paymentsummary.MilestoneSummaryActivity
@@ -77,12 +78,12 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
                 finish()
             }
             R.id.txt_pay -> {
-                startActivity(
+                startActivityForResult(
                     Intent(
                         this,
                         MilestoneSummaryActivity::class.java
                     ).putExtra(AppConstant.ID, milestoneId)
-                        .putExtra(AppConstant.PRICE, mileStoneDetailsBean?.milestonePrice)
+                        .putExtra(AppConstant.PRICE, mileStoneDetailsBean?.milestonePrice), 13
                 )
             }
             R.id.txt_cancel_milestone -> {
@@ -106,22 +107,34 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
     private fun setView(loginParams: MileStoneDetailsBean) {
         mileStoneDetailsBean = loginParams
         txt_milestone_title.text = loginParams.milestoneDetails
-        if (loginParams.milestoneStartedDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneStartedDate)) {
-            txt_started_date.text = TimeUtils.getServerToAppDate(loginParams.milestoneStartedDate)
-        } else {
-            started_date_layout.visibility = View.GONE
-        }
-        if (loginParams.milestoneCompletedDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneCompletedDate)) {
-            txt_complete_date.text =
-                TimeUtils.getServerToAppDate(loginParams.milestoneCompletedDate)
-        } else {
-            complete_date_layout.visibility = View.GONE
-        }
 
-        if (loginParams.milestoneCancelledDate != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneCancelledDate)) {
-            txt_cancel_date.text = TimeUtils.getServerToAppDate(loginParams.milestoneCancelledDate)
-        } else {
-            cancel_date_layout.visibility = View.GONE
+        when (loginParams.milestoneStatus) {
+            MILESTONE_STATUS.pending.name -> {
+                started_date_layout.visibility = View.GONE
+                complete_date_layout.visibility = View.GONE
+                cancel_date_layout.visibility = View.GONE
+            }
+            MILESTONE_STATUS.active.name -> {
+                txt_started_date.text =
+                    TimeUtils.getServerToAppDate(loginParams.milestoneStartedDate.toString())
+                started_date_layout.visibility = View.VISIBLE
+                complete_date_layout.visibility = View.GONE
+                cancel_date_layout.visibility = View.GONE
+            }
+            MILESTONE_STATUS.completed.name -> {
+                txt_complete_date.text =
+                    TimeUtils.getServerToAppDate(loginParams.milestoneCompletedDate.toString())
+                started_date_layout.visibility = View.GONE
+                complete_date_layout.visibility = View.VISIBLE
+                cancel_date_layout.visibility = View.GONE
+            }
+            MILESTONE_STATUS.cancelled.name -> {
+                txt_cancel_date.text =
+                    TimeUtils.getServerToAppDate(loginParams.milestoneCancelledDate.toString())
+                started_date_layout.visibility = View.GONE
+                complete_date_layout.visibility = View.GONE
+                cancel_date_layout.visibility = View.VISIBLE
+            }
         }
 
         if (loginParams.milestoneRequestNote != null && !ValidationUtils.isEmptyFiled(loginParams.milestoneRequestNote)) {
@@ -218,5 +231,13 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
         jobsImageAdapter?.addItemsList(attachmentsList)
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 13) {
+            if (resultCode == RESULT_OK) {
+                setResult(RESULT_OK)
+                finish()
+            }
+        }
+    }
 }

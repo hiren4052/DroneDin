@@ -57,11 +57,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_proposal_received"
+                    android:id="@+id/txt_active_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="10"
+                    android:text="0"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/active_text_color"
                     android:textSize="@dimen/_20sp" />
@@ -94,10 +94,10 @@
                 android:padding="@dimen/_10dp">
 
                 <TextView
-                    android:id="@+id/txt_interviewing"
+                    android:id="@+id/txt_completed_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/completed_text_color"
 
@@ -130,10 +130,10 @@
                 android:padding="@dimen/_10dp">
 
                 <TextView
-                    android:id="@+id/txt_invitations_sent"
+                    android:id="@+id/txt_cancelled_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text="0"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/cancelled_text_color"
                     android:textSize="@dimen/_20sp" />
@@ -152,10 +152,24 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/data_recycle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="@dimen/_16dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            android:id="@+id/data_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:padding="@dimen/_15dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_empty="@layout/layout_no_data"
+            app:layout_moreProgress="@layout/view_more_progress"
+            app:layout_progress="@layout/layout_shimmer_client_job_list"
+            app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+            app:recyclerClipToPadding="false"
+            app:scrollbarStyle="outsideOverlay" />
+    </LinearLayout>
 </LinearLayout>

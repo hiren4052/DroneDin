@@ -201,6 +201,7 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         find_job_data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall(pageCount)
+        find_job_data_recycle.setRefreshing(false)
     }
 
     override fun onMoreAsked(

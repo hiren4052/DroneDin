@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackground"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/_5dp"
-    android:foreground="?selectableItemBackground"
     app:cardUseCompatPadding="true"
     app:contentPadding="@dimen/_15dp">
 
@@ -74,10 +74,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:layout_toStartOf="@+id/txt_job_location"
+                android:layout_toStartOf="@+id/price_layout"
                 android:orientation="horizontal">
 
-                <TextView android:id="@+id/title_date"
+                <TextView
+                    android:id="@+id/title_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/started_on_"
@@ -100,6 +101,7 @@
 
 
             <LinearLayout
+                android:id="@+id/price_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

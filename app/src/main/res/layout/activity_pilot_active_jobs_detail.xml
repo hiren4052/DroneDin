@@ -82,6 +82,65 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:id="@+id/complete_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_complete_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_add_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cancel_milestone_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_cancel_milestone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+
+            </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

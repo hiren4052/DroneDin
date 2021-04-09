@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.enum.OFFERS_STATUS
 import com.grewon.dronedin.server.JobsDataBean
+import com.grewon.dronedin.utils.TimeUtils
 import kotlinx.android.synthetic.main.layout_client_job_history_item.view.*
 
 
@@ -54,30 +57,48 @@ class HistoryJobsAdapter(
             holder.textCategory.text = item.categoryName
             holder.textJobTitle.text = item.jobTitle
             holder.textBudget.text = context.getString(R.string.price_string, item.totalPrice)
+            holder.textStartedDate.text =
+                TimeUtils.getServerToAppDate(item.offerStatusChangeDate.toString())
 
-            if (position == 1) {
-                holder.textjobStatus.background =
-                    ContextCompat.getDrawable(context, R.drawable.ic_round_completed_background)
-                holder.textjobStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.completed_text_color
+            when (item.offerStatus) {
+                OFFERS_STATUS.active.name -> {
+                    holder.textjobStatus.background =
+                        ContextCompat.getDrawable(context, R.drawable.ic_round_active_background)
+                    holder.textjobStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.active_text_color
+                        )
                     )
-                )
-                holder.textjobStatus.text = context.getText(R.string.completed)
-                holder.dateTitle.text = context.getText(R.string.completed_on)
-            } else if (position == 2) {
-                holder.textjobStatus.background =
-                    ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
-                holder.textjobStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.cancelled_text_color
+                    holder.textjobStatus.text = context.getString(R.string.active)
+                    holder.dateTitle.text = context.getString(R.string.started_on_)
+                }
+                OFFERS_STATUS.completed.name -> {
+                    holder.textjobStatus.background =
+                        ContextCompat.getDrawable(context, R.drawable.ic_round_completed_background)
+                    holder.textjobStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.completed_text_color
+                        )
                     )
-                )
-                holder.textjobStatus.text = context.getText(R.string.cancelled)
-                holder.dateTitle.text = context.getText(R.string.cancelled_on)
+                    holder.textjobStatus.text = context.getString(R.string.completed)
+                    holder.dateTitle.text = context.getString(R.string.completed_on)
+                }
+                OFFERS_STATUS.cancelled.name -> {
+                    holder.textjobStatus.background =
+                        ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
+                    holder.textjobStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.cancelled_text_color
+                        )
+                    )
+                    holder.textjobStatus.text = context.getString(R.string.cancelled)
+                    holder.dateTitle.text = context.getString(R.string.completed_on)
+                }
             }
+
 
 
             holder.itemView.setOnClickListener { onItemClickListeners.onHistoryItemClick(item) }

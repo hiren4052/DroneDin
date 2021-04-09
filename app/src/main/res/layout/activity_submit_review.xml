@@ -80,9 +80,10 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/ic_rectangle_light_colorprimary"
                 android:gravity="start"
+                android:textCursorDrawable="@drawable/white_cursor"
                 android:hint="@string/write_about_your_experience"
                 android:inputType="textMultiLine"
-                android:lines="5"
+                android:minLines="5"
                 android:padding="@dimen/_15dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/gray_b1" />

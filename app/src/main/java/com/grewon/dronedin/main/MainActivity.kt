@@ -237,14 +237,14 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // add badge
         if (position == 2 && messageBadgeView != null) {
             messageBadgeView?.setBadgeNumber(number)
-                ?.setGravityOffset(40f, 0.5f, true)
+                ?.setGravityOffset(40f, 0.2f, true)
                 ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
                 false
 
         }
         if (position == 3 && notificationBadgeView != null) {
             notificationBadgeView?.setBadgeNumber(number)
-                ?.setGravityOffset(40f, 0.5f, true)
+                ?.setGravityOffset(40f, 0.2f, true)
                 ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
                 false
 
@@ -257,7 +257,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             // remove badge
             messageBadgeView
                 ?.setBadgeNumber(0)
-                ?.setGravityOffset(40f, 0.5f, true)
+                ?.setGravityOffset(40f, 0.2f, true)
                 ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
                 ?.hide(true)
         }
@@ -266,7 +266,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             // remove badge
             notificationBadgeView
                 ?.setBadgeNumber(0)
-                ?.setGravityOffset(40f, 0.5f, true)
+                ?.setGravityOffset(40f, 0.2f, true)
                 ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
                 ?.hide(true)
         }

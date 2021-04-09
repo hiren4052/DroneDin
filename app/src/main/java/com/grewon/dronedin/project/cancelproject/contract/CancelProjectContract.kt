@@ -1,18 +1,18 @@
-package com.grewon.dronedin.milestone.contract
+package com.grewon.dronedin.project.cancelproject.contract
 
 import com.grewon.dronedin.app.BaseContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.*
 
 
-interface EndProjectContract {
+interface CancelProjectContract {
 
     interface View : BaseContract.View {
 
 
-        fun onEndSuccessFully(loginParams: CommonMessageBean)
+        fun onCancelSuccessFully(loginParams: CommonMessageBean)
 
-        fun onEndFailed(loginParams: CancelMilestoneParams)
+        fun onCancelFailed(loginParams: CancelMilestoneParams)
 
         fun onApiException(error: Int)
 
@@ -22,7 +22,7 @@ interface EndProjectContract {
     interface Presenter : BaseContract.Presenter<View> {
 
 
-        fun endProject(jobId: String, requestType: String)
+        fun cancelProject(jobId: String, requestType: String)
 
 
     }

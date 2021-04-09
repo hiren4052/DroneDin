@@ -27,7 +27,7 @@ interface PilotActiveJobsDetailsContract {
 
         fun getJobsDetails(offersId: String, jobType: String)
 
-
+        fun readSentRequest(jobId: String)
     }
 
 }

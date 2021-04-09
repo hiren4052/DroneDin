@@ -16,6 +16,7 @@ import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.review.adapter.WhiteScreenReviewsAdapter
 import com.grewon.dronedin.server.ClientProfileBean
 import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.ReviewsDataBean
 import com.grewon.dronedin.utils.ValidationUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_client_profile.*
@@ -33,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_client_profile.txt_location
 import kotlinx.android.synthetic.main.activity_client_profile.txt_no_review
 import kotlinx.android.synthetic.main.activity_client_profile.txt_ratings
 import kotlinx.android.synthetic.main.activity_client_profile.txt_user_name
-import kotlinx.android.synthetic.main.activity_pilot_profile.*
 
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
@@ -83,12 +83,13 @@ class ClientProfileActivity : BaseActivity(), View.OnClickListener, ClientProfil
 
     }
 
-    private fun setReviewAdapter(review: List<String?>) {
+    private fun setReviewAdapter(review: ArrayList<ReviewsDataBean>?) {
         no_review_layout.visibility = View.GONE
         review_recycle.visibility = View.VISIBLE
         review_recycle.layoutManager = LinearLayoutManager(this)
         reviewsAdapter = WhiteScreenReviewsAdapter(this)
         review_recycle.adapter = reviewsAdapter
+        reviewsAdapter?.addItemsList(review!!)
     }
 
 
@@ -106,7 +107,12 @@ class ClientProfileActivity : BaseActivity(), View.OnClickListener, ClientProfil
                         ), 12
                     )
                 } else {
-                    startActivity(Intent(this, ChatActivity::class.java).putExtra(AppConstant.ID,profileId))
+                    startActivity(
+                        Intent(this, ChatActivity::class.java).putExtra(
+                            AppConstant.ID,
+                            profileId
+                        )
+                    )
                 }
             }
         }

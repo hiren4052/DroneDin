@@ -19,6 +19,7 @@ import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.milestone.MilestoneDetailActivity
 import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.enum.OFFERS_STATUS
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
@@ -28,7 +29,25 @@ import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
-import kotlinx.android.synthetic.main.activity_client_job_history_details.*
+import kotlinx.android.synthetic.main.activity_client_job_history_details.chip_equipments
+import kotlinx.android.synthetic.main.activity_client_job_history_details.chip_skills
+import kotlinx.android.synthetic.main.activity_client_job_history_details.date_title
+import kotlinx.android.synthetic.main.activity_client_job_history_details.image_recycle
+import kotlinx.android.synthetic.main.activity_client_job_history_details.img_back
+import kotlinx.android.synthetic.main.activity_client_job_history_details.layout_progress
+import kotlinx.android.synthetic.main.activity_client_job_history_details.mile_stone_recycle
+import kotlinx.android.synthetic.main.activity_client_job_history_details.milestone_layout
+import kotlinx.android.synthetic.main.activity_client_job_history_details.no_data_layout
+import kotlinx.android.synthetic.main.activity_client_job_history_details.pictures_layout
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_budget
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_job_date
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_job_description
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_job_location
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_job_title
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_message
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_pilot_name
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_submit_review
+import kotlinx.android.synthetic.main.activity_client_job_history_details.txt_subtitle
 import kotlinx.android.synthetic.main.layout_no_data.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -207,6 +226,13 @@ class ClientJobHistoryDetailsActivity : BaseActivity(), View.OnClickListener,
             setEquipmentsData(skillsList)
         }
 
+        if (response.offerStatus == OFFERS_STATUS.active.name) {
+            date_title.text = getString(R.string.started_on_)
+        } else if (response.offerStatus == OFFERS_STATUS.completed.name) {
+            date_title.text = getString(R.string.completed_on)
+        } else if (response.offerStatus == OFFERS_STATUS.cancelled.name) {
+            date_title.text = getString(R.string.completed_on)
+        }
 
         if (response.attachment != null && response.attachment.size > 0) {
             pictures_layout.visibility = View.VISIBLE

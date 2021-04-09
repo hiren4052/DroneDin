@@ -16,7 +16,7 @@ data class ClientProfileBean(
     @SerializedName("rate")
     val rate: String? = "",
     @SerializedName("review")
-    val review: List<String?>? = null,
+    val review: ArrayList<ReviewsDataBean>? = null,
     @SerializedName("total_active_job")
     val totalActiveJob: String? = "",
     @SerializedName("total_job")

@@ -1,4 +1,4 @@
-package com.grewon.dronedin.milestone
+package com.grewon.dronedin.project.cancelproject
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
-import com.grewon.dronedin.milestone.contract.CancelProjectContract
+import com.grewon.dronedin.project.cancelproject.contract.CancelProjectContract
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelMilestoneParams
 import kotlinx.android.synthetic.main.activity_cancel_project.*

@@ -26,6 +26,8 @@ import com.grewon.dronedin.milestone.milestonecancel.MilestoneCancelRequestActiv
 import com.grewon.dronedin.milestone.milestonecomplete.MilestoneCompletionRequestActivity
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
+import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
+import com.grewon.dronedin.project.endproject.EndProjectActivity
 import com.grewon.dronedin.server.ActiveJobsDetails
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean

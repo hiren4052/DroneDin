@@ -1,11 +1,10 @@
-package com.grewon.dronedin.milestone.presenter
+package com.grewon.dronedin.milestone.milestonecancel.presenter
 
 
 import com.google.gson.Gson
-import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.milestone.contract.CancelMilestoneContract
+import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.CommonMessageBean
@@ -14,11 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Retrofit
-import java.io.File
 
 class CancelMilestonePresenter : CancelMilestoneContract.Presenter {
 

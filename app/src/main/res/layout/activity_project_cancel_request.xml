@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".signin.SignInActivity">
+
+        <ImageView
+            android:id="@+id/im_back"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:layout_marginStart="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_back_blue" />
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/top_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_20dp"
+            android:src="@drawable/ic_cancel_milestone_request"
+            app:aspectRatio="0.6"
+            app:aspectRatioEnabled="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_image"
+            android:layout_marginTop="-40dp"
+            android:background="@drawable/ic_intro_bottom"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_25dp"
+            android:paddingBottom="@dimen/_25dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/_2dp"
+                android:paddingStart="@dimen/_25dp"
+                android:paddingEnd="@dimen/_25dp"
+                android:text="@string/project_cancellation_request"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_28sp" />
+
+            <TextView
+                android:id="@+id/txt_project_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:lineSpacingExtra="@dimen/_2dp"
+                android:maxLines="3"
+                android:paddingStart="@dimen/_25dp"
+                android:paddingEnd="@dimen/_25dp"
+                android:text="@string/the_has_requested_to_cancel_the_project"
+                android:textAppearance="@style/RobotoLightTextAppearance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <TextView
+                    android:id="@+id/txt_reject"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_border_rectangle_spann_color"
+                    android:gravity="center"
+                    android:text="@string/reject"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@drawable/spann_text_selector"
+                    android:textSize="@dimen/_20sp" />
+
+                <TextView
+                    android:id="@+id/txt_accept"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10dp"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_rectangle_spann_color"
+                    android:gravity="center"
+                    android:text="@string/accept"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+

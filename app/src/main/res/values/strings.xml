@@ -403,4 +403,12 @@
     <string name="milestone_cancellation_request_rejection">Milestone Cancellation Request Rejection!</string>
     <string name="explain_the_reasons_for_rejecting_the_milestone_cancellation_request">Explain the reasons for rejecting the milestone cancellation request.</string>
     <string name="disputes">Dispute</string>
+    <string name="project_cancellation_request">Project Cancellation Request!</string>
+    <string name="the_has_requested_to_cancel_the_project">The %s has requested to cancel the project!</string>
+    <string name="pilot">pilot</string>
+    <string name="client">client</string>
+    <string name="project_cancellation_request_rejection">Project Cancellation Request Rejection!</string>
+    <string name="explain_the_reasons_for_rejecting_the_project_cancellation_request">Explain the reasons for rejecting the Project cancellation request.</string>
+    <string name="project_completion_request">Project Completion Request!</string>
+    <string name="the_has_requested_to_successfully_end_the_project">The %s has requested to Successfully end the project!</string>
 </resources>

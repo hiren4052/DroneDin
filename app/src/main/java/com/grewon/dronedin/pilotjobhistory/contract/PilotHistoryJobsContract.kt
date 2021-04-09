@@ -1,29 +1,26 @@
-package com.grewon.dronedin.milestone.contract
+package com.grewon.dronedin.pilotjobhistory.contract
 
 import com.grewon.dronedin.app.BaseContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.*
 
 
-interface CancelMilestoneContract {
+interface PilotHistoryJobsContract {
 
     interface View : BaseContract.View {
 
 
-        fun onCancelSuccessFully(loginParams: CommonMessageBean)
-
-        fun onCancelFailed(loginParams: CancelMilestoneParams)
-
         fun onApiException(error: Int)
 
+        fun onHistoryDataGetSuccessful(response: PilotJobHistoryBean)
+
+        fun onHistoryDataGetFailed(loginParams: CommonMessageBean)
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
-
-        fun cancelMilestone(params: CancelMilestoneParams)
-
+        fun getPilotHistory(filterParams: GetJobsParams)
 
     }
 

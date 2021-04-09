@@ -47,12 +47,18 @@ import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsActivity
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
 import com.grewon.dronedin.pilotfindjobs.FindJobsDetailsActivity
 import com.grewon.dronedin.pilotfindjobs.PilotFindJobsFragment
+import com.grewon.dronedin.pilotjobhistory.PilotHistoryDetailsActivity
+import com.grewon.dronedin.pilotjobhistory.PilotJobHistoryActivity
 import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.portfolio.PortFolioActivity
 import com.grewon.dronedin.postjob.AddJobDetailsFragment
 import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
+import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
+import com.grewon.dronedin.project.cancelproject.ProjectCancelRejectActivity
+import com.grewon.dronedin.project.cancelproject.ProjectCancelRequestActivity
+import com.grewon.dronedin.project.endproject.EndProjectActivity
 import com.grewon.dronedin.proposals.ProposalsDetailActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.savedjobs.SavedJobsActivity
@@ -128,6 +134,10 @@ interface AppComponent {
     fun inject(activity: MilestoneCancelRejectActivity)
     fun inject(activity: MilestoneCancelRequestActivity)
     fun inject(activity: ClientJobHistoryDetailsActivity)
+    fun inject(activity: PilotJobHistoryActivity)
+    fun inject(activity: PilotHistoryDetailsActivity)
+    fun inject(activity: ProjectCancelRejectActivity)
+    fun inject(activity: ProjectCancelRequestActivity)
 
 
     //Fragments
