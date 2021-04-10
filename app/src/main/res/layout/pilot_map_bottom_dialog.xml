@@ -18,6 +18,7 @@
         android:paddingEnd="@dimen/_20dp"
         android:paddingBottom="@dimen/_20dp">
 
+
         <View
             android:layout_width="@dimen/_40dp"
             android:layout_height="@dimen/_6dp"
@@ -67,7 +68,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/_2dp"
                     android:paddingStart="@dimen/_5dp"
-                    android:text="10 km away"
+                    android:text="@string/km_away"
                     android:textAppearance="@style/RobotoLightTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sp"
@@ -97,7 +98,7 @@
                     android:id="@+id/txt_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10 USD/HOUR"
+                    android:text="@string/usd"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/span_text_color"
                     android:textSize="@dimen/_16sp" />
@@ -149,20 +150,60 @@
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/review_recycle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/no_review_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_50dp"
+                android:layout_marginBottom="@dimen/_50dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.grewon.dronedin.helper.AspectImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_20dp"
+                    android:src="@drawable/ic_no_review"
+                    app:aspectRatio="0.5"
+                    app:aspectRatioEnabled="true" />
+
+                <TextView
+                    android:id="@+id/txt_no_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/_1dp"
+                    android:paddingStart="@dimen/_30dp"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:text="@string/no_review_message"
+                    android:textColor="@color/gray_9a"
+                    android:textSize="@dimen/_14sp" />
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/review_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txt_invite"
+            android:id="@+id/txt_message"
             android:layout_width="@dimen/_200dp"
             android:layout_height="@dimen/_45dp"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20dp"
             android:background="@drawable/ic_rectangle"
             android:gravity="center"
-            android:text="@string/invite"
+            android:text="@string/message"
             android:textAppearance="@style/MediumTextAppearance"
             android:textColor="@drawable/white_text_selector"
             android:textSize="@dimen/_20sp" />

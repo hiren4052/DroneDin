@@ -46,7 +46,6 @@ class MilestoneCancelRequestActivity : BaseActivity(), View.OnClickListener,
 
 
     private fun initView() {
-        DroneDinApp.getAppInstance().loadGifImage(R.drawable.completed_job, top_image)
 
         milestoneRequestId = intent.getStringExtra(AppConstant.ID).toString()
     }

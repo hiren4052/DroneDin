@@ -21,9 +21,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".dispute.DisputeActivity"></activity>
-        <activity android:name=".savedpilots.SavedPilotsActivity" />
-        <activity android:name=".savedjobs.SavedJobsActivity" />
+        <activity android:name=".membership.MembershipPurchaseActivity"></activity>
+        <activity
+            android:name=".membership.MemberShipActivity"
+            android:exported="true" />
+        <activity
+            android:name=".dispute.DisputeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".savedpilots.SavedPilotsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".savedjobs.SavedJobsActivity"
+            android:exported="true" />
         <activity
             android:name=".portfolio.PortFolioActivity"
             android:screenOrientation="portrait" />
@@ -278,6 +288,8 @@
         <activity android:name=".milestone.milestonecancel.MilestoneCancelRejectActivity" />
         <activity android:name=".project.cancelproject.ProjectCancelRequestActivity" />
         <activity android:name=".project.cancelproject.ProjectCancelRejectActivity" />
+        <activity android:name=".project.endproject.ProjectEndRequestActivity" />
+        <activity android:name=".dispute.DisputeChatActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

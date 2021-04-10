@@ -12,7 +12,7 @@ interface EndProjectContract {
 
         fun onEndSuccessFully(loginParams: CommonMessageBean)
 
-        fun onEndFailed(loginParams: CancelMilestoneParams)
+        fun onEndFailed(loginParams: CancelEndProjectParams)
 
         fun onApiException(error: Int)
 
@@ -22,7 +22,7 @@ interface EndProjectContract {
     interface Presenter : BaseContract.Presenter<View> {
 
 
-        fun endProject(jobId: String, requestType: String)
+        fun endProject(params:CancelEndProjectParams)
 
 
     }

@@ -40,17 +40,11 @@ class EndProjectPresenter : EndProjectContract.Presenter {
     }
 
 
-    override fun endProject(jobId: String, requestType: String) {
-
-
-        val params = HashMap<String, Any>()
-        params["job_id"] = jobId
-        if (!ValidationUtils.isEmptyFiled(requestType))
-            params["end_project_option"] = requestType
+    override fun endProject(params:CancelEndProjectParams) {
 
         view?.showProgress()
 
-        api.endProject(params)
+        api.cancelEndProjectRequest(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : NetworkCall<CommonMessageBean>() {
@@ -70,7 +64,7 @@ class EndProjectPresenter : EndProjectContract.Presenter {
                     view?.onEndFailed(
                         Gson().fromJson(
                             errorBean.toString(),
-                            CancelMilestoneParams::class.java
+                            CancelEndProjectParams::class.java
                         )
                     )
                 }

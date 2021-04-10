@@ -5,51 +5,39 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class DisputeBean(
     @SerializedName("data")
     val `data`: ArrayList<Data>? = null,
     @SerializedName("msg")
-    val msg: String? = null
+    val msg: String? = ""
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class Data(
+        @SerializedName("category_name")
+        val categoryName: String? = "",
+        @SerializedName("client_name")
+        val clientName: String? = "",
+        @SerializedName("pilot_name")
+        val pilotName: String? = "",
         @SerializedName("dispute_id")
-        val disputeId: String? = null,
+        val disputeId: String? = "",
         @SerializedName("dispute_reason")
-        val disputeReason: String? = null,
+        val disputeReason: String? = "",
         @SerializedName("dispute_status")
-        val disputeStatus: String? = null,
-        @SerializedName("last_message")
-        val lastMessage: String? = null,
-        @SerializedName("last_message_ext")
-        val lastMessageExt: String? = null,
-        @SerializedName("last_message_type")
-        val lastMessageType: String? = null,
-        @SerializedName("last_update")
-        val lastUpdate: String? = null,
+        val disputeStatus: String? = "",
+        @SerializedName("job_title")
+        val jobTitle: String? = "",
+        @SerializedName("milestone_price")
+        val milestonePrice: String? = "0",
         @SerializedName("sender_id")
-        val senderId: String? = null,
+        val senderId: String? = "",
         @SerializedName("sender_type")
-        val senderType: String? = null,
+        val senderType: String? = "",
         @SerializedName("total_unread")
-        val totalUnread: String? = null,
-        @SerializedName("user_details")
-        val userDetails: UserDetails? = null
-    ) : Parcelable {
-        @SuppressLint("ParcelCreator")
-        @Parcelize
-        data class UserDetails(
-            @SerializedName("is_user_online")
-            val isUserOnline: String? = null,
-            @SerializedName("profile_image")
-            val profileImage: String? = null,
-            @SerializedName("user_id")
-            val userId: String? = null,
-            @SerializedName("user_name")
-            val userName: String? = null
-        ) : Parcelable
-    }
+        val totalUnread: String? = ""
+    ) : Parcelable
 }

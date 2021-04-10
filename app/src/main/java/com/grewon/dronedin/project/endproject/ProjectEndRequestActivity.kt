@@ -1,32 +1,33 @@
 package com.grewon.dronedin.project.endproject
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
-import com.grewon.dronedin.milestone.milestonecancel.MilestoneCancelRejectActivity
-import com.grewon.dronedin.milestone.milestonecancel.contract.CancelMilestoneRequestContract
+import com.grewon.dronedin.enum.JOB_REQUEST_TYPE
+import com.grewon.dronedin.project.endproject.contract.EndProjectRequestContract
 import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.params.CancelMilestoneStatusUpdateParams
+import com.grewon.dronedin.server.params.CancelEndProjectStatusUpdateParams
+import com.grewon.dronedin.server.params.CreateDisputeParams
 import kotlinx.android.synthetic.main.activity_project_end_request.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
 
 class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
-    CancelMilestoneRequestContract.View {
+    EndProjectRequestContract.View {
 
     @Inject
     lateinit var retrofit: Retrofit
 
     @Inject
-    lateinit var cancelMilestoneRequestPresenter: CancelMilestoneRequestContract.Presenter
+    lateinit var endProjectRequestPresenter: EndProjectRequestContract.Presenter
 
 
-    private var milestoneRequestId: String = ""
+    private var jobRequestId: String = ""
+    private var jobId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +40,8 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
         super.onResume()
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
-        cancelMilestoneRequestPresenter.attachView(this)
-        cancelMilestoneRequestPresenter.attachApiInterface(retrofit)
+        endProjectRequestPresenter.attachView(this)
+        endProjectRequestPresenter.attachApiInterface(retrofit)
 
 
     }
@@ -50,7 +51,8 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
 
         DroneDinApp.getAppInstance().loadGifImage(R.drawable.completed_job, top_image)
 
-        milestoneRequestId = intent.getStringExtra(AppConstant.ID).toString()
+        jobRequestId = intent.getStringExtra(AppConstant.ID).toString()
+        jobId = intent.getStringExtra(AppConstant.JOB_ID).toString()
 
         if (isPilotAccount()) {
             txt_project_note.text = getString(
@@ -80,18 +82,15 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_accept -> {
-                val params = CancelMilestoneStatusUpdateParams()
-                params.milestoneRequestId = milestoneRequestId
-                params.milestoneRequestStatus = "accept"
-                cancelMilestoneRequestPresenter.milestoneStatusUpdate(params)
+                val params = CancelEndProjectStatusUpdateParams()
+                params.jobCancelEndRequestId = jobRequestId
+                params.requestStatus = "accept"
+                params.requestType = JOB_REQUEST_TYPE.cancel.name
+                endProjectRequestPresenter.projectStatusUpdate(params)
             }
-            R.id.txt_reject -> {
-                startActivityForResult(
-                    Intent(
-                        this,
-                        MilestoneCancelRejectActivity::class.java
-                    ).putExtra(AppConstant.ID, milestoneRequestId), 11
-                )
+            R.id.txt_dispute -> {
+                val params = CreateDisputeParams("End Project", jobId)
+                endProjectRequestPresenter.createDispute(params)
             }
 
         }
@@ -103,29 +102,33 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
         finish()
     }
 
-    override fun onCancelMilestoneStatusSuccessFully(loginParams: CommonMessageBean) {
+    override fun onEndProjectStatusSuccessFully(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
             setResult(RESULT_OK)
             finish()
         }
-
     }
 
-    override fun onCancelMilestoneStatusFailed(loginParams: CommonMessageBean) {
+    override fun onEndProjectStatusFailed(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 11) {
-                setResult(RESULT_OK)
-                finish()
-            }
+    override fun onDisputeCreateSuccessFully(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+            setResult(RESULT_OK)
+            finish()
         }
     }
+
+    override fun onDisputeCreateFailed(loginParams: CreateDisputeParams) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
 
 }

@@ -18,9 +18,13 @@ import com.grewon.dronedin.milestone.presenter.*
 import com.grewon.dronedin.paymentsummary.contract.ActiveMileStoneContract
 import com.grewon.dronedin.paymentsummary.presenter.ActiveMileStonePresenter
 import com.grewon.dronedin.project.cancelproject.contract.CancelProjectContract
+import com.grewon.dronedin.project.cancelproject.contract.CancelProjectRequestContract
 import com.grewon.dronedin.project.cancelproject.presenter.CancelProjectPresenter
+import com.grewon.dronedin.project.cancelproject.presenter.CancelProjectRequestPresenter
 import com.grewon.dronedin.project.endproject.contract.EndProjectContract
+import com.grewon.dronedin.project.endproject.contract.EndProjectRequestContract
 import com.grewon.dronedin.project.endproject.presenter.EndProjectPresenter
+import com.grewon.dronedin.project.endproject.presenter.EndProjectRequestPresenter
 
 import dagger.Module
 import dagger.Provides
@@ -91,6 +95,18 @@ class MilestoneModule {
     @Provides
     fun provideCancelMilestoneRequestPresenter(): CancelMilestoneRequestContract.Presenter {
         return CancelMilestoneRequestPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCancelProjectRequestPresenter(): CancelProjectRequestContract.Presenter {
+        return CancelProjectRequestPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideEndProjectRequestPresenter(): EndProjectRequestContract.Presenter {
+        return EndProjectRequestPresenter()
     }
 
 }

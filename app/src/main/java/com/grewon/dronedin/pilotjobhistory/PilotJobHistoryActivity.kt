@@ -121,17 +121,17 @@ class PilotJobHistoryActivity : BaseActivity(), View.OnClickListener,
     override fun onHistoryDataGetSuccessful(response: PilotJobHistoryBean) {
         if (response.data?.history != null && response.data.history.size > 0) {
             if (pageCount == 1) {
-                txt_active_job.text=response.data?.count?.active.toString()
-                txt_completed_job.text=response.data?.count?.completed.toString()
-                txt_cancelled_job.text=response.data?.count?.cancelled.toString()
+                txt_active_job.text = response.data?.count?.active.toString()
+                txt_completed_job.text = response.data?.count?.completed.toString()
+                txt_cancelled_job.text = response.data?.count?.cancelled.toString()
                 initAdapter()
             }
             pilotJobsHistoryAdapter?.addItemsList(response.data.history)
         } else {
             if (pageCount == 1) {
-                txt_active_job.text=response.data?.count?.active.toString()
-                txt_completed_job.text=response.data?.count?.completed.toString()
-                txt_cancelled_job.text=response.data?.count?.cancelled.toString()
+                txt_active_job.text = response.data?.count?.active.toString()
+                txt_completed_job.text = response.data?.count?.completed.toString()
+                txt_cancelled_job.text = response.data?.count?.cancelled.toString()
                 setEmptyView(response.msg.toString(), R.drawable.ic_no_data)
             }
             stopMore()
@@ -140,7 +140,10 @@ class PilotJobHistoryActivity : BaseActivity(), View.OnClickListener,
 
     override fun onHistoryDataGetFailed(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
-            setEmptyView(loginParams.msg, R.drawable.ic_no_data)
+            if (pageCount == 1) {
+                setEmptyView(loginParams.msg, R.drawable.ic_no_data)
+                stopMore()
+            }
         }
     }
 

@@ -18,6 +18,8 @@ import com.grewon.dronedin.clientjobs.posted.ClientProposalsActivity
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.dagger.module.*
+import com.grewon.dronedin.dispute.DisputeActivity
+import com.grewon.dronedin.dispute.DisputeChatActivity
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.filter.FilterResultActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
@@ -25,6 +27,8 @@ import com.grewon.dronedin.invitations.InvitationsDetailActivity
 import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.mapscreen.JobsMapScreenActivity
+import com.grewon.dronedin.membership.MemberShipActivity
+import com.grewon.dronedin.membership.MembershipPurchaseActivity
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.message.MessageFragment
 import com.grewon.dronedin.milestone.*
@@ -59,6 +63,7 @@ import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
 import com.grewon.dronedin.project.cancelproject.ProjectCancelRejectActivity
 import com.grewon.dronedin.project.cancelproject.ProjectCancelRequestActivity
 import com.grewon.dronedin.project.endproject.EndProjectActivity
+import com.grewon.dronedin.project.endproject.ProjectEndRequestActivity
 import com.grewon.dronedin.proposals.ProposalsDetailActivity
 import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.savedjobs.SavedJobsActivity
@@ -77,7 +82,7 @@ import javax.inject.Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
         InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class, PaymentModule::class,
-        MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class]
+        MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class, MembershipModule::class, DisputeModule::class]
 )
 interface AppComponent {
 
@@ -138,6 +143,11 @@ interface AppComponent {
     fun inject(activity: PilotHistoryDetailsActivity)
     fun inject(activity: ProjectCancelRejectActivity)
     fun inject(activity: ProjectCancelRequestActivity)
+    fun inject(activity: ProjectEndRequestActivity)
+    fun inject(activity: MemberShipActivity)
+    fun inject(activity: MembershipPurchaseActivity)
+    fun inject(activity: DisputeChatActivity)
+    fun inject(activity: DisputeActivity)
 
 
     //Fragments

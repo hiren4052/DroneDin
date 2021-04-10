@@ -25,6 +25,7 @@ import com.grewon.dronedin.review.adapter.WhiteScreenReviewsAdapter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.PilotProfileBean
 import com.grewon.dronedin.server.ReviewsDataBean
+import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ValidationUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_pilot_profile.*
@@ -193,6 +194,10 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
             .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
             .into(img_user)
 
+        IconUtils.setBadgeImage(this,badge_type,response.badge.toString())
+
+
+
         if (!ValidationUtils.isEmptyFiled(
                 response.profileImage
             )
@@ -213,6 +218,7 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
         }
 
         txt_user_name.text = response.userName
+
         if (response.rate != null) {
             txt_ratings.text = response.rate
         } else {

@@ -94,14 +94,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/view_milestone_request"
+                    android:layout_toStartOf="@id/view_complete_milestone_request"
                     android:text="@string/proposal_received_"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sp" />
 
                 <TextView
-                    android:id="@+id/view_milestone_request"
+                    android:id="@+id/txt_complete_milestone_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_complete_milestone"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_complete_milestone_request"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="@string/reject_reason"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+
+                <TextView
+                    android:id="@+id/view_complete_milestone_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -151,6 +165,7 @@
                     tools:ignore="MissingPrefix,RtlSymmetry" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/cancel_milestone_request_layout"
                 android:layout_width="match_parent"
@@ -163,14 +178,111 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@id/view_cancel_request"
+                    android:layout_toStartOf="@id/view_cancel_milestone_request"
                     android:text="@string/proposal_received_"
                     android:textAppearance="@style/RobotoMediumTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sp" />
 
                 <TextView
-                    android:id="@+id/view_cancel_request"
+                    android:id="@+id/txt_cancel_milestone_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_cancel_milestone"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_cancel_milestone_request"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="@string/reject_reason"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/view_cancel_milestone_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/view"
+                    android:textAppearance="@style/RobotoBoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_14sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
+                    app:drawableTint="@color/white"
+                    tools:ignore="MissingPrefix,RtlSymmetry" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cancel_project_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_cancel_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_cancel_project_request"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/txt_cancel_project_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_cancel_project"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_cancel_project_request"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="@string/reject_reason"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/view_cancel_project_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text="@string/view"
+                    android:textAppearance="@style/RobotoBoldTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_14sp"
+                    app:drawableEndCompat="@drawable/ic_right_arrow"
+                    app:drawableTint="@color/white"
+                    tools:ignore="MissingPrefix,RtlSymmetry" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/end_project_request_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/top_green"
+                android:padding="@dimen/_15dp">
+
+                <TextView
+                    android:id="@+id/txt_end_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_end_project_request"
+                    android:text="@string/proposal_received_"
+                    android:textAppearance="@style/RobotoMediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+
+                <TextView
+                    android:id="@+id/view_end_project_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

@@ -126,7 +126,7 @@ class MapUtils {
                 val countryCode =
                     if (addresses[0].countryCode != null) addresses[0].countryCode else ""
 
-                return state
+                return city
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -135,7 +135,7 @@ class MapUtils {
         }
 
 
-        fun calculationByDistance(startLatLong: LatLng, endLatLong: LatLng): Int {
+        fun calculationByDistance(startLatLong: LatLng, endLatLong: LatLng): String {
             val newFormat = DecimalFormat("##")
             val Radius = 6371// radius of earth in Km
             val lat1 = startLatLong.latitude
@@ -159,7 +159,7 @@ class MapUtils {
                 "Radius Value", "" + valueResult + "   KM  " + kmInDec
                         + " ,Meter   " + meterInDec + " ,Mile   " + mileInDec
             )
-            return mileInDec
+            return kmInDec.toString()
         }
 
 

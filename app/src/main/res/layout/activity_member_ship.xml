@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".membership.MemberShipActivity">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/layout_square_toolbar_with_back" />
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingTop="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            android:text="@string/thanks_for_joining"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_20sp" />
+
+        <TextView
+            android:id="@+id/txt_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?selectableItemBackground"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingTop="@dimen/_16dp"
+            android:paddingEnd="@dimen/_16dp"
+            android:text="@string/skip"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_20sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingTop="@dimen/_5dp"
+        android:paddingEnd="@dimen/_16dp"
+        android:text="@string/select_a_package"
+        android:textAppearance="@style/BoldTextAppearance"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_30sp" />
+
+    <include
+        android:id="@+id/layout_progress"
+        layout="@layout/layout_shimmer_membership_package"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/membership_package"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:padding="@dimen/_8dp" />
+
+</LinearLayout>

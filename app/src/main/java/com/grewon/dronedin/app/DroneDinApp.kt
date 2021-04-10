@@ -90,6 +90,8 @@ class DroneDinApp : MultiDexApplication() {
             .milestoneModule(MilestoneModule())
             .messageModule(MessageModule())
             .mainModule(MainModule())
+            .membershipModule(MembershipModule())
+            .disputeModule(DisputeModule())
             .build()
     }
 
@@ -165,6 +167,8 @@ class DroneDinApp : MultiDexApplication() {
         )
         return userData.data?.userId.toString()
     }
+
+
 
     fun getDeviceInformation(): String {
         return Build.MODEL + "|" + Build.MANUFACTURER + "|" + Build.BRAND + "|" + Build.VERSION.SDK + "|" + Build.BRAND + "|" + Build.VERSION.RELEASE

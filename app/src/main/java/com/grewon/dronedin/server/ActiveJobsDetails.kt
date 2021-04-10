@@ -14,6 +14,8 @@ data class ActiveJobsDetails(
     val attachment: ArrayList<Attachment>? = null,
     @SerializedName("cancel_complete_request_milestone")
     val cancelCompleteRequestMilestone: CancelCompleteRequestMilestone? = null,
+    @SerializedName("cancel_job_request")
+    val cancelJobRequest: CancelJobRequest? = null,
     @SerializedName("category")
     val category: Category? = Category(),
     @SerializedName("date")
@@ -79,7 +81,13 @@ data class ActiveJobsDetails(
         @SerializedName("milestone_request_type")
         val milestoneRequestType: String? = "",
         @SerializedName("milestone_request_status")
-        val milestoneRequestStatus: String? = ""
+        val milestoneRequestStatus: String? = "",
+        @SerializedName("sender_id")
+        val senderId: String? = "",
+        @SerializedName("reciever_id")
+        val recieverId: String? = "",
+        @SerializedName("milestone_request_reject_reason")
+        val milestoneRequestRejectReason: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")
@@ -98,6 +106,29 @@ data class ActiveJobsDetails(
         val equipment: String? = "",
         @SerializedName("equipment_id")
         val equipmentId: String? = ""
+    ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class CancelJobRequest(
+        @SerializedName("job_cancel_end_request_id")
+        val jobCancelEndRequestId: String? = "",
+        @SerializedName("job_id")
+        val jobId: String? = "",
+        @SerializedName("msg")
+        val msg: String? = "",
+        @SerializedName("reciever_id")
+        val recieverId: String? = "",
+        @SerializedName("request_note")
+        val requestNote: String? = "",
+        @SerializedName("request_reject_reason")
+        val requestRejectReason: String? = "",
+        @SerializedName("request_status")
+        val requestStatus: String? = "",
+        @SerializedName("request_type")
+        val requestType: String? = "",
+        @SerializedName("sender_id")
+        val senderId: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")
@@ -150,7 +181,9 @@ data class ActiveJobsDetails(
         @SerializedName("milestone_request_type")
         val milestoneRequestType: String? = "",
         @SerializedName("milestone_request_status")
-        val milestoneRequestStatus: String? = ""
+        val milestoneRequestStatus: String? = "",
+        @SerializedName("milestone_request_reject_reason")
+        val milestoneRequestRejectReason: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")

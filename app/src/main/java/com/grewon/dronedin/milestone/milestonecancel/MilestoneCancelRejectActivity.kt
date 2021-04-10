@@ -43,7 +43,6 @@ class MilestoneCancelRejectActivity : BaseActivity(), View.OnClickListener,
 
 
     private fun initView() {
-        Glide.with(this).asGif().load(R.drawable.completed_job).into(top_image)
         milestoneRequestId = intent.getStringExtra(AppConstant.ID).toString()
     }
 

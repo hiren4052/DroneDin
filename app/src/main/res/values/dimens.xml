@@ -302,5 +302,7 @@
     <dimen name="splash_icon_padding">0dp</dimen>
     <dimen name="_180dp">180dp</dimen>
     <dimen name="_120dp">120dp</dimen>
+    <dimen name="_130dp">130dp</dimen>
+    <dimen name="_115dp">115dp</dimen>
 
 </resources>

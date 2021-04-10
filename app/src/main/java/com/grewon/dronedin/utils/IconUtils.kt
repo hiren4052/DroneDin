@@ -12,9 +12,14 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.grewon.dronedin.R
+import com.grewon.dronedin.enum.BADGE_TYPE
+import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.activity_pilot_profile.*
 
 
 class IconUtils {
@@ -119,6 +124,29 @@ class IconUtils {
                 drawableEnd,
                 textView
             )
+        }
+
+        fun setBadgeImage(
+            context: Context,
+            imageView: ImageView,
+            badgeType: String
+        ) {
+            var badgeImage: Int =  R.drawable.ic_bronze
+
+
+            if (badgeType == BADGE_TYPE.Bronze.name) {
+                badgeImage = R.drawable.ic_bronze
+            } else if (badgeType == BADGE_TYPE.Gold.name) {
+                badgeImage = R.drawable.ic_gold
+            } else if (badgeType == BADGE_TYPE.Diamond.name) {
+                badgeImage = R.drawable.ic_diamond
+            } else if (badgeType == BADGE_TYPE.Silver.name) {
+                badgeImage = R.drawable.ic_silver
+            }
+
+            Glide.with(context)
+                .load(badgeImage)
+                .into(imageView)
         }
 
         fun bitmapDescriptorFromVector(

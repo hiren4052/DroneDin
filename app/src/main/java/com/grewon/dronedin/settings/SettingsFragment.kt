@@ -3,7 +3,6 @@ package com.grewon.dronedin.settings
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +16,22 @@ import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.dispute.DisputeActivity
+import com.grewon.dronedin.membership.MemberShipActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.settings.contract.SettingsContract
 import com.grewon.dronedin.splash.SplashActivity
+import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.ValidationUtils
 import com.grewon.dronedin.web.WebActivity
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.badge_type
+import kotlinx.android.synthetic.main.fragment_settings.blur_img_user
+import kotlinx.android.synthetic.main.fragment_settings.im_back
+import kotlinx.android.synthetic.main.fragment_settings.img_user
+import kotlinx.android.synthetic.main.fragment_settings.txt_user_name
 import kotlinx.android.synthetic.main.logout_bottom_dialog.view.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -80,7 +86,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
         txt_user_name.text = preferenceUtils.getProfileData()?.data?.userName
 
-        if (preferenceUtils.getProfileData() != null && preferenceUtils.getProfileData()?.data?.profileImage!! != null && !ValidationUtils.isEmptyFiled(
+        if (preferenceUtils.getProfileData() != null && !ValidationUtils.isEmptyFiled(
                 preferenceUtils.getProfileData()?.data?.profileImage!!
             )
         ) {
@@ -100,6 +106,18 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 .into(blur_img_user)
         }
 
+
+
+        if (isPilotAccount()) {
+            txt_membership.visibility = View.VISIBLE
+            IconUtils.setBadgeImage(
+                requireContext(),
+                badge_type,
+                preferenceUtils.getProfileData()?.data?.badge!!.toString()
+            )
+        } else {
+            txt_membership.visibility = View.GONE
+        }
     }
 
     override fun onClick(v: View?) {
@@ -137,7 +155,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 startActivity(
                     Intent(context, WebActivity::class.java).putExtra(
                         AppConstant.WEB_URL,
-                        AppConstant.PRIVACY_URL
+                        preferenceUtils.getProfileData()?.data?.privacyPolicyUrl.toString()
                     ).putExtra(AppConstant.TAG, getString(R.string.privacy_policy))
 
                 )
@@ -146,13 +164,13 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 startActivity(
                     Intent(context, WebActivity::class.java).putExtra(
                         AppConstant.WEB_URL,
-                        AppConstant.TERMS_OF_SERVICE_URL
+                        preferenceUtils.getProfileData()?.data?.termsConditionsUrl.toString()
                     ).putExtra(AppConstant.TAG, getString(R.string.terms_amp_conditions))
 
                 )
             }
             R.id.txt_membership -> {
-
+                startActivity(Intent(context, MemberShipActivity::class.java))
             }
             R.id.txt_customer_support -> {
 

@@ -43,6 +43,12 @@ interface AppApi {
     @GET("profile_c/job_init")
     fun getJobCommanData(): Single<JobInitBean>
 
+    @GET("profile_c/package")
+    fun getMembershipList(): Single<MemberShipBean>
+
+    @POST("profile_c/purchase_package")
+    fun purchaseMembership(@Body map: PurchasePackageParams): Single<CommonMessageBean>
+
     @Multipart
     @POST("profile_c/update_profile")
     fun updateProfile(
@@ -202,15 +208,14 @@ interface AppApi {
     @POST("job_c/milestone_cancel")
     fun cancelMilestone(@Body file: CancelMilestoneParams): Single<CommonMessageBean>
 
-    @GET("job_c/cancel_project")
-    fun cancelProject(
-        @QueryMap requestPart: HashMap<String, Any>
+    @POST("job_c/cancel_end_project")
+    fun cancelEndProjectRequest(
+        @Body file: CancelEndProjectParams
     ): Single<CommonMessageBean>
 
-    @GET("job_c/end_project")
-    fun endProject(
-        @QueryMap requestPart: HashMap<String, Any>
-    ): Single<CommonMessageBean>
+    @POST("job_c/project_end_cancel_request")
+    fun cancelEndProjectStatusUpdate(@Body map: CancelEndProjectStatusUpdateParams): Single<CommonMessageBean>
+
 
     @GET("chat_c/chat_room")
     fun getMessages(): Single<MessagesDataBean>
@@ -227,10 +232,30 @@ interface AppApi {
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<ChatDataBean>
 
+    @GET("chat_c/old_dispute_messages")
+    fun getDisputeOldMessage(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<DisputeChatDataBean>
+
     @GET("chat_c/new_message")
     fun getNewMessage(
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<ChatDataBean>
+
+    @GET("chat_c/new_dispute_message")
+    fun getDisputeNewMessage(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<DisputeChatDataBean>
+
+    @POST("chat_c/dispute_message")
+    fun sendDisputeMessage(@Body file: RequestBody): Single<SentDisputeChatBean>
+
+    @POST("chat_c/dispute")
+    fun createDispute(@Body params: CreateDisputeParams): Single<CommonMessageBean>
+
+
+    @GET("chat_c/dispute/{offset}")
+    fun getDispute(@Path("offset") offset: Int): Single<DisputeBean>
 
     @POST("pilot_c/submit_review")
     fun submitReview(@Body params: SubmitReviewParams): Single<CommonMessageBean>
@@ -302,4 +327,6 @@ interface AppApi {
 
     @POST("job_c/milestone_active")
     fun activeMileStone(@Body activeMilestoneParams: ActiveMilestoneParams): Single<CommonMessageBean>
+
+
 }

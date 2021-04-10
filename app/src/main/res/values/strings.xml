@@ -411,4 +411,16 @@
     <string name="explain_the_reasons_for_rejecting_the_project_cancellation_request">Explain the reasons for rejecting the Project cancellation request.</string>
     <string name="project_completion_request">Project Completion Request!</string>
     <string name="the_has_requested_to_successfully_end_the_project">The %s has requested to Successfully end the project!</string>
+    <string name="reject_reason">Reject Reason: %s</string>
+    <string name="km_away">%s km away</string>
+    <string name="usd">%s USD</string>
+    <string name="select_a_package">Select a Package</string>
+    <string name="thanks_for_joining">Thanks for joining</string>
+    <string name="package_name_price">%s ($%s)</string>
+    <string name="package_type">(%s)</string>
+    <string name="subscribe_now">Subscribe Now</string>
+    <string name="purchase">Purchase</string>
+    <string name="add_card_detail">Add Card Detail</string>
+    <string name="package_information">Package Information</string>
+    <string name="packages">Packages</string>
 </resources>

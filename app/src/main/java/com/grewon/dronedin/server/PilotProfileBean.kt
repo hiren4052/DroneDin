@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class PilotProfileBean(
@@ -19,6 +18,10 @@ data class PilotProfileBean(
     val profileImage: String? = null,
     @SerializedName("profile_update")
     val profileUpdate: String? = null,
+    @SerializedName("badge")
+    val badge: String? = "",
+    @SerializedName("profile_price")
+    val profilePrice: String? = null,
     @SerializedName("rate")
     val rate: String? = null,
     @SerializedName("review")
@@ -42,7 +45,9 @@ data class PilotProfileBean(
     @SerializedName("user_name")
     val userName: String? = null,
     @SerializedName("user_type")
-    val userType: String? = null
+    val userType: String? = null,
+    @SerializedName("category")
+    val category: Category? = Category()
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
@@ -51,6 +56,15 @@ data class PilotProfileBean(
         val equipment: String? = null,
         @SerializedName("equipment_id")
         val equipmentId: String? = null
+    ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Category(
+        @SerializedName("category_id")
+        val categoryId: String? = "",
+        @SerializedName("category_name")
+        val categoryName: String? = ""
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")
@@ -74,7 +88,6 @@ data class PilotProfileBean(
             val attachmentId: String? = null
         ) : Parcelable
     }
-
 
 
     @SuppressLint("ParcelCreator")

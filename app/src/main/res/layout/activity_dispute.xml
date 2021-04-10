@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".dispute.DisputeActivity">
 
-    <include layout="@layout/layout_square_toolbar_with_back"/>
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/dispute_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:padding="@dimen/_15dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_empty="@layout/layout_no_data"
+        app:layout_moreProgress="@layout/view_more_progress"
+        app:layout_progress="@layout/layout_shimmer_client_job_list"
+        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+        app:recyclerClipToPadding="false"
+        app:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>

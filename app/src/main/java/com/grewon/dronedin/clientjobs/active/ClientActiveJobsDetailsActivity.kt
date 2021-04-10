@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
@@ -17,6 +18,10 @@ import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.milestone.adapter.ActiveMileStoneAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.enum.JOB_REQUEST_STATUS
+import com.grewon.dronedin.enum.JOB_REQUEST_TYPE
+import com.grewon.dronedin.enum.MILESTONE_REQUEST_STATUS
+import com.grewon.dronedin.enum.MILESTONE_REQUEST_TYPE
 import com.grewon.dronedin.message.ChatActivity
 import com.grewon.dronedin.milestone.*
 import com.grewon.dronedin.milestone.milestoneadd.MilestoneAddActivity
@@ -27,7 +32,9 @@ import com.grewon.dronedin.milestone.milestonecomplete.MilestoneCompletionReques
 import com.grewon.dronedin.pilotactivejobs.contract.PilotActiveJobsDetailsContract
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
+import com.grewon.dronedin.project.cancelproject.ProjectCancelRequestActivity
 import com.grewon.dronedin.project.endproject.EndProjectActivity
+import com.grewon.dronedin.project.endproject.ProjectEndRequestActivity
 import com.grewon.dronedin.server.ActiveJobsDetails
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobAttachmentsBean
@@ -67,9 +74,11 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
         img_back.setOnClickListener(this)
         img_toolbar.setOnClickListener(this)
         txt_pilot_name.setOnClickListener(this)
-        view_milestone_request.setOnClickListener(this)
+        view_complete_milestone_request.setOnClickListener(this)
         view_add_request.setOnClickListener(this)
-        view_cancel_request.setOnClickListener(this)
+        view_cancel_milestone_request.setOnClickListener(this)
+        view_cancel_project_request.setOnClickListener(this)
+        view_end_project_request.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -131,7 +140,7 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             R.id.img_toolbar -> {
                 openPopUpMenu()
             }
-            R.id.view_milestone_request -> {
+            R.id.view_complete_milestone_request -> {
                 startActivityForResult(
                     Intent(
                         this,
@@ -153,7 +162,7 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                     ), 12
                 )
             }
-            R.id.view_cancel_request -> {
+            R.id.view_cancel_milestone_request -> {
                 startActivityForResult(
                     Intent(
                         this,
@@ -170,6 +179,28 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                         this,
                         PilotProfileActivity::class.java
                     ).putExtra(AppConstant.ID, activeJobsDetails?.pilot?.userId)
+                )
+            }
+            R.id.view_cancel_project_request -> {
+                startActivityForResult(
+                    Intent(
+                        this,
+                        ProjectCancelRequestActivity::class.java
+                    ).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.cancelJobRequest?.jobCancelEndRequestId
+                    ), 12
+                )
+            }
+            R.id.view_end_project_request -> {
+                startActivityForResult(
+                    Intent(
+                        this,
+                        ProjectEndRequestActivity::class.java
+                    ).putExtra(
+                        AppConstant.ID,
+                        activeJobsDetails?.cancelJobRequest?.jobCancelEndRequestId
+                    ).putExtra(AppConstant.JOB_ID,activeJobsDetails?.jobId), 12
                 )
             }
         }
@@ -241,7 +272,7 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                 Intent(this, MilestoneDetailActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean?.milestoneId
-                ).putExtra(AppConstant.JOB_ID,activeJobsDetails?.jobId)
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
             )
         }
 
@@ -315,19 +346,165 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
             pictures_layout.visibility = View.GONE
         }
 
-        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "complete") {
-            complete_milestone_request_layout.visibility = View.VISIBLE
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == MILESTONE_REQUEST_TYPE.complete.name) {
+
+            if (preferenceUtils.getLoginCredentials()?.data?.userId == response.cancelCompleteRequestMilestone.senderId) {
+
+                if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.reject.name) {
+                    complete_milestone_request_layout.background =
+                        ContextCompat.getDrawable(this, R.color.red)
+                    txt_complete_milestone_reason.visibility = View.VISIBLE
+                    txt_complete_milestone_reason.text = getString(
+                        R.string.reject_reason,
+                        response.cancelCompleteRequestMilestone.milestoneRequestRejectReason.toString()
+                    )
+                    complete_milestone_request_layout.visibility = View.VISIBLE
+                } else if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    complete_milestone_request_layout.visibility = View.GONE
+                } else if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.accept.name) {
+                    complete_milestone_request_layout.visibility = View.VISIBLE
+                    complete_milestone_request_layout.background =
+                        ContextCompat.getDrawable(this, R.color.top_green)
+                    txt_complete_milestone_reason.visibility = View.GONE
+                }
+
+                activeJobsDetailsPresenter.readSentRequest(response.jobId.toString())
+                view_complete_milestone_request.visibility = View.GONE
+
+            } else {
+                if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    complete_milestone_request_layout.visibility = View.VISIBLE
+                    txt_complete_milestone_reason.visibility = View.GONE
+                } else {
+                    complete_milestone_request_layout.visibility = View.GONE
+                }
+            }
+
             txt_complete_milestone.text = response.cancelCompleteRequestMilestone.msg
+
         } else {
+
             complete_milestone_request_layout.visibility = View.GONE
+
         }
 
-        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == "cancel") {
-            cancel_milestone_request_layout.visibility = View.VISIBLE
+
+
+        if (response.cancelCompleteRequestMilestone != null && response.cancelCompleteRequestMilestone.milestoneRequestType == MILESTONE_REQUEST_TYPE.cancel.name) {
+            if (preferenceUtils.getLoginCredentials()?.data?.userId == response.cancelCompleteRequestMilestone.senderId) {
+                if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.reject.name) {
+                    cancel_milestone_request_layout.background =
+                        ContextCompat.getDrawable(this, R.color.red)
+                    txt_cancel_milestone_reason.visibility = View.VISIBLE
+                    txt_cancel_milestone_reason.text = getString(
+                        R.string.reject_reason,
+                        response.cancelCompleteRequestMilestone.milestoneRequestRejectReason.toString()
+                    )
+                    cancel_milestone_request_layout.visibility = View.VISIBLE
+                } else if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    cancel_milestone_request_layout.visibility = View.GONE
+                } else if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.accept.name) {
+                    cancel_milestone_request_layout.background =
+                        ContextCompat.getDrawable(this, R.color.top_green)
+                    txt_cancel_milestone_reason.visibility = View.GONE
+                    cancel_milestone_request_layout.visibility = View.VISIBLE
+                }
+
+                view_cancel_milestone_request.visibility = View.GONE
+
+                activeJobsDetailsPresenter.readSentRequest(response.jobId.toString())
+            } else {
+                if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    cancel_milestone_request_layout.visibility = View.VISIBLE
+                    txt_cancel_milestone_reason.visibility = View.GONE
+                } else if (response.cancelCompleteRequestMilestone.milestoneRequestStatus == MILESTONE_REQUEST_STATUS.accept.name) {
+                    cancel_milestone_request_layout.visibility = View.GONE
+                }
+            }
+
             txt_cancel_milestone.text = response.cancelCompleteRequestMilestone.msg
+
         } else {
+
             cancel_milestone_request_layout.visibility = View.GONE
+
         }
+
+        if (response.cancelJobRequest != null && response.cancelJobRequest.requestType == JOB_REQUEST_TYPE.cancel.name) {
+            if (preferenceUtils.getLoginCredentials()?.data?.userId == response.cancelJobRequest.senderId) {
+                when (response.cancelJobRequest.requestStatus) {
+                    JOB_REQUEST_STATUS.rejected.name -> {
+                        cancel_project_request_layout.background =
+                            ContextCompat.getDrawable(this, R.color.red)
+                        txt_cancel_project_reason.visibility = View.VISIBLE
+                        txt_cancel_project_reason.text = getString(
+                            R.string.reject_reason,
+                            response.cancelJobRequest.requestRejectReason.toString()
+                        )
+                        cancel_project_request_layout.visibility = View.VISIBLE
+                    }
+                    JOB_REQUEST_STATUS.pending.name -> {
+                        cancel_project_request_layout.visibility = View.GONE
+                    }
+                    JOB_REQUEST_STATUS.accepted.name -> {
+                        cancel_project_request_layout.background =
+                            ContextCompat.getDrawable(this, R.color.top_green)
+                        txt_cancel_project_reason.visibility = View.GONE
+                        cancel_project_request_layout.visibility = View.VISIBLE
+                    }
+                }
+
+                activeJobsDetailsPresenter.readSentRequest(response.jobId.toString())
+                view_cancel_project_request.visibility = View.GONE
+
+            } else {
+                if (response.cancelJobRequest.requestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    cancel_project_request_layout.visibility = View.VISIBLE
+                    txt_cancel_project_reason.visibility = View.GONE
+                } else if (response.cancelJobRequest.requestStatus == MILESTONE_REQUEST_STATUS.accept.name) {
+                    cancel_project_request_layout.visibility = View.GONE
+                }
+            }
+            txt_cancel_project.text = response.cancelJobRequest.msg
+        } else {
+            cancel_project_request_layout.visibility = View.GONE
+        }
+
+
+        if (response.cancelJobRequest != null && response.cancelJobRequest.requestType == JOB_REQUEST_TYPE.end.name) {
+            if (preferenceUtils.getLoginCredentials()?.data?.userId == response.cancelJobRequest.senderId) {
+                when (response.cancelJobRequest.requestStatus) {
+                    JOB_REQUEST_STATUS.rejected.name -> {
+                        end_project_request_layout.background =
+                            ContextCompat.getDrawable(this, R.color.red)
+
+                        end_project_request_layout.visibility = View.VISIBLE
+                    }
+                    JOB_REQUEST_STATUS.pending.name -> {
+                        end_project_request_layout.visibility = View.GONE
+                    }
+                    JOB_REQUEST_STATUS.accepted.name -> {
+                        end_project_request_layout.background =
+                            ContextCompat.getDrawable(this, R.color.top_green)
+                        end_project_request_layout.visibility = View.VISIBLE
+                    }
+                }
+
+                activeJobsDetailsPresenter.readSentRequest(response.jobId.toString())
+                view_cancel_project_request.visibility = View.GONE
+
+            } else {
+                if (response.cancelJobRequest.requestStatus == MILESTONE_REQUEST_STATUS.pending.name) {
+                    end_project_request_layout.visibility = View.VISIBLE
+                } else if (response.cancelJobRequest.requestStatus == MILESTONE_REQUEST_STATUS.accept.name) {
+                    end_project_request_layout.visibility = View.GONE
+                }
+            }
+            txt_end_project.text = response.cancelJobRequest.msg
+        } else {
+            end_project_request_layout.visibility = View.GONE
+        }
+
 
         if (response.requestedMilestone != null) {
             add_milestone_request_layout.visibility = View.VISIBLE

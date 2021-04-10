@@ -61,30 +61,18 @@
 
 
             <TextView
-                android:id="@+id/txt_end_project"
+                android:id="@+id/txt_cancel_project"
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="@dimen/_45dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_40dp"
-                android:background="@drawable/ic_rectangle_spann_color"
+                android:background="@drawable/ic_rectangle"
                 android:gravity="center"
-                android:text="@string/project_completed"
+                android:text="@string/send_request"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />
 
-            <TextView
-                android:id="@+id/txt_end_forcefully"
-                android:layout_width="@dimen/_200dp"
-                android:layout_height="@dimen/_45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/ic_border_rectangle_spann_color"
-                android:gravity="center"
-                android:text="@string/end_forcefully"
-                android:textAppearance="@style/MediumTextAppearance"
-                android:textColor="@drawable/spann_text_selector"
-                android:textSize="@dimen/_20sp" />
 
         </LinearLayout>
 

@@ -7,10 +7,12 @@ import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.enum.JOB_REQUEST_TYPE
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.project.cancelproject.contract.CancelProjectContract
 import com.grewon.dronedin.server.CommonMessageBean
-import com.grewon.dronedin.server.params.CancelMilestoneParams
+import com.grewon.dronedin.server.params.CancelEndProjectParams
+import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.activity_cancel_project.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
@@ -35,8 +37,6 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
     }
 
     private fun setClicks() {
-        txt_send_request.setOnClickListener(this)
-        txt_cancel_forcefully.setOnClickListener(this)
         txt_cancel_project.setOnClickListener(this)
         img_back.setOnClickListener(this)
     }
@@ -50,12 +50,8 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
 
         txt_toolbar_title.text = getString(R.string.cancel_project)
         if (isPilotAccount()) {
-            layout_pilot.visibility = View.VISIBLE
-            txt_cancel_project.visibility = View.GONE
             text_about_info.text = getString(R.string.cancel_project_pilot_description)
         } else {
-            layout_pilot.visibility = View.GONE
-            txt_cancel_project.visibility = View.VISIBLE
             text_about_info.text = getString(R.string.cancel_project_client_description)
         }
     }
@@ -65,15 +61,21 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
             R.id.img_back -> {
                 finish()
             }
-            R.id.txt_send_request -> {
-                cancelProjectPresenter.cancelProject(jobId, "")
-            }
-            R.id.txt_cancel_forcefully -> {
-                cancelProjectPresenter.cancelProject(jobId, "Request for forcely")
-            }
             R.id.txt_cancel_project -> {
-                cancelProjectPresenter.cancelProject(jobId, "Request for success")
+                if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
+                    DroneDinApp.getAppInstance()
+                        .showToast(getString(R.string.please_enter_description))
+                } else {
+                    val params = CancelEndProjectParams()
+                    params.jobId=jobId
+                    params.requestType=JOB_REQUEST_TYPE.cancel.name
+                    params.requestNote=edt_description.text.toString()
+                    cancelProjectPresenter.cancelProject(params)
+                }
+
             }
+
+
         }
     }
 
@@ -85,7 +87,7 @@ class CancelProjectActivity : BaseActivity(), View.OnClickListener, CancelProjec
         }
     }
 
-    override fun onCancelFailed(loginParams: CancelMilestoneParams) {
+    override fun onCancelFailed(loginParams: CancelEndProjectParams) {
         ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 
