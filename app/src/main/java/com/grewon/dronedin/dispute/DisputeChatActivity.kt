@@ -25,13 +25,13 @@ import com.grewon.dronedin.dispute.adapter.DisputeChatAdapter
 import com.grewon.dronedin.dispute.contract.DisputeChatContract
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.message.adapter.ChatAdapter
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentDisputeMessageParams
 import com.grewon.dronedin.utils.ValidationUtils
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
-import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_dispute_chat.*
+import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -46,7 +46,6 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
 
     private var chatAdapter: DisputeChatAdapter? = null
     private var disputeId: String = ""
-    private var receiverId: String = ""
     private var newMessageHandler: Handler? = null
     private var mIsLastItem = false
     private var isLoading = true
@@ -122,13 +121,16 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
 
     private fun setClicks() {
         im_camera.setOnClickListener(this)
-        im_back.setOnClickListener(this)
         im_attachments.setOnClickListener(this)
         fab_send_message.setOnClickListener(this)
+        img_back.setOnClickListener(this)
     }
 
     private fun initView() {
-        receiverId = intent.getStringExtra(AppConstant.ID).toString()
+
+        txt_toolbar_title.text = getString(R.string.disputes)
+
+        disputeId = intent.getStringExtra(AppConstant.ID).toString()
 
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
@@ -136,7 +138,7 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
         chatPresenter.attachApiInterface(retrofit)
 
 
-
+        chatPresenter.getDisputeOldMessage(chatAdapter?.getLastBottomId().toString(), disputeId)
 
         edt_message.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -162,7 +164,7 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.im_back -> {
+            R.id.img_back -> {
                 finish()
             }
             R.id.im_camera -> {
@@ -286,20 +288,6 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
         chatPresenter.getDisputeOldMessage(chatAdapter?.getLastBottomId().toString(), disputeId)
     }
 
-    private fun setView(recieverDetail: ChatRoomBean.Data.RecieverDetail?) {
-        if (!isFinishing) {
-            Glide.with(this)
-                .load(recieverDetail?.profileImage!!)
-                .apply(RequestOptions().placeholder(R.drawable.ic_user_place_holder))
-                .into(img_user)
-        }
-        txt_user_name.text = recieverDetail?.userName
-        if (recieverDetail?.isUserOnline == AppConstant.YES_STATUS) {
-            txt_online_status.visibility = View.VISIBLE
-        } else {
-            txt_online_status.visibility = View.GONE
-        }
-    }
 
 
 
@@ -308,14 +296,13 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
             edt_message.setText("")
             edt_message.clearFocus()
             val chatDataBean = DisputeChatDataBean.Data()
-            chatDataBean.msg = response.data.msg
-            chatDataBean.chatMsgDatecreated = response.data.chatMsgDatecreated
-            chatDataBean.recieverId = response.data.recieverId
-            chatDataBean.senderId = response.data.senderId
-            chatDataBean.msgType = response.data.msgType
-            chatDataBean.extension = response.data.extension
-            chatDataBean.isRead = response.data.isRead
-            chatDataBean.chatMsgId = response.data.chatMsgId
+            chatDataBean.msg = response.data?.msg
+            chatDataBean.groupChatMsgDatecreated = response.data?.groupChatMsgDatecreated
+            chatDataBean.senderId = response.data?.senderId
+            chatDataBean.msgType = response.data?.msgType
+            chatDataBean.extension = response.data?.extension
+            chatDataBean.isRead = response.data?.isRead
+            chatDataBean.groupChatMsgId = response.data?.groupChatMsgId
             setSingleItemToAdapter(chatDataBean)
             scrollBottom()
         }
@@ -330,8 +317,8 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
     }
 
     override fun onOldMessageGetSuccessfully(response: DisputeChatDataBean) {
-        if (response.data != null && response.data.size > 0) {
-            chatAdapter?.addOldMessageItemsList(response.data)
+        if (response.data != null && response.data!!.size > 0) {
+            chatAdapter?.addOldMessageItemsList(response.data!!)
             if (!isOldMessageServiceCalled) {
                 scrollToEnd()
             }
@@ -354,9 +341,9 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
     }
 
     override fun onNewMessageGetSuccessfully(response: DisputeChatDataBean) {
-        if (response.data != null && response.data.size > 0) {
+        if (response.data != null && response.data!!.size > 0) {
             mIsLastItem = false
-            chatAdapter?.addOffsetMessageItemsList(response.data)
+            chatAdapter?.addOffsetMessageItemsList(response.data!!)
 
         }
 

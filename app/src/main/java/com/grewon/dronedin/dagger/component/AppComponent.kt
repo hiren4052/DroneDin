@@ -20,6 +20,8 @@ import com.grewon.dronedin.clientprofile.ClientProfileActivity
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.dispute.DisputeActivity
 import com.grewon.dronedin.dispute.DisputeChatActivity
+import com.grewon.dronedin.dispute.DisputeDetailsActivity
+import com.grewon.dronedin.earnings.EarningsActivity
 import com.grewon.dronedin.filter.FilterActivity
 import com.grewon.dronedin.filter.FilterResultActivity
 import com.grewon.dronedin.forgotpassword.ForgotPasswordActivity
@@ -82,7 +84,8 @@ import javax.inject.Singleton
 @Component(
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
         InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class, PaymentModule::class,
-        MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class, MembershipModule::class, DisputeModule::class]
+        MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class, MembershipModule::class,
+        DisputeModule::class, EarningModule::class]
 )
 interface AppComponent {
 
@@ -148,6 +151,8 @@ interface AppComponent {
     fun inject(activity: MembershipPurchaseActivity)
     fun inject(activity: DisputeChatActivity)
     fun inject(activity: DisputeActivity)
+    fun inject(activity: DisputeDetailsActivity)
+    fun inject(activity: EarningsActivity)
 
 
     //Fragments

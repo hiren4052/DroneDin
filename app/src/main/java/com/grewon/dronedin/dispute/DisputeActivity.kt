@@ -1,5 +1,6 @@
 package com.grewon.dronedin.dispute
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.dispute.adapter.DisputeAdapter
@@ -163,7 +165,12 @@ class DisputeActivity : BaseActivity(), View.OnClickListener, DisputeContract.Vi
     }
 
     override fun onDisputeItemClick(jobsDataBean: DisputeBean.Data?) {
-
+        startActivity(
+            Intent(this, DisputeDetailsActivity::class.java).putExtra(
+                AppConstant.ID,
+                jobsDataBean?.disputeId
+            )
+        )
     }
 
 }

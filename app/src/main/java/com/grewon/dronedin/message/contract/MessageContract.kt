@@ -21,7 +21,7 @@ interface MessageContract {
 
     interface Presenter : BaseContract.Presenter<View> {
 
-        fun getMessages()
+        fun getMessages(offset:Int)
 
 
 

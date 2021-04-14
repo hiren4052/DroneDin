@@ -173,7 +173,13 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 startActivity(Intent(context, MemberShipActivity::class.java))
             }
             R.id.txt_customer_support -> {
+                startActivity(
+                    Intent(context, WebActivity::class.java).putExtra(
+                        AppConstant.WEB_URL,
+                        preferenceUtils.getProfileData()?.data?.customerSupportUrl.toString()
+                    ).putExtra(AppConstant.TAG, getString(R.string.customer_support))
 
+                )
             }
             R.id.txt_dispute -> {
                 startActivity(Intent(context, DisputeActivity::class.java))

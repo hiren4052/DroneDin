@@ -15,6 +15,8 @@ import com.grewon.dronedin.dispute.contract.DisputeDetailsContract
 import com.grewon.dronedin.dispute.presenter.DisputeChatPresenter
 import com.grewon.dronedin.dispute.presenter.DisputeDetailsPresenter
 import com.grewon.dronedin.dispute.presenter.DisputePresenter
+import com.grewon.dronedin.earnings.contract.EarningContract
+import com.grewon.dronedin.earnings.presenter.EarningPresenter
 import com.grewon.dronedin.invitepilot.contract.PilotInviteContract
 import com.grewon.dronedin.invitepilot.presenter.PilotInvitePresenter
 import com.grewon.dronedin.message.contract.ChatContract
@@ -49,25 +51,14 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DisputeModule {
+class EarningModule {
 
 
     @Singleton
     @Provides
-    fun provideDisputeChatPresenter(): DisputeChatContract.Presenter {
-        return DisputeChatPresenter()
+    fun provideDisputeChatPresenter(): EarningContract.Presenter {
+        return EarningPresenter()
     }
 
-    @Singleton
-    @Provides
-    fun provideDisputePresenter(): DisputeContract.Presenter {
-        return DisputePresenter()
-    }
-
-    @Singleton
-    @Provides
-    fun provideDisputeDetailsPresenter(): DisputeDetailsContract.Presenter {
-        return DisputeDetailsPresenter()
-    }
 
 }

@@ -15,11 +15,14 @@ import com.grewon.dronedin.server.DisputeChatDataBean
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ScreenUtils
 import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.layout_chat_admin_image_messages_item.view.*
+import kotlinx.android.synthetic.main.layout_chat_admin_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_date_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_my_image_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_my_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_other_image_messages_item.view.*
 import kotlinx.android.synthetic.main.layout_chat_other_messages_item.view.*
+import kotlinx.android.synthetic.main.layout_chat_other_messages_item.view.txt_other_date
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -27,15 +30,18 @@ import kotlin.collections.ArrayList
 /**
  * Created by Jeff Klima on 2019-08-20.
  */
-class DisputeChatAdapter(val context: Context, private val onItemClickListeners: OnItemClickListeners
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DisputeChatAdapter(
+    val context: Context,
+    private val onItemClickListeners: OnItemClickListeners
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val MY_MESSAGE = 0
-    val OTHER_MESSAGE = 1
+    val MY_IMAGE_MESSAGE = 1
+    val OTHER_MESSAGE = 2
     val OTHER_IMAGE_MESSAGE = 3
-    val MY_IMAGE_MESSAGE = 4
-    val DATE_VIEW_ITEM = 5
+    val ADMIN_MESSAGE = 4
+    val ADMIN_IMAGE_MESSAGE = 5
+    val DATE_VIEW_ITEM = 6
 
     interface OnItemClickListeners {
 
@@ -45,26 +51,37 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
 
     }
 
-
     var itemList = ArrayList<DisputeChatDataBean.Data>()
 
     override fun getItemViewType(position: Int): Int {
-        if (itemList[position].msgType != "date") {
-            if (itemList[position].senderId == DroneDinApp.getAppInstance().getUserId()) {
+        if (itemList[position].senderType == "admin") {
+            if (itemList[position].msgType != "date") {
                 if (itemList[position].msgType == "Text") {
-                    return MY_MESSAGE
+                    return ADMIN_MESSAGE
                 } else if (itemList[position].msgType == "Image" || itemList[position].msgType == "File") {
-                    return MY_IMAGE_MESSAGE
+                    return ADMIN_IMAGE_MESSAGE
                 }
             } else {
-                if (itemList[position].msgType == "Text") {
-                    return OTHER_MESSAGE
-                } else if (itemList[position].msgType == "Image" || itemList[position].msgType == "File") {
-                    return OTHER_IMAGE_MESSAGE
-                }
+                return DATE_VIEW_ITEM
             }
         } else {
-            return DATE_VIEW_ITEM
+            if (itemList[position].msgType != "date") {
+                if (itemList[position].senderId == DroneDinApp.getAppInstance().getUserId()) {
+                    if (itemList[position].msgType == "Text") {
+                        return MY_MESSAGE
+                    } else if (itemList[position].msgType == "Image" || itemList[position].msgType == "File") {
+                        return MY_IMAGE_MESSAGE
+                    }
+                } else {
+                    if (itemList[position].msgType == "Text") {
+                        return OTHER_MESSAGE
+                    } else if (itemList[position].msgType == "Image" || itemList[position].msgType == "File") {
+                        return OTHER_IMAGE_MESSAGE
+                    }
+                }
+            } else {
+                return DATE_VIEW_ITEM
+            }
         }
         return MY_MESSAGE
     }
@@ -104,6 +121,22 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
                     false
                 )
             )
+        } else if (viewType == ADMIN_MESSAGE) {
+            return AdminMessageViewHolder(
+                LayoutInflater.from(context).inflate(
+                    R.layout.layout_chat_admin_messages_item,
+                    parent,
+                    false
+                )
+            )
+        } else if (viewType == ADMIN_IMAGE_MESSAGE) {
+            return AdminImageMessageViewHolder(
+                LayoutInflater.from(context).inflate(
+                    R.layout.layout_chat_admin_image_messages_item,
+                    parent,
+                    false
+                )
+            )
         } else if (viewType == DATE_VIEW_ITEM) {
             return DateViewHolder(
                 LayoutInflater.from(context).inflate(
@@ -132,7 +165,8 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
         if (holder is MyMessageViewHolder) {
 
             holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+            holder.textMyDate.text =
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
 
         } else if (holder is MyImageMessageViewHolder) {
             if (ListUtils.getImageExtensionList()
@@ -153,10 +187,11 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
                     .into(holder.myImage)
             }
             holder.textMyImageDate.text =
-                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
         } else if (holder is OtherMessageViewHolder) {
             holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+            holder.textMyDate.text =
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
         } else if (holder is OtherImageMessageViewHolder) {
             if (ListUtils.getImageExtensionList()
                     .contains(
@@ -169,14 +204,38 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
                     .load(R.drawable.ic_attachment_background)
                     .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                     .into(holder.otherImage)
-            }else{
+            } else {
                 Glide.with(context)
                     .load(item.msg)
                     .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                     .into(holder.otherImage)
             }
             holder.textOtherImageDate.text =
-                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+        } else if (holder is AdminImageMessageViewHolder) {
+            if (ListUtils.getImageExtensionList()
+                    .contains(
+                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                            Locale.ROOT
+                        )
+                    )
+            ) {
+                Glide.with(context)
+                    .load(R.drawable.ic_attachment_background)
+                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                    .into(holder.adminImage)
+            } else {
+                Glide.with(context)
+                    .load(item.msg)
+                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                    .into(holder.adminImage)
+            }
+            holder.textAdminImageDate.text =
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+        } else if (holder is AdminMessageViewHolder) {
+            holder.textAdminMessage.text = item.msg?.trim()
+            holder.textAdminDate.text =
+                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
         }
 
 
@@ -209,7 +268,7 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
         return if (itemList.size == 0) {
             "0"
         } else {
-            itemList[itemList.size - 1].chatMsgId.toString()
+            itemList[itemList.size - 1].groupChatMsgId.toString()
         }
     }
 
@@ -217,7 +276,7 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
         return if (itemList.size == 0) {
             "0"
         } else {
-            itemList[0].chatMsgId.toString()
+            itemList[0].groupChatMsgId.toString()
         }
     }
 
@@ -242,6 +301,18 @@ class DisputeChatAdapter(val context: Context, private val onItemClickListeners:
     class OtherImageMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val otherImage = itemView.image_other_message
         val textOtherImageDate = itemView.txt_image_other_date
+
+    }
+
+    class AdminMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textAdminMessage = itemView.txt_admin_message
+        val textAdminDate = itemView.txt_admin_date
+
+    }
+
+    class AdminImageMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val adminImage = itemView.image_admin_message
+        val textAdminImageDate = itemView.txt_image_admin_date
 
     }
 

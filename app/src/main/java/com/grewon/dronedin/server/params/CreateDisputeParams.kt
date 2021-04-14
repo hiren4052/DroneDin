@@ -10,9 +10,11 @@ import android.os.Parcelable
 @Parcelize
 data class CreateDisputeParams(
     @SerializedName("dispute_reason")
-    val disputeReason: String? = "",
+    val dispute_reason: String? = "",
     @SerializedName("job_id")
-    val jobId: String? = "",
+    val job_id: String? = "",
+    @SerializedName("job_request_id")
+    val job_request_id: String? = "",
     @SerializedName("msg")
     val msg: String? = ""
 ) : Parcelable

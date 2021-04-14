@@ -1,29 +1,28 @@
-package com.grewon.dronedin.message.presenter
+package com.grewon.dronedin.dispute.presenter
 
 
 import com.google.gson.Gson
+import com.grewon.dronedin.dispute.contract.DisputeDetailsContract
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
-import com.grewon.dronedin.message.contract.MessageContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.*
-import com.grewon.dronedin.server.params.GetJobsParams
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
-class MessagePresenter : MessageContract.Presenter {
+class DisputeDetailsPresenter : DisputeDetailsContract.Presenter {
 
 
-    private var view: MessageContract.View? = null
+    private var view: DisputeDetailsContract.View? = null
     private lateinit var api: AppApi
     private lateinit var retrofit: Retrofit
     private val subscriptions = CompositeDisposable()
 
 
-    override fun attachView(view: MessageContract.View) {
+    override fun attachView(view: DisputeDetailsContract.View) {
         this.view = view
     }
 
@@ -38,26 +37,27 @@ class MessagePresenter : MessageContract.Presenter {
     }
 
 
-    override fun getMessages(offset: Int) {
-
-
-        api.getMessages(offset)
+    override fun getDisputeDetails(disputeId: String) {
+        view?.showOnScreenProgress()
+        api.getDisputeDetails(disputeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MessagesDataBean>() {
+            .subscribe(object : NetworkCall<DisputeDetailsBean>() {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
                 }
 
-                override fun onSuccessResponse(dataBean: MessagesDataBean) {
-                    view?.onMessageGetSuccessful(dataBean)
+                override fun onSuccessResponse(dataBean: DisputeDetailsBean) {
+                    view?.hideOnScreenProgress()
+                    view?.onDisputeDetailsGetSuccessful(dataBean)
 
                 }
 
                 override fun onFailedResponse(errorBean: Any?) {
+                    view?.hideOnScreenProgress()
                     LogX.E(errorBean.toString())
-                    view?.onMessageGetFailed(
+                    view?.onDisputeDetailsGetFailed(
                         Gson().fromJson(
                             errorBean.toString(),
                             CommonMessageBean::class.java
@@ -66,11 +66,13 @@ class MessagePresenter : MessageContract.Presenter {
                 }
 
                 override fun onException(throwable: Throwable?) {
+                    view?.hideOnScreenProgress()
                     view?.onApiException(ErrorHandler.handleError(throwable!!))
                 }
 
 
             })
+
     }
 
 

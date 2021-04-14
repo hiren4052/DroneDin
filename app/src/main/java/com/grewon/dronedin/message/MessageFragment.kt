@@ -18,6 +18,7 @@ import com.grewon.dronedin.message.contract.MessageContract
 import com.grewon.dronedin.message.adapter.MessagesAdapter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.MessagesDataBean
+import com.malinskiy.superrecyclerview.OnMoreListener
 import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.layout_square_toolbar.*
 import retrofit2.Retrofit
@@ -25,7 +26,7 @@ import javax.inject.Inject
 
 
 class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
-    SwipeRefreshLayout.OnRefreshListener, MessageContract.View {
+    SwipeRefreshLayout.OnRefreshListener, MessageContract.View, OnMoreListener {
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -34,6 +35,8 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
     lateinit var messagesPresenter: MessageContract.Presenter
 
     private var messageAdapter: MessagesAdapter? = null
+
+    private var pageCount: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +63,7 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
     }
 
     private fun apiCall() {
-        messagesPresenter.getMessages()
+        messagesPresenter.getMessages(pageCount)
     }
 
 
@@ -82,6 +85,8 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
             R.color.colorPrimaryDark,
             R.color.colorPrimaryDark
         )
+
+        message_data_recycle.setupMoreListener(this, 1)
     }
 
 
@@ -98,7 +103,10 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
     }
 
     override fun onRefresh() {
+        message_data_recycle.setupMoreListener(this, 1)
+        pageCount = 1
         apiCall()
+        message_data_recycle.setRefreshing(false)
     }
 
     override fun onApiException(error: Int) {
@@ -108,18 +116,27 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
     override fun onMessageGetSuccessful(response: MessagesDataBean) {
         if (context != null && isVisible) {
             if (response.data != null && response.data.size > 0) {
-                initAdapter()
+                if (pageCount == 1) {
+                    initAdapter()
+                }
                 messageAdapter?.addItemsList(response.data)
             } else {
-                setEmptyView(response.msg.toString(), R.drawable.ic_no_data)
+                if (pageCount == 1) {
+                    setEmptyView(response.msg.toString(), R.drawable.ic_no_data)
+                }
+                stopMore()
             }
         }
     }
 
     override fun onMessageGetFailed(loginParams: CommonMessageBean) {
-        if (loginParams.msg != null) {
-            setEmptyView(loginParams.msg, R.drawable.ic_no_data)
+        if (pageCount == 1) {
+            if (loginParams.msg != null) {
+                setEmptyView(loginParams.msg, R.drawable.ic_no_data)
+            }
         }
+        stopMore()
+
     }
 
     private fun setEmptyView(errorMessage: String, emptyDrawable: Int?) {
@@ -143,5 +160,19 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
         message_data_recycle.adapter = messageAdapter
     }
 
+    override fun onMoreAsked(
+        overallItemsCount: Int,
+        itemsBeforeMore: Int,
+        maxLastVisiblePosition: Int
+    ) {
+        pageCount += 1
+        apiCall()
+    }
 
+    private fun stopMore() {
+        if (context != null && isVisible) {
+            message_data_recycle.hideMoreProgress()
+            message_data_recycle.setupMoreListener(null, 0)
+        }
+    }
 }

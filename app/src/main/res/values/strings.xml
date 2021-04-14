@@ -423,4 +423,10 @@
     <string name="add_card_detail">Add Card Detail</string>
     <string name="package_information">Package Information</string>
     <string name="packages">Packages</string>
+    <string name="dispute_raised_by">Dispute raised by:</string>
+    <string name="dispute_raised_on">Dispute raised on:</string>
+    <string name="disputed_amount">Disputed Amount:</string>
+    <string name="dispute_details">Dispute Details</string>
+    <string name="reason_for_dispute">Reason for Dispute</string>
+    <string name="dispute_result">Dispute Result</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.grewon.dronedin.project.endproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.grewon.dronedin.R
@@ -8,6 +9,7 @@ import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.enum.JOB_REQUEST_TYPE
 import com.grewon.dronedin.project.endproject.contract.EndProjectRequestContract
+import com.grewon.dronedin.review.SubmitReviewActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.params.CancelEndProjectStatusUpdateParams
 import com.grewon.dronedin.server.params.CreateDisputeParams
@@ -89,7 +91,7 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
                 endProjectRequestPresenter.projectStatusUpdate(params)
             }
             R.id.txt_dispute -> {
-                val params = CreateDisputeParams("End Project", jobId)
+                val params = CreateDisputeParams("End Project", jobId, jobRequestId)
                 endProjectRequestPresenter.createDispute(params)
             }
 
@@ -105,8 +107,12 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
     override fun onEndProjectStatusSuccessFully(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
-            setResult(RESULT_OK)
-            finish()
+            startActivity(
+                Intent(this, SubmitReviewActivity::class.java).putExtra(
+                    AppConstant.ID,
+                    jobId
+                )
+            )
         }
     }
 

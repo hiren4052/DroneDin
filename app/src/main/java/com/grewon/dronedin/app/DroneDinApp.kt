@@ -92,6 +92,7 @@ class DroneDinApp : MultiDexApplication() {
             .mainModule(MainModule())
             .membershipModule(MembershipModule())
             .disputeModule(DisputeModule())
+            .earningModule(EarningModule())
             .build()
     }
 

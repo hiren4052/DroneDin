@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5dp"
+    android:layout_marginBottom="@dimen/_5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_55dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:id="@+id/image_admin_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_other_message_background"
+            android:paddingStart="@dimen/_25dp"
+            android:paddingTop="@dimen/_10dp"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            app:aspectRatio="0.75"
+            app:aspectRatioEnabled="true"
+            app:srcCompat="@drawable/ic_rectangle_spann_color" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_image_admin_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_60dp"
+        android:padding="@dimen/_5dp"
+        android:text="2:00 PM"
+        android:textColor="@color/gray_71"
+        android:textSize="@dimen/_14sp" />
+</LinearLayout>

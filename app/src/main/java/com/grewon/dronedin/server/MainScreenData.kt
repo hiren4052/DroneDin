@@ -37,6 +37,8 @@ data class MainScreenData(
         val stripeCommission: String? = "",
         @SerializedName("terms_conditions_url")
         val termsConditionsUrl: String? = "",
+        @SerializedName("customer_support_url")
+        val customerSupportUrl: String? = "",
         @SerializedName("total_unread_msg")
         val totalUnreadMsg: String? = "",
         @SerializedName("total_unread_notification")

@@ -6,32 +6,37 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class SentDisputeChatBean(
     @SerializedName("data")
-    val `data`: Data? = Data(),
+    var `data`: Data? = Data(),
     @SerializedName("msg")
-    val msg: String? = ""
+    var msg: String? = ""
 ) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class Data(
-        @SerializedName("chat_msg_datecreated")
-        val chatMsgDatecreated: String? = "",
-        @SerializedName("chat_msg_id")
-        val chatMsgId: String? = "",
         @SerializedName("extension")
-        val extension: String? = "",
+        var extension: String? = "",
+        @SerializedName("group_chat_msg_datecreated")
+        var groupChatMsgDatecreated: String? = "",
+        @SerializedName("group_chat_msg_id")
+        var groupChatMsgId: String? = "",
         @SerializedName("is_read")
-        val isRead: String? = "",
+        var isRead: String? = "",
+        @SerializedName("is_user_online")
+        var isUserOnline: String? = "",
         @SerializedName("msg")
-        val msg: String? = "",
+        var msg: String? = "",
         @SerializedName("msg_type")
-        val msgType: String? = "",
-        @SerializedName("reciever_id")
-        val recieverId: String? = "",
+        var msgType: String? = "",
+        @SerializedName("profile_image")
+        var profileImage: String? = "",
         @SerializedName("sender_id")
-        val senderId: String? = ""
+        var senderId: String? = "",
+        @SerializedName("user_name")
+        var userName: String? = ""
     ) : Parcelable
 }

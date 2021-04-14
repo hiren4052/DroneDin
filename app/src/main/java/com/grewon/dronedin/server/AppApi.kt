@@ -217,8 +217,8 @@ interface AppApi {
     fun cancelEndProjectStatusUpdate(@Body map: CancelEndProjectStatusUpdateParams): Single<CommonMessageBean>
 
 
-    @GET("chat_c/chat_room")
-    fun getMessages(): Single<MessagesDataBean>
+    @GET("chat_c/chat_room/{offset}")
+    fun getMessages(@Path("offset") offset: Int): Single<MessagesDataBean>
 
 
     @POST("chat_c/chat_room")
@@ -257,12 +257,21 @@ interface AppApi {
     @GET("chat_c/dispute/{offset}")
     fun getDispute(@Path("offset") offset: Int): Single<DisputeBean>
 
+    @GET("chat_c/dispute_detail/{dispute_id}")
+    fun getDisputeDetails(@Path("dispute_id") disputeId: String): Single<DisputeDetailsBean>
+
     @POST("pilot_c/submit_review")
     fun submitReview(@Body params: SubmitReviewParams): Single<CommonMessageBean>
 
     @POST("profile_c/portfolio")
     fun createPortFolio(@Body file: RequestBody): Single<CommonMessageBean>
 
+
+    @GET("profile_c/earning_chart/{earning}")
+    fun getMonthlyEarning(@Path("earning") earning: String): Single<MonthlyEarningBean>
+
+    @GET("profile_c/earning_chart/{earning}")
+    fun getWeeklyEarning(@Path("earning") earning: String): Single<WeeklyDataBean>
 
     @POST("profile_c/portfolio_update/{port_folio_id}")
     fun updatePortFolio(

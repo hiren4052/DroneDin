@@ -290,6 +290,7 @@
         <activity android:name=".project.cancelproject.ProjectCancelRejectActivity" />
         <activity android:name=".project.endproject.ProjectEndRequestActivity" />
         <activity android:name=".dispute.DisputeChatActivity" />
+        <activity android:name=".dispute.DisputeDetailsActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

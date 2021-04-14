@@ -91,16 +91,6 @@ class DisputeAdapter(
                     )
                 )
 
-            } else if (item.disputeStatus == DISPUTE_STATUS.pending.name) {
-                holder.textDisputeStatus.background =
-                    ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
-                holder.textDisputeStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.cancelled_text_color
-                    )
-                )
-
             }
 
             holder.itemView.setOnClickListener { onItemClickListeners.onDisputeItemClick(item) }
