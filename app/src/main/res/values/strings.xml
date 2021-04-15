@@ -429,4 +429,9 @@
     <string name="dispute_details">Dispute Details</string>
     <string name="reason_for_dispute">Reason for Dispute</string>
     <string name="dispute_result">Dispute Result</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="total_withdrawal">Total Withdrawal</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="please_enter_withdraw_amount">Please enter withdraw amount!</string>
+    <string name="my_wallet">My Wallet</string>
 </resources>

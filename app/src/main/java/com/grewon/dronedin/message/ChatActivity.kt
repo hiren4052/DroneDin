@@ -1,14 +1,12 @@
 package com.grewon.dronedin.message
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -28,14 +26,14 @@ import com.grewon.dronedin.message.adapter.ChatAdapter
 import com.grewon.dronedin.message.contract.ChatContract
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentMessageParams
+import com.grewon.dronedin.utils.TimeUtils
 import com.grewon.dronedin.utils.ValidationUtils
-import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
-import kotlinx.android.synthetic.main.activity_add_profile.*
 import kotlinx.android.synthetic.main.activity_chat.*
 import retrofit2.Retrofit
 import javax.inject.Inject
+
 
 class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemClickListeners,
     ChatContract.View {
@@ -53,6 +51,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     private var mIsLastItem = false
     private var isLoading = true
     private var isOldMessageServiceCalled = false
+    private var dateArrayList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +80,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val llm = recyclerView.layoutManager as LinearLayoutManager?
-                if (llm != null && !mIsLastItem && !isLoading && chatAdapter!!.itemCount >= 10 && llm.findFirstVisibleItemPosition() == 0) {
+                if (llm != null && !mIsLastItem && !isLoading && chatAdapter!!.itemCount >= 10 && llm.findLastVisibleItemPosition() == chatAdapter!!.itemCount - 1) {
                     getOldMessage()
                 }
             }
@@ -271,6 +270,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     override fun onImageDownloadClick(jobsDataBean: ChatDataBean.Data?) {
+
     }
 
     override fun onApiException(error: Int) {
@@ -328,7 +328,11 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun setSingleItemToAdapter(chatDataBean: ChatDataBean.Data) {
-        chatAdapter?.addMessageItem(chatDataBean)
+        val withoutDateList=ArrayList<ChatDataBean.Data>()
+        withoutDateList.add(chatDataBean)
+        val withDateList = getDateWiseList(withoutDateList)
+        chatAdapter?.addOffsetMessageItemsList(withDateList)
+       // chatAdapter?.addMessageItem(chatDataBean)
     }
 
     override fun onMessageSendFailed(loginParams: CommonMessageBean) {
@@ -337,7 +341,9 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     override fun onOldMessageGetSuccessfully(response: ChatDataBean) {
         if (response.data != null && response.data.size > 0) {
-            chatAdapter?.addOldMessageItemsList(response.data)
+
+            val withDateList = getDateWiseList(response.data)
+            chatAdapter?.addOldMessageItemsList(withDateList)
             if (!isOldMessageServiceCalled) {
                 scrollToEnd()
             }
@@ -346,27 +352,65 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     }
 
+
+    private fun getDateWiseList(withOutDateList: ArrayList<ChatDataBean.Data>): ArrayList<ChatDataBean.Data> {
+        val withDateList = ArrayList<ChatDataBean.Data>()
+        for (bean in withOutDateList) {
+            if (!dateArrayList.contains(TimeUtils.getMessageHeaderDisplayDate(bean.chatMsgDatecreated!!))) {
+                if (dateArrayList.size > 0) {
+                    val messagesBean = ChatDataBean.Data()
+                    messagesBean.chatMsgDatecreated = dateArrayList[dateArrayList.size - 1]
+                    messagesBean.msgType = "Date"
+                    messagesBean.chatMsgId = bean.chatMsgId
+                    withDateList.add(messagesBean)
+                }
+                dateArrayList.add(TimeUtils.getMessageHeaderDisplayDate(bean.chatMsgDatecreated!!))
+                withDateList.add(bean)
+            } else {
+                withDateList.add(bean)
+            }
+        }
+        return withDateList
+    }
+
     private fun scrollToEnd() {
         Handler().postDelayed({
             chat_recycle.smoothScrollToPosition(0)
-
-        },300)
+        }, 300)
     }
 
 
     override fun onOldMessageGetFailed(loginParams: CommonMessageBean) {
         isOldMessageServiceCalled = true
+        if (chatAdapter != null && chatAdapter?.itemList != null && chatAdapter?.itemList!!.size > 0 && !mIsLastItem) {
+            if (dateArrayList.size > 0) {
+                val withDateList = ArrayList<ChatDataBean.Data>()
+                val messagesBean = ChatDataBean.Data()
+                messagesBean.chatMsgDatecreated = dateArrayList[dateArrayList.size - 1]
+                messagesBean.msgType = "Date"
+                messagesBean.chatMsgId =
+                    chatAdapter?.itemList!![0].chatMsgId
+                withDateList.add(messagesBean)
+                chatAdapter?.addOldMessageItemsList(withDateList)
+            }
+        }
         mIsLastItem = true
+
     }
 
     override fun onNewMessageGetSuccessfully(response: ChatDataBean) {
         if (response.data != null && response.data.size > 0) {
             mIsLastItem = false
-            chatAdapter?.addOffsetMessageItemsList(response.data)
+            val withDateList = getDateWiseList(response.data!!)
+            chatAdapter?.addOffsetMessageItemsList(withDateList)
 
         }
 
     }
+
+
+
+
 
     private fun scrollBottom() {
         chat_recycle.smoothScrollToPosition(0)
@@ -417,7 +461,6 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                 }
 
             }
-
 
         }
     }

@@ -45,19 +45,27 @@ import com.grewon.dronedin.proposals.contract.ProposalsDetailContract
 import com.grewon.dronedin.proposals.presenter.ProposalsDetailsPresenter
 import com.grewon.dronedin.submitproposal.contract.SubmitProposalContract
 import com.grewon.dronedin.submitproposal.presenter.SubmitProposalPresenter
+import com.grewon.dronedin.wallet.contract.WalletContract
+import com.grewon.dronedin.wallet.presenter.WalletPresenter
 
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class EarningModule {
+class EarningDataModule {
 
 
     @Singleton
     @Provides
-    fun provideDisputeChatPresenter(): EarningContract.Presenter {
+    fun provideEarningPresenter(): EarningContract.Presenter {
         return EarningPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWalletPresenter(): WalletContract.Presenter {
+        return WalletPresenter()
     }
 
 

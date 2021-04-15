@@ -21,6 +21,7 @@ import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.JobInitBean
 import com.grewon.dronedin.server.ProfileBioDataBean
+import com.grewon.dronedin.server.params.BioUpdateErrorParams
 import com.grewon.dronedin.server.params.BioUpdateParams
 import com.grewon.dronedin.utils.ListUtils
 import com.grewon.dronedin.utils.ValidationUtils
@@ -184,7 +185,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onBioUpdateFailed(loginParams: BioUpdateParams) {
+    override fun onBioUpdateFailed(loginParams: BioUpdateErrorParams) {
         ErrorHandler.handleMapError(Gson().toJson(loginParams))
     }
 

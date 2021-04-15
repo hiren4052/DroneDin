@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".membership.MembershipPurchaseActivity"></activity>
+        <activity android:name=".wallet.MyWalletActivity"></activity>
+        <activity android:name=".membership.MembershipPurchaseActivity" />
         <activity
             android:name=".membership.MemberShipActivity"
             android:exported="true" />

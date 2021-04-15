@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_square_toolbar_with_back" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/_10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_available_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textAppearance="@style/RobotoMediumTextAppearance"
+                            android:textColor="@color/span_text_color"
+                            android:textSize="@dimen/_20sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/available_balance"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/RobotoLightTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_12sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/_1dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_gravity="center"
+                        android:background="@color/view_color" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5dp">
+
+                        <TextView
+                            android:id="@+id/txt_total_withdraw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textAppearance="@style/RobotoMediumTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/total_withdrawal"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/RobotoLightTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/edit_price_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/edt_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:hint="@string/enter_amount"
+                    android:inputType="numberDecimal"
+                    android:maxLength="10"
+                    android:padding="@dimen/_15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/gray_af"
+                    android:textSize="@dimen/_16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txt_withdraw"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_40dp"
+                android:background="@drawable/ic_rectangle_spann_color"
+                android:gravity="center"
+                android:text="@string/withdraw"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_15dp"
+                android:paddingEnd="@dimen/_15dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/details"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.1"
+                    android:text="@string/date"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/amount"
+                    android:textAppearance="@style/BoldTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/earning_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/_15dp"
+                android:paddingEnd="@dimen/_15dp" />
+
+            <include
+                android:id="@+id/no_data_layout"
+                layout="@layout/layout_no_data"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

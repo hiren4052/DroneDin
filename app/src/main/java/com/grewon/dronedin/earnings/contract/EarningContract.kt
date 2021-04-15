@@ -18,7 +18,11 @@ interface EarningContract {
 
         fun onWeeklyDataGetSuccessful(response: WeeklyDataBean)
 
-        fun onnWeeklyDataGetFailed(loginParams: CommonMessageBean)
+        fun onWeeklyDataGetFailed(loginParams: CommonMessageBean)
+
+        fun onEarningsDataGetSuccessful(response: EarningsDataBean)
+
+        fun onEarningsDataGetFailed(loginParams: CommonMessageBean)
 
     }
 
@@ -27,6 +31,8 @@ interface EarningContract {
         fun getMonthlyEarning()
 
         fun getWeeklyEarning()
+
+        fun getEarningsData(offsetCount:Int)
 
     }
 

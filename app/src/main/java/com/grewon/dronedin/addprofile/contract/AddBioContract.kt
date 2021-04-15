@@ -15,7 +15,7 @@ interface AddBioContract {
 
         fun onBioUpdateSuccessFully(loginParams: ProfileBioDataBean)
 
-        fun onBioUpdateFailed(loginParams: BioUpdateParams)
+        fun onBioUpdateFailed(loginParams: BioUpdateErrorParams)
 
         fun onApiException(error: Int)
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".earnings.EarningsActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/layout_square_toolbar_with_back" />
 
@@ -25,6 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="@string/available_earnings"
                 android:textAppearance="@style/RobotoMediumTextAppearance"
                 android:textColor="@color/white"
@@ -48,18 +48,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:drawableTint="@color/white"
             android:paddingStart="@dimen/_5dp"
             android:text="@string/withdraw"
             android:textAppearance="@style/RobotoBoldTextAppearance"
             android:textColor="@drawable/white_text_selector"
             android:textSize="@dimen/_14sp"
-            app:drawableEndCompat="@drawable/ic_right_arrow"
-            app:drawableTint="@color/white"
-            tools:ignore="RtlSymmetry" />
+            app:drawableEndCompat="@drawable/ic_right_arrow" />
 
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -144,6 +145,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/line_chart_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -155,14 +157,6 @@
                     app:aspectRatio="0.6"
                     app:aspectRatioEnabled="true" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/line_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignTop="@id/line_image"
-                    android:layout_alignBottom="@id/line_image"
-                    android:background="@color/white"
-                    android:visibility="visible" />
             </RelativeLayout>
 
             <LinearLayout
@@ -206,9 +200,16 @@
                 android:id="@+id/earning_recycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
                 android:paddingStart="@dimen/_15dp"
-                android:paddingEnd="@dimen/_15dp"
-                android:clipToPadding="false"/>
+                android:paddingEnd="@dimen/_15dp" />
+
+            <include
+                android:id="@+id/no_data_layout"
+                layout="@layout/layout_no_data"
+                android:visibility="gone" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -76,6 +76,7 @@ import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
 import com.grewon.dronedin.submitproposal.SubmitProposalActivity
 import com.grewon.dronedin.verification.VerificationActivity
+import com.grewon.dronedin.wallet.MyWalletActivity
 
 import dagger.Component
 import javax.inject.Singleton
@@ -85,7 +86,7 @@ import javax.inject.Singleton
     modules = [AppModule::class, NetworkModule::class, SignInModule::class, ProfileModule::class, CommonDataModule::class,
         InviteModule::class, ClientJobsModule::class, FilterModule::class, PilotJobsModule::class, MilestoneModule::class, PaymentModule::class,
         MessageModule::class, PortFolioModule::class, NotificationModule::class, MainModule::class, MembershipModule::class,
-        DisputeModule::class, EarningModule::class]
+        DisputeModule::class, EarningDataModule::class]
 )
 interface AppComponent {
 
@@ -153,6 +154,7 @@ interface AppComponent {
     fun inject(activity: DisputeActivity)
     fun inject(activity: DisputeDetailsActivity)
     fun inject(activity: EarningsActivity)
+    fun inject(activity: MyWalletActivity)
 
 
     //Fragments

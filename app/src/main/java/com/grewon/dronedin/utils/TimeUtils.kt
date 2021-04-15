@@ -12,6 +12,7 @@ import android.widget.TimePicker
 import android.app.TimePickerDialog
 import android.widget.TextView
 import com.grewon.dronedin.R
+import com.grewon.dronedin.helper.LogX
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.joda.time.PeriodType
@@ -24,170 +25,57 @@ class TimeUtils {
 
     companion object {
 
-        fun getChatTime(server_time: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(server_time)
-                val dateFormatter =
-                    SimpleDateFormat(
-                        "yyyy/MM/dd",
-                        Locale.getDefault()
-                    ) //this format changeable
-                ourdate = dateFormatter.format(value)
-
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
-
-            return ourdate
-        }
-
-        fun convertDateTimetoAppDateTime(serverdate: String): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
-            val outputFormat = SimpleDateFormat("MMM dd yyyy, hh:mm a", Locale.getDefault())
-            var date: Date? = null
-            try {
-                date = inputFormat.parse(serverdate)
-                return outputFormat.format(date)
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
-
-            return ""
-        }
-
-        fun chatDateTime(serverdate: String): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-            val outputFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-            var date: Date? = null
-            try {
-                date = inputFormat.parse(serverdate)
-                return outputFormat.format(date)
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
-
-            return ""
-        }
-
-
-        fun convertDateTimeTo12HrTime(serverdate: String): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-            val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-            var date: Date? = null
-            try {
-                date = inputFormat.parse(serverdate)
-                return outputFormat.format(date)
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
-
-            return ""
-        }
-
-
-        fun getServerCurrentTime(): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                val value = Date()
-                ourdate = formatter.format(value)
-
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
-
-            return ourdate
-        }
 
         fun getServerToAppDate(server_time: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(server_time)
-                val dateFormatter =
-                    SimpleDateFormat(
-                        "MMM dd yyyy, hh:mm a",
-                        Locale.getDefault()
-                    ) //this format changeable
-                dateFormatter.timeZone = TimeZone.getDefault()
-                ourdate = dateFormatter.format(value)
+            return convertDate(
+                server_time,
+                "yyyy-MM-dd HH:mm:ss",
+                "MMM dd yyyy, hh:mm a",
+                true
+            )
 
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
 
-            return ourdate
-        }
-
-        fun convertNotificationDateTime(server_time: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(server_time)
-                val dateFormatter =
-                    SimpleDateFormat(
-                        "hh.mma, dd MMMM yyyy",
-                        Locale.getDefault()
-                    ) //this format changeable
-                dateFormatter.timeZone = TimeZone.getDefault()
-                ourdate = dateFormatter.format(value)
-
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
-
-            return ourdate.replace("AM", "am").replace("PM", "pm");
         }
 
 
-        fun convertDate(server_time: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(server_time)
-                val dateFormatter =
-                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) //this format changeable
-                dateFormatter.timeZone = TimeZone.getDefault()
-                ourdate = dateFormatter.format(value)
+        fun getMessageHeaderDisplayDate(server_time: String): String {
+            return convertDate(
+                server_time,
+                "yyyy-MM-dd HH:mm:ss",
+                "d MMMM, yyyy",
+                true
+            )
+        }
 
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
+        fun getMessageHeaderConvertDate(server_time: String): String {
+            val calendar = Calendar.getInstance()
+            val sdf = SimpleDateFormat("d MMMM, yyyy", Locale.getDefault())
+
+            if (server_time == sdf.format(calendar.time)) {
+                return "Today"
+            }
+            LogX.E(sdf.format(calendar.time))
+            calendar.add(Calendar.DATE, -1)
+            LogX.E(sdf.format(calendar.time))
+            if (server_time == sdf.format(calendar.time)) {
+                return "Yesterday"
             }
 
-            return ourdate
+            return server_time
         }
 
 
         fun getMessageTime(server_time: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(server_time)
-                val dateFormatter =
-                    SimpleDateFormat("hh:mm a", Locale.getDefault()) //this format changeable
-                dateFormatter.timeZone = TimeZone.getDefault()
-                ourdate = dateFormatter.format(value)
+            return convertDate(
+                server_time,
+                "yyyy-MM-dd HH:mm:ss",
+                "hh:mm a",
+                true
+            )
 
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
 
-            return ourdate
         }
+
 
         fun convert24to12Time(server_time: String): String {
             var ourdate: String
@@ -205,34 +93,6 @@ class TimeUtils {
             }
 
             return ourdate
-        }
-
-        fun convertCalendarStringToDate(strDate: String): Date? {
-            var date: Date? = null
-            val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            try {
-                date = format.parse(strDate)
-            } catch (e: ParseException) {
-                date = currentDate()
-                e.printStackTrace()
-            }
-
-            return date
-        }
-
-
-        fun convertStringToDate(strDate: String): Date? {
-            var date: Date? = null
-            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            try {
-                date = format.parse(strDate)
-                println(date)
-            } catch (e: ParseException) {
-                date = currentDate()
-                e.printStackTrace()
-            }
-
-            return date
         }
 
 
@@ -257,9 +117,13 @@ class TimeUtils {
         }
 
 
-        fun convertDate(tempDate: String, from: String, to: String): String {
-            val oldFormat = SimpleDateFormat(from, Locale.ENGLISH)
-            val newFormat = SimpleDateFormat(to, Locale.ENGLISH)
+        fun convertDate(tempDate: String, from: String, to: String, isUTC: Boolean): String {
+            val oldFormat = SimpleDateFormat(from, Locale.getDefault())
+            if (isUTC) {
+                oldFormat.timeZone = TimeZone.getTimeZone("UTC")
+            }
+            val newFormat = SimpleDateFormat(to, Locale.getDefault())
+            newFormat.timeZone = TimeZone.getDefault()
 
             val date: Date
             var str = tempDate
@@ -446,29 +310,6 @@ class TimeUtils {
         }
 
 
-        fun convertOrderDateTime(serverdate: String): String {
-            var ourdate: String
-            try {
-                val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                formatter.timeZone = TimeZone.getTimeZone("UTC")
-                val value = formatter.parse(serverdate)
-                val dateFormatter =
-                    SimpleDateFormat(
-                        "hh.mma, dd MMMM yyyy",
-                        Locale.getDefault()
-                    ) //this format changeable
-                dateFormatter.timeZone = TimeZone.getDefault()
-                ourdate = dateFormatter.format(value)
-
-                //Log.d("OurDate", OurDate);
-            } catch (e: Exception) {
-                ourdate = "0000-00-00 00:00:00"
-            }
-
-            return ourdate.replace("AM", "am").replace("PM", "pm");
-        }
-
-
         fun getLocalTimes(context: Context, product_datetime: String): String? {
 
             val language = Locale.getDefault().language
@@ -601,11 +442,20 @@ class TimeUtils {
 
 
                 if (years > 0) {
-
-                    return getChatTime(product_datetime)
+                    return convertDate(
+                        product_datetime,
+                        "yyyy-MM-dd HH:mm:ss",
+                        "yyyy/MM/dd",
+                        true
+                    )
                 } else if (months > 0) {
 
-                    return getChatTime(product_datetime)
+                    return convertDate(
+                        product_datetime,
+                        "yyyy-MM-dd HH:mm:ss",
+                        "yyyy/MM/dd",
+                        true
+                    )
 
                 } else if (days > 0) {
 

@@ -26,7 +26,6 @@ import com.grewon.dronedin.server.UserData
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
-import kotlinx.android.synthetic.main.activity_sign_up_type.*
 import net.danlew.android.joda.JodaTimeAndroid
 
 class DroneDinApp : MultiDexApplication() {
@@ -92,7 +91,7 @@ class DroneDinApp : MultiDexApplication() {
             .mainModule(MainModule())
             .membershipModule(MembershipModule())
             .disputeModule(DisputeModule())
-            .earningModule(EarningModule())
+            .earningDataModule(EarningDataModule())
             .build()
     }
 

@@ -216,10 +216,8 @@ interface AppApi {
     @POST("job_c/project_end_cancel_request")
     fun cancelEndProjectStatusUpdate(@Body map: CancelEndProjectStatusUpdateParams): Single<CommonMessageBean>
 
-
     @GET("chat_c/chat_room/{offset}")
     fun getMessages(@Path("offset") offset: Int): Single<MessagesDataBean>
-
 
     @POST("chat_c/chat_room")
     fun createChatRoom(@Body createChatRoomParams: CreateChatRoomParams): Single<ChatRoomBean>
@@ -253,7 +251,6 @@ interface AppApi {
     @POST("chat_c/dispute")
     fun createDispute(@Body params: CreateDisputeParams): Single<CommonMessageBean>
 
-
     @GET("chat_c/dispute/{offset}")
     fun getDispute(@Path("offset") offset: Int): Single<DisputeBean>
 
@@ -265,7 +262,6 @@ interface AppApi {
 
     @POST("profile_c/portfolio")
     fun createPortFolio(@Body file: RequestBody): Single<CommonMessageBean>
-
 
     @GET("profile_c/earning_chart/{earning}")
     fun getMonthlyEarning(@Path("earning") earning: String): Single<MonthlyEarningBean>
@@ -291,7 +287,6 @@ interface AppApi {
 
     @DELETE("profile_c/portfolio/{portfolio_id}")
     fun deletePortFolio(@Path("portfolio_id") portFolioId: String): Single<CommonMessageBean>
-
 
     @GET("profile_c/card")
     fun getCardData(): Single<CardDataBean>
@@ -329,13 +324,15 @@ interface AppApi {
     @GET("profile_c/main_screen")
     fun getMainScreenData(@QueryMap requestPart: HashMap<String, Any>): Single<MainScreenData>
 
-
     @GET("profile_c/logout")
     fun logoutUser(): Single<CommonMessageBean>
-
 
     @POST("job_c/milestone_active")
     fun activeMileStone(@Body activeMilestoneParams: ActiveMilestoneParams): Single<CommonMessageBean>
 
+    @GET("profile_c/wallet_transaction/{offset}")
+    fun getEarningsData(@Path("offset") offset: Int): Single<EarningsDataBean>
 
+    @POST("chat_c/withdraw")
+    fun withdrawAmount(@Body withdrawParams: WithdrawParams): Single<CommonMessageBean>
 }

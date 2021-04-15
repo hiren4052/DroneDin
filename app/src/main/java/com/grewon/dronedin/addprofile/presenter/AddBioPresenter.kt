@@ -7,6 +7,7 @@ import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.*
+import com.grewon.dronedin.server.params.BioUpdateErrorParams
 import com.grewon.dronedin.server.params.BioUpdateParams
 import com.grewon.dronedin.server.params.ProfileUpdateParams
 import com.grewon.dronedin.utils.TextUtils
@@ -104,7 +105,7 @@ class AddBioPresenter : AddBioContract.Presenter {
                     view?.onBioUpdateFailed(
                         Gson().fromJson(
                             errorBean.toString(),
-                            BioUpdateParams::class.java
+                            BioUpdateErrorParams::class.java
                         )
                     )
                 }

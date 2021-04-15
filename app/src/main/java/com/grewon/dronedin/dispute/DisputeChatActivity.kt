@@ -27,6 +27,7 @@ import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentDisputeMessageParams
+import com.grewon.dronedin.utils.TimeUtils
 import com.grewon.dronedin.utils.ValidationUtils
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
@@ -50,6 +51,7 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
     private var mIsLastItem = false
     private var isLoading = true
     private var isOldMessageServiceCalled = false
+    private var dateArrayList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +82,7 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val llm = recyclerView.layoutManager as LinearLayoutManager?
-                if (llm != null && !mIsLastItem && !isLoading && chatAdapter!!.itemCount >= 10 && llm.findFirstVisibleItemPosition() == 0) {
+                if (llm != null && !mIsLastItem && !isLoading && chatAdapter!!.itemCount >= 10 && llm.findLastVisibleItemPosition() == chatAdapter!!.itemCount - 1) {
                     getOldMessage()
                 }
             }
@@ -309,7 +311,11 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
     }
 
     private fun setSingleItemToAdapter(chatDataBean: DisputeChatDataBean.Data) {
-        chatAdapter?.addMessageItem(chatDataBean)
+        val withoutDateList=ArrayList<DisputeChatDataBean.Data>()
+        withoutDateList.add(chatDataBean)
+        val withDateList = getDateWiseList(withoutDateList)
+        chatAdapter?.addOffsetMessageItemsList(withDateList)
+     //   chatAdapter?.addMessageItem(chatDataBean)
     }
 
     override fun onMessageSendFailed(loginParams: CommonMessageBean) {
@@ -318,7 +324,8 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
 
     override fun onOldMessageGetSuccessfully(response: DisputeChatDataBean) {
         if (response.data != null && response.data!!.size > 0) {
-            chatAdapter?.addOldMessageItemsList(response.data!!)
+            val withDateList = getDateWiseList(response.data!!)
+            chatAdapter?.addOldMessageItemsList(withDateList)
             if (!isOldMessageServiceCalled) {
                 scrollToEnd()
             }
@@ -326,6 +333,27 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
         }
 
     }
+
+    private fun getDateWiseList(withOutDateList: ArrayList<DisputeChatDataBean.Data>): ArrayList<DisputeChatDataBean.Data> {
+        val withDateList = ArrayList<DisputeChatDataBean.Data>()
+        for (bean in withOutDateList) {
+            if (!dateArrayList.contains(TimeUtils.getMessageHeaderDisplayDate(bean.groupChatMsgDatecreated!!))) {
+                if (dateArrayList.size > 0) {
+                    val messagesBean = DisputeChatDataBean.Data()
+                    messagesBean.groupChatMsgDatecreated = dateArrayList[dateArrayList.size - 1]
+                    messagesBean.msgType = "Date"
+                    messagesBean.groupChatMsgId = bean.groupChatMsgId
+                    withDateList.add(messagesBean)
+                }
+                dateArrayList.add(TimeUtils.getMessageHeaderDisplayDate(bean.groupChatMsgDatecreated!!))
+                withDateList.add(bean)
+            } else {
+                withDateList.add(bean)
+            }
+        }
+        return withDateList
+    }
+
 
     private fun scrollToEnd() {
         Handler().postDelayed({
@@ -337,13 +365,25 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
 
     override fun onOldMessageGetFailed(loginParams: CommonMessageBean) {
         isOldMessageServiceCalled = true
+        if (chatAdapter != null && chatAdapter?.itemList != null && chatAdapter?.itemList!!.size > 0 && !mIsLastItem) {
+            if (dateArrayList.size > 0) {
+                val withDateList = ArrayList<DisputeChatDataBean.Data>()
+                val messagesBean = DisputeChatDataBean.Data()
+                messagesBean.groupChatMsgId = dateArrayList[dateArrayList.size - 1]
+                messagesBean.msgType = "Date"
+                messagesBean.groupChatMsgId = chatAdapter?.itemList!![0].groupChatMsgId
+                withDateList.add(messagesBean)
+                chatAdapter?.addOldMessageItemsList(withDateList)
+            }
+        }
         mIsLastItem = true
     }
 
     override fun onNewMessageGetSuccessfully(response: DisputeChatDataBean) {
         if (response.data != null && response.data!!.size > 0) {
             mIsLastItem = false
-            chatAdapter?.addOffsetMessageItemsList(response.data!!)
+            val withDateList = getDateWiseList(response.data!!)
+            chatAdapter?.addOffsetMessageItemsList(withDateList)
 
         }
 

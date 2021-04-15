@@ -8,15 +8,15 @@ import android.os.Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class BioUpdateParams(
+data class BioUpdateErrorParams(
     @SerializedName("category_id")
     val categoryId: String? = "",
     @SerializedName("equipment")
-    val equipment: List<Int?>? = null,
+    val equipment: String? = "",
     @SerializedName("profile_price")
     val profilePrice: String? = "",
     @SerializedName("skill")
-    val skill: List<Int>? = null,
+    val skill: String? = "",
     @SerializedName("user_bio")
     val userBio: String? = "",
     @SerializedName("msg")

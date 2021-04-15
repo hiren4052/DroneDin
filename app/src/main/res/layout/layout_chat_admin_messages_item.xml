@@ -43,5 +43,5 @@
         android:padding="@dimen/_5dp"
         android:text="2:00 PM"
         android:textColor="@color/gray_71"
-        android:textSize="@dimen/_14sp" />
+        android:textSize="@dimen/_12sp" />
 </LinearLayout>

@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.FileValidationUtils
+import com.grewon.dronedin.message.adapter.ChatAdapter
 import com.grewon.dronedin.server.ChatDataBean
 import com.grewon.dronedin.server.DisputeChatDataBean
 import com.grewon.dronedin.utils.ListUtils
@@ -55,7 +56,7 @@ class DisputeChatAdapter(
 
     override fun getItemViewType(position: Int): Int {
         if (itemList[position].senderType == "admin") {
-            if (itemList[position].msgType != "date") {
+            if (itemList[position].msgType != "Date") {
                 if (itemList[position].msgType == "Text") {
                     return ADMIN_MESSAGE
                 } else if (itemList[position].msgType == "Image" || itemList[position].msgType == "File") {
@@ -65,7 +66,7 @@ class DisputeChatAdapter(
                 return DATE_VIEW_ITEM
             }
         } else {
-            if (itemList[position].msgType != "date") {
+            if (itemList[position].msgType != "Date") {
                 if (itemList[position].senderId == DroneDinApp.getAppInstance().getUserId()) {
                     if (itemList[position].msgType == "Text") {
                         return MY_MESSAGE
@@ -162,80 +163,90 @@ class DisputeChatAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = itemList[position]
 
-        if (holder is MyMessageViewHolder) {
+        when (holder) {
+            is MyMessageViewHolder -> {
 
-            holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+                holder.textMyMessage.text = item.msg?.trim()
+                holder.textMyDate.text = TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
 
-        } else if (holder is MyImageMessageViewHolder) {
-            if (ListUtils.getImageExtensionList()
-                    .contains(
-                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
-                            Locale.ROOT
-                        )
-                    )
-            ) {
-                Glide.with(context)
-                    .load(item.msg)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.myImage)
-            } else {
-                Glide.with(context)
-                    .load(R.drawable.ic_attachment_background)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.myImage)
             }
-            holder.textMyImageDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
-        } else if (holder is OtherMessageViewHolder) {
-            holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
-        } else if (holder is OtherImageMessageViewHolder) {
-            if (ListUtils.getImageExtensionList()
-                    .contains(
-                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
-                            Locale.ROOT
+            is MyImageMessageViewHolder -> {
+                if (ListUtils.getImageExtensionList()
+                        .contains(
+                            FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                                Locale.ROOT
+                            )
                         )
-                    )
-            ) {
-                Glide.with(context)
-                    .load(R.drawable.ic_attachment_background)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.otherImage)
-            } else {
-                Glide.with(context)
-                    .load(item.msg)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.otherImage)
+                ) {
+                    Glide.with(context)
+                        .load(item.msg)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.myImage)
+                } else {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.myImage)
+                }
+                holder.textMyImageDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
             }
-            holder.textOtherImageDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
-        } else if (holder is AdminImageMessageViewHolder) {
-            if (ListUtils.getImageExtensionList()
-                    .contains(
-                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
-                            Locale.ROOT
+            is OtherMessageViewHolder -> {
+                holder.textMyMessage.text = item.msg?.trim()
+                holder.textMyDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+            }
+            is OtherImageMessageViewHolder -> {
+                if (ListUtils.getImageExtensionList()
+                        .contains(
+                            FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                                Locale.ROOT
+                            )
                         )
-                    )
-            ) {
-                Glide.with(context)
-                    .load(R.drawable.ic_attachment_background)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.adminImage)
-            } else {
-                Glide.with(context)
-                    .load(item.msg)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.adminImage)
+                ) {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
+                } else {
+                    Glide.with(context)
+                        .load(item.msg)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
+                }
+                holder.textOtherImageDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
             }
-            holder.textAdminImageDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
-        } else if (holder is AdminMessageViewHolder) {
-            holder.textAdminMessage.text = item.msg?.trim()
-            holder.textAdminDate.text =
-                TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+            is AdminImageMessageViewHolder -> {
+                if (ListUtils.getImageExtensionList()
+                        .contains(
+                            FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                                Locale.ROOT
+                            )
+                        )
+                ) {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.adminImage)
+                } else {
+                    Glide.with(context)
+                        .load(item.msg)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.adminImage)
+                }
+                holder.textAdminImageDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+            }
+            is AdminMessageViewHolder -> {
+                holder.textAdminMessage.text = item.msg?.trim()
+                holder.textAdminDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+            }
+            is DateViewHolder -> {
+                holder.txtMessageDate.text =
+                    TimeUtils.getMessageHeaderConvertDate(item.groupChatMsgDatecreated.toString())
+            }
         }
 
 

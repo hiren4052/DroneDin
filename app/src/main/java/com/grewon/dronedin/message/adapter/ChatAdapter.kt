@@ -34,9 +34,9 @@ class ChatAdapter(
 
     val MY_MESSAGE = 0
     val OTHER_MESSAGE = 1
-    val OTHER_IMAGE_MESSAGE = 3
-    val MY_IMAGE_MESSAGE = 4
-    val DATE_VIEW_ITEM = 5
+    val OTHER_IMAGE_MESSAGE = 2
+    val MY_IMAGE_MESSAGE = 3
+    val DATE_VIEW_ITEM = 4
 
     interface OnItemClickListeners {
 
@@ -50,7 +50,7 @@ class ChatAdapter(
     var itemList = ArrayList<ChatDataBean.Data>()
 
     override fun getItemViewType(position: Int): Int {
-        if (itemList[position].msgType != "date") {
+        if (itemList[position].msgType != "Date") {
             if (itemList[position].senderId == DroneDinApp.getAppInstance().getUserId()) {
                 if (itemList[position].msgType == "Text") {
                     return MY_MESSAGE
@@ -130,54 +130,62 @@ class ChatAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = itemList[position]
 
-        if (holder is MyMessageViewHolder) {
+        when (holder) {
+            is MyMessageViewHolder -> {
 
-            holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+                holder.textMyMessage.text = item.msg?.trim()
+                holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
 
-        } else if (holder is MyImageMessageViewHolder) {
-            if (ListUtils.getImageExtensionList()
-                    .contains(
-                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
-                            Locale.ROOT
-                        )
-                    )
-            ) {
-                Glide.with(context)
-                    .load(item.msg)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.myImage)
-            } else {
-                Glide.with(context)
-                    .load(R.drawable.ic_attachment_background)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.myImage)
             }
-            holder.textMyImageDate.text =
-                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
-        } else if (holder is OtherMessageViewHolder) {
-            holder.textMyMessage.text = item.msg?.trim()
-            holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
-        } else if (holder is OtherImageMessageViewHolder) {
-            if (ListUtils.getImageExtensionList()
-                    .contains(
-                        FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
-                            Locale.ROOT
+            is MyImageMessageViewHolder -> {
+                if (ListUtils.getImageExtensionList()
+                        .contains(
+                            FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                                Locale.ROOT
+                            )
                         )
-                    )
-            ) {
-                Glide.with(context)
-                    .load(R.drawable.ic_attachment_background)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.otherImage)
-            }else{
-                Glide.with(context)
-                    .load(item.msg)
-                    .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                    .into(holder.otherImage)
+                ) {
+                    Glide.with(context)
+                        .load(item.msg)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.myImage)
+                } else {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.myImage)
+                }
+                holder.textMyImageDate.text =
+                    TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
             }
-            holder.textOtherImageDate.text =
-                TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+            is OtherMessageViewHolder -> {
+                holder.textMyMessage.text = item.msg?.trim()
+                holder.textMyDate.text = TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+            }
+            is OtherImageMessageViewHolder -> {
+                if (ListUtils.getImageExtensionList()
+                        .contains(
+                            FileValidationUtils.getExtension(item.msg).toString().toLowerCase(
+                                Locale.ROOT
+                            )
+                        )
+                ) {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
+                } else {
+                    Glide.with(context)
+                        .load(item.msg)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
+                }
+                holder.textOtherImageDate.text =
+                    TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
+            }
+            is DateViewHolder -> {
+                holder.txtMessageDate.text = TimeUtils.getMessageHeaderConvertDate(item.chatMsgDatecreated.toString())
+            }
         }
 
 
