@@ -44,3 +44,25 @@ abstract class NetworkCall<T> : SingleObserver<T> {
         }
     }
 }
+
+/*private fun asRetrofitException(throwable: Throwable): RetrofitException {
+            // We had non-200 http error
+            if (throwable is HttpException) {
+                val response = throwable.response()
+
+                if (throwable.code() == 422) {
+                    // on out api 422's get metadata in the response. Adjust logic here based on your needs
+                    return RetrofitException.httpErrorWithObject(response.raw().request().url().toString(), response, _retrofit)
+                } else {
+                    return RetrofitException.httpError(response.raw().request().url().toString(), response, _retrofit)
+                }
+            }
+
+            // A network error happened
+            if (throwable is IOException) {
+                return RetrofitException.networkError(throwable)
+            }
+
+            // We don't know what happened. We need to simply convert to an unknown error
+            return RetrofitException.unexpectedError(throwable)
+        }*/

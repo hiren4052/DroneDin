@@ -20,8 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+
         android:usesCleartextTraffic="true">
-        <activity android:name=".wallet.MyWalletActivity"></activity>
+        <activity android:name=".wallet.MyWalletActivity"/>
         <activity android:name=".membership.MembershipPurchaseActivity" />
         <activity
             android:name=".membership.MemberShipActivity"
@@ -314,6 +315,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".onlineoffline.OnlineOfflineService" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

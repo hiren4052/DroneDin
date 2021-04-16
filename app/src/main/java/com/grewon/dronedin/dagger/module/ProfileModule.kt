@@ -7,6 +7,8 @@ import com.grewon.dronedin.addprofile.presenter.AddBioPresenter
 import com.grewon.dronedin.addprofile.presenter.AddProfilePresenter
 import com.grewon.dronedin.clientprofile.contract.ClientProfileContract
 import com.grewon.dronedin.clientprofile.presenter.ClientProfilePresenter
+import com.grewon.dronedin.onlineoffline.contract.OnlineStatusContract
+import com.grewon.dronedin.onlineoffline.presenter.OnlineStatusPresenter
 import com.grewon.dronedin.pilotprofile.contract.PilotProfileContract
 import com.grewon.dronedin.pilotprofile.presenter.PilotProfilePresenter
 
@@ -39,6 +41,12 @@ class ProfileModule {
     @Provides
     fun provideClientProfilePresenter(): ClientProfileContract.Presenter {
         return ClientProfilePresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOnlineStatusPresenter(): OnlineStatusContract.Presenter {
+        return OnlineStatusPresenter()
     }
 
 }

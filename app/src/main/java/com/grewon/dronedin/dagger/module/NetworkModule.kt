@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.helper.LogX
+import com.grewon.dronedin.network.NetworkInterceptor
 import com.grewon.dronedin.utils.AnalyticsUtils
 import com.grewon.dronedin.utils.PreferenceUtils
 
@@ -90,6 +91,7 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
         })
 
         return httpClient.addInterceptor(interceptor)
+            .addInterceptor(NetworkInterceptor(context))
             .connectTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
             .readTimeout(1, TimeUnit.MINUTES)
@@ -104,6 +106,7 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
+
             .build()
     }
 

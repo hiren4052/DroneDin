@@ -14,6 +14,7 @@ import android.provider.OpenableColumns
 import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
+import com.grewon.dronedin.app.AppConstant
 import okhttp3.ResponseBody
 import java.io.*
 import java.text.DecimalFormat
@@ -639,5 +640,37 @@ class FileValidationUtils {
             val index = filename.lastIndexOf('/')
             return filename.substring(index + 1)
         }
+
+        fun isAttachmentFileExist(context: Context, filename: String): Boolean {
+            val file = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
+                        + filename
+            )
+            return file.exists()
+        }
+
+        fun getAttachmentFile(context: Context, filename: String): File {
+            return File(
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
+                        + filename
+            )
+        }
+
+        fun getAttachmentFilePath(context: Context): String {
+            return File(
+                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
+
+            ).absolutePath
+        }
+
+
+
+
     }
+
+
+
 }

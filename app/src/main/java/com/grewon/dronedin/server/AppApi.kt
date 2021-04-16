@@ -335,4 +335,8 @@ interface AppApi {
 
     @POST("chat_c/withdraw")
     fun withdrawAmount(@Body withdrawParams: WithdrawParams): Single<CommonMessageBean>
+
+
+    @GET("profile_c/user_online_status/{online_status}")
+    fun changeOnlineStatus(@Path("online_status") onlineStatus: String): Single<CommonMessageBean>
 }

@@ -3,6 +3,7 @@ package com.grewon.dronedin.app
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -17,18 +18,22 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.downloader.PRDownloader
+import com.downloader.PRDownloaderConfig
 import com.google.gson.Gson
-import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.R
+import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.dagger.component.DaggerAppComponent
 import com.grewon.dronedin.dagger.module.*
+import com.grewon.dronedin.onlineoffline.OnlineOfflineService
 import com.grewon.dronedin.server.UserData
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import net.danlew.android.joda.JodaTimeAndroid
 
-class DroneDinApp : MultiDexApplication() {
+
+class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate {
 
     private lateinit var component: AppComponent
 
@@ -52,6 +57,7 @@ class DroneDinApp : MultiDexApplication() {
         JodaTimeAndroid.init(this)
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
+
         ViewPump.init(
             ViewPump.builder()
                 .addInterceptor(
@@ -65,9 +71,29 @@ class DroneDinApp : MultiDexApplication() {
                 .build()
         )
 
+        val lifeCycleHandler = AppLifecycleHandler(this)
+        registerLifecycleHandler(lifeCycleHandler)
+
         initDagger()
+        initDownLoader()
         createNotificationChannel()
         setDialogMessage(getString(R.string.loading))
+
+    }
+
+    private fun registerLifecycleHandler(AppLifecycleHandler: AppLifecycleHandler) {
+        registerActivityLifecycleCallbacks(AppLifecycleHandler)
+        registerComponentCallbacks(AppLifecycleHandler)
+    }
+
+
+    private fun initDownLoader() {
+        val config = PRDownloaderConfig.newBuilder()
+            .setDatabaseEnabled(true)
+            .setReadTimeout(30000)
+            .setConnectTimeout(30000)
+            .build()
+        PRDownloader.initialize(applicationContext, config)
     }
 
     fun setDialogMessage(message: String) {
@@ -169,7 +195,6 @@ class DroneDinApp : MultiDexApplication() {
     }
 
 
-
     fun getDeviceInformation(): String {
         return Build.MODEL + "|" + Build.MANUFACTURER + "|" + Build.BRAND + "|" + Build.VERSION.SDK + "|" + Build.BRAND + "|" + Build.VERSION.RELEASE
     }
@@ -201,6 +226,18 @@ class DroneDinApp : MultiDexApplication() {
             }
         }
         return result
+    }
+
+    override fun onAppBackgrounded() {
+        val intent = Intent(this, OnlineOfflineService::class.java)
+        intent.putExtra(AppConstant.TAG, "no")
+        startService(intent)
+    }
+
+    override fun onAppForegrounded() {
+        val intent = Intent(this, OnlineOfflineService::class.java)
+        intent.putExtra(AppConstant.TAG, "yes")
+        startService(intent)
     }
 
 
