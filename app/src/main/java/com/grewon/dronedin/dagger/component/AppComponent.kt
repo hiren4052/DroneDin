@@ -46,6 +46,7 @@ import com.grewon.dronedin.milestone.milestonesubmit.SubmitMilestoneActivity
 import com.grewon.dronedin.notifications.NotificationsFragment
 import com.grewon.dronedin.offers.CrateOffersActivity
 import com.grewon.dronedin.offers.OffersDetailActivity
+import com.grewon.dronedin.download.DownloadService
 import com.grewon.dronedin.onlineoffline.OnlineOfflineService
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.paymentsummary.MilestoneSummaryActivity
@@ -174,6 +175,7 @@ interface AppComponent {
 
 
     fun inject(service: OnlineOfflineService)
+    fun inject(service: DownloadService)
 
 
 

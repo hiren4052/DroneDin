@@ -5,6 +5,7 @@ public class AppConstant {
     companion object {
 
 
+        var FILE_DOWNLOAD_SUCCESS: String = "file_download_success"
         const val JOB_ID: String = "job_id"
         const val USER_TYPE: String = "user_type"
         const val YES_STATUS = "yes"
@@ -33,7 +34,8 @@ public class AppConstant {
         const val UPDATE_REQUEST_CODE: Int = 33
         const val TERMS_OF_SERVICE_URL: String = "https://www.termsandcondiitionssample.com/"
 
-        const val PRIVACY_URL: String = "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
+        const val PRIVACY_URL: String =
+            "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
         const val FAQ_URL: String = "https://ubereats-city.appspot.com/en_sg/faq/"
         const val MICROSOFT_URL: String = "https://graph.microsoft.com/v1.0/me"
         val CHANNEL_NAME: CharSequence = "dronedin"

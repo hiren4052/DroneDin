@@ -91,7 +91,6 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
         })
 
         return httpClient.addInterceptor(interceptor)
-            .addInterceptor(NetworkInterceptor(context))
             .connectTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
             .readTimeout(1, TimeUnit.MINUTES)

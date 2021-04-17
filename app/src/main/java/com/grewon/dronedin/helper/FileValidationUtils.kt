@@ -26,14 +26,17 @@ import java.util.*
 class FileValidationUtils {
     companion object {
         const val DOCUMENTS_DIR = "documents"
+
         // configured android:authorities in AndroidManifest (https://developer.android.com/reference/android/support/v4/content/FileProvider)
         const val AUTHORITY = "com.dronedin.provider"
         const val HIDDEN_PREFIX = "."
+
         /**
          * TAG for log messages.
          */
         const val TAG = "FileUtils"
         private const val DEBUG = false // Set to true to enable logging
+
         /**
          * File and folder comparator. TODO Expose sorting option method
          */
@@ -43,6 +46,7 @@ class FileValidationUtils {
                     f2.name.toLowerCase()
                 )
             }
+
         /**
          * File (not directories) filter.
          */
@@ -50,6 +54,7 @@ class FileValidationUtils {
             val fileName = file.name
             file.isFile && !fileName.startsWith(HIDDEN_PREFIX)
         }
+
         /**
          * Folder (directories) filter.
          */
@@ -277,7 +282,8 @@ class FileValidationUtils {
                     if ("primary".equals(type, ignoreCase = true)) {
                         return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
                     } else if ("home".equals(type, ignoreCase = true)) {
-                        return Environment.getExternalStorageDirectory().toString() + "/documents/" + split[1]
+                        return Environment.getExternalStorageDirectory()
+                            .toString() + "/documents/" + split[1]
                     }
                 } else if (isDownloadsDocument(uri)) {
                     val id = DocumentsContract.getDocumentId(uri)
@@ -641,36 +647,94 @@ class FileValidationUtils {
             return filename.substring(index + 1)
         }
 
+
+        fun fileGenerateWithQVersion(context: Context, filename: String): File {
+
+            var outputFile: File? = null
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                outputFile = File(
+                    context.cacheDir,
+                    filename
+                )
+                if (!outputFile.exists()) outputFile.createNewFile()
+
+            } else {
+
+                val sdCard = Environment.getExternalStorageDirectory()
+
+                val mediaStorageDir =
+                    File(sdCard.absolutePath + "/" + AppConstant.APP_NAME + "/Attachment")
+
+                if (!mediaStorageDir.exists()) {
+                    mediaStorageDir.mkdirs()
+                }
+
+                outputFile = File(
+                    mediaStorageDir.absolutePath,
+                    filename
+                )
+            }
+
+            return outputFile!!
+        }
+
+
+        fun getAttachmentFile(context: Context, filename: String): File? {
+
+            var outputFile: File? = null
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                outputFile = File(
+                    context.cacheDir,
+                    filename
+                )
+
+
+            } else {
+
+                val sdCard = Environment.getExternalStorageDirectory()
+
+                val mediaStorageDir =
+                    File(sdCard.absolutePath + "/" + AppConstant.APP_NAME + "/Attachment")
+
+                outputFile = File(
+                    mediaStorageDir.absolutePath,
+                    filename
+                )
+
+            }
+
+            return outputFile
+        }
+
         fun isAttachmentFileExist(context: Context, filename: String): Boolean {
-            val file = File(
-                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
-                        + filename
-            )
-            return file.exists()
+            var outputFile: File? = null
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                outputFile = File(
+                    context.cacheDir,
+                    filename
+                )
+
+
+            } else {
+
+                val sdCard = Environment.getExternalStorageDirectory()
+
+                val mediaStorageDir =
+                    File(sdCard.absolutePath + "/" + AppConstant.APP_NAME + "/Attachment")
+
+                outputFile = File(
+                    mediaStorageDir.absolutePath,
+                    filename
+                )
+
+            }
+            return outputFile.exists()
         }
-
-        fun getAttachmentFile(context: Context, filename: String): File {
-            return File(
-                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
-                        + filename
-            )
-        }
-
-        fun getAttachmentFilePath(context: Context): String {
-            return File(
-                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-                    .toString() + "/" + AppConstant.APP_NAME + "/Attachment/"
-
-            ).absolutePath
-        }
-
-
-
 
     }
-
 
 
 }

@@ -5,6 +5,7 @@ import com.grewon.dronedin.server.params.*
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 
@@ -339,4 +340,8 @@ interface AppApi {
 
     @GET("profile_c/user_online_status/{online_status}")
     fun changeOnlineStatus(@Path("online_status") onlineStatus: String): Single<CommonMessageBean>
+
+    @GET
+    @Streaming
+    fun downloadFile(@Url fileUrl: String?): Single<ResponseBody>
 }

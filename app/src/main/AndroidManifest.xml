@@ -22,20 +22,28 @@
         android:theme="@style/AppTheme"
 
         android:usesCleartextTraffic="true">
-        <activity android:name=".wallet.MyWalletActivity"/>
-        <activity android:name=".membership.MembershipPurchaseActivity" />
+        <activity
+            android:name=".wallet.MyWalletActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".membership.MembershipPurchaseActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".membership.MemberShipActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dispute.DisputeActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".savedpilots.SavedPilotsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".savedjobs.SavedJobsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".portfolio.PortFolioActivity"
             android:screenOrientation="portrait" />
@@ -315,7 +323,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <service android:name=".onlineoffline.OnlineOfflineService" />
+        <service android:name=".download.DownloadService" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

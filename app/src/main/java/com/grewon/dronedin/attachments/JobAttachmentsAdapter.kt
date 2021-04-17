@@ -2,21 +2,20 @@ package com.grewon.dronedin.attachments
 
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.downloader.OnCancelListener
-import com.downloader.OnDownloadListener
-import com.downloader.PRDownloader
 import com.grewon.dronedin.R
+import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.DroneDinApp
+import com.grewon.dronedin.download.DownloadService
 import com.grewon.dronedin.helper.FileValidationUtils
 import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.server.JobAttachmentsBean
 import com.grewon.dronedin.utils.ListUtils
-import com.grewon.dronedin.utils.ValidationUtils
 import kotlinx.android.synthetic.main.layout_jobs_attachments_item.view.*
 import java.io.File
 import java.util.*
@@ -56,6 +55,15 @@ class JobAttachmentsAdapter(
 
         if (holder is ItemViewHolder) {
 
+            val fileName = FileValidationUtils.getName(item.attachment).toString()
+            val isFileExist = FileValidationUtils.isAttachmentFileExist(context, fileName)
+
+            if (isFileExist) {
+                holder.imageDownload.visibility = View.GONE
+            } else {
+                holder.imageDownload.visibility = View.VISIBLE
+            }
+
             if (ListUtils.getImageExtensionList()
                     .contains(
                         FileValidationUtils.getExtension(item.attachment).toString().toLowerCase(
@@ -72,32 +80,30 @@ class JobAttachmentsAdapter(
                     .into(holder.jobsImage)
             }
 
+
+
             holder.itemView.setOnClickListener {
                 try {
-                    if (ValidationUtils.isEmptyFiled(item.attachmentId!!)) {
+
+                    if (isFileExist) {
                         context.startActivity(
                             FileValidationUtils.getViewIntent(
                                 context,
-                                File(item.attachment!!)
+                                FileValidationUtils.getAttachmentFile(context, fileName)!!
                             )
                         )
-                    } else {
-//                        context.startActivity(
-//                            Intent(context, WebActivity::class.java).putExtra(
-//                                AppConstant.WEB_URL,
-//                                item.attachment!!
-//                            ).putExtra(AppConstant.TAG, "Attachment")
-//
-//                        )
-
-                        downLoadAttachments(
-                            item.attachment!!,
-                            FileValidationUtils.getAttachmentFilePath(context),
-                            FileValidationUtils.getName(item.attachment!!).toString()
+                        LogX.E(
+                            FileValidationUtils.getAttachmentFile(
+                                context,
+                                fileName
+                            )!!.absolutePath
                         )
-
-
+                    } else {
+                        val intent = Intent(context, DownloadService::class.java)
+                        intent.putExtra(AppConstant.BEAN, item)
+                        context.startService(intent)
                     }
+
                 } catch (e: ActivityNotFoundException) {
                     DroneDinApp.getAppInstance()
                         .showToast(context.getString(R.string.no_application_found_to_handle_this_file))
@@ -109,30 +115,6 @@ class JobAttachmentsAdapter(
         }
 
 
-    }
-
-    private fun downLoadAttachments(url: String, dirPath: String, fileName: String) {
-        PRDownloader.download(url, dirPath, fileName)
-            .build()
-            .setOnStartOrResumeListener { }
-            .setOnPauseListener { }
-            .setOnCancelListener(object : OnCancelListener {
-                override fun onCancel() {}
-            })
-            .setOnProgressListener {
-                LogX.E("Total Bytes-->" + it.totalBytes.toString())
-                LogX.E("Current Bytes-->" + it.currentBytes.toString())
-            }
-            .start(object : OnDownloadListener {
-                override fun onDownloadComplete() {
-                    LogX.E("Complete")
-                }
-
-                override fun onError(error: com.downloader.Error?) {
-                    LogX.E("error")
-                    error.toString()
-                }
-            })
     }
 
 
@@ -150,6 +132,7 @@ class JobAttachmentsAdapter(
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val jobsImage = itemView.jobs_image
+        val imageDownload = itemView.img_download
     }
 
 

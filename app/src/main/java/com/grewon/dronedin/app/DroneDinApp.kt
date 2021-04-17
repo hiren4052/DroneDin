@@ -10,27 +10,41 @@ import android.os.Build
 import android.os.StrictMode
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.app.locationapp.server.CommonResponse
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.downloader.PRDownloader
-import com.downloader.PRDownloaderConfig
 import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.dagger.component.AppComponent
 import com.grewon.dronedin.dagger.component.DaggerAppComponent
 import com.grewon.dronedin.dagger.module.*
+import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.onlineoffline.OnlineOfflineService
+import com.grewon.dronedin.server.AppApi
 import com.grewon.dronedin.server.UserData
+import com.grewon.dronedin.utils.AnalyticsUtils
+import com.grewon.dronedin.utils.PreferenceUtils
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import net.danlew.android.joda.JodaTimeAndroid
+import okhttp3.Interceptor
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 
 
 class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate {
@@ -75,7 +89,7 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
         registerLifecycleHandler(lifeCycleHandler)
 
         initDagger()
-        initDownLoader()
+
         createNotificationChannel()
         setDialogMessage(getString(R.string.loading))
 
@@ -87,14 +101,6 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
     }
 
 
-    private fun initDownLoader() {
-        val config = PRDownloaderConfig.newBuilder()
-            .setDatabaseEnabled(true)
-            .setReadTimeout(30000)
-            .setConnectTimeout(30000)
-            .build()
-        PRDownloader.initialize(applicationContext, config)
-    }
 
     fun setDialogMessage(message: String) {
         loadingDialogMessage = message
@@ -125,6 +131,75 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
     fun getAppComponent(): AppComponent {
         return component
     }
+
+    @Synchronized
+    fun getApi(preferenceUtils: PreferenceUtils): AppApi {
+        val httpClient = OkHttpClient.Builder()
+        //log level
+        val interceptor = HttpLoggingInterceptor()
+
+
+
+
+        httpClient.addInterceptor { chain ->
+            val original = chain.request()
+
+            val requestBuilder = original.newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Cache-Control", "no-cache")
+
+            if (!preferenceUtils.getAuthToken()?.isEmpty()!!) {
+                LogX.E("AuthToken -> " + preferenceUtils.getAuthToken())
+                val authToken: String = preferenceUtils.getAuthToken()!!
+                requestBuilder.addHeader("X-Authorization",authToken)
+
+            }
+
+            val request = requestBuilder.build()
+
+            chain.proceed(request)
+
+        }
+
+        httpClient.interceptors().add(Interceptor { chain ->
+//            val request = chain.request()
+//
+//            val response = chain.proceed(request)
+//
+//            response.code()
+
+            val response: Response = chain.proceed(chain.request())
+            val body: ResponseBody = response.body()!!
+            val bodyString = body.string()
+            val apiUrl = response.request().url()
+            val bodyRequstString = response.request().body()
+            val formBodyBuilder = bodyRequstString
+
+            try {
+                Gson().fromJson(bodyString, CommonResponse::class.java)
+            } catch (e: Exception) {
+            }
+
+            val contentType: MediaType? = body.contentType()
+            if (response.code() == 401) {
+                val intent = Intent(AppConstant.SESSION_BROADCAST) //action: "msg"
+                intent.putExtra(AppConstant.DATA_TYPE, "yes")
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            }
+            response.newBuilder().body(ResponseBody.create(contentType, bodyString)).build()
+        })
+
+
+        val client = httpClient.addInterceptor(interceptor).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(AppConstant.API_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
+            .build()
+        return retrofit.create(AppApi::class.java)
+    }
+
 
     fun loadGifImage(drawableImage: Int, imageView: ImageView) {
         Glide.with(this).asGif().load(drawableImage)
