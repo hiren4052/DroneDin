@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class NotificationDataBean(
@@ -22,6 +21,8 @@ data class NotificationDataBean(
         val disputeId: String? = "",
         @SerializedName("job_id")
         val jobId: String? = "",
+        @SerializedName("job_status")
+        val jobStatus: String? = "",
         @SerializedName("milestone_id")
         val milestoneId: String? = "",
         @SerializedName("milestone_request_id")
@@ -30,6 +31,8 @@ data class NotificationDataBean(
         val notificationDatecreated: String? = "",
         @SerializedName("notification_dateupdated")
         val notificationDateupdated: String? = "",
+        @SerializedName("notification_type")
+        val notificationType: String? = "",
         @SerializedName("notification_id")
         val notificationId: String? = "",
         @SerializedName("notification_message")

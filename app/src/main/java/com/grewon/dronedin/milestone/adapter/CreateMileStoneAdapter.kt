@@ -14,9 +14,12 @@ import kotlinx.android.synthetic.main.layout_create_mile_stone_item.view.*
  * Created by Jeff Klima on 2019-08-20.
  */
 class CreateMileStoneAdapter(
-    val context: Context
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    val context: Context, var onItemRemoveClickListeners: OnRemoveItemClickListeners
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    interface OnRemoveItemClickListeners {
+        fun onItemRemove(adapterPosition: Int)
+    }
 
 
     var itemList = ArrayList<CreateMilestoneBean>()
@@ -48,6 +51,7 @@ class CreateMileStoneAdapter(
 
             holder.imgClose.setOnClickListener {
                 removeItem(position)
+                onItemRemoveClickListeners.onItemRemove(holder.adapterPosition)
             }
 
         }
@@ -64,6 +68,17 @@ class CreateMileStoneAdapter(
     fun addItems(list: CreateMilestoneBean) {
         itemList.add(list)
         notifyDataSetChanged()
+    }
+
+    fun getPriceString(): String {
+        if (itemList.size > 0) {
+            var totalPrice: Double = 0.0
+            for (item in itemList) {
+                totalPrice += item.price.toDouble()
+            }
+            return totalPrice.toString()
+        }
+        return ""
     }
 
 

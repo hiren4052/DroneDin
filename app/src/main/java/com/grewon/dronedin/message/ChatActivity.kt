@@ -1,6 +1,7 @@
 package com.grewon.dronedin.message
 
 import android.Manifest
+import android.animation.Animator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -103,6 +105,42 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     }
 
+
+    private fun openSearch() {
+        search_input_text.setText("")
+        search_open_view.visibility = View.VISIBLE
+        val circularReveal = ViewAnimationUtils.createCircularReveal(
+            search_open_view,
+            (img_search.right + img_search.left) / 2,
+            (img_search.top + img_search.bottom) / 2,
+            0f, search_open_view.width.toFloat()
+        )
+        circularReveal.duration = 300
+        circularReveal.start()
+    }
+
+    private fun closeSearch() {
+        val circularConceal = ViewAnimationUtils.createCircularReveal(
+            search_open_view,
+            (img_search.right + img_search.left) / 2,
+            (img_search.top + img_search.bottom) / 2,
+            search_open_view.width.toFloat(), 0f
+        )
+
+        circularConceal.duration = 300
+        circularConceal.start()
+        circularConceal.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) = Unit
+            override fun onAnimationCancel(animation: Animator?) = Unit
+            override fun onAnimationStart(animation: Animator?) = Unit
+            override fun onAnimationEnd(animation: Animator?) {
+                search_open_view.visibility = View.INVISIBLE
+                search_input_text.setText("")
+                circularConceal.removeAllListeners()
+            }
+        })
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         if (newMessageHandler != null) {
@@ -124,6 +162,8 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         im_back.setOnClickListener(this)
         im_attachments.setOnClickListener(this)
         fab_send_message.setOnClickListener(this)
+        img_search.setOnClickListener(this)
+        close_search_button.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -180,6 +220,13 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
                     chatPresenter.sentMessage(chatParams)
                 }
+            }
+
+            R.id.img_search -> {
+               openSearch()
+            }
+            R.id.close_search_button -> {
+                closeSearch()
             }
         }
     }

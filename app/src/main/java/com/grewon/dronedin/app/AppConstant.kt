@@ -5,7 +5,9 @@ public class AppConstant {
     companion object {
 
 
-        var FILE_DOWNLOAD_SUCCESS: String = "file_download_success"
+        const val TITLE: String = "title"
+        const val DESCRIPTION: String = "description"
+         var FILE_DOWNLOAD_SUCCESS: String = "file_download_success"
         const val JOB_ID: String = "job_id"
         const val USER_TYPE: String = "user_type"
         const val YES_STATUS = "yes"

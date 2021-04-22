@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="@dimen/_2dp"
-                android:text="@string/job_has_been_posted_successfully"
+                android:text="@string/congratulations_your_job_has_been_posted_successfully"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_24sp" />
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15dp"
-                android:text="@string/you_can_now_directly_invite_pilots_with_required_skills_n_n_click_on_invite_button_to_invite_pilots_or_skip_to_return_to_your_home_screen"
+                android:text="@string/you_can_also_invite_pilots_directly_to_bid_on_your_job_post_n_nclick_on_the_invite_button_to_browse_and_select_available_pilots_or_select_skip_to_return_to_the_home_screen"
                 android:textAppearance="@style/RobotoLightTextAppearance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sp" />

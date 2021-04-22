@@ -134,7 +134,9 @@ class FindJobsDetailsActivity : BaseActivity(), View.OnClickListener,
                         SubmitProposalActivity::class.java
                     ).putExtra(AppConstant.ID, jobId)
                         .putExtra(AppConstant.BEAN, mileStoneAdapter?.itemList)
-                        .putExtra(AppConstant.PRICE, txt_budget.text.toString().replace("$", "")),
+                        .putExtra(AppConstant.PRICE, txt_budget.text.toString().replace("$", ""))
+                        .putExtra(AppConstant.TITLE, pilotFindJobsBean?.jobTitle)
+                        .putExtra(AppConstant.DESCRIPTION, pilotFindJobsBean?.jobDescription),
                     12
                 )
             }

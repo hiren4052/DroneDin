@@ -45,6 +45,8 @@ data class MainScreenData(
         val totalUnreadNotification: String? = "",
         @SerializedName("user_address")
         val userAddress: String? = "",
+        @SerializedName("notification")
+        val notification: String? = "",
         @SerializedName("user_email")
         val userEmail: String? = "",
         @SerializedName("user_fcm_token")

@@ -85,9 +85,20 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
         setClicks()
         initView()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun setData() {
+        if ((activity as PostJobActivity).screenTag == "edit") {
+            txt_submit.text = getString(R.string.save)
+        } else {
+            txt_submit.text = getString(R.string.review_job)
+        }
+
         if (!ValidationUtils.isEmptyFiled((activity as PostJobActivity).createJobsParams?.jobTitle.toString())) {
             edt_title.setText((activity as PostJobActivity).createJobsParams?.jobTitle.toString())
         }
@@ -128,6 +139,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
         milestone_recycle.layoutManager = LinearLayoutManager(context)
         createMileStoneAdapter = CreateMileStoneJobAdapter(requireContext(), this)
         milestone_recycle.adapter = createMileStoneAdapter
+
         setImageAdapter()
 
         setData()
@@ -219,7 +231,17 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
                             (activity as PostJobActivity).createJobsParams!!
                         )
                     } else {
-                        postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
+
+                        startActivityForResult(
+                            Intent(
+                                context,
+                                PostJobReviewActivity::class.java
+                            ).putExtra(
+                                AppConstant.BEAN,
+                                (activity as PostJobActivity).createJobsParams!!
+                            ), 66
+                        )
+                        //  postJobPresenter.postJob((activity as PostJobActivity).createJobsParams!!)
 
                     }
                 }

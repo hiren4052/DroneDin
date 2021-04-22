@@ -61,6 +61,7 @@ import com.grewon.dronedin.pilotmyjobs.PilotMyJobsFragment
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.portfolio.PortFolioActivity
 import com.grewon.dronedin.postjob.AddJobDetailsFragment
+import com.grewon.dronedin.postjob.PostJobReviewActivity
 import com.grewon.dronedin.postjob.SelectFragmentFragment
 import com.grewon.dronedin.profile.ProfileFragment
 import com.grewon.dronedin.project.cancelproject.CancelProjectActivity
@@ -76,6 +77,7 @@ import com.grewon.dronedin.settings.SettingsFragment
 import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.SignUpActivity
 import com.grewon.dronedin.splash.SplashActivity
+import com.grewon.dronedin.submitproposal.ReviewProposalActivity
 import com.grewon.dronedin.submitproposal.SubmitProposalActivity
 import com.grewon.dronedin.verification.VerificationActivity
 import com.grewon.dronedin.wallet.MyWalletActivity
@@ -157,6 +159,8 @@ interface AppComponent {
     fun inject(activity: DisputeDetailsActivity)
     fun inject(activity: EarningsActivity)
     fun inject(activity: MyWalletActivity)
+    fun inject(activity: ReviewProposalActivity)
+    fun inject(activity: PostJobReviewActivity)
 
 
     //Fragments
@@ -173,11 +177,8 @@ interface AppComponent {
     fun inject(fragment: SettingsFragment)
 
 
-
     fun inject(service: OnlineOfflineService)
     fun inject(service: DownloadService)
-
-
 
 
 }

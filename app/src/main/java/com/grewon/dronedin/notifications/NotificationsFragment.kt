@@ -15,11 +15,15 @@ import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.clientjobs.active.ClientActiveJobsDetailsActivity
+import com.grewon.dronedin.clientjobs.history.ClientJobHistoryDetailsActivity
+import com.grewon.dronedin.dispute.DisputeDetailsActivity
+import com.grewon.dronedin.enum.JOB_STATUS
 import com.grewon.dronedin.enum.NOTIFICATION_TYPE
 import com.grewon.dronedin.helper.AspectImageView
 import com.grewon.dronedin.notifications.adapter.NotificationsAdapter
 import com.grewon.dronedin.notifications.contract.NotificationContract
 import com.grewon.dronedin.pilotactivejobs.PilotActiveJobsDetailActivity
+import com.grewon.dronedin.pilotjobhistory.PilotHistoryDetailsActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.NotificationDataBean
 import com.malinskiy.superrecyclerview.OnMoreListener
@@ -95,39 +99,94 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
     }
 
     override fun onItemClick(jobsDataBean: NotificationDataBean.Data?) {
-        if (jobsDataBean?.notificationTitle == NOTIFICATION_TYPE.Milestone_Submit.toString()) {
+
+        if (jobsDataBean?.jobStatus != NOTIFICATION_TYPE.Announcement.name) {
             if (isPilotAccount()) {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        PilotActiveJobsDetailActivity::class.java
-                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
-                )
+                if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Offer.name) {
+                    if (jobsDataBean.jobStatus == JOB_STATUS.active.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                PilotActiveJobsDetailActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    } else if (jobsDataBean.jobStatus == JOB_STATUS.completed.name || jobsDataBean.jobStatus == JOB_STATUS.cancelled.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                PilotHistoryDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    }
+                } else if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Job.name) {
+                    if (jobsDataBean.jobStatus == JOB_STATUS.active.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                PilotActiveJobsDetailActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    } else if (jobsDataBean.jobStatus == JOB_STATUS.completed.name || jobsDataBean.jobStatus == JOB_STATUS.cancelled.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                PilotHistoryDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    }
+                } else if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Dispute.name) {
+                    startActivity(
+                        Intent(
+                            requireContext(),
+                            DisputeDetailsActivity::class.java
+                        ).putExtra(AppConstant.ID, jobsDataBean.disputeId)
+                    )
+                }
             } else {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        ClientActiveJobsDetailsActivity::class.java
-                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
-                )
+                if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Offer.name) {
+                    if (jobsDataBean.jobStatus == JOB_STATUS.active.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                ClientActiveJobsDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    } else if (jobsDataBean.jobStatus == JOB_STATUS.completed.name || jobsDataBean.jobStatus == JOB_STATUS.cancelled.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                ClientJobHistoryDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    }
+                } else if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Job.name) {
+                    if (jobsDataBean.jobStatus == JOB_STATUS.active.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                ClientActiveJobsDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    } else if (jobsDataBean.jobStatus == JOB_STATUS.completed.name || jobsDataBean.jobStatus == JOB_STATUS.cancelled.name) {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                ClientJobHistoryDetailsActivity::class.java
+                            ).putExtra(AppConstant.ID, jobsDataBean.offerId)
+                        )
+                    }
+                } else if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Dispute.name) {
+                    startActivity(
+                        Intent(
+                            requireContext(),
+                            DisputeDetailsActivity::class.java
+                        ).putExtra(AppConstant.ID, jobsDataBean.disputeId)
+                    )
+                }
             }
-        } else if (jobsDataBean?.notificationTitle == NOTIFICATION_TYPE.Offer.toString()) {
-            if (isPilotAccount()) {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        PilotActiveJobsDetailActivity::class.java
-                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
-                )
-            } else {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        ClientActiveJobsDetailsActivity::class.java
-                    ).putExtra(AppConstant.ID, jobsDataBean.offerId)
-                )
-            }
+
         }
+
 
     }
 

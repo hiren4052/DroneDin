@@ -136,7 +136,7 @@
             android:visibility="visible">
 
             <TextView
-                android:id="@+id/txt_payment_method"
+                android:id="@+id/txt_membership"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
@@ -144,33 +144,13 @@
                 android:paddingTop="@dimen/_20dp"
                 android:paddingEnd="@dimen/_20dp"
                 android:paddingBottom="@dimen/_20dp"
-                android:text="@string/payment_method"
+                android:text="@string/membership"
                 android:textAppearance="@style/RobotoTextAppearance"
                 android:textColor="@color/gray_71"
                 android:textSize="@dimen/_18sp"
                 app:drawableEndCompat="@drawable/ic_right_arrow_24" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:background="@color/view_color" />
-
-            <TextView
-                android:id="@+id/txt_change_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:paddingStart="@dimen/_20dp"
-                android:paddingTop="@dimen/_20dp"
-                android:paddingEnd="@dimen/_20dp"
-                android:paddingBottom="@dimen/_20dp"
-                android:text="@string/change_password"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/gray_71"
-                android:textSize="@dimen/_18sp"
-                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
-
-            <View
+            <View android:id="@+id/view_notification"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1dp"
                 android:background="@color/view_color" />
@@ -201,6 +181,87 @@
                     android:buttonTint="@color/yellow" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/view_color" />
+
+            <TextView
+                android:id="@+id/txt_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:paddingStart="@dimen/_20dp"
+                android:paddingTop="@dimen/_20dp"
+                android:paddingEnd="@dimen/_20dp"
+                android:paddingBottom="@dimen/_20dp"
+                android:text="@string/change_password"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/view_color" />
+
+            <TextView
+                android:id="@+id/txt_payment_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:paddingStart="@dimen/_20dp"
+                android:paddingTop="@dimen/_20dp"
+                android:paddingEnd="@dimen/_20dp"
+                android:paddingBottom="@dimen/_20dp"
+                android:text="@string/payment_method"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/view_color" />
+
+            <TextView
+                android:id="@+id/txt_customer_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:paddingStart="@dimen/_20dp"
+                android:paddingTop="@dimen/_20dp"
+                android:paddingEnd="@dimen/_20dp"
+                android:paddingBottom="@dimen/_20dp"
+                android:text="@string/customer_support"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/view_color" />
+
+
+            <TextView
+                android:id="@+id/txt_dispute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:paddingStart="@dimen/_20dp"
+                android:paddingTop="@dimen/_20dp"
+                android:paddingEnd="@dimen/_20dp"
+                android:paddingBottom="@dimen/_20dp"
+                android:text="@string/dispute_resolution_center"
+                android:textAppearance="@style/RobotoTextAppearance"
+                android:textColor="@color/gray_71"
+                android:textSize="@dimen/_18sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
 
             <View
                 android:layout_width="match_parent"
@@ -242,61 +303,6 @@
                 android:textSize="@dimen/_18sp"
                 app:drawableEndCompat="@drawable/ic_right_arrow_24" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:background="@color/view_color" />
-
-            <TextView
-                android:id="@+id/txt_membership"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:paddingStart="@dimen/_20dp"
-                android:paddingTop="@dimen/_20dp"
-                android:paddingEnd="@dimen/_20dp"
-                android:paddingBottom="@dimen/_20dp"
-                android:text="@string/membership"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/gray_71"
-                android:textSize="@dimen/_18sp"
-                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:background="@color/view_color" />
-            <TextView
-                android:id="@+id/txt_customer_support"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:paddingStart="@dimen/_20dp"
-                android:paddingTop="@dimen/_20dp"
-                android:paddingEnd="@dimen/_20dp"
-                android:paddingBottom="@dimen/_20dp"
-                android:text="@string/customer_support"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/gray_71"
-                android:textSize="@dimen/_18sp"
-                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:background="@color/view_color" />
-            <TextView
-                android:id="@+id/txt_dispute"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:paddingStart="@dimen/_20dp"
-                android:paddingTop="@dimen/_20dp"
-                android:paddingEnd="@dimen/_20dp"
-                android:paddingBottom="@dimen/_20dp"
-                android:text="@string/dispute_resolution_center"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/gray_71"
-                android:textSize="@dimen/_18sp"
-                app:drawableEndCompat="@drawable/ic_right_arrow_24" />
 
             <TextView
                 android:id="@+id/txt_logout"

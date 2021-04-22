@@ -20,8 +20,13 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".postjob.PostJobReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".submitproposal.ReviewProposalActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".wallet.MyWalletActivity"
             android:screenOrientation="portrait" />
@@ -39,11 +44,11 @@
         <activity
             android:name=".savedpilots.SavedPilotsActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".savedjobs.SavedJobsActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".portfolio.PortFolioActivity"
             android:screenOrientation="portrait" />
@@ -323,7 +328,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".onlineoffline.OnlineOfflineService" />
         <service android:name=".download.DownloadService" />
 

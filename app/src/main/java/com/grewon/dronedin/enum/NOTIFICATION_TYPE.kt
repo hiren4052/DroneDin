@@ -4,6 +4,7 @@ enum class NOTIFICATION_TYPE {
     Milestone_Submit,
     Offer,
     Job,
-    Dispute
+    Dispute,
+    Announcement
 
 }

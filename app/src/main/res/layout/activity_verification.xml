@@ -65,7 +65,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/_5dp"
-                android:text="@string/we_have_send_opt_via_sms_on_your_phone_number_897"
+                android:text="@string/a_verification_email_has_been_sent_to_your_email"
                 android:textAppearance="@style/RobotoLightTextAppearance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16sp" />

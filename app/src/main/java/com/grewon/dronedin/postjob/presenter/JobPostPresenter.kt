@@ -51,10 +51,8 @@ class JobPostPresenter : JobPostContract.Presenter {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
 
-        val skillSelectedId =
-            params.skillList?.filter { it.isSelected == 1 }?.map { it.skillId?.toInt() }
-        val equipmentSelectedId =
-            params.equipmentsList?.filter { it.isSelected == 1 }?.map { it.equipmentId?.toInt() }
+        val skillSelectedId = params.skillList?.filter { it.isSelected == 1 }?.map { it.skillId?.toInt() }
+        val equipmentSelectedId = params.equipmentsList?.filter { it.isSelected == 1 }?.map { it.equipmentId?.toInt() }
 
         builder.addFormDataPart("category_id", params.selectedCategoryId!!)
         builder.addFormDataPart("skill", Gson().toJson(skillSelectedId))

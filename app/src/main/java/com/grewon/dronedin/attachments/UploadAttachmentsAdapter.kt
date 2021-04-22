@@ -61,6 +61,7 @@ class UploadAttachmentsAdapter(
 
         if (holder is ItemViewHolder) {
 
+            holder.imgDownload.visibility = View.GONE
             LogX.E(FileValidationUtils.getExtension(item.filePath).toString())
 
             if (ListUtils.getImageExtensionList()
@@ -88,7 +89,7 @@ class UploadAttachmentsAdapter(
                                 File(item.filePath!!)
                             )
                         )
-                    }else{
+                    } else {
                         context.startActivity(
                             Intent(context, WebActivity::class.java).putExtra(
                                 AppConstant.WEB_URL,
@@ -129,6 +130,7 @@ class UploadAttachmentsAdapter(
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val jobsImage = itemView.jobs_image
+        val imgDownload = itemView.img_download
     }
 
 

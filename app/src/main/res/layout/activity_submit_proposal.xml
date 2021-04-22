@@ -65,7 +65,7 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:paddingStart="@dimen/_16dp"
                 android:paddingEnd="@dimen/_16dp"
-                android:text="@string/details"
+                android:text="@string/proposal_details_small"
                 android:textAppearance="@style/RobotoTextAppearance"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_18sp" />
@@ -217,7 +217,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/new_milestones"
+                        android:text="@string/propose_new_milestones"
                         android:textAppearance="@style/RobotoTextAppearance"
                         android:textColor="@color/gray_71"
                         android:textSize="@dimen/_16sp" />
@@ -480,7 +480,7 @@
                 android:layout_marginBottom="@dimen/_40dp"
                 android:background="@drawable/ic_rectangle"
                 android:gravity="center"
-                android:text="@string/submit"
+                android:text="@string/review_proposal"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />

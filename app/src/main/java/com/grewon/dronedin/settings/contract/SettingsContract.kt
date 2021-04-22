@@ -16,12 +16,19 @@ interface SettingsContract {
 
         fun onLogoutFailed(loginParams: CommonMessageBean)
 
+        fun onNotificationOnOffSuccessful(response: MainScreenData)
+
+        fun onNotificationOnOffFailed(loginParams: CommonMessageBean)
+
 
     }
 
     interface Presenter : BaseContract.Presenter<View> {
 
         fun logoutUser()
+
+
+        fun notificationOnOff(notificationStatus:String)
 
     }
 

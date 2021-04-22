@@ -50,7 +50,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
         DroneDinApp.getAppInstance().loadGifImage(R.drawable.verifcation_image, top_image)
         txt_receive_code.text = TextUtils.receiveCodeColorSpannableString(this)
         txt_number.text = getString(
-            R.string.we_have_send_opt_via_sms_on_your_phone_number_897,
+            R.string.a_verification_email_has_been_sent_to_your_email,
             preferenceUtils.getLoginCredentials()?.data?.userEmail.toString()
         )
 

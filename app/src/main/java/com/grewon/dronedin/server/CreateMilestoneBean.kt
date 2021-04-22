@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class CreateMilestoneBean(
-    val details: String = "",
-    val price: String = "",
-    val milestoneId: String = "",
+    var details: String = "",
+    var price: String = "",
+    var milestoneId: String = "",
 ) : Parcelable

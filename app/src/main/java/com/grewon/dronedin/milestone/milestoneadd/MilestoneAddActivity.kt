@@ -20,7 +20,8 @@ import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneContract.View {
+class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneContract.View,
+    CreateMileStoneAdapter.OnRemoveItemClickListeners {
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -57,7 +58,7 @@ class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneC
 
 
         create_milestone_recycle.layoutManager = LinearLayoutManager(this)
-        createMileStoneAdapter = CreateMileStoneAdapter(this)
+        createMileStoneAdapter = CreateMileStoneAdapter(this,this)
         create_milestone_recycle.adapter = createMileStoneAdapter
 
 
@@ -133,6 +134,10 @@ class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneC
 
     override fun onApiException(error: Int) {
         DroneDinApp.getAppInstance().showToast(getString(error))
+    }
+
+    override fun onItemRemove(adapterPosition: Int) {
+
     }
 
 }

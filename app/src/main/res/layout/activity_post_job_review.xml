@@ -7,64 +7,7 @@
     android:background="@color/white_fa"
     android:orientation="vertical"
     tools:context=".pilotfindjobs.FindJobsDetailsActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:padding="@dimen/_15dp"
-            android:src="@drawable/ic_back_blue"
-            app:tint="@color/white" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/img_back"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/_10dp"
-                android:text="@string/job_details"
-                android:textAllCaps="true"
-                android:textAppearance="@style/RobotoMediumTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sp" />
-
-            <TextView
-                android:id="@+id/txt_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/_10dp"
-                android:text="Real Estate"
-                android:textAllCaps="true"
-                android:textAppearance="@style/RobotoMediumTextAppearance"
-                android:textColor="@color/span_text_color"
-                android:textSize="@dimen/_14sp" />
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <include
-        android:id="@+id/layout_progress"
-        layout="@layout/layout_shimmer_job_details"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/no_data_layout"
-        layout="@layout/layout_no_data"
-        android:visibility="gone" />
-
+<include layout="@layout/layout_square_toolbar_with_back"/>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -109,6 +52,34 @@
                         android:textColor="@color/gray_9a"
                         android:textSize="@dimen/_14sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/category_"
+                            android:textAppearance="@style/RobotoTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_job_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:paddingStart="@dimen/_5dp"
+                            android:singleLine="true"
+                            android:text="Toronto"
+                            android:textAppearance="@style/RobotoLightTextAppearance"
+                            android:textColor="@color/gray_71"
+                            android:textSize="@dimen/_14sp"
+                            tools:ignore="RtlSymmetry" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -128,64 +99,9 @@
                             android:id="@+id/txt_job_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:paddingStart="@dimen/_5dp"
                             android:text="Toronto"
-                            android:textAppearance="@style/RobotoLightTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp"
-                            tools:ignore="RtlSymmetry" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/date_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/completed_on"
-                            android:textAppearance="@style/RobotoTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp" />
-
-                        <TextView
-                            android:id="@+id/txt_job_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/_5dp"
-                            android:text="22 Feb 2021"
-                            android:textAppearance="@style/RobotoLightTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp"
-                            tools:ignore="RtlSymmetry" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/client_"
-                            android:textAppearance="@style/RobotoTextAppearance"
-                            android:textColor="@color/gray_71"
-                            android:textSize="@dimen/_14sp" />
-
-                        <TextView
-                            android:id="@+id/txt_pilot_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?selectableItemBackground"
-                            android:paddingStart="@dimen/_5dp"
-                            android:text="Kristen Hunter"
                             android:textAppearance="@style/RobotoLightTextAppearance"
                             android:textColor="@color/gray_71"
                             android:textSize="@dimen/_14sp"
@@ -202,7 +118,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/total_price_"
+                            android:text="@string/budget_"
                             android:textAppearance="@style/RobotoTextAppearance"
                             android:textColor="@color/gray_71"
                             android:textSize="@dimen/_14sp" />
@@ -220,6 +136,12 @@
 
                     </LinearLayout>
 
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:background="@color/view_color" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -244,6 +166,29 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                android:id="@+id/milestone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_10dp"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:text="@string/milestone_details"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mile_stone_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/pictures_layout"
@@ -271,65 +216,41 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/milestone_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_10dp"
-                    android:paddingBottom="@dimen/_10dp"
-                    android:text="@string/milestones"
-                    android:textAppearance="@style/MediumTextAppearance"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_18sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mile_stone_recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_40dp"
                 android:layout_marginBottom="@dimen/_20dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/txt_submit_review"
-                    android:layout_width="@dimen/_200dp"
-                    android:layout_height="@dimen/_50dp"
+                    android:id="@+id/txt_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_45dp"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_10dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_rectangle_spann_color"
                     android:gravity="center"
-                    android:text="@string/submit_review"
+                    android:text="@string/edit"
                     android:textAppearance="@style/BoldTextAppearance"
                     android:textColor="@drawable/white_text_selector"
                     android:textSize="@dimen/_20sp" />
 
                 <TextView
-                    android:id="@+id/txt_message"
-                    android:layout_width="@dimen/_200dp"
-                    android:layout_height="@dimen/_50dp"
+                    android:id="@+id/txt_post"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_45dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/_10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_rectangle_spann_color"
+                    android:background="@drawable/ic_border_rectangle_spann_color"
                     android:gravity="center"
-                    android:text="@string/message"
-                    android:textAppearance="@style/BoldTextAppearance"
-                    android:textColor="@drawable/white_text_selector"
+                    android:text="@string/post"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@drawable/spann_text_selector"
                     android:textSize="@dimen/_20sp" />
             </LinearLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

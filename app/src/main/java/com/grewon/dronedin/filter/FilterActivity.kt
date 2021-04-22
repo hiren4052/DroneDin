@@ -76,6 +76,12 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
 
     private fun initView() {
 
+        if (isPilotAccount()) {
+            txt_title.text = getString(R.string.select_job_filters)
+        } else {
+            txt_title.text = getString(R.string.filters)
+        }
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         skillsEquipmentsPresenter.attachView(this)
         skillsEquipmentsPresenter.attachApiInterface(retrofit)

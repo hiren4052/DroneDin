@@ -403,7 +403,7 @@
                 android:layout_marginTop="@dimen/_40dp"
                 android:background="@drawable/ic_rectangle_spann_color"
                 android:gravity="center"
-                android:text="@string/send_proposal"
+                android:text="@string/create_proposal"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />
@@ -414,11 +414,11 @@
                 android:layout_height="@dimen/_45dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/ic_border_rectangle_spann_color"
+                android:background="@drawable/ic_rectangle_spann_color"
                 android:gravity="center"
                 android:text="@string/message"
-                android:textAppearance="@style/MediumTextAppearance"
-                android:textColor="@drawable/spann_text_selector"
+                android:textAppearance="@style/BoldTextAppearance"
+                android:textColor="@drawable/white_text_selector"
                 android:textSize="@dimen/_20sp" />
 
         </LinearLayout>

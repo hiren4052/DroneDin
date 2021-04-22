@@ -20,6 +20,7 @@ import com.grewon.dronedin.membership.MemberShipActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
 import com.grewon.dronedin.pilotprofile.PilotProfileActivity
 import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.MainScreenData
 import com.grewon.dronedin.settings.contract.SettingsContract
 import com.grewon.dronedin.splash.SplashActivity
 import com.grewon.dronedin.utils.IconUtils
@@ -71,6 +72,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
         txt_membership.setOnClickListener(this)
         txt_customer_support.setOnClickListener(this)
         txt_dispute.setOnClickListener(this)
+        notification_switch.setOnClickListener(this)
         txt_logout.setOnClickListener(this)
     }
 
@@ -106,10 +108,17 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 .into(blur_img_user)
         }
 
+        if (preferenceUtils.getProfileData() != null && preferenceUtils.getProfileData()?.data != null && preferenceUtils.getProfileData()?.data?.notification != null
+        ) {
+            notification_switch.isChecked =
+                preferenceUtils.getProfileData()?.data?.notification == "on"
+        }
+
 
 
         if (isPilotAccount()) {
             txt_membership.visibility = View.VISIBLE
+            view_notification.visibility = View.VISIBLE
             IconUtils.setBadgeImage(
                 requireContext(),
                 badge_type,
@@ -117,6 +126,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             )
         } else {
             txt_membership.visibility = View.GONE
+            view_notification.visibility = View.GONE
         }
     }
 
@@ -184,6 +194,10 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             R.id.txt_dispute -> {
                 startActivity(Intent(context, DisputeActivity::class.java))
             }
+            R.id.notification_switch -> {
+                val notificationStatus = if (notification_switch.isChecked) "on" else "off"
+                settingsPresenter.notificationOnOff(notificationStatus)
+            }
             R.id.txt_logout -> {
                 openLogoutDialog()
             }
@@ -228,6 +242,16 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
     }
 
     override fun onLogoutFailed(loginParams: CommonMessageBean) {
+        if (loginParams.msg != null) {
+            DroneDinApp.getAppInstance().showToast(loginParams.msg)
+        }
+    }
+
+    override fun onNotificationOnOffSuccessful(response: MainScreenData) {
+        preferenceUtils.saveProfileData(response)
+    }
+
+    override fun onNotificationOnOffFailed(loginParams: CommonMessageBean) {
         if (loginParams.msg != null) {
             DroneDinApp.getAppInstance().showToast(loginParams.msg)
         }

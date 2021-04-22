@@ -50,7 +50,8 @@ import java.util.*
 import javax.inject.Inject
 
 class CrateOffersActivity : BaseActivity(), View.OnClickListener,
-    UploadAttachmentsAdapter.OnItemLongClickListeners {
+    UploadAttachmentsAdapter.OnItemLongClickListeners,
+    CreateMileStoneAdapter.OnRemoveItemClickListeners {
 
 
     private var alertDialog: AlertViewDialog? = null
@@ -86,7 +87,7 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
 
 
         create_milestone_recycle.layoutManager = LinearLayoutManager(this)
-        createMileStoneAdapter = CreateMileStoneAdapter(this)
+        createMileStoneAdapter = CreateMileStoneAdapter(this,this)
         create_milestone_recycle.adapter = createMileStoneAdapter
 
 
@@ -511,6 +512,10 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
 
         })
         alertDialog!!.show()
+    }
+
+    override fun onItemRemove(adapterPosition: Int) {
+
     }
 
 

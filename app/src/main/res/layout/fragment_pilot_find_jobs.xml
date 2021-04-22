@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15dp"
                     android:text="@string/hello"
+                    android:layout_gravity="end"
                     android:textAppearance="@style/BoldTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_18sp" />
@@ -80,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/_2dp"
-                    android:text="@string/start_finding_an_namazing_job"
+                    android:text="@string/available_jobs_near_you"
                     android:textAppearance="@style/MediumTextAppearance"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sp" />

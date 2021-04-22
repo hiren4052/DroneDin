@@ -117,16 +117,20 @@ class InvitationsDetailActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_message -> {
-                startActivity(Intent(this, ChatActivity::class.java).putExtra(
-                    AppConstant.ID,
-                    pilotFindJobsBean?.userId
-                ))
+                startActivity(
+                    Intent(this, ChatActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        pilotFindJobsBean?.userId
+                    )
+                )
             }
             R.id.txt_client_name -> {
-                startActivity(Intent(this, ClientProfileActivity::class.java).putExtra(
-                    AppConstant.ID,
-                    pilotFindJobsBean?.userId
-                ))
+                startActivity(
+                    Intent(this, ClientProfileActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        pilotFindJobsBean?.userId
+                    )
+                )
             }
             R.id.txt_send_proposal -> {
                 startActivityForResult(
@@ -135,7 +139,9 @@ class InvitationsDetailActivity : BaseActivity(), View.OnClickListener,
                         SubmitProposalActivity::class.java
                     ).putExtra(AppConstant.ID, jobId)
                         .putExtra(AppConstant.BEAN, mileStoneAdapter?.itemList)
-                        .putExtra(AppConstant.PRICE, txt_budget.text.toString().replace("$", "")),
+                        .putExtra(AppConstant.PRICE, txt_budget.text.toString().replace("$", ""))
+                        .putExtra(AppConstant.TITLE, pilotFindJobsBean?.jobTitle)
+                        .putExtra(AppConstant.DESCRIPTION, pilotFindJobsBean?.jobDescription),
                     12
                 )
             }

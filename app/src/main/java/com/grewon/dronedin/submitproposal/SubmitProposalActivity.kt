@@ -50,14 +50,9 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
-    UploadAttachmentsAdapter.OnItemLongClickListeners, SubmitProposalContract.View {
+    UploadAttachmentsAdapter.OnItemLongClickListeners,
+    CreateMileStoneAdapter.OnRemoveItemClickListeners {
 
-
-    @Inject
-    lateinit var submitProposalPresenter: SubmitProposalContract.Presenter
-
-    @Inject
-    lateinit var retrofit: Retrofit
 
     private var alertDialog: AlertViewDialog? = null
     private var picturePath: File? = null
@@ -66,6 +61,8 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
     private var mileStoneAdapter: MileStoneAdapter? = null
     private var jobId: String = ""
     private var totalPrice: String = ""
+    private var jobTitle: String = ""
+    private var jobDescription: String = ""
     private var existingMileStoneList = ArrayList<MilestonesDataBean>()
 
 
@@ -79,22 +76,22 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
 
     private fun initView() {
 
-        DroneDinApp.getAppInstance().getAppComponent().inject(this)
-        submitProposalPresenter.attachView(this)
-        submitProposalPresenter.attachApiInterface(retrofit)
-
 
         jobId = intent.getStringExtra(AppConstant.ID).toString()
         totalPrice = intent.getStringExtra(AppConstant.PRICE).toString()
+        jobTitle = intent.getStringExtra(AppConstant.TITLE).toString()
+        jobDescription = intent.getStringExtra(AppConstant.DESCRIPTION).toString()
         existingMileStoneList = intent.getParcelableArrayListExtra(AppConstant.BEAN)!!
 
 
+        edt_title.setText(jobTitle)
+        //edt_description.setText(jobDescription)
 
         existing_total_price.text = getString(R.string.price_string, totalPrice)
 
 
         create_milestone_recycle.layoutManager = LinearLayoutManager(this)
-        createMileStoneAdapter = CreateMileStoneAdapter(this)
+        createMileStoneAdapter = CreateMileStoneAdapter(this, this)
         create_milestone_recycle.adapter = createMileStoneAdapter
 
 
@@ -151,6 +148,8 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
 
                         edt_milestone_price.setText("")
                         edt_milestone_description.setText("")
+
+                        edt_price.setText(createMileStoneAdapter?.getPriceString())
 
                     }
                 }
@@ -216,23 +215,46 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun apiCall() {
+
         val params = SubmitProposalParams()
         params.proposal_title = edt_title.text.toString()
         params.proposal_description = edt_description.text.toString()
+
         if (new_milestone_check.isChecked) {
             params.proposal_total_price = edt_price.text.toString()
             params.proposal_milestone = AppConstant.NEW_MILESTONE
+            params.milestone = createMileStoneAdapter?.itemList
         } else {
-            params.proposal_total_price =
-                existing_total_price.text.toString().replace("$", "")
+            params.proposal_total_price = existing_total_price.text.toString().replace("$", "")
             params.proposal_milestone = AppConstant.EXISTING_MILESTONE
+
+            val milestoneList = ArrayList<CreateMilestoneBean>()
+
+
+            for(item in mileStoneAdapter?.itemList!!){
+                val bean=CreateMilestoneBean()
+                bean.price=item.milestonePrice!!
+                bean.details=item.milestoneDetails!!
+                bean.milestoneId=item.milestoneId!!
+                milestoneList.add(bean)
+            }
+
+            params.milestone = milestoneList
+
         }
 
         params.attachments = jobsImageAdapter?.itemList
-        params.milestone = createMileStoneAdapter?.itemList
+
         params.job_id = jobId
 
-        submitProposalPresenter.submitProposal(params)
+        startActivityForResult(
+            Intent(
+                this,
+                ReviewProposalActivity::class.java
+            ).putExtra(AppConstant.BEAN, params), 13
+        )
+
+
     }
 
     @SuppressLint("InflateParams")
@@ -248,6 +270,8 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
         val linearGallery = view.ll_gallery
         val linearFile = view.ll_file
         val textDialogTitle = view.txt_dialog_title
+
+        textDialogTitle.text = getString(R.string.select_a_file)
 
 
         textDialogTitle.setOnClickListener { dialog.dismiss() }
@@ -480,6 +504,12 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
                 }
 
             }
+            13 -> {
+                if (resultCode == RESULT_OK) {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
 
 
         }
@@ -502,20 +532,10 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
         alertDialog!!.show()
     }
 
-    override fun onSubmitProposalSuccessFully(loginParams: CommonMessageBean) {
-        if (loginParams.msg != null) {
-            DroneDinApp.getAppInstance().showToast(loginParams.msg)
-            setResult(RESULT_OK)
-            finish()
-        }
+
+    override fun onItemRemove(adapterPosition: Int) {
+        edt_price.setText(createMileStoneAdapter?.getPriceString())
     }
 
-    override fun onSubmitProposalFailed(loginParams: SubmitProposalParams) {
-        ErrorHandler.handleMapError(Gson().toJson(loginParams))
-    }
-
-    override fun onApiException(error: Int) {
-        DroneDinApp.getAppInstance().showToast(getString(error))
-    }
 
 }

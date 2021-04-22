@@ -74,5 +74,47 @@ class SettingsPresenter : SettingsContract.Presenter {
             })
     }
 
+    override fun notificationOnOff(notificationStatus: String) {
+
+        view?.showProgress()
+        val map = HashMap<String, Any>()
+
+        map["notification"] = notificationStatus
+
+        api.getMainScreenData(map)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<MainScreenData>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: MainScreenData) {
+                    view?.hideProgress()
+                    view?.onNotificationOnOffSuccessful(dataBean)
+
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                    LogX.E(errorBean.toString())
+                    view?.hideProgress()
+                    view?.onNotificationOnOffFailed(
+                        Gson().fromJson(
+                            errorBean.toString(),
+                            CommonMessageBean::class.java
+                        )
+                    )
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    view?.hideProgress()
+                    view?.onApiException(ErrorHandler.handleError(throwable!!))
+                }
+
+
+            })
+    }
+
 
 }

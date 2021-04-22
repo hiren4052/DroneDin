@@ -131,6 +131,7 @@ class ProposalsDetailActivity : BaseActivity(), View.OnClickListener, ProposalsD
         } else {
             pictures_layout.visibility = View.GONE
         }
+
     }
 
     override fun onProposalsDetailFailed(loginParams: CommonMessageBean) {

@@ -52,6 +52,48 @@
                 android:textSize="@dimen/_16sp" />
         </LinearLayout>
 
+
+        <RelativeLayout
+            android:id="@+id/search_open_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_4dp"
+            android:background="@drawable/ic_rectangle_white"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/close_search_button"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_16dp"
+                android:src="@drawable/ic_close"
+                android:background="?selectableItemBackground"
+                app:tint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/search_input_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:singleLine="true"
+                android:layout_toEndOf="@id/close_search_button" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_search" />
+
     </RelativeLayout>
 
     <RelativeLayout
