@@ -30,10 +30,12 @@ import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentMessageParams
 import com.grewon.dronedin.utils.TimeUtils
 import com.grewon.dronedin.utils.ValidationUtils
+import com.jakewharton.rxbinding.widget.RxTextView
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_chat.*
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -54,6 +56,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     private var isLoading = true
     private var isOldMessageServiceCalled = false
     private var dateArrayList = ArrayList<String>()
+    private var isSearch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,9 +108,15 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     }
 
+    private fun cancelMessageHandler() {
+        if (newMessageHandler != null) {
+            newMessageHandler?.removeCallbacksAndMessages(null)
+            newMessageHandler = null
+        }
+    }
+
 
     private fun openSearch() {
-        search_input_text.setText("")
         search_open_view.visibility = View.VISIBLE
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             search_open_view,
@@ -135,7 +144,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             override fun onAnimationStart(animation: Animator?) = Unit
             override fun onAnimationEnd(animation: Animator?) {
                 search_open_view.visibility = View.INVISIBLE
-                search_input_text.setText("")
+
                 circularConceal.removeAllListeners()
             }
         })
@@ -143,9 +152,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
     override fun onDestroy() {
         super.onDestroy()
-        if (newMessageHandler != null) {
-            newMessageHandler?.removeCallbacksAndMessages(null)
-        }
+        cancelMessageHandler()
     }
 
     private fun initAdapter() {
@@ -163,10 +170,14 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         im_attachments.setOnClickListener(this)
         fab_send_message.setOnClickListener(this)
         img_search.setOnClickListener(this)
-        close_search_button.setOnClickListener(this)
+        txt_cancel.setOnClickListener(this)
+        txt_apply.setOnClickListener(this)
+        txt_started_date.setOnClickListener(this)
+        txt_ended_date.setOnClickListener(this)
     }
 
     private fun initView() {
+
         receiverId = intent.getStringExtra(AppConstant.ID).toString()
 
 
@@ -194,6 +205,11 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
 
             }
         })
+
+
+
+
+
     }
 
     override fun onClick(v: View?) {
@@ -223,12 +239,54 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             }
 
             R.id.img_search -> {
-               openSearch()
+                openSearch()
             }
-            R.id.close_search_button -> {
+            R.id.txt_cancel -> {
+
+                if (!ValidationUtils.isEmptyFiled(search_input_text.text.toString()) || !ValidationUtils.isEmptyFiled(
+                        txt_started_date.text.toString()
+                    )
+                    || !ValidationUtils.isEmptyFiled(txt_ended_date.text.toString())
+                ) {
+                    search_input_text.setText("")
+                    txt_started_date.text = ""
+                    txt_ended_date.text = ""
+                    reStartChat(true)
+                }
                 closeSearch()
+
+            }
+            R.id.txt_apply -> {
+                reStartChat(false)
+                closeSearch()
+
+            }
+
+            R.id.txt_started_date -> {
+                TimeUtils.showDatePickerDialogForText(this, txt_started_date)
+            }
+
+            R.id.txt_ended_date -> {
+                TimeUtils.showDatePickerDialogForText(this, txt_ended_date)
             }
         }
+    }
+
+    private fun reStartChat(isStartHandler: Boolean) {
+        mIsLastItem = false
+        isLoading = true
+        isOldMessageServiceCalled = false
+        dateArrayList = ArrayList()
+
+        initAdapter()
+
+        if (isStartHandler)
+            startNewMessageHandler()
+        else
+            cancelMessageHandler()
+
+        getOldMessage()
+
     }
 
     private fun openPhotosRequest() {
@@ -334,7 +392,15 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun getOldMessage() {
-        chatPresenter.getOldMessage(chatAdapter?.getLastBottomId().toString(), chatRoomId)
+
+
+        chatPresenter.getOldMessage(
+            chatAdapter?.getLastBottomId().toString(),
+            chatRoomId,
+            search_input_text.text.toString(), txt_started_date.text.toString(), txt_ended_date.text.toString()
+        )
+
+
     }
 
     private fun setView(recieverDetail: ChatRoomBean.Data.RecieverDetail?) {
@@ -347,8 +413,17 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         txt_user_name.text = recieverDetail?.userName
         if (recieverDetail?.isUserOnline == AppConstant.YES_STATUS) {
             txt_online_status.visibility = View.VISIBLE
+            txt_online_status.text = getString(R.string.online)
         } else {
-            txt_online_status.visibility = View.GONE
+            //txt_online_status.visibility = View.GONE
+            txt_online_status.text = getString(
+                R.string.last_seen, TimeUtils.convertDate(
+                    recieverDetail?.lastSeen.toString(),
+                    "yyyy-MM-dd HH:mm:ss",
+                    "dd/MM/yyyy hh:mm a",
+                    true
+                )
+            )
         }
     }
 
@@ -375,11 +450,11 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun setSingleItemToAdapter(chatDataBean: ChatDataBean.Data) {
-        val withoutDateList=ArrayList<ChatDataBean.Data>()
+        val withoutDateList = ArrayList<ChatDataBean.Data>()
         withoutDateList.add(chatDataBean)
-        val withDateList = getDateWiseList(withoutDateList)
+        val withDateList = getNewSentDateWiseList(withoutDateList)
         chatAdapter?.addOffsetMessageItemsList(withDateList)
-       // chatAdapter?.addMessageItem(chatDataBean)
+        // chatAdapter?.addMessageItem(chatDataBean)
     }
 
     override fun onMessageSendFailed(loginParams: CommonMessageBean) {
@@ -397,6 +472,28 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             isOldMessageServiceCalled = true
         }
 
+    }
+
+    private fun getNewSentDateWiseList(withOutDateList: ArrayList<ChatDataBean.Data>): ArrayList<ChatDataBean.Data> {
+        val withDateList = ArrayList<ChatDataBean.Data>()
+        for (bean in withOutDateList) {
+            if (!dateArrayList.contains(TimeUtils.getMessageHeaderDisplayDate(bean.chatMsgDatecreated!!))) {
+
+                dateArrayList.add(TimeUtils.getMessageHeaderDisplayDate(bean.chatMsgDatecreated!!))
+                LogX.E(dateArrayList.toString())
+                withDateList.add(bean)
+                if (dateArrayList.size > 0) {
+                    val messagesBean = ChatDataBean.Data()
+                    messagesBean.chatMsgDatecreated = dateArrayList[dateArrayList.size - 1]
+                    messagesBean.msgType = "Date"
+                    messagesBean.chatMsgId = bean.chatMsgId
+                    withDateList.add(messagesBean)
+                }
+            } else {
+                withDateList.add(bean)
+            }
+        }
+        return withDateList
     }
 
 
@@ -454,9 +551,6 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         }
 
     }
-
-
-
 
 
     private fun scrollBottom() {

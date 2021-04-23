@@ -39,6 +39,35 @@ class SettingsPresenter : SettingsContract.Presenter {
     override fun logoutUser() {
 
         view?.showProgress()
+
+        api.changeOnlineStatus("off")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : NetworkCall<CommonMessageBean>() {
+
+                override fun onSubscribeCall(disposable: Disposable) {
+                    subscriptions.add(disposable)
+                }
+
+                override fun onSuccessResponse(dataBean: CommonMessageBean) {
+                    logoutService()
+                }
+
+                override fun onFailedResponse(errorBean: Any?) {
+                   logoutService()
+                }
+
+                override fun onException(throwable: Throwable?) {
+                    logoutService()
+                }
+
+
+            })
+
+
+    }
+
+    private fun logoutService(){
         api.logoutUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

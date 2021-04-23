@@ -54,6 +54,8 @@ public class AppConstant {
         const val CHANNEL_ID: String = "info_notification"
         const val LOCATION_PERMISSION_REQUEST_CODE: Int = 15
         const val LOCATION_CLICK_PERMISSION_REQUEST_CODE: Int = 19
+        const val VIDEO_FILE_SIZE: Int = 50
+        const val IMAGE_FILE_SIZE: Int = 10
         const val DATA_TYPE: String = "data_type"
         const val BEAN: String = "bean"
         const val PRICE: String = "price"

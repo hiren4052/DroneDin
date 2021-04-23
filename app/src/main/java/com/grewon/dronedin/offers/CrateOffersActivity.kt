@@ -358,6 +358,8 @@ class CrateOffersActivity : BaseActivity(), View.OnClickListener,
 
         FilePickerBuilder.instance
             .setMaxCount(1) //optional
+            .setVideoSizeLimit(AppConstant.VIDEO_FILE_SIZE)
+            .setImageSizeLimit(AppConstant.IMAGE_FILE_SIZE)
             .setActivityTheme(R.style.AppLibAppTheme) //optional
             .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
 

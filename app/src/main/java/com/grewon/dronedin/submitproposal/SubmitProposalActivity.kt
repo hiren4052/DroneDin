@@ -376,9 +376,12 @@ class SubmitProposalActivity : BaseActivity(), View.OnClickListener,
 
     private fun fileIntent() {
         FilePickerBuilder.instance
-            .setMaxCount(1) //optional
+            .setMaxCount(1)
+            .setVideoSizeLimit(AppConstant.VIDEO_FILE_SIZE)
+            .setImageSizeLimit(AppConstant.IMAGE_FILE_SIZE)
             .setActivityTheme(R.style.AppLibAppTheme) //optional
             .pickFile(this, AppConstant.PICKFILE_REQUEST_CODE)
+
     }
 
 

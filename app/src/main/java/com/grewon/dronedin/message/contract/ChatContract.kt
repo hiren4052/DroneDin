@@ -39,7 +39,13 @@ interface ChatContract {
 
         fun sentMessage(sentMessageParams: SentMessageParams)
 
-        fun getOldMessage(offsetId: String, chatRoomId: String)
+        fun getOldMessage(
+            offsetId: String,
+            chatRoomId: String,
+            searchText: String,
+            startDate: String,
+            endDate: String
+        )
 
         fun getNewMessage(offsetId: String, chatRoomId: String)
 

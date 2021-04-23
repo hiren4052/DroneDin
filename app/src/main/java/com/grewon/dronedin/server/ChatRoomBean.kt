@@ -49,7 +49,9 @@ data class ChatRoomBean(
             @SerializedName("user_id")
             val userId: String? = "",
             @SerializedName("user_name")
-            val userName: String? = ""
+            val userName: String? = "",
+            @SerializedName("last_seen")
+            val lastSeen: String? = ""
         ) : Parcelable
     }
 }

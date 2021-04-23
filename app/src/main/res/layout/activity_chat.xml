@@ -48,42 +48,11 @@
                 android:id="@+id/txt_online_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/LightTextAppearance"
                 android:textColor="@color/span_text_color"
-                android:textSize="@dimen/_16sp" />
+                android:textSize="@dimen/_14sp" />
         </LinearLayout>
 
-
-        <RelativeLayout
-            android:id="@+id/search_open_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_4dp"
-            android:background="@drawable/ic_rectangle_white"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/close_search_button"
-                android:layout_width="@dimen/_24dp"
-                android:layout_height="@dimen/_24dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_16dp"
-                android:src="@drawable/ic_close"
-                android:background="?selectableItemBackground"
-                app:tint="@color/colorPrimary" />
-
-            <EditText
-                android:id="@+id/search_input_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_16dp"
-                android:layout_marginEnd="@dimen/_16dp"
-                android:singleLine="true"
-                android:layout_toEndOf="@id/close_search_button" />
-
-
-        </RelativeLayout>
 
         <ImageView
             android:id="@+id/img_search"
@@ -95,6 +64,7 @@
             android:src="@drawable/ic_search" />
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -193,5 +163,96 @@
             app:fabSize="mini"
             app:srcCompat="@drawable/ic_baseline_send_24"
             app:tint="@color/white" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/search_open_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_3dp"
+        android:background="@drawable/ic_rectangle_white"
+        android:elevation="@dimen/_5dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/search_input_text"
+            style="@style/editTextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:hint="@string/write_here_to_search"
+            android:padding="@dimen/_15dp"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_started_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?selectableItemBackground"
+                android:drawablePadding="@dimen/_10dp"
+                android:hint="@string/start_date"
+                android:padding="@dimen/_15dp"
+                android:textAppearance="@style/LightTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_16sp"
+                app:drawableStartCompat="@drawable/ic_calendar" />
+
+            <TextView
+                android:id="@+id/txt_ended_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?selectableItemBackground"
+                android:drawablePadding="@dimen/_10dp"
+                android:hint="@string/end_date"
+                android:padding="@dimen/_15dp"
+                android:textAppearance="@style/LightTextAppearance"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_16sp"
+                app:drawableStartCompat="@drawable/ic_calendar" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/_15dp"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/txt_cancel"
+                android:layout_width="@dimen/_120dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginEnd="@dimen/_5dp"
+                android:background="@drawable/ic_rectangle_light_colorprimary"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@drawable/white_text_selector"
+                android:textSize="@dimen/_16sp" />
+
+            <TextView android:id="@+id/txt_apply"
+                android:layout_width="@dimen/_120dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@drawable/ic_rectangle"
+                android:gravity="center"
+                android:text="@string/apply"
+                android:textColor="@drawable/btn_text_selector"
+                android:textSize="@dimen/_16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

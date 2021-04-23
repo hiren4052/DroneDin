@@ -454,4 +454,10 @@
     <string name="category_">Category:</string>
     <string name="congratulations_your_job_has_been_posted_successfully">Congratulations, your job has been posted successfully!</string>
     <string name="you_can_also_invite_pilots_directly_to_bid_on_your_job_post_n_nclick_on_the_invite_button_to_browse_and_select_available_pilots_or_select_skip_to_return_to_the_home_screen">You can also invite pilots directly to bid on your job post.\n\nClick on the invite button to browse and select available pilots, or select skip to return to the home screen.</string>
+    <string name="last_seen">Last seen %s</string>
+    <string name="search_here">Search here</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="apply">Apply</string>
+    <string name="write_here_to_search">Write here to search...</string>
 </resources>

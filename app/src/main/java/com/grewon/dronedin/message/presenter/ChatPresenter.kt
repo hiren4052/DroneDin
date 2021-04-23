@@ -8,6 +8,7 @@ import com.grewon.dronedin.message.contract.ChatContract
 import com.grewon.dronedin.network.NetworkCall
 import com.grewon.dronedin.server.*
 import com.grewon.dronedin.server.params.SentMessageParams
+import com.grewon.dronedin.utils.ValidationUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -137,11 +138,29 @@ class ChatPresenter : ChatContract.Presenter {
 
     }
 
-    override fun getOldMessage(offsetId: String, chatRoomId: String) {
+    override fun getOldMessage(
+        offsetId: String, chatRoomId: String,
+        searchText: String,
+        startDate: String,
+        endDate: String
+    ) {
+
         view?.showTopProgress()
+
         val params = HashMap<String, Any>()
         params["offsetID"] = offsetId
         params["chat_room_id"] = chatRoomId
+
+        if (!ValidationUtils.isEmptyFiled(searchText))
+            params["search"] = searchText
+
+        if (!ValidationUtils.isEmptyFiled(startDate))
+            params["start_date"] = startDate
+
+        if (!ValidationUtils.isEmptyFiled(endDate))
+            params["end_date"] = endDate
+
+        LogX.E(params.toString())
 
         api.getOldMessage(params)
             .subscribeOn(Schedulers.io())
@@ -176,6 +195,7 @@ class ChatPresenter : ChatContract.Presenter {
 
 
             })
+
     }
 
     override fun getNewMessage(offsetId: String, chatRoomId: String) {
