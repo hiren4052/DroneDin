@@ -290,6 +290,33 @@ class FileValidationUtils {
                     if (id != null && id.startsWith("raw:")) {
                         return id.substring(4)
                     }
+
+                    if (id != null && id.startsWith("msf:")) {
+                        val file = File(
+                            context.cacheDir,
+                            "Temp." + Objects.requireNonNull(
+                                context.contentResolver.getType(uri)
+                            )?.split("/")?.get(1)
+                        )
+                        try {
+                            context.contentResolver.openInputStream(uri)
+                                .use { inputStream ->
+                                    FileOutputStream(file).use { output ->
+                                        val buffer = ByteArray(4 * 1024) // or other buffer size
+                                        var read: Int
+                                        while (inputStream?.read(buffer).also { read = it!! } != -1) {
+                                            output.write(buffer, 0, read)
+                                        }
+                                        output.flush()
+                                        return file.absolutePath
+                                    }
+                                }
+                        } catch (ex: IOException) {
+                            ex.printStackTrace()
+                        }
+                        return null
+                    }
+
                     val contentUriPrefixesToTry = arrayOf(
                         "content://downloads/public_downloads",
                         "content://downloads/my_downloads"

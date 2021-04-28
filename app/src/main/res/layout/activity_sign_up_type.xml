@@ -11,8 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
+        android:background="@color/black"
         tools:context=".signup.SignUpTypeActivity">
 
 
@@ -22,10 +22,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
+            android:src="@drawable/lets_started"
+            android:visibility="invisible"
             app:aspectRatio="0.55"
-            app:aspectRatioEnabled="true"
-            app:srcCompat="@drawable/ic_profile_top"
-            app:tint="@color/colorPrimary" />
+            app:aspectRatioEnabled="true" />
+
+        <com.grewon.dronedin.helper.AspectImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:background="@color/black"
+            android:alpha="0.8"
+            android:src="@drawable/lets_started"
+            app:aspectRatio="0.75"
+            app:aspectRatioEnabled="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,12 +68,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/top_image"
+            android:layout_marginTop="-80dp"
+            android:background="@drawable/ic_setting_background"
             android:orientation="vertical">
 
             <com.grewon.dronedin.helper.AspectImageView
                 android:id="@+id/pilot_gif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_80dp"
                 app:aspectRatio="0.5"
                 app:aspectRatioEnabled="true"
                 app:srcCompat="@drawable/signup_pilot" />
@@ -92,9 +106,9 @@
                 android:layout_width="@dimen/_150dp"
                 android:layout_height="@dimen/_45dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/_40dp"
                 android:background="@drawable/spann_color_btn_selector"
                 android:gravity="center"
-                android:layout_marginBottom="@dimen/_40dp"
                 android:text="@string/as_client"
                 android:textAppearance="@style/BoldTextAppearance"
                 android:textColor="@drawable/spann_text_selector"

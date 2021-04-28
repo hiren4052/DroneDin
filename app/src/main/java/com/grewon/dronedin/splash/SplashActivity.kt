@@ -14,6 +14,8 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+
+
         Handler().postDelayed({
             if (preferenceUtils.getLoginCredentials() != null && preferenceUtils.getLoginCredentials()?.data != null && preferenceUtils.getLoginCredentials()?.data!!.isStepComplete!!) {
                 startActivity(Intent(this, MainActivity::class.java))

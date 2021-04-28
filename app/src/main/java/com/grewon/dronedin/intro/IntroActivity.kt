@@ -42,7 +42,13 @@ class IntroActivity : BaseActivity(), View.OnClickListener {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-
+                if (position == 0) {
+                    back_image.setImageResource(R.drawable.intro1)
+                } else if (position == 1) {
+                    back_image.setImageResource(R.drawable.intro2)
+                } else if (position == 2) {
+                    back_image.setImageResource(R.drawable.intro3)
+                }
             }
 
             override fun onPageSelected(position: Int) {

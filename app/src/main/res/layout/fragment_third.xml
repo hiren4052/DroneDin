@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_layout"
         android:layout_alignParentTop="true"
+        android:visibility="gone"
         android:padding="@dimen/_30dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_i3" />
