@@ -137,6 +137,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             R.id.im_back -> {
 
             }
+
             R.id.im_edit -> {
                 if (isPilotAccount()) {
                     startActivity(
@@ -155,12 +156,15 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 }
 
             }
+
             R.id.txt_payment_method -> {
                 startActivity(Intent(context, PaymentMethodActivity::class.java))
             }
+
             R.id.txt_change_password -> {
                 startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
             }
+
             R.id.txt_privacy -> {
                 startActivity(
                     Intent(context, WebActivity::class.java).putExtra(
@@ -170,6 +174,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
                 )
             }
+
             R.id.txt_terms -> {
                 startActivity(
                     Intent(context, WebActivity::class.java).putExtra(
@@ -179,9 +184,11 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
                 )
             }
+
             R.id.txt_membership -> {
                 startActivity(Intent(context, MemberShipActivity::class.java))
             }
+
             R.id.txt_customer_support -> {
                 startActivity(
                     Intent(context, WebActivity::class.java).putExtra(
@@ -191,16 +198,20 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
                 )
             }
+
             R.id.txt_dispute -> {
                 startActivity(Intent(context, DisputeActivity::class.java))
             }
+
             R.id.notification_switch -> {
                 val notificationStatus = if (notification_switch.isChecked) "on" else "off"
                 settingsPresenter.notificationOnOff(notificationStatus)
             }
+
             R.id.txt_logout -> {
                 openLogoutDialog()
             }
+
         }
 
     }

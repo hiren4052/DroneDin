@@ -392,15 +392,11 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     private fun getOldMessage() {
-
-
         chatPresenter.getOldMessage(
             chatAdapter?.getLastBottomId().toString(),
             chatRoomId,
             search_input_text.text.toString(), txt_started_date.text.toString(), txt_ended_date.text.toString()
         )
-
-
     }
 
     private fun setView(recieverDetail: ChatRoomBean.Data.RecieverDetail?) {
@@ -545,7 +541,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     override fun onNewMessageGetSuccessfully(response: ChatDataBean) {
         if (response.data != null && response.data.size > 0) {
             mIsLastItem = false
-            val withDateList = getDateWiseList(response.data!!)
+            val withDateList = getDateWiseList(response.data)
             chatAdapter?.addOffsetMessageItemsList(withDateList)
 
         }

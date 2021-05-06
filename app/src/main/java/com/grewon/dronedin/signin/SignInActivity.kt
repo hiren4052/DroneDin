@@ -264,7 +264,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
                     userDevice = "android",
                     userEmail,
                     socialId,
-                    loginType,
+                    loginType
 
                     )
             signInPresenter.userSocialLogin(socialLoginParams)

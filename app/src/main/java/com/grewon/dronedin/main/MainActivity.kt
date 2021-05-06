@@ -215,7 +215,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         preferenceUtils.saveProfileData(response)
         if (response.data != null) {
             if (response.data.totalUnreadNotification != "0") {
-                addBadgeAt(3, response.data.totalUnreadNotification?.toInt()!!)
+                addBadgeAt(
+                    3,
+                    response.data.totalUnreadNotification?.toInt()!!
+                )
             } else {
                 removeBadgeAt(3)
             }
@@ -235,41 +238,79 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun addBadgeAt(position: Int, number: Int) {
         // add badge
-        if (position == 2 && messageBadgeView != null) {
-            messageBadgeView?.setBadgeNumber(number)
-                ?.setGravityOffset(40f, 0.2f, true)
-                ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
-                false
+        if (isPilotAccount()) {
+            if (position == 2 && messageBadgeView != null) {
+                messageBadgeView?.setBadgeNumber(number)
+                    ?.setGravityOffset(15f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
+                    false
 
-        }
-        if (position == 3 && notificationBadgeView != null) {
-            notificationBadgeView?.setBadgeNumber(number)
-                ?.setGravityOffset(40f, 0.2f, true)
-                ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
-                false
+            }
+            if (position == 3 && notificationBadgeView != null) {
+                notificationBadgeView?.setBadgeNumber(number)
+                    ?.setGravityOffset(15f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
+                    false
 
+            }
+        } else {
+            if (position == 2 && messageBadgeView != null) {
+                messageBadgeView?.setBadgeNumber(number)
+                    ?.setGravityOffset(15f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
+                    false
+
+            }
+            if (position == 3 && notificationBadgeView != null) {
+                notificationBadgeView?.setBadgeNumber(number)
+                    ?.setGravityOffset(25f, 1f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))?.isExactMode =
+                    false
+
+            }
         }
     }
 
     private fun removeBadgeAt(position: Int) {
 
-        if (position == 2 && messageBadgeView != null) {
-            // remove badge
-            messageBadgeView
-                ?.setBadgeNumber(0)
-                ?.setGravityOffset(40f, 0.2f, true)
-                ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
-                ?.hide(true)
+        if (isPilotAccount()) {
+            if (position == 2 && messageBadgeView != null) {
+                // remove badge
+                messageBadgeView
+                    ?.setBadgeNumber(0)
+                    ?.setGravityOffset(15f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
+                    ?.hide(true)
+            }
+
+            if (position == 3 && notificationBadgeView != null) {
+                // remove badge
+                notificationBadgeView
+                    ?.setBadgeNumber(0)
+                    ?.setGravityOffset(15f, 1f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
+                    ?.hide(true)
+            }
+        } else {
+            if (position == 2 && messageBadgeView != null) {
+                // remove badge
+                messageBadgeView
+                    ?.setBadgeNumber(0)
+                    ?.setGravityOffset(15f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
+                    ?.hide(true)
+            }
+
+            if (position == 3 && notificationBadgeView != null) {
+                // remove badge
+                notificationBadgeView
+                    ?.setBadgeNumber(0)
+                    ?.setGravityOffset(25f, 0.2f, true)
+                    ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
+                    ?.hide(true)
+            }
         }
 
-        if (position == 3 && notificationBadgeView != null) {
-            // remove badge
-            notificationBadgeView
-                ?.setBadgeNumber(0)
-                ?.setGravityOffset(40f, 0.2f, true)
-                ?.bindTarget(bottom_navigation.getBottomNavigationItemView(position))
-                ?.hide(true)
-        }
     }
 
 

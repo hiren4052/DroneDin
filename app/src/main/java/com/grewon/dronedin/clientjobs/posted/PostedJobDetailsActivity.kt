@@ -18,6 +18,7 @@ import com.grewon.dronedin.clientjobs.contract.ClientJobsDetailContract
 import com.grewon.dronedin.extraadapter.ChipEquipmentsAdapter
 import com.grewon.dronedin.extraadapter.ChipSkillsAdapter
 import com.grewon.dronedin.attachments.JobAttachmentsAdapter
+import com.grewon.dronedin.invitepilot.InvitePilotActivity
 import com.grewon.dronedin.milestone.adapter.MileStoneAdapter
 import com.grewon.dronedin.postjob.PostJobActivity
 import com.grewon.dronedin.server.*
@@ -216,7 +217,12 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
         //registering popup with OnMenuItemClickListener
         popup.setOnMenuItemClickListener {
             if (it.itemId == R.id.im_sent_invitations) {
-
+                startActivityForResult(
+                    Intent(this, InvitePilotActivity::class.java).putExtra(
+                        AppConstant.ID,
+                        jobId
+                    ), 44
+                )
             } else if (it.itemId == R.id.im_sent_offers) {
                 startActivity(
                     Intent(

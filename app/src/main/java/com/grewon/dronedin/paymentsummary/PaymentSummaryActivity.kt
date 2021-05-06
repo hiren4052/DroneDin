@@ -107,8 +107,7 @@ class PaymentSummaryActivity : BaseActivity(), View.OnClickListener, CreateOffer
 
         commissionAmount = ((milestoneAmount * commissionPrice) / 100)
 
-        txt_app_charge.text =
-            getString(R.string.price_string, TextUtils.convertDecimalFormat(commissionAmount))
+        txt_app_charge.text = getString(R.string.price_string, TextUtils.convertDecimalFormat(commissionAmount))
 
 
         if (check_wallet.isChecked) {

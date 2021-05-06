@@ -334,7 +334,7 @@ interface AppApi {
     @GET("profile_c/wallet_transaction/{offset}")
     fun getEarningsData(@Path("offset") offset: Int): Single<EarningsDataBean>
 
-    @POST("chat_c/withdraw")
+    @POST("profile_c/withdraw")
     fun withdrawAmount(@Body withdrawParams: WithdrawParams): Single<CommonMessageBean>
 
 

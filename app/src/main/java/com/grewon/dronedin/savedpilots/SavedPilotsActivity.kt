@@ -1,6 +1,5 @@
 package com.grewon.dronedin.savedpilots
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -15,7 +14,6 @@ import com.grewon.dronedin.clientjobs.adapter.FindPilotAdapter
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.filter.contract.FilterContract
 import com.grewon.dronedin.helper.AspectImageView
-import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.PilotDataBean
 import com.grewon.dronedin.server.PilotJobsDataBean
@@ -25,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_saved_pilots.*
 import kotlinx.android.synthetic.main.layout_square_toolbar_with_back.*
 import retrofit2.Retrofit
 import javax.inject.Inject
+
 
 class SavedPilotsActivity : BaseActivity(), View.OnClickListener, FilterContract.View,
     OnMoreListener, SwipeRefreshLayout.OnRefreshListener, FindPilotAdapter.OnItemClickListeners {
@@ -80,9 +79,9 @@ class SavedPilotsActivity : BaseActivity(), View.OnClickListener, FilterContract
 
     private fun apiCall(pageCount: Int) {
         val filterParams = FilterParams()
-        filterParams?.page = pageCount.toString()
-        filterParams?.saved = "1"
-        filterPresenter.getPilotData(filterParams!!)
+        filterParams.page = pageCount.toString()
+        filterParams.saved = "1"
+        filterPresenter.getPilotData(filterParams)
     }
 
 

@@ -20,6 +20,7 @@ import java.io.*
 import java.text.DecimalFormat
 import java.util.*
 
+
 /**
  * Created by Hiren Gabani on 2019-11-07.
  */
@@ -28,14 +29,14 @@ class FileValidationUtils {
         const val DOCUMENTS_DIR = "documents"
 
         // configured android:authorities in AndroidManifest (https://developer.android.com/reference/android/support/v4/content/FileProvider)
-        const val AUTHORITY = "com.dronedin.provider"
+        const val AUTHORITY = "com.grewon.dronedin.provider"
         const val HIDDEN_PREFIX = "."
 
         /**
          * TAG for log messages.
          */
         const val TAG = "FileUtils"
-        private const val DEBUG = false // Set to true to enable logging
+        private const val DEBUG = true // Set to true to enable logging
 
         /**
          * File and folder comparator. TODO Expose sorting option method
@@ -454,8 +455,7 @@ class FileValidationUtils {
             context: Context?,
             file: File
         ): Intent { //Uri uri = Uri.fromFile(file);
-            val uri =
-                FileProvider.getUriForFile(context!!, AUTHORITY, file)
+            val uri = FileProvider.getUriForFile(context!!, AUTHORITY, file)
             val intent = Intent(Intent.ACTION_VIEW)
             val url = file.toString()
             if (url.contains(".doc") || url.contains(".docx")) { // Word document
@@ -495,8 +495,7 @@ class FileValidationUtils {
             get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
         fun getDocumentCacheDir(context: Context): File {
-            val dir =
-                File(context.cacheDir, DOCUMENTS_DIR)
+            val dir = File(context.cacheDir, DOCUMENTS_DIR)
             if (!dir.exists()) {
                 dir.mkdirs()
             }
@@ -580,7 +579,7 @@ class FileValidationUtils {
             }
         }
 
-        private fun saveFileFromUri(
+         fun saveFileFromUri(
             context: Context,
             uri: Uri,
             destinationPath: String?
@@ -681,7 +680,7 @@ class FileValidationUtils {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 outputFile = File(
-                    context.cacheDir,
+                    getDocumentCacheDir(context),
                     filename
                 )
                 if (!outputFile.exists()) outputFile.createNewFile()
@@ -703,7 +702,7 @@ class FileValidationUtils {
                 )
             }
 
-            return outputFile!!
+            return outputFile
         }
 
 
@@ -713,7 +712,7 @@ class FileValidationUtils {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 outputFile = File(
-                    context.cacheDir,
+                    getDocumentCacheDir(context),
                     filename
                 )
 
@@ -740,7 +739,7 @@ class FileValidationUtils {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 outputFile = File(
-                    context.cacheDir,
+                    getDocumentCacheDir(context),
                     filename
                 )
 

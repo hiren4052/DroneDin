@@ -51,7 +51,7 @@ class MyWalletActivity : BaseActivity(), WalletContract.View, View.OnClickListen
 
     private fun initView() {
 
-        txt_toolbar_title.text=getString(R.string.my_wallet)
+        txt_toolbar_title.text = getString(R.string.my_wallet)
 
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         walletPresenter.attachView(this)
@@ -106,9 +106,11 @@ class MyWalletActivity : BaseActivity(), WalletContract.View, View.OnClickListen
     }
 
     override fun onWalletDataGetSuccessful(response: EarningsDataBean) {
-        txt_total_withdraw.text = getString(R.string.price_string, response.totalWithdraw)
-        txt_available_balance.text = getString(R.string.price_string, response.walletBalance)
-        if (response.data != null) {
+        if (offsetCount == 1) {
+            txt_total_withdraw.text = getString(R.string.price_string, response.totalWithdraw)
+            txt_available_balance.text = getString(R.string.price_string, response.walletBalance)
+        }
+        if (response.data != null&&response.data.size>0) {
             isFirstTimeDataLoaded = true
             isLoaded = true
             if (earningAdapter != null) {

@@ -261,18 +261,18 @@ class ClientActiveJobsDetailsActivity : BaseActivity(), View.OnClickListener,
     override fun onMilestoneItemClick(jobsDataBean: MilestonesDataBean?) {
 
         if (jobsDataBean?.milestoneStatus == AppConstant.MILESTONE_ACTIVE_STATUS) {
-            startActivity(
+            startActivityForResult(
                 Intent(this, CancelMilestoneActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean.milestoneId
-                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId),12
             )
         } else {
-            startActivity(
+            startActivityForResult(
                 Intent(this, MilestoneDetailActivity::class.java).putExtra(
                     AppConstant.ID,
                     jobsDataBean?.milestoneId
-                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId)
+                ).putExtra(AppConstant.JOB_ID, activeJobsDetails?.jobId),12
             )
         }
 

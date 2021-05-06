@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
+import com.grewon.dronedin.enum.MILESTONE_STATUS
 import com.grewon.dronedin.server.MilestonesDataBean
 import com.grewon.dronedin.utils.TextUtils
 import com.grewon.dronedin.utils.TimeUtils
@@ -62,9 +63,10 @@ class ActiveMileStoneAdapter(
                     item.milestoneDetails
                 )
             )
-            holder.txtMileStonePrice.text =
-                context.getString(R.string.price_string, item.milestonePrice)
-            if (item.milestoneStatus == AppConstant.MILESTONE_CANCELLED_STATUS) {
+
+            holder.txtMileStonePrice.text = context.getString(R.string.price_string, item.milestonePrice)
+
+            if (item.milestoneStatus == MILESTONE_STATUS.cancelled.name) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_cancelled_background)
                 holder.textMilestoneStatus.setTextColor(
@@ -80,7 +82,7 @@ class ActiveMileStoneAdapter(
                         item
                     )
                 }
-            } else if (item.milestoneStatus == AppConstant.MILESTONE_PENDING_STATUS) {
+            } else if (item.milestoneStatus ==  MILESTONE_STATUS.pending.name) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_pending_background)
                 holder.textMilestoneStatus.setTextColor(
@@ -97,7 +99,7 @@ class ActiveMileStoneAdapter(
                         item
                     )
                 }
-            } else if (item.milestoneStatus == AppConstant.MILESTONE_ACTIVE_STATUS) {
+            } else if (item.milestoneStatus ==  MILESTONE_STATUS.active.name) {
                 holder.textMilestoneStatus.background =
                     ContextCompat.getDrawable(context, R.drawable.ic_round_active_background)
                 holder.textMilestoneStatus.setTextColor(
@@ -117,7 +119,27 @@ class ActiveMileStoneAdapter(
                     holder.textDate.text =
                         TimeUtils.getServerToAppDate(item.milestoneStartedDate!!.toString())
                 }
-            } else {
+            }else if (item.milestoneStatus ==  MILESTONE_STATUS.requested.name) {
+                holder.textMilestoneStatus.background =
+                    ContextCompat.getDrawable(context, R.drawable.ic_round_pending_background)
+                holder.textMilestoneStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.pending_text_color
+                    )
+                )
+                holder.textMilestoneStatus.text =  MILESTONE_STATUS.requested.name
+                holder.dateLayout.visibility = View.GONE
+            }else if (item.milestoneStatus ==  MILESTONE_STATUS.completed.name) {
+                holder.textMilestoneStatus.background = ContextCompat.getDrawable(context, R.drawable.ic_round_completed_background)
+                holder.textMilestoneStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.completed_text_color
+                    )
+                )
+                holder.textMilestoneStatus.text =   context.getText(R.string.completed)
+                holder.dateLayout.visibility = View.GONE
                 if (item.milestoneCompletedDate != null) {
                     holder.textDate.text =
                         TimeUtils.getServerToAppDate(item.milestoneCompletedDate!!)
@@ -127,6 +149,8 @@ class ActiveMileStoneAdapter(
                         item
                     )
                 }
+            } else{
+                holder.dateLayout.visibility = View.GONE
             }
 
         }

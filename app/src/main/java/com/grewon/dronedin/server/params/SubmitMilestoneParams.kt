@@ -14,4 +14,5 @@ data class SubmitMilestoneParams(
     var milestone_id: String? = "",
     var milestone_request_note: String? = "",
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
+    var job_id: String? = ""
 ) : Parcelable

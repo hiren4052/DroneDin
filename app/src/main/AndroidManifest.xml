@@ -313,7 +313,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.dronedin.provider"
+            android:authorities="com.grewon.dronedin.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -337,6 +337,8 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
+
+
     </application>
 
 </manifest>

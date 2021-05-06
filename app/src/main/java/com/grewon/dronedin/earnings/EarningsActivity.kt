@@ -406,10 +406,11 @@ class EarningsActivity : BaseActivity(), View.OnClickListener, OnChartValueSelec
     }
 
     override fun onEarningsDataGetSuccessful(response: EarningsDataBean) {
-        txt_available_earnings.text = getString(R.string.price_string, response.totalEarning)
-        txt_total_earnings.text = getString(R.string.price_string, response.totalEarning)
-
-        if (response.data != null) {
+        if (offsetCount == 1) {
+            txt_available_earnings.text = getString(R.string.price_string, response.totalEarning)
+            txt_total_earnings.text = getString(R.string.price_string, response.totalEarning)
+        }
+        if (response.data != null && response.data.size > 0) {
             isFirstTimeDataLoaded = true
             isLoaded = true
             if (earningAdapter != null) {

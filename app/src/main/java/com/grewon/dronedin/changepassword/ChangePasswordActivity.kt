@@ -69,7 +69,7 @@ class ChangePasswordActivity : BaseActivity(), View.OnClickListener, ChangePassw
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_enter_confirm_password))
                 } else if (!ValidationUtils.isPasswordMatch(
-                        edt_old_password.text.toString(),
+                        edt_new_password.text.toString(),
                         edt_confirm_password.text.toString()
                     )
                 ) {

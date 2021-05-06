@@ -74,6 +74,10 @@ class DownloadService : Service() {
                 override fun onSuccessResponse(dataBean: ResponseBody) {
                     val writtenToDisk = writeFileToDisk(dataBean)
                     if (writtenToDisk) {
+                        val outputFile = FileValidationUtils.fileGenerateWithQVersion(
+                            this@DownloadService,
+                            FileValidationUtils.getName(attachmentBean?.attachment).toString()
+                        )
                         sendSuccessMessageToActivity()
                     } else {
                         notificationHandler!!.onDownloadFailed(notification_id)

@@ -275,9 +275,10 @@
     <string name="please_enter_phone_number">Please enter phone number!</string>
     <string name="please_enter_confirm_password">Please enter confirm password!</string>
     <string name="password_does_not_match">Password does not match!</string>
-    <string name="please_check_terms_and_conditions">Please check terms and conditions</string>
     <string name="please_enter_old_password">Please enter old password!</string>
     <string name="please_enter_new_password">Please enter new password!</string>
+    <string name="please_check_terms_and_conditions">Please check terms and conditions</string>
+
     <string name="please_select_location">Please select location!</string>
     <string name="please_select_front_side">Please select front side</string>
     <string name="please_select_back_side">Please select back side</string>
