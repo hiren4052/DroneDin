@@ -231,15 +231,15 @@ interface AppApi {
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<ChatDataBean>
 
-    @GET("chat_c/old_dispute_messages")
-    fun getDisputeOldMessage(
-        @QueryMap requestPart: HashMap<String, Any>
-    ): Single<DisputeChatDataBean>
-
     @GET("chat_c/new_message")
     fun getNewMessage(
         @QueryMap requestPart: HashMap<String, Any>
     ): Single<ChatDataBean>
+
+    @GET("chat_c/old_dispute_messages")
+    fun getDisputeOldMessage(
+        @QueryMap requestPart: HashMap<String, Any>
+    ): Single<DisputeChatDataBean>
 
     @GET("chat_c/new_dispute_message")
     fun getDisputeNewMessage(

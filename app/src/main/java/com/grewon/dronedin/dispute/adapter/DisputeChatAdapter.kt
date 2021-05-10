@@ -167,7 +167,8 @@ class DisputeChatAdapter(
             is MyMessageViewHolder -> {
 
                 holder.textMyMessage.text = item.msg?.trim()
-                holder.textMyDate.text = TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
+                holder.textMyDate.text =
+                    TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
 
             }
             is MyImageMessageViewHolder -> {
@@ -188,6 +189,7 @@ class DisputeChatAdapter(
                         .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                         .into(holder.myImage)
                 }
+                holder.itemView.setOnClickListener { onItemClickListeners.onImageItemClick(item) }
                 holder.textMyImageDate.text =
                     TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
             }
@@ -205,15 +207,17 @@ class DisputeChatAdapter(
                         )
                 ) {
                     Glide.with(context)
-                        .load(R.drawable.ic_attachment_background)
-                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                        .into(holder.otherImage)
-                } else {
-                    Glide.with(context)
                         .load(item.msg)
                         .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                         .into(holder.otherImage)
+
+                } else {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
                 }
+                holder.itemView.setOnClickListener { onItemClickListeners.onImageItemClick(item) }
                 holder.textOtherImageDate.text =
                     TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
             }
@@ -226,15 +230,17 @@ class DisputeChatAdapter(
                         )
                 ) {
                     Glide.with(context)
-                        .load(R.drawable.ic_attachment_background)
-                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                        .into(holder.adminImage)
-                } else {
-                    Glide.with(context)
                         .load(item.msg)
                         .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                         .into(holder.adminImage)
+
+                } else {
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.adminImage)
                 }
+                holder.itemView.setOnClickListener { onItemClickListeners.onImageItemClick(item) }
                 holder.textAdminImageDate.text =
                     TimeUtils.getMessageTime(item.groupChatMsgDatecreated.toString())
             }

@@ -87,7 +87,7 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
                 val params = CancelEndProjectStatusUpdateParams()
                 params.jobCancelEndRequestId = jobRequestId
                 params.requestStatus = "accept"
-                params.requestType = JOB_REQUEST_TYPE.cancel.name
+                params.requestType = JOB_REQUEST_TYPE.end.name
                 endProjectRequestPresenter.projectStatusUpdate(params)
             }
             R.id.txt_dispute -> {

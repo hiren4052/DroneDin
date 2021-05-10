@@ -305,7 +305,9 @@ class FileValidationUtils {
                                     FileOutputStream(file).use { output ->
                                         val buffer = ByteArray(4 * 1024) // or other buffer size
                                         var read: Int
-                                        while (inputStream?.read(buffer).also { read = it!! } != -1) {
+                                        while (inputStream?.read(buffer)
+                                                .also { read = it!! } != -1
+                                        ) {
                                             output.write(buffer, 0, read)
                                         }
                                         output.flush()
@@ -453,11 +455,25 @@ class FileValidationUtils {
          */
         fun getViewIntent(
             context: Context?,
-            file: File
-        ): Intent { //Uri uri = Uri.fromFile(file);
-            val uri = FileProvider.getUriForFile(context!!, AUTHORITY, file)
+            path: String
+        ): Intent {
+
+
+            var url = ""
+            var uri: Uri? = null
+
+            if (isLocal(path)) {
+                val file = File(path)
+                uri = FileProvider.getUriForFile(context!!, AUTHORITY, file)
+                url = file.toString()
+            } else {
+                uri = Uri.parse(path)
+                url = path
+            }
+
+
             val intent = Intent(Intent.ACTION_VIEW)
-            val url = file.toString()
+
             if (url.contains(".doc") || url.contains(".docx")) { // Word document
                 intent.setDataAndType(uri, "application/msword")
             } else if (url.contains(".pdf")) { // PDF file
@@ -579,7 +595,7 @@ class FileValidationUtils {
             }
         }
 
-         fun saveFileFromUri(
+        fun saveFileFromUri(
             context: Context,
             uri: Uri,
             destinationPath: String?

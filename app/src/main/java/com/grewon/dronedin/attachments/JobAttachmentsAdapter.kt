@@ -54,15 +54,15 @@ class JobAttachmentsAdapter(
 
 
         if (holder is ItemViewHolder) {
-
-            val fileName = FileValidationUtils.getName(item.attachment).toString()
-            val isFileExist = FileValidationUtils.isAttachmentFileExist(context, fileName)
-
-            if (isFileExist) {
-                holder.imageDownload.visibility = View.GONE
-            } else {
-                holder.imageDownload.visibility = View.VISIBLE
-            }
+            holder.imageDownload.visibility = View.GONE
+//            val fileName = FileValidationUtils.getName(item.attachment).toString()
+//            val isFileExist = FileValidationUtils.isAttachmentFileExist(context, fileName)
+//
+//            if (isFileExist) {
+//                holder.imageDownload.visibility = View.GONE
+//            } else {
+//                holder.imageDownload.visibility = View.VISIBLE
+//            }
 
             if (ListUtils.getImageExtensionList()
                     .contains(
@@ -81,28 +81,15 @@ class JobAttachmentsAdapter(
             }
 
 
-
             holder.itemView.setOnClickListener {
                 try {
 
-                    if (isFileExist) {
-                        context.startActivity(
-                            FileValidationUtils.getViewIntent(
-                                context,
-                                FileValidationUtils.getAttachmentFile(context, fileName)!!
-                            )
+                    context.startActivity(
+                        FileValidationUtils.getViewIntent(
+                            context,
+                            item.attachment.toString()
                         )
-                        LogX.E(
-                            FileValidationUtils.getAttachmentFile(
-                                context,
-                                fileName
-                            )!!.absolutePath
-                        )
-                    } else {
-                        val intent = Intent(context, DownloadService::class.java)
-                        intent.putExtra(AppConstant.BEAN, item)
-                        context.startService(intent)
-                    }
+                    )
 
                 } catch (e: ActivityNotFoundException) {
                     DroneDinApp.getAppInstance()
@@ -110,6 +97,36 @@ class JobAttachmentsAdapter(
                 }
 
             }
+
+
+//            holder.itemView.setOnClickListener {
+//                try {
+//
+//                    if (isFileExist) {
+//                        context.startActivity(
+//                            FileValidationUtils.getViewIntent(
+//                                context,
+//                                FileValidationUtils.getAttachmentFile(context, fileName)!!
+//                            )
+//                        )
+//                        LogX.E(
+//                            FileValidationUtils.getAttachmentFile(
+//                                context,
+//                                fileName
+//                            )!!.absolutePath
+//                        )
+//                    } else {
+//                        val intent = Intent(context, DownloadService::class.java)
+//                        intent.putExtra(AppConstant.BEAN, item)
+//                        context.startService(intent)
+//                    }
+//
+//                } catch (e: ActivityNotFoundException) {
+//                    DroneDinApp.getAppInstance()
+//                        .showToast(context.getString(R.string.no_application_found_to_handle_this_file))
+//                }
+//
+//            }
 
 
         }

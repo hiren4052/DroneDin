@@ -207,9 +207,6 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         })
 
 
-
-
-
     }
 
     override fun onClick(v: View?) {
@@ -371,7 +368,12 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
     }
 
     override fun onImageItemClick(jobsDataBean: ChatDataBean.Data?) {
-
+        startActivity(
+            FileValidationUtils.getViewIntent(
+                this,
+                jobsDataBean?.msg!!
+            )
+        )
     }
 
     override fun onImageDownloadClick(jobsDataBean: ChatDataBean.Data?) {
@@ -395,7 +397,9 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
         chatPresenter.getOldMessage(
             chatAdapter?.getLastBottomId().toString(),
             chatRoomId,
-            search_input_text.text.toString(), txt_started_date.text.toString(), txt_ended_date.text.toString()
+            search_input_text.text.toString(),
+            txt_started_date.text.toString(),
+            txt_ended_date.text.toString()
         )
     }
 

@@ -273,7 +273,12 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
     }
 
     override fun onImageItemClick(jobsDataBean: DisputeChatDataBean.Data?) {
-
+        startActivity(
+            FileValidationUtils.getViewIntent(
+                this,
+                jobsDataBean?.msg!!
+            )
+        )
     }
 
     override fun onImageDownloadClick(jobsDataBean: DisputeChatDataBean.Data?) {

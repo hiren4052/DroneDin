@@ -82,22 +82,12 @@ class UploadAttachmentsAdapter(
 
             holder.itemView.setOnClickListener {
                 try {
-                    if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
-                        context.startActivity(
-                            FileValidationUtils.getViewIntent(
-                                context,
-                                File(item.filePath!!)
-                            )
+                    context.startActivity(
+                        FileValidationUtils.getViewIntent(
+                            context,
+                            item.filePath!!
                         )
-                    } else {
-                        context.startActivity(
-                            Intent(context, WebActivity::class.java).putExtra(
-                                AppConstant.WEB_URL,
-                                item.filePath!!
-                            ).putExtra(AppConstant.TAG, "Attachment")
-
-                        )
-                    }
+                    )
                 } catch (e: ActivityNotFoundException) {
                     DroneDinApp.getAppInstance()
                         .showToast(context.getString(R.string.no_application_found_to_handle_this_file))

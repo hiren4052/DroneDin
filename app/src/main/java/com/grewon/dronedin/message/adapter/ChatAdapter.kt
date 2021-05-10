@@ -155,6 +155,8 @@ class ChatAdapter(
                         .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                         .into(holder.myImage)
                 }
+
+                holder.itemView.setOnClickListener { onItemClickListeners.onImageItemClick(item) }
                 holder.textMyImageDate.text =
                     TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
             }
@@ -171,15 +173,18 @@ class ChatAdapter(
                         )
                 ) {
                     Glide.with(context)
-                        .load(R.drawable.ic_attachment_background)
-                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
-                        .into(holder.otherImage)
-                } else {
-                    Glide.with(context)
                         .load(item.msg)
                         .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
                         .into(holder.otherImage)
+                } else {
+
+                    Glide.with(context)
+                        .load(R.drawable.ic_attachment_background)
+                        .apply(RequestOptions().placeholder(ScreenUtils.getRandomPlaceHolderColor()))
+                        .into(holder.otherImage)
+
                 }
+                holder.itemView.setOnClickListener { onItemClickListeners.onImageItemClick(item) }
                 holder.textOtherImageDate.text =
                     TimeUtils.getMessageTime(item.chatMsgDatecreated.toString())
             }
