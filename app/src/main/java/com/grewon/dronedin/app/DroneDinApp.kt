@@ -101,7 +101,6 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
     }
 
 
-
     fun setDialogMessage(message: String) {
         loadingDialogMessage = message
     }
@@ -151,7 +150,7 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
             if (!preferenceUtils.getAuthToken()?.isEmpty()!!) {
                 LogX.E("AuthToken -> " + preferenceUtils.getAuthToken())
                 val authToken: String = preferenceUtils.getAuthToken()!!
-                requestBuilder.addHeader("X-Authorization",authToken)
+                requestBuilder.addHeader("X-Authorization", authToken)
 
             }
 
@@ -304,15 +303,19 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
     }
 
     override fun onAppBackgrounded() {
+
         val intent = Intent(this, OnlineOfflineService::class.java)
         intent.putExtra(AppConstant.TAG, "no")
         startService(intent)
+
     }
 
     override fun onAppForegrounded() {
+
         val intent = Intent(this, OnlineOfflineService::class.java)
         intent.putExtra(AppConstant.TAG, "yes")
         startService(intent)
+
     }
 
 

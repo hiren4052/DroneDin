@@ -68,24 +68,7 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
             val response: Response = chain.proceed(chain.request())
             val body: ResponseBody = response.body()!!
             val bodyString = body.string()
-            val apiUrl = response.request().url()
-            val bodyRequstString = response.request().body()
-            val formBodyBuilder = bodyRequstString
-
-            try {
-                Gson().fromJson(bodyString, CommonResponse::class.java)
-            } catch (e: java.lang.Exception) {
-                AnalyticsUtils.setCustomCrashlytics(
-                    Gson().toJson(formBodyBuilder),
-                    apiUrl.toString(),
-                    bodyString
-                )
-            }
-
             val contentType: MediaType? = body.contentType()
-
-
-
             response.newBuilder().body(ResponseBody.create(contentType, bodyString)).build()
 
         })

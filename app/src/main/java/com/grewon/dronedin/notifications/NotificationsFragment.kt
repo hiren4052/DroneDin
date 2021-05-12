@@ -197,7 +197,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
     override fun onRefresh() {
         message_data_recycle.setupMoreListener(this, 1)
-        pageCount = 1
+        pageCount = 0
         apiCall(pageCount)
         message_data_recycle.setRefreshing(false)
     }

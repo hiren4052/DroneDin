@@ -108,10 +108,7 @@ class SignInPresenter : SignInContract.Presenter {
                     view?.onApiException(ErrorHandler.handleError(throwable!!))
                 }
 
-
             })
-
-
     }
 
 

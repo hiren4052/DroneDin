@@ -262,11 +262,10 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
             val socialLoginParams =
                 SocialLoginParams(
                     userDevice = "android",
-                    userEmail,
-                    socialId,
-                    loginType
-
-                    )
+                    token,
+                    loginType,
+                    socialId
+                )
             signInPresenter.userSocialLogin(socialLoginParams)
         })
     }
