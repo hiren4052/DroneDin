@@ -39,8 +39,7 @@
                     android:layout_alignTop="@id/refImage"
                     android:layout_alignBottom="@+id/refImage"
                     android:alpha="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_dummy" />
+                    android:scaleType="centerCrop" />
 
                 <RelativeLayout
                     android:id="@+id/rlToolbar"
@@ -87,8 +86,7 @@
                             android:id="@+id/img_user"
                             android:layout_width="@dimen/_100dp"
                             android:layout_height="@dimen/_100dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/img_dummy" />
+                            android:layout_centerHorizontal="true" />
 
 
                         <ImageView
@@ -560,7 +558,7 @@
     <include
         android:id="@+id/layout_progress"
         layout="@layout/layout_shimmer_profile"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <include
         android:id="@+id/layout_no_data"

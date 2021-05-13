@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.fragment_settings.img_user
 import kotlinx.android.synthetic.main.fragment_settings.txt_user_name
 import kotlinx.android.synthetic.main.logout_bottom_dialog.view.*
 import retrofit2.Retrofit
+import java.util.*
 import javax.inject.Inject
 
 
@@ -76,6 +77,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
         txt_logout.setOnClickListener(this)
     }
 
+    @SuppressLint("StringFormatInvalid")
     private fun initView() {
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         settingsPresenter.attachView(this)
@@ -114,10 +116,13 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 preferenceUtils.getProfileData()?.data?.notification == "on"
         }
 
-
-
         if (isPilotAccount()) {
-            txt_membership.visibility = View.VISIBLE
+            txt_active_membership.text = getString(
+                R.string.membership_value,
+                preferenceUtils.getProfileData()?.data?.packageType.toString()
+                    .toUpperCase(Locale.ROOT)
+            )
+            membership_layout.visibility = View.VISIBLE
             view_notification.visibility = View.VISIBLE
             IconUtils.setBadgeImage(
                 requireContext(),
@@ -125,7 +130,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 preferenceUtils.getProfileData()?.data?.badge!!.toString()
             )
         } else {
-            txt_membership.visibility = View.GONE
+            membership_layout.visibility = View.GONE
             view_notification.visibility = View.GONE
         }
     }

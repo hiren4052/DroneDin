@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -19,6 +20,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.gson.Gson
 import com.grewon.dronedin.R
 import com.grewon.dronedin.addprofile.contract.AddProfileContract
@@ -50,6 +53,7 @@ import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_camera
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_gallery
 import retrofit2.Retrofit
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -363,6 +367,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(user_image)
+                                // detectTextFromImage(resultUri)
                             } else {
                                 serverBackImage = filePath
                                 Glide.with(this)
@@ -424,6 +429,80 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         }
     }
 
+    private fun detectTextFromImage(uri: Uri) {
+        if (uri != null) {
+            val image: FirebaseVisionImage
+            try {
+                image = FirebaseVisionImage.fromFilePath(this, uri)
+                // Pass image to an ML Kit Vision API
+
+                val detector = FirebaseVision.getInstance()
+                    .onDeviceTextRecognizer
+
+                detector.processImage(image)
+                    .addOnSuccessListener { firebaseVisionText ->
+                        // Task completed successfully
+                        val resultText = firebaseVisionText.text
+
+                        Log.e("Image Text", "analyze: $resultText")
+                        for (block in firebaseVisionText.textBlocks) {
+                            val blockText = block.text
+                            // Log.e(TAG, "blockText: $blockText")
+//                        val blockConfidence = block.confidence
+//                        val blockLanguages = block.recognizedLanguages
+//                        val blockCornerPoints = block.cornerPoints
+//                        val blockFrame = block.boundingBox
+                            for (line in block.lines) {
+                                val lineText = line.text
+                                // Log.e(TAG, "lineText: $lineText")
+//                            val lineConfidence = line.confidence
+//                            val lineLanguages = line.recognizedLanguages
+//                            val lineCornerPoints = line.cornerPoints
+//                            val lineFrame = line.boundingBox
+                                for (element in line.elements) {
+                                    val elementText = element.text
+                                    // Log.e("Data", "elementText: $elementText")
+//                                val elementConfidence = element.confidence
+//                                val elementLanguages = element.recognizedLanguages
+//                                val elementCornerPoints = element.cornerPoints
+//                                val elementFrame = element.boundingBox
+
+//                                if (elementText.contains('-')) {
+//                                    val split = elementText.split('-')
+//                                    val phonenumber = "".toDouble()
+//                                    split.let {
+//                                        val part1 = it[0]
+//                                        val part2 = it[1]
+//                                    }
+//
+//                                }
+//                                var numeric = true
+//                                var num: Double = "".toDouble()
+//                                try {
+//                                    num = parseDouble(elementText)
+//                                } catch (e: NumberFormatException) {
+//                                    numeric = false
+//                                }
+//                                if (numeric)
+//                                    Log.e(TAG, " Phone number $num")
+//                                else
+//                                    Log.e(TAG, " Phone number is not mentioned on card.")
+                                }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        // Task failed with an exception
+                        // ...
+                    }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+
+        }
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.front_image_layout -> {
@@ -464,16 +543,16 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                         when {
                             ValidationUtils.isEmptyFiled(edt_identification_document.text.toString()) -> {
                                 input_identification.error =
-                                    getString(R.string.please_select_location)
+                                    getString(R.string.please_select_identity_document)
                             }
-                            ValidationUtils.isEmptyFiled(serverFrontImage) -> {
-                                DroneDinApp.getAppInstance()
-                                    .showToast(getString(R.string.please_select_front_side))
-                            }
-                            ValidationUtils.isEmptyFiled(serverBackImage) -> {
-                                DroneDinApp.getAppInstance()
-                                    .showToast(getString(R.string.please_select_back_side))
-                            }
+//                            ValidationUtils.isEmptyFiled(serverFrontImage) -> {
+//                                DroneDinApp.getAppInstance()
+//                                    .showToast(getString(R.string.please_select_front_side))
+//                            }
+//                            ValidationUtils.isEmptyFiled(serverBackImage) -> {
+//                                DroneDinApp.getAppInstance()
+//                                    .showToast(getString(R.string.please_select_back_side))
+//                            }
                             else -> {
                                 apiCall()
                             }

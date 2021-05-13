@@ -280,6 +280,7 @@
     <string name="please_check_terms_and_conditions">Please check terms and conditions</string>
 
     <string name="please_select_location">Please select location!</string>
+    <string name="please_select_identity_document">Please identity document!</string>
     <string name="please_select_front_side">Please select front side</string>
     <string name="please_select_back_side">Please select back side</string>
     <string name="profile_price">Profile Price</string>
@@ -461,4 +462,6 @@
     <string name="end_date">End Date</string>
     <string name="apply">Apply</string>
     <string name="write_here_to_search">Write here to search...</string>
+    <string name="upload">Upload</string>
+    <string name="membership_value">%s Membership</string>
 </resources>

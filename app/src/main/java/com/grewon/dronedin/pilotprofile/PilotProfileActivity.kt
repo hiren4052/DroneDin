@@ -122,7 +122,7 @@ class PilotProfileActivity : BaseActivity(), View.OnClickListener, PilotProfileC
         pilotProfilePresenter.getPilotProfile(profileId)
 
 
-        Glide.with(this).load(R.drawable.img_dummy)
+        Glide.with(this).load(R.drawable.ic_user_place_holder)
             .apply(RequestOptions.bitmapTransform(BlurTransformation(22, 3)))
             .into(blur_img_user)
 

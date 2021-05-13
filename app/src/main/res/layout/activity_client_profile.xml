@@ -40,8 +40,7 @@
                     android:layout_alignTop="@id/refImage"
                     android:layout_alignBottom="@+id/refImage"
                     android:alpha="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_dummy" />
+                    android:scaleType="centerCrop" />
 
                 <RelativeLayout
                     android:id="@+id/rlToolbar"
@@ -84,7 +83,7 @@
                         android:id="@+id/img_user"
                         android:layout_width="@dimen/_100dp"
                         android:layout_height="@dimen/_100dp"
-                        android:src="@drawable/img_dummy" />
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

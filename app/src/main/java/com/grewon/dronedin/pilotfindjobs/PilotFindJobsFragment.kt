@@ -1,16 +1,20 @@
 package com.grewon.dronedin.pilotfindjobs
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.grewon.dronedin.R
+import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
@@ -59,6 +63,7 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         super.onActivityCreated(savedInstanceState)
         initView()
         setClicks()
+        onSNACK()
 
     }
 
@@ -233,5 +238,35 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         find_job_data_recycle.setupMoreListener(null, 0)
     }
 
+    fun onSNACK() {
+        //Snackbar(view)
+        val snackbar = Snackbar.make(
+            coordinate_layout,
+            "Please upload identity document and use premium membership free for one month!",
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.upload) {
+            startActivity(
+                Intent(requireContext(), AddProfileActivity::class.java).putExtra(
+                    AppConstant.TAG,
+                    true
+                )
+            )
+        }
+
+        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        val snackbarView = snackbar.view
+        snackbarView.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorPrimary
+            )
+        )
+        val textView =
+            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        textView.textSize = 14f
+        textView.maxLines = 3
+        snackbar.show()
+    }
 
 }
