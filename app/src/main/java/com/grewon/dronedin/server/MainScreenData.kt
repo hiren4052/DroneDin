@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
 
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class MainScreenData(
@@ -23,6 +22,8 @@ data class MainScreenData(
         val badge: String? = "",
         @SerializedName("bank_verified")
         val bankVerified: String? = "",
+        @SerializedName("document_verified")
+        val documentVerified: String? = "",
         @SerializedName("package_type")
         val packageType: String? = "",
         @SerializedName("privacy_policy_url")
@@ -62,6 +63,8 @@ data class MainScreenData(
         @SerializedName("user_verified")
         val userVerified: String? = "",
         @SerializedName("user_wallet")
-        val userWallet: String? = ""
+        val userWallet: String? = "",
+        @SerializedName("user_warning_text")
+        val userWarningText: String? = ""
     ) : Parcelable
 }

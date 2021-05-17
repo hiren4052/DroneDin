@@ -71,6 +71,8 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     private var imageType: String = "front"
     private var serverFrontImage: String = ""
     private var serverBackImage: String = ""
+    private var serverFrontImageText: String = ""
+    private var serverBackImageText: String = ""
     private var userImage: String = ""
 
     private var latitude: Double = 0.0
@@ -362,18 +364,20 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(front_image)
+                                detectTextFromImage(resultUri)
                             } else if (imageType == "user") {
                                 userImage = filePath
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(user_image)
-                                // detectTextFromImage(resultUri)
+
                             } else {
                                 serverBackImage = filePath
                                 Glide.with(this)
                                     .load(filePath)
                                     .into(back_image)
                             }
+                            detectTextFromImage(resultUri)
                             //uploadPresenter.upload(filePath)
                         } else {
                             DroneDinApp.getAppInstance()
@@ -443,6 +447,16 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                     .addOnSuccessListener { firebaseVisionText ->
                         // Task completed successfully
                         val resultText = firebaseVisionText.text
+
+                        if (imageType == "front") {
+                            if (resultText != null) {
+                                serverFrontImageText = resultText
+                            }
+                        } else if (imageType == "back") {
+                            if (resultText != null) {
+                                serverBackImageText = resultText
+                            }
+                        }
 
                         Log.e("Image Text", "analyze: $resultText")
                         for (block in firebaseVisionText.textBlocks) {
@@ -577,7 +591,9 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             proofId = identificationId,
             proofFrontSide = serverFrontImage,
             proofBackSide = serverBackImage,
-            userImage
+            userImage,
+            userFrontText = serverFrontImageText,
+            userBackText = serverBackImageText
         )
         addProfilePresenter.updateProfile(profileUpdateParams)
 

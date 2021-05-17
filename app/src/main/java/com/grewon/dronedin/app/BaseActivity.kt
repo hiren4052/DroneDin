@@ -24,9 +24,6 @@ import javax.inject.Inject
 
 open class BaseActivity : AppCompatActivity(), BaseContract.View {
 
-
-
-
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
 

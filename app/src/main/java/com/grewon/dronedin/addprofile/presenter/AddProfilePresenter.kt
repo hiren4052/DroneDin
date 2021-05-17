@@ -168,6 +168,8 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         map["user_latitude"] = TextUtils.createPartFromString(params.userLatitude.toString())
         map["user_longitude"] = TextUtils.createPartFromString(params.userLongitude.toString())
         map["proof_id"] = TextUtils.createPartFromString(params.proofId.toString())
+        map["user_front_text"] = TextUtils.createPartFromString(params.userFrontText.toString())
+        map["user_back_text"] = TextUtils.createPartFromString(params.userBackText.toString())
 
         view?.showProgress()
 

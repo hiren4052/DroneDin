@@ -69,6 +69,13 @@ class NetworkModule(val context: DroneDinApp, var baseURL: String) {
             val body: ResponseBody = response.body()!!
             val bodyString = body.string()
             val contentType: MediaType? = body.contentType()
+
+            if (response.code() == 401) {
+                val intent = Intent(AppConstant.SESSION_BROADCAST) //action: "msg"
+                intent.putExtra(AppConstant.DATA_TYPE, "yes")
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
+            }
+
             response.newBuilder().body(ResponseBody.create(contentType, bodyString)).build()
 
         })

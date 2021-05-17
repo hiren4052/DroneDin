@@ -27,5 +27,9 @@ data class ProfileUpdateParams(
     @SerializedName("proof_back_side")
     val proofBackSide: String?,
     @SerializedName("profile_image")
-    val profileImage: String?
+    val profileImage: String?,
+    @SerializedName("user_front_text")
+    val userFrontText: String?,
+    @SerializedName("user_back_text")
+    val userBackText: String?
 ) : Parcelable

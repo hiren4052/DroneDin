@@ -1,7 +1,6 @@
 package com.grewon.dronedin.pilotfindjobs
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +25,10 @@ import com.grewon.dronedin.pilotfindjobs.adapter.PilotFindJobsAdapter
 import com.grewon.dronedin.pilotfindjobs.contract.PilotJobsContract
 import com.grewon.dronedin.savedjobs.SavedJobsActivity
 import com.grewon.dronedin.server.CommonMessageBean
+import com.grewon.dronedin.server.MainScreenData
 import com.grewon.dronedin.server.PilotJobsDataBean
 import com.grewon.dronedin.server.params.FilterParams
+import com.grewon.dronedin.utils.ValidationUtils
 import com.malinskiy.superrecyclerview.OnMoreListener
 import kotlinx.android.synthetic.main.fragment_pilot_find_jobs.*
 import retrofit2.Retrofit
@@ -63,7 +64,6 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         super.onActivityCreated(savedInstanceState)
         initView()
         setClicks()
-        onSNACK()
 
     }
 
@@ -91,6 +91,11 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
             R.color.colorPrimaryDark
         )
         find_job_data_recycle.setupMoreListener(this, 1)
+
+        if (preferenceUtils.getProfileData() != null && preferenceUtils.getProfileData()?.data != null
+        ) {
+            onSNACK(preferenceUtils.getProfileData()?.data!!)
+        }
 
 
     }
@@ -238,35 +243,58 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
         find_job_data_recycle.setupMoreListener(null, 0)
     }
 
-    fun onSNACK() {
-        //Snackbar(view)
-        val snackbar = Snackbar.make(
-            coordinate_layout,
-            "Please upload identity document and use premium membership free for one month!",
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction(R.string.upload) {
-            startActivity(
-                Intent(requireContext(), AddProfileActivity::class.java).putExtra(
-                    AppConstant.TAG,
-                    true
+    fun onSNACK(data: MainScreenData.Data) {
+        if (context != null && isVisible) {
+
+            var snackText =
+                "Please upload identity document and use premium membership free for one month!"
+            var snackColor = R.color.colorPrimary
+
+            if (data.documentVerified != null && !ValidationUtils.isEmptyFiled(data.documentVerified.toString())) {
+                if (data.userWarningText != null && !ValidationUtils.isEmptyFiled(data.userWarningText.toString())) {
+                    snackText = data.userWarningText
+                    snackColor = R.color.red
+                }
+            }
+
+            val snackbar = Snackbar.make(
+                coordinate_layout,
+                snackText,
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(R.string.upload) {
+                startActivity(
+                    Intent(requireContext(), AddProfileActivity::class.java).putExtra(
+                        AppConstant.TAG,
+                        true
+                    )
+                )
+            }
+
+            snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            val snackbarView = snackbar.view
+            snackbarView.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    snackColor
                 )
             )
-        }
+            val textView =
+                snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            textView.textSize = 14f
+            textView.maxLines = 6
 
-        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        val snackbarView = snackbar.view
-        snackbarView.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorPrimary
-            )
-        )
-        val textView =
-            snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        textView.textSize = 14f
-        textView.maxLines = 3
-        snackbar.show()
+            if (ValidationUtils.isEmptyFiled(data.documentVerified.toString())) {
+                snackbar.show()
+            } else {
+                if(data.documentVerified==AppConstant.NO_STATUS) {
+                    if (data.userWarningText != null && !ValidationUtils.isEmptyFiled(data.userWarningText.toString())) {
+                        snackbar.show()
+                    }
+                }
+
+            }
+        }
     }
 
 }

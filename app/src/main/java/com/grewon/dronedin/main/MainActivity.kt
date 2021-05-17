@@ -5,16 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
@@ -218,6 +215,13 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onMainScreenDataGetSuccessful(response: MainScreenData) {
         preferenceUtils.saveProfileData(response)
         if (response.data != null) {
+            val fragment = supportFragmentManager.findFragmentById(R.id.main_contain)
+
+            if(fragment is PilotFindJobsFragment){
+                fragment.onSNACK(response.data)
+            }
+
+
             if (response.data.totalUnreadNotification != "0") {
                 addBadgeAt(
                     3,
