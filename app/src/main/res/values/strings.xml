@@ -280,9 +280,10 @@
     <string name="please_check_terms_and_conditions">Please check terms and conditions</string>
 
     <string name="please_select_location">Please select location!</string>
-    <string name="please_select_identity_document">Please identity document!</string>
+    <string name="please_select_identity_document">Please select identity document!</string>
     <string name="please_select_front_side">Please select front side</string>
     <string name="please_select_back_side">Please select back side</string>
+    <string name="please_select_front_back_side">Please select front and back side</string>
     <string name="profile_price">Profile Price</string>
     <string name="minimum_profile_price">Minimum profile price</string>
     <string name="please_enter_profile_price">Please enter profile price!</string>

@@ -46,7 +46,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_add_profile.*
-
 import kotlinx.android.synthetic.main.file_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.image_bottom_dialog.view.ll_camera
@@ -409,7 +408,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                     .load(filePath)
                                     .into(back_image)
                             }
-                            LogX.E(filePath.toString())
+                            LogX.E(filePath)
                         } else {
                             Toast.makeText(this, R.string.some_thing_went_wrong, Toast.LENGTH_SHORT)
                                 .show()
@@ -559,17 +558,32 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                 input_identification.error =
                                     getString(R.string.please_select_identity_document)
                             }
-//                            ValidationUtils.isEmptyFiled(serverFrontImage) -> {
-//                                DroneDinApp.getAppInstance()
-//                                    .showToast(getString(R.string.please_select_front_side))
-//                            }
-//                            ValidationUtils.isEmptyFiled(serverBackImage) -> {
-//                                DroneDinApp.getAppInstance()
-//                                    .showToast(getString(R.string.please_select_back_side))
-//                            }
-                            else -> {
+                            ValidationUtils.isEmptyFiled(serverFrontImage) && ValidationUtils.isEmptyFiled(
+                                serverBackImage
+                            ) -> {
                                 apiCall()
                             }
+                            !ValidationUtils.isEmptyFiled(serverFrontImage) && !ValidationUtils.isEmptyFiled(
+                                serverBackImage
+                            ) -> {
+                                apiCall()
+                            }
+                            !ValidationUtils.isEmptyFiled(serverFrontImage) -> {
+                                if (ValidationUtils.isEmptyFiled(serverBackImage)) {
+                                    DroneDinApp.getAppInstance()
+                                        .showToast(getString(R.string.please_select_back_side))
+                                    return
+                                }
+                            }
+                            !ValidationUtils.isEmptyFiled(serverBackImage) -> {
+                                if (ValidationUtils.isEmptyFiled(serverFrontImage)) {
+                                    DroneDinApp.getAppInstance()
+                                        .showToast(getString(R.string.please_select_front_side))
+                                    return
+                                }
+                            }
+
+
                         }
                     } else {
                         apiCall()

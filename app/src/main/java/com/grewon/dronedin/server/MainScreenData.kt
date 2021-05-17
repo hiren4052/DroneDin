@@ -22,6 +22,10 @@ data class MainScreenData(
         val badge: String? = "",
         @SerializedName("bank_verified")
         val bankVerified: String? = "",
+        @SerializedName("proof_front_side")
+        val proofFrontSide: String? = "",
+        @SerializedName("proof_back_side")
+        val proofBackSide: String? = "",
         @SerializedName("document_verified")
         val documentVerified: String? = "",
         @SerializedName("package_type")

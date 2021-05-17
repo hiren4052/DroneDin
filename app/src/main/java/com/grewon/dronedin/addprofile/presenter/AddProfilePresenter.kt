@@ -113,51 +113,55 @@ class AddProfilePresenter : AddProfileContract.Presenter {
 
         if (!ValidationUtils.isEmptyFiled(params.proofId.toString())) {
 
-            if (params.proofFrontSide?.contains("http") == true) {
-                frontSideImage =
-                    MultipartBody.Part.createFormData(
-                        "proof_front_side",
-                        "",
-                        RequestBody.create(
-                            MediaType.parse("multipart/form-data"),
-                            ""
+            if (!ValidationUtils.isEmptyFiled(params.proofFrontSide.toString())) {
+                if (params.proofFrontSide?.contains("http") == true) {
+                    frontSideImage =
+                        MultipartBody.Part.createFormData(
+                            "proof_front_side",
+                            "",
+                            RequestBody.create(
+                                MediaType.parse("multipart/form-data"),
+                                ""
+                            )
                         )
-                    )
-            } else {
-                frontSideImage =
-                    MultipartBody.Part.createFormData(
-                        "proof_front_side",
-                        File(params.proofFrontSide.toString()).name,
-                        RequestBody.create(
-                            MediaType.parse("multipart/form-data"),
-                            File(params.proofFrontSide.toString())
+                } else {
+                    frontSideImage =
+                        MultipartBody.Part.createFormData(
+                            "proof_front_side",
+                            File(params.proofFrontSide.toString()).name,
+                            RequestBody.create(
+                                MediaType.parse("multipart/form-data"),
+                                File(params.proofFrontSide.toString())
+                            )
                         )
-                    )
+                }
             }
 
-            if (params.proofBackSide?.contains("http") == true) {
+            if (!ValidationUtils.isEmptyFiled(params.proofBackSide.toString())) {
 
-                backSideImage =
-                    MultipartBody.Part.createFormData(
-                        "proof_back_side",
-                        "",
-                        RequestBody.create(
-                            MediaType.parse("multipart/form-data"),
-                            ""
+                if (params.proofBackSide?.contains("http") == true) {
+
+                    backSideImage =
+                        MultipartBody.Part.createFormData(
+                            "proof_back_side",
+                            "",
+                            RequestBody.create(
+                                MediaType.parse("multipart/form-data"),
+                                ""
+                            )
                         )
-                    )
-            } else {
-                backSideImage =
-                    MultipartBody.Part.createFormData(
-                        "proof_back_side",
-                        File(params.proofBackSide.toString()).name,
-                        RequestBody.create(
-                            MediaType.parse("multipart/form-data"),
-                            File(params.proofBackSide.toString())
+                } else {
+                    backSideImage =
+                        MultipartBody.Part.createFormData(
+                            "proof_back_side",
+                            File(params.proofBackSide.toString()).name,
+                            RequestBody.create(
+                                MediaType.parse("multipart/form-data"),
+                                File(params.proofBackSide.toString())
+                            )
                         )
-                    )
+                }
             }
-
 
         }
 

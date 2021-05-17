@@ -250,7 +250,10 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
                 "Please upload identity document and use premium membership free for one month!"
             var snackColor = R.color.colorPrimary
 
-            if (data.documentVerified != null && !ValidationUtils.isEmptyFiled(data.documentVerified.toString())) {
+            if (data.proofFrontSide != null && !ValidationUtils.isEmptyFiled(data.proofFrontSide.toString()) && data.proofBackSide != null && !ValidationUtils.isEmptyFiled(
+                    data.proofBackSide.toString()
+                )
+            ) {
                 if (data.userWarningText != null && !ValidationUtils.isEmptyFiled(data.userWarningText.toString())) {
                     snackText = data.userWarningText
                     snackColor = R.color.red
@@ -284,10 +287,12 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
             textView.textSize = 14f
             textView.maxLines = 6
 
-            if (ValidationUtils.isEmptyFiled(data.documentVerified.toString())) {
+            if (ValidationUtils.isEmptyFiled(data.proofFrontSide.toString()) && ValidationUtils.isEmptyFiled(
+                    data.proofBackSide.toString()
+                )) {
                 snackbar.show()
             } else {
-                if(data.documentVerified==AppConstant.NO_STATUS) {
+                if (data.documentVerified == AppConstant.NO_STATUS) {
                     if (data.userWarningText != null && !ValidationUtils.isEmptyFiled(data.userWarningText.toString())) {
                         snackbar.show()
                     }
