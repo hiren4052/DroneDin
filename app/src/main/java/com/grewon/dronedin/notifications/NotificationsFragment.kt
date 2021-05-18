@@ -45,7 +45,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
     private var notificationsAdapter: NotificationsAdapter? = null
 
-    private var pageCount: Int = 0
+    private var pageCount: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -197,7 +197,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
     override fun onRefresh() {
         message_data_recycle.setupMoreListener(this, 1)
-        pageCount = 0
+        pageCount = 1
         apiCall(pageCount)
         message_data_recycle.setRefreshing(false)
     }
@@ -232,7 +232,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
     }
 
     override fun onApiException(error: Int) {
-        if (pageCount == 0) {
+        if (pageCount == 1) {
             setEmptyView(getString(error), R.drawable.ic_connectivity)
         }
     }
@@ -240,7 +240,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
     override fun onNotificationGetSuccessful(response: NotificationDataBean) {
         if (context != null && isVisible) {
             if (response.data != null && response.data.size > 0) {
-                if (pageCount == 0) {
+                if (pageCount == 1) {
                     initMessageAdapter()
                     val intent = Intent(AppConstant.NOTIFICATION_BROADCAST) //action: "msg"
                     intent.putExtra(AppConstant.TAG, "received")
@@ -248,7 +248,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
                 }
                 notificationsAdapter?.addItemsList(response.data)
             } else {
-                if (pageCount == 0) {
+                if (pageCount == 1) {
                     setEmptyView(response.msg.toString(), R.drawable.ic_no_data)
                 }
                 stopMore()
