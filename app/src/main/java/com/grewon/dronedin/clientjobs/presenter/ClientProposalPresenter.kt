@@ -49,7 +49,7 @@ class ClientProposalPresenter : ClientProposalContract.Presenter {
         api.getClientProposalList(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProposalsDataBean>() {
+            .subscribe(object : NetworkCall<ProposalsDataBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

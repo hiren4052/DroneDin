@@ -53,7 +53,7 @@ class ClientJobsPresenter : ClientJobsContract.Presenter {
         api.getClientJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<JobsDataBean>() {
+            .subscribe(object : NetworkCall<JobsDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

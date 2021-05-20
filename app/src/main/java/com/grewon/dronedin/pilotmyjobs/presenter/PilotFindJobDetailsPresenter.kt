@@ -47,7 +47,7 @@ class PilotFindJobDetailsPresenter : PilotFindJobsDetailContract.Presenter {
         api.getPilotFindJobsDetail(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotFindJobsDetailBean>() {
+            .subscribe(object : NetworkCall<PilotFindJobsDetailBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

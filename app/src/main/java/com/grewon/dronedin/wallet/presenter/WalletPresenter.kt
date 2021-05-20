@@ -42,7 +42,7 @@ class WalletPresenter : WalletContract.Presenter {
         api.getEarningsData(offsetCount)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<EarningsDataBean>() {
+            .subscribe(object : NetworkCall<EarningsDataBean>(offsetCount.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -77,7 +77,7 @@ class WalletPresenter : WalletContract.Presenter {
         api.withdrawAmount(withdrawParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(withdrawParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

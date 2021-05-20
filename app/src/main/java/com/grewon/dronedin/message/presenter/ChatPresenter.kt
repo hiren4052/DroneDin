@@ -48,7 +48,7 @@ class ChatPresenter : ChatContract.Presenter {
         api.createChatRoom(createChatRoomParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ChatRoomBean>() {
+            .subscribe(object : NetworkCall<ChatRoomBean>(createChatRoomParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -105,7 +105,7 @@ class ChatPresenter : ChatContract.Presenter {
         api.sendMessage(requestBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<SentChatBean>() {
+            .subscribe(object : NetworkCall<SentChatBean>(sentMessageParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -165,7 +165,7 @@ class ChatPresenter : ChatContract.Presenter {
         api.getOldMessage(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ChatDataBean>() {
+            .subscribe(object : NetworkCall<ChatDataBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -206,7 +206,7 @@ class ChatPresenter : ChatContract.Presenter {
         api.getNewMessage(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ChatDataBean>() {
+            .subscribe(object : NetworkCall<ChatDataBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

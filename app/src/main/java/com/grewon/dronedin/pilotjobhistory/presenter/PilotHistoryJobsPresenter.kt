@@ -50,7 +50,7 @@ class PilotHistoryJobsPresenter : PilotHistoryJobsContract.Presenter {
         api.getPilotHistoryJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotJobHistoryBean>() {
+            .subscribe(object : NetworkCall<PilotJobHistoryBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

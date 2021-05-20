@@ -43,7 +43,7 @@ class NotificationPresenter : NotificationContract.Presenter {
         api.getNotification(offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<NotificationDataBean>() {
+            .subscribe(object : NetworkCall<NotificationDataBean>(offset) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

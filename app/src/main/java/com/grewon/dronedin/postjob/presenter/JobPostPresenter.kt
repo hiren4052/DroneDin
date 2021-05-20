@@ -84,7 +84,7 @@ class JobPostPresenter : JobPostContract.Presenter {
         api.postJob(requestBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CreateJobsBean>() {
+            .subscribe(object : NetworkCall<CreateJobsBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -168,7 +168,7 @@ class JobPostPresenter : JobPostContract.Presenter {
         api.editJob(requestBody, jobId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CreateJobsBean>() {
+            .subscribe(object : NetworkCall<CreateJobsBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -203,7 +203,7 @@ class JobPostPresenter : JobPostContract.Presenter {
         api.deleteAttachment(attachmentId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(attachmentId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -238,7 +238,7 @@ class JobPostPresenter : JobPostContract.Presenter {
         api.deleteMilestone(milestoneId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(milestoneId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

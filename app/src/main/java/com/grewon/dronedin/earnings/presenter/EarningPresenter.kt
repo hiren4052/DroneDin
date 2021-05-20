@@ -42,7 +42,7 @@ class EarningPresenter : EarningContract.Presenter {
         api.getMonthlyEarning("monthly")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MonthlyEarningBean>() {
+            .subscribe(object : NetworkCall<MonthlyEarningBean>("monthly") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -80,7 +80,7 @@ class EarningPresenter : EarningContract.Presenter {
         api.getWeeklyEarning("weekly")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<WeeklyDataBean>() {
+            .subscribe(object : NetworkCall<WeeklyDataBean>("weekly") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -117,7 +117,7 @@ class EarningPresenter : EarningContract.Presenter {
         api.getEarningsData(offsetCount)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<EarningsDataBean>() {
+            .subscribe(object : NetworkCall<EarningsDataBean>(offsetCount.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

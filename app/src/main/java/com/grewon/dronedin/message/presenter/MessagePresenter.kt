@@ -44,7 +44,7 @@ class MessagePresenter : MessageContract.Presenter {
         api.getMessages(offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MessagesDataBean>() {
+            .subscribe(object : NetworkCall<MessagesDataBean>(offset.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

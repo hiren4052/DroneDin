@@ -69,7 +69,7 @@ class PilotInvitePresenter : PilotInviteContract.Presenter {
         api.getPilotList(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotDataBean>() {
+            .subscribe(object : NetworkCall<PilotDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -102,7 +102,7 @@ class PilotInvitePresenter : PilotInviteContract.Presenter {
         api.invitePilots(invitePilots)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(invitePilots.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

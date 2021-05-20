@@ -43,7 +43,7 @@ class SettingsPresenter : SettingsContract.Presenter {
         api.changeOnlineStatus("off")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>("off") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -71,7 +71,7 @@ class SettingsPresenter : SettingsContract.Presenter {
         api.logoutUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -113,7 +113,7 @@ class SettingsPresenter : SettingsContract.Presenter {
         api.getMainScreenData(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MainScreenData>() {
+            .subscribe(object : NetworkCall<MainScreenData>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

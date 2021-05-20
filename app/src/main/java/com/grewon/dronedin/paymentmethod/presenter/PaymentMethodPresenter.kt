@@ -45,7 +45,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.getCardData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CardDataBean>() {
+            .subscribe(object : NetworkCall<CardDataBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -83,7 +83,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.saveDefaultCart(defaultCardParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(defaultCardParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -121,7 +121,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.getBankData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<BankDataBean>() {
+            .subscribe(object : NetworkCall<BankDataBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -160,7 +160,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.saveDefaultBank(defaultCardParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(defaultCardParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -197,7 +197,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.deleteCardData(cardId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(cardId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -233,7 +233,7 @@ class PaymentMethodPresenter : PaymentMethodContract.Presenter {
         api.deleteBankData(bankId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(bankId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

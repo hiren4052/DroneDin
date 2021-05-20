@@ -45,7 +45,7 @@ class AddCardPresenter : AddCardContract.Presenter {
         api.createCard(addCardParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CardDataBean>() {
+            .subscribe(object : NetworkCall<CardDataBean>(addCardParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

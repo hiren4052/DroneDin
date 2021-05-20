@@ -76,7 +76,7 @@ class AddBankPresenter : AddBankContract.Presenter {
         api.createBankAccount(requestBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<BankDataBean>() {
+            .subscribe(object : NetworkCall<BankDataBean>(addCardParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -137,7 +137,7 @@ class AddBankPresenter : AddBankContract.Presenter {
         api.updateBankAccount(requestBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<BankDataBean>() {
+            .subscribe(object : NetworkCall<BankDataBean>(addCardParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -176,7 +176,7 @@ class AddBankPresenter : AddBankContract.Presenter {
         api.getRetrieveBank()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<RetriveAccount>() {
+            .subscribe(object : NetworkCall<RetriveAccount>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

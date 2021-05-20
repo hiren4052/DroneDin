@@ -48,7 +48,7 @@ class PilotActiveJobsDetailsPresenter : PilotActiveJobsDetailsContract.Presenter
         api.getActiveJobsDetails(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ActiveJobsDetails>() {
+            .subscribe(object : NetworkCall<ActiveJobsDetails>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -83,7 +83,7 @@ class PilotActiveJobsDetailsPresenter : PilotActiveJobsDetailsContract.Presenter
         api.readMilestoneRequest(jobId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(jobId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

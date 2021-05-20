@@ -50,7 +50,7 @@ class AddBioPresenter : AddBioContract.Presenter {
         api.getJobCommanData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<JobInitBean>() {
+            .subscribe(object : NetworkCall<JobInitBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -88,7 +88,7 @@ class AddBioPresenter : AddBioContract.Presenter {
         api.bioUpdate(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProfileBioDataBean>() {
+            .subscribe(object : NetworkCall<ProfileBioDataBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -124,7 +124,7 @@ class AddBioPresenter : AddBioContract.Presenter {
         api.getBio()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProfileBioDataBean>() {
+            .subscribe(object : NetworkCall<ProfileBioDataBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

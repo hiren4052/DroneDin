@@ -48,7 +48,7 @@ class ProposalsDetailsPresenter : ProposalsDetailContract.Presenter {
         api.getProposalDetails(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProposalsDetailBean>() {
+            .subscribe(object : NetworkCall<ProposalsDetailBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -86,7 +86,7 @@ class ProposalsDetailsPresenter : ProposalsDetailContract.Presenter {
         api.withDrawProposals(proposalsId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(proposalsId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

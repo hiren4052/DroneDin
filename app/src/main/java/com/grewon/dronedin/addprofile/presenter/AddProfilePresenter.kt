@@ -52,7 +52,7 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         api.myProfile()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProfileBean>() {
+            .subscribe(object : NetworkCall<ProfileBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -180,7 +180,7 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         api.updateProfile(profileImage, frontSideImage, backSideImage, map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProfileBean>() {
+            .subscribe(object : NetworkCall<ProfileBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -215,7 +215,7 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         api.getIdentificationsData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<IdentificationBean>() {
+            .subscribe(object : NetworkCall<IdentificationBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

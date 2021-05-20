@@ -70,7 +70,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
         txt_change_password.setOnClickListener(this)
         txt_privacy.setOnClickListener(this)
         txt_terms.setOnClickListener(this)
-        txt_membership.setOnClickListener(this)
+        membership_layout.setOnClickListener(this)
         txt_customer_support.setOnClickListener(this)
         txt_dispute.setOnClickListener(this)
         notification_switch.setOnClickListener(this)
@@ -190,7 +190,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
                 )
             }
 
-            R.id.txt_membership -> {
+            R.id.membership_layout -> {
                 startActivity(Intent(context, MemberShipActivity::class.java))
             }
 

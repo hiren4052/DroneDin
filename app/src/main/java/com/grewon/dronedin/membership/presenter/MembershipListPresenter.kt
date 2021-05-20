@@ -45,7 +45,7 @@ class MembershipListPresenter : MembershipListContract.Presenter {
         api.getMembershipList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MemberShipBean>() {
+            .subscribe(object : NetworkCall<MemberShipBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

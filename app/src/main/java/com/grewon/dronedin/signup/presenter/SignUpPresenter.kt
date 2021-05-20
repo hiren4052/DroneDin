@@ -46,7 +46,7 @@ class SignUpPresenter : SignUpContract.Presenter {
         api.socialRegister(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<UserData>() {
+            .subscribe(object : NetworkCall<UserData>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -82,7 +82,7 @@ class SignUpPresenter : SignUpContract.Presenter {
         api.simpleRegister(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<UserData>() {
+            .subscribe(object : NetworkCall<UserData>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

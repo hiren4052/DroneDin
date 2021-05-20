@@ -42,7 +42,7 @@ class DisputeDetailsPresenter : DisputeDetailsContract.Presenter {
         api.getDisputeDetails(disputeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<DisputeDetailsBean>() {
+            .subscribe(object : NetworkCall<DisputeDetailsBean>(disputeId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

@@ -50,7 +50,7 @@ class PilotMyJobsPresenter : PilotMyJobsContract.Presenter {
         api.getPilotOffersJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<OffersDataBean>() {
+            .subscribe(object : NetworkCall<OffersDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -91,7 +91,7 @@ class PilotMyJobsPresenter : PilotMyJobsContract.Presenter {
         api.getPilotInvitationsJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<InvitationsDataBean>() {
+            .subscribe(object : NetworkCall<InvitationsDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -132,7 +132,7 @@ class PilotMyJobsPresenter : PilotMyJobsContract.Presenter {
         api.getPilotProposalsJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ProposalsDataBean>() {
+            .subscribe(object : NetworkCall<ProposalsDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

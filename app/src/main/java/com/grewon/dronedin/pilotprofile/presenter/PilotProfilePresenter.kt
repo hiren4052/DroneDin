@@ -44,7 +44,7 @@ class PilotProfilePresenter : PilotProfileContract.Presenter {
         api.getPilotDetail(profileId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotProfileBean>() {
+            .subscribe(object : NetworkCall<PilotProfileBean>(profileId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

@@ -54,7 +54,7 @@ class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
         api.getMileStoneDetail(mileStoneId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MileStoneDetailsBean>() {
+            .subscribe(object : NetworkCall<MileStoneDetailsBean>(mileStoneId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -92,7 +92,7 @@ class MileStoneDetailPresenter : MileStoneDetailContract.Presenter {
         api.cancelMilestone(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

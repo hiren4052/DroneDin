@@ -48,7 +48,7 @@ class ClientJobDetailsPresenter : ClientJobsDetailContract.Presenter {
         api.getPostedJobDetails(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PostedJobDetailBean>() {
+            .subscribe(object : NetworkCall<PostedJobDetailBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -90,7 +90,7 @@ class ClientJobDetailsPresenter : ClientJobsDetailContract.Presenter {
         api.deleteJobs(jobId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

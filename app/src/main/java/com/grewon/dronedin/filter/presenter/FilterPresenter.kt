@@ -71,7 +71,7 @@ class FilterPresenter : FilterContract.Presenter {
         api.getPilotList(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotDataBean>() {
+            .subscribe(object : NetworkCall<PilotDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -106,7 +106,7 @@ class FilterPresenter : FilterContract.Presenter {
         api.savePilots(pilotId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(pilotId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -167,7 +167,7 @@ class FilterPresenter : FilterContract.Presenter {
         api.getPilotFindJobs(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<PilotJobsDataBean>() {
+            .subscribe(object : NetworkCall<PilotJobsDataBean>(filterParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -203,7 +203,7 @@ class FilterPresenter : FilterContract.Presenter {
         api.saveJobs(jobId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(jobId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

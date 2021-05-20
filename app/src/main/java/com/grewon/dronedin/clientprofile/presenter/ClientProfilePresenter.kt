@@ -44,7 +44,7 @@ class ClientProfilePresenter : ClientProfileContract.Presenter {
         api.getClientDetail(profileId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ClientProfileBean>() {
+            .subscribe(object : NetworkCall<ClientProfileBean>(profileId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

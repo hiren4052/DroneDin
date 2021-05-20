@@ -1,13 +1,12 @@
 package com.grewon.dronedin.network
 
 import com.google.gson.Gson
-import com.grewon.dronedin.helper.LogX
 import com.grewon.dronedin.utils.AnalyticsUtils
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 
-abstract class NetworkCall<T> : SingleObserver<T> {
+abstract class NetworkCall<T>(private val parameter: String) : SingleObserver<T> {
 
     abstract fun onSuccessResponse(dataBean: T)
 
@@ -30,22 +29,18 @@ abstract class NetworkCall<T> : SingleObserver<T> {
             is HttpException -> {
                 if (e != null) {
                     if (e.response().code() == 400) {
+
                         val body = e.response()?.errorBody()
                         val adapter = Gson().getAdapter(Any::class.java)
                         val errorParser = adapter.fromJson(body?.string())
                         val json = Gson().toJson(errorParser)
                         onFailedResponse(json)
 
-
                         val response = e.response()
                         val url = response.raw().request().url().toString()
-                        val params = response.raw().request().body().toString()
-                        LogX.E("URL---->" + url)
-                        LogX.E("Params------>" + params)
-                        LogX.E("Response--->" + json)
 
                         AnalyticsUtils.setCustomCrashlytics(
-                            "",
+                            parameter,
                             url,
                             json.toString()
                         )
@@ -54,23 +49,20 @@ abstract class NetworkCall<T> : SingleObserver<T> {
 
                         onException(e)
 
-
                         val body = e.response()?.errorBody()
                         val adapter = Gson().getAdapter(Any::class.java)
                         val errorParser = adapter.fromJson(body?.string())
                         val json = Gson().toJson(errorParser)
                         val response = e.response()
                         val url = response.raw().request().url().toString()
-                        val params = response.raw().request().body().toString()
-                        LogX.E("URL---->" + url)
-                        LogX.E("Params------>" + params)
-                        LogX.E("Response--->" + json)
 
-//                        AnalyticsUtils.setCustomCrashlytics(
-//                            "",
-//                            url,
-//                           ""
-//                        )
+
+                        AnalyticsUtils.setCustomCrashlytics(
+                            parameter,
+                            url,
+                            json.toString()
+                        )
+
                     }
                 }
             }
@@ -81,24 +73,3 @@ abstract class NetworkCall<T> : SingleObserver<T> {
     }
 }
 
-/*private fun asRetrofitException(throwable: Throwable): RetrofitException {
-            // We had non-200 http error
-            if (throwable is HttpException) {
-                val response = throwable.response()
-
-                if (throwable.code() == 422) {
-                    // on out api 422's get metadata in the response. Adjust logic here based on your needs
-                    return RetrofitException.httpErrorWithObject(response.raw().request().url().toString(), response, _retrofit)
-                } else {
-                    return RetrofitException.httpError(response.raw().request().url().toString(), response, _retrofit)
-                }
-            }
-
-            // A network error happened
-            if (throwable is IOException) {
-                return RetrofitException.networkError(throwable)
-            }
-
-            // We don't know what happened. We need to simply convert to an unknown error
-            return RetrofitException.unexpectedError(throwable)
-        }*/

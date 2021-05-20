@@ -45,7 +45,7 @@ class ActiveMileStonePresenter : ActiveMileStoneContract.Presenter {
         api.activeMileStone(activeMilestoneParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(activeMilestoneParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -83,7 +83,7 @@ class ActiveMileStonePresenter : ActiveMileStoneContract.Presenter {
         api.getCardData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CardDataBean>() {
+            .subscribe(object : NetworkCall<CardDataBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

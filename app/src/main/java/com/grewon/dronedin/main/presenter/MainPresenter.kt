@@ -46,7 +46,7 @@ class MainPresenter : MainContract.Presenter {
         api.getMainScreenData(map)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<MainScreenData>() {
+            .subscribe(object : NetworkCall<MainScreenData>(map.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

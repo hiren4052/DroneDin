@@ -44,7 +44,7 @@ class VerificationPresenter : VerificationContract.Presenter {
         api.verifyUser(verifyCodeParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<UserData>() {
+            .subscribe(object : NetworkCall<UserData>(verifyCodeParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -81,7 +81,7 @@ class VerificationPresenter : VerificationContract.Presenter {
         api.resendCode(userIdParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(userIdParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

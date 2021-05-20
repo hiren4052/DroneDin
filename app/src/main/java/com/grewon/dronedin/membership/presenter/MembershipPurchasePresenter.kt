@@ -46,7 +46,7 @@ class MembershipPurchasePresenter : MembershipPurchaseContract.Presenter {
         api.purchaseMembership(purchasePackageParams)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(purchasePackageParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

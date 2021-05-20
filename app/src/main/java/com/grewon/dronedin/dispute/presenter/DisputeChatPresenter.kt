@@ -68,7 +68,7 @@ class DisputeChatPresenter : DisputeChatContract.Presenter {
         api.sendDisputeMessage(requestBody)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<SentDisputeChatBean>() {
+            .subscribe(object : NetworkCall<SentDisputeChatBean>(sentMessageParams.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -110,7 +110,7 @@ class DisputeChatPresenter : DisputeChatContract.Presenter {
         api.getDisputeOldMessage(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<DisputeChatDataBean>() {
+            .subscribe(object : NetworkCall<DisputeChatDataBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -150,7 +150,7 @@ class DisputeChatPresenter : DisputeChatContract.Presenter {
         api.getDisputeNewMessage(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<DisputeChatDataBean>() {
+            .subscribe(object : NetworkCall<DisputeChatDataBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

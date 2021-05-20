@@ -41,7 +41,7 @@ class OnlineStatusPresenter : OnlineStatusContract.Presenter {
         api.changeOnlineStatus(onlineStatus)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(onlineStatus) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

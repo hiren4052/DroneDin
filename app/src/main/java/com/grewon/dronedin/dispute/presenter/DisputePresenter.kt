@@ -43,7 +43,7 @@ class DisputePresenter : DisputeContract.Presenter {
         api.getDispute(offsetCount)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<DisputeBean>() {
+            .subscribe(object : NetworkCall<DisputeBean>(offsetCount.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

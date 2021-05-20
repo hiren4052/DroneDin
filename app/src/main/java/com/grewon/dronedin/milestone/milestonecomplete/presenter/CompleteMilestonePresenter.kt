@@ -46,7 +46,7 @@ class CompleteMilestonePresenter : CompleteMilestoneContract.Presenter {
         api.getCompleteMilestoneRequest(milestoneRequestId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CompleteMilestoneRequest>() {
+            .subscribe(object : NetworkCall<CompleteMilestoneRequest>(milestoneRequestId) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
@@ -83,7 +83,7 @@ class CompleteMilestonePresenter : CompleteMilestoneContract.Presenter {
         api.completeMilestoneStatusUpdate(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<CommonMessageBean>() {
+            .subscribe(object : NetworkCall<CommonMessageBean>(params.toString()) {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)

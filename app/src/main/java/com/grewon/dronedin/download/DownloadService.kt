@@ -65,7 +65,7 @@ class DownloadService : Service() {
             .downloadFile(attachmentBean?.attachment)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<ResponseBody>() {
+            .subscribe(object : NetworkCall<ResponseBody>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
 

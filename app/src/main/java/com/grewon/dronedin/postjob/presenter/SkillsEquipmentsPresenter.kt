@@ -41,7 +41,7 @@ class SkillsEquipmentsPresenter : SkillsEquipmentsContract.Presenter {
         api.getJobCommanData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : NetworkCall<JobInitBean>() {
+            .subscribe(object : NetworkCall<JobInitBean>("") {
 
                 override fun onSubscribeCall(disposable: Disposable) {
                     subscriptions.add(disposable)
