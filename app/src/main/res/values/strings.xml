@@ -465,4 +465,6 @@
     <string name="write_here_to_search">Write here to search...</string>
     <string name="upload">Upload</string>
     <string name="membership_value">%s Membership</string>
+    <string name="certificate_number">Certificate Number</string>
+    <string name="please_enter_certificate_number">Please enter certificate number!</string>
 </resources>

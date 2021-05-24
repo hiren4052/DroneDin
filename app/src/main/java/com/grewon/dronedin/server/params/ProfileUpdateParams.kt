@@ -31,5 +31,7 @@ data class ProfileUpdateParams(
     @SerializedName("user_front_text")
     val userFrontText: String?,
     @SerializedName("user_back_text")
-    val userBackText: String?
+    val userBackText: String?,
+    @SerializedName("document_id")
+    val documentId: String?
 ) : Parcelable

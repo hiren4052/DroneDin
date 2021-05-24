@@ -250,10 +250,7 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
                 "Please upload identity document and use premium membership free for one month!"
             var snackColor = R.color.colorPrimary
 
-            if (data.proofFrontSide != null && !ValidationUtils.isEmptyFiled(data.proofFrontSide.toString()) && data.proofBackSide != null && !ValidationUtils.isEmptyFiled(
-                    data.proofBackSide.toString()
-                )
-            ) {
+            if (data.proofFrontSide != null && !ValidationUtils.isEmptyFiled(data.proofFrontSide.toString())) {
                 if (data.userWarningText != null && !ValidationUtils.isEmptyFiled(data.userWarningText.toString())) {
                     snackText = data.userWarningText
                     snackColor = R.color.red
@@ -274,22 +271,22 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
             }
 
             snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
             val snackbarView = snackbar.view
+
             snackbarView.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
                     snackColor
                 )
             )
-            val textView =
-                snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+
+            val textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             textView.textSize = 14f
             textView.maxLines = 6
 
-            if (ValidationUtils.isEmptyFiled(data.proofFrontSide.toString()) && ValidationUtils.isEmptyFiled(
-                    data.proofBackSide.toString()
-                )) {
+            if (ValidationUtils.isEmptyFiled(data.proofFrontSide.toString())) {
                 snackbar.show()
             } else {
                 if (data.documentVerified == AppConstant.NO_STATUS) {
@@ -297,8 +294,8 @@ class PilotFindJobsFragment : BaseFragment(), View.OnClickListener,
                         snackbar.show()
                     }
                 }
-
             }
+
         }
     }
 

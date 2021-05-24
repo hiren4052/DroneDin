@@ -558,30 +558,34 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
                                 input_identification.error =
                                     getString(R.string.please_select_identity_document)
                             }
-                            ValidationUtils.isEmptyFiled(serverFrontImage) && ValidationUtils.isEmptyFiled(
-                                serverBackImage
-                            ) -> {
+                            ValidationUtils.isEmptyFiled(serverFrontImage)
+                            -> {
                                 apiCall()
                             }
-                            !ValidationUtils.isEmptyFiled(serverFrontImage) && !ValidationUtils.isEmptyFiled(
-                                serverBackImage
-                            ) -> {
-                                apiCall()
-                            }
-                            !ValidationUtils.isEmptyFiled(serverFrontImage) -> {
-                                if (ValidationUtils.isEmptyFiled(serverBackImage)) {
-                                    DroneDinApp.getAppInstance()
-                                        .showToast(getString(R.string.please_select_back_side))
-                                    return
+                            !ValidationUtils.isEmptyFiled(serverFrontImage)
+                            -> {
+                                if (ValidationUtils.isEmptyFiled(edit_certificate_number.text.toString())) {
+                                    input_certificate_number.error =
+                                        getString(R.string.please_enter_certificate_number)
+                                } else {
+
+                                    apiCall()
                                 }
                             }
-                            !ValidationUtils.isEmptyFiled(serverBackImage) -> {
-                                if (ValidationUtils.isEmptyFiled(serverFrontImage)) {
-                                    DroneDinApp.getAppInstance()
-                                        .showToast(getString(R.string.please_select_front_side))
-                                    return
-                                }
-                            }
+//                            !ValidationUtils.isEmptyFiled(serverFrontImage) -> {
+//                                if (ValidationUtils.isEmptyFiled(serverBackImage)) {
+//                                    DroneDinApp.getAppInstance()
+//                                        .showToast(getString(R.string.please_select_back_side))
+//                                    return
+//                                }
+//                            }
+//                            !ValidationUtils.isEmptyFiled(serverBackImage) -> {
+//                                if (ValidationUtils.isEmptyFiled(serverFrontImage)) {
+//                                    DroneDinApp.getAppInstance()
+//                                        .showToast(getString(R.string.please_select_front_side))
+//                                    return
+//                                }
+//                            }
 
 
                         }
@@ -607,7 +611,8 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             proofBackSide = serverBackImage,
             userImage,
             userFrontText = serverFrontImageText,
-            userBackText = serverBackImageText
+            userBackText = serverBackImageText,
+            documentId = edit_certificate_number.text.toString()
         )
         addProfilePresenter.updateProfile(profileUpdateParams)
 
@@ -781,6 +786,9 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
             serverFrontImage = data.proofFrontSide.toString()
             serverBackImage = data.proofBackSide.toString()
             identificationId = data.proof?.proofId
+
+            if (!ValidationUtils.isEmptyFiled(data.documentId.toString()))
+                edit_certificate_number.setText(data.documentId)
 
             Glide.with(this).load(serverFrontImage)
                 .apply(RequestOptions().placeholder(R.drawable.ic_image_select_back))

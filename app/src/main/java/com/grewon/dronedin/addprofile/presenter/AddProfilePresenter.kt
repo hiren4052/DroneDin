@@ -174,6 +174,7 @@ class AddProfilePresenter : AddProfileContract.Presenter {
         map["proof_id"] = TextUtils.createPartFromString(params.proofId.toString())
         map["user_front_text"] = TextUtils.createPartFromString(params.userFrontText.toString())
         map["user_back_text"] = TextUtils.createPartFromString(params.userBackText.toString())
+        map["document_id"] = TextUtils.createPartFromString(params.documentId.toString())
 
         view?.showProgress()
 
