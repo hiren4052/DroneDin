@@ -79,7 +79,7 @@ class ProposalsDetailActivity : BaseActivity(), View.OnClickListener, ProposalsD
                 finish()
             }
             R.id.txt_withdraw_proposal -> {
-                DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.please_wait))
+                DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.withdrawing))
                 proposalDetailsPresenter.withDrawProposals(proposalId)
             }
         }

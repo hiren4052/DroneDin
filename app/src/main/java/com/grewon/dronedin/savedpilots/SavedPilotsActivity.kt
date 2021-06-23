@@ -173,6 +173,7 @@ class SavedPilotsActivity : BaseActivity(), View.OnClickListener, FilterContract
     }
 
     override fun onPilotSaved(jobsDataBean: PilotDataBean.Data?, adapterPosition: Int) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.saving)
         this.adapterPosition = adapterPosition
         filterPresenter.savePilots(jobsDataBean?.userId.toString())
     }

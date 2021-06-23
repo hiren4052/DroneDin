@@ -82,6 +82,7 @@ class ProjectCancelRequestActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_accept -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.accepting)
                 val params = CancelEndProjectStatusUpdateParams()
                 params.jobCancelEndRequestId = jobRequestId
                 params.requestStatus = "accept"

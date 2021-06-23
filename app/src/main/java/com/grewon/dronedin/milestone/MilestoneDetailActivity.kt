@@ -87,6 +87,7 @@ class MilestoneDetailActivity : BaseActivity(), View.OnClickListener, MileStoneD
                 )
             }
             R.id.txt_cancel_milestone -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.cancelling)
                 val params = CancelMilestoneParams()
                 params.jobId = jobId
                 params.milestoneId = milestoneId

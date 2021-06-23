@@ -226,6 +226,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
                         createMileStoneAdapter?.itemList
 
                     if ((activity as PostJobActivity).screenTag == "edit") {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.updating)
                         postJobPresenter.editJob(
                             (activity as PostJobActivity).jobId,
                             (activity as PostJobActivity).createJobsParams!!
@@ -575,6 +576,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
             if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
                 jobsImageAdapter?.removeItem(adapterPosition)
             } else {
+                DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
                 postJobPresenter.deleteAttachment(item.attachmentId)
             }
             alertDialog?.dismiss()
@@ -639,6 +641,7 @@ class AddJobDetailsFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onMilestoneRemove(adapterPosition: Int, createMilestoneBean: CreateMilestoneBean) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
         milestonePosition = adapterPosition
         postJobPresenter.deleteMilestone(createMilestoneBean.milestoneId)
     }

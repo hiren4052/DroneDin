@@ -81,6 +81,7 @@ class CancelMilestoneActivity : BaseActivity(), CancelMilestoneContract.View, Vi
                 if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.please_enter_reason))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.cancelling)
 
                     val params = CancelMilestoneParams()
                     params.jobId = jobId

@@ -76,6 +76,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener, ForgotPassw
     }
 
     private fun apiCall() {
+        DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
         val params = ForgotPasswordParams(edit_email.text.toString())
         forgotPasswordPresenter.forgotPassword(params)
     }

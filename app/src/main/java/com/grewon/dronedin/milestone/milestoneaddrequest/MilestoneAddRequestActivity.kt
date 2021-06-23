@@ -45,6 +45,8 @@ class MilestoneAddRequestActivity : BaseActivity(), View.OnClickListener,
     override fun onResume() {
         super.onResume()
 
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         newMilestoneRequestPresenter.attachView(this)
         newMilestoneRequestPresenter.attachApiInterface(retrofit)
@@ -79,6 +81,7 @@ class MilestoneAddRequestActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_accept -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.accepting)
                 val params = NewMilestoneStatusUpdateParams()
                 params.milestoneRequestId = milestoneRequestId
                 params.milestoneRequestStatus = "accept"

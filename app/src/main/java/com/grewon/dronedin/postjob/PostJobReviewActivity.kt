@@ -189,6 +189,7 @@ class PostJobReviewActivity : BaseActivity(), View.OnClickListener, JobPostContr
             }
 
             R.id.txt_post -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.posting)
                 postJobPresenter.postJob(submitParams!!)
             }
         }

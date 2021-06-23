@@ -69,6 +69,7 @@ class SubmitReviewActivity : BaseActivity(), View.OnClickListener, SubmitReviewC
                             .showToast(getString(R.string.please_write_something_about_your_experince))
                     }
                     else -> {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.submitting)
                         val submitParams = SubmitReviewParams(
                             jobId,
                             rating_bar.rating.toString(),

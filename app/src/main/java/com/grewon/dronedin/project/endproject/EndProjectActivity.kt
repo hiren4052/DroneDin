@@ -61,6 +61,7 @@ class EndProjectActivity : BaseActivity(), View.OnClickListener, EndProjectContr
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_enter_description))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.ending)
                     val params = CancelEndProjectParams()
                     params.jobId=jobId
                     params.requestType=JOB_REQUEST_TYPE.end.name

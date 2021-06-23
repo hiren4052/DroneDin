@@ -117,6 +117,9 @@ class AddCardActivity : BaseActivity(), View.OnClickListener, AddCardContract.Vi
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_enter_card_cvv_number))
                 } else {
+
+                    DroneDinApp.loadingDialogMessage = getString(R.string.adding)
+
                     val addCardParams = AddCardParams(
                         edt_name.text.toString(),
                         edt_card_number.creditCardNumber,

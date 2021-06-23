@@ -308,8 +308,7 @@
     <string name="please_enter_valid_otp">Please enter valid OTP</string>
     <string name="please_enter_otp">Please enter OTP</string>
     <string name="attachments_array_string">attachment[%s]</string>
-    <string name="loading">Loading…</string>
-    <string name="please_wait">Please wait…</string>
+
     <string name="please_allow_location_permission">Please allow location permission</string>
 
     <!-- Date Util -->
@@ -462,9 +461,31 @@
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="apply">Apply</string>
-    <string name="write_here_to_search">Write here to search...</string>
+    <string name="write_here_to_search">Write here to search…</string>
     <string name="upload">Upload</string>
     <string name="membership_value">%s Membership</string>
     <string name="certificate_number">Certificate Number</string>
     <string name="please_enter_certificate_number">Please enter certificate number!</string>
+
+    <string name="adding">Adding…</string>
+    <string name="updating">Updating…</string>
+    <string name="loading">Loading…</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="deleting">Deleting…</string>
+    <string name="withdrawing">Withdrawing…</string>
+    <string name="sending">Sending…</string>
+    <string name="saving">Saving…</string>
+    <string name="inviting">Inviting…</string>
+    <string name="purchasing">Purchasing…</string>
+    <string name="rejecting">Rejecting…</string>
+    <string name="accepting">Accepting…</string>
+    <string name="cancelling">Cancelling…</string>
+    <string name="submitting">Submitting…</string>
+    <string name="declining">Declining…</string>
+    <string name="posting">Posting…</string>
+    <string name="ending">Ending…</string>
+    <string name="creating">Creating…</string>
+    <string name="verifying">Verifying…</string>
+
+
 </resources>

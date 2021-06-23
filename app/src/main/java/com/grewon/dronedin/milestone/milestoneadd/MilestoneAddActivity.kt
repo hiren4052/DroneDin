@@ -58,7 +58,7 @@ class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneC
 
 
         create_milestone_recycle.layoutManager = LinearLayoutManager(this)
-        createMileStoneAdapter = CreateMileStoneAdapter(this,this)
+        createMileStoneAdapter = CreateMileStoneAdapter(this, this)
         create_milestone_recycle.adapter = createMileStoneAdapter
 
 
@@ -112,6 +112,7 @@ class MilestoneAddActivity : BaseActivity(), View.OnClickListener, AddMilestoneC
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_create_milestone))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.adding)
                     val addParams = AddMileStoneParams(jobId, createMileStoneAdapter?.itemList)
                     addMilestonePresenter.addMilestone(addParams)
                 }

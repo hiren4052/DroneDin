@@ -224,7 +224,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                 if (ValidationUtils.isEmptyFiled(edt_message.text.toString())) {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.please_type_message))
                 } else {
-
+                    DroneDinApp.loadingDialogMessage = getString(R.string.sending)
                     val chatParams = SentMessageParams()
                     chatParams.chat_room_id = chatRoomId
                     chatParams.reciever_id = receiverId
@@ -583,7 +583,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                         val fileList =
                             data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
                         if (fileList != null) {
-
+                            DroneDinApp.loadingDialogMessage = getString(R.string.sending)
                             val filePath: String = FileValidationUtils.getPath(this, fileList[0])
                             val chatParams = SentMessageParams()
                             chatParams.chat_room_id = chatRoomId

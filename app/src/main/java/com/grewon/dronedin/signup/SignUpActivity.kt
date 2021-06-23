@@ -237,7 +237,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                             return@OnCompleteListener
                         }
 
-
+                        DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
                         // Get new FCM registration token
                         val token = task.result
                         val registerParams = RegisterParams(
@@ -283,7 +283,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                 return@OnCompleteListener
             }
 
-
+            DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
             // Get new FCM registration token
             val token = task.result
             val socialLoginParams =

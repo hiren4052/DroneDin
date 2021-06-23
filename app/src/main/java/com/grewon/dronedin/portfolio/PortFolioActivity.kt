@@ -132,6 +132,7 @@ class PortFolioActivity : BaseActivity(), View.OnClickListener, PortFolioContrac
                 openGalleryDialog()
             }
             R.id.txt_delete -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
                 portFolioPresenter.deletePortFolio(portFolioBean?.portfolioId.toString())
             }
 
@@ -158,11 +159,15 @@ class PortFolioActivity : BaseActivity(), View.OnClickListener, PortFolioContrac
                     params.attachments = jobsImageAdapter?.itemList
 
                     if (portFolioBean != null) {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.updating)
+
                         portFolioPresenter.updatePortFolio(
                             params,
                             portFolioBean?.portfolioId.toString()
                         )
                     } else {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.adding)
+
                         portFolioPresenter.addPortFolio(params)
                     }
                 }
@@ -418,9 +423,11 @@ class PortFolioActivity : BaseActivity(), View.OnClickListener, PortFolioContrac
         alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
         alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
         alertDialog!!.setOkListener(View.OnClickListener {
+
             if (ValidationUtils.isEmptyFiled(item.attachmentId)) {
                 jobsImageAdapter?.removeItem(adapterPosition)
             } else {
+                DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
                 portFolioPresenter.deleteAttachment(item.attachmentId)
             }
             alertDialog?.dismiss()

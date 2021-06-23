@@ -177,10 +177,11 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
 
     private fun apiCall() {
         if (isPilotAccount()) {
+            DroneDinApp.loadingDialogMessage = getString(R.string.loading)
             filterParams?.page = "0"
             filterPresenter.getPilotJobs(filterParams!!)
         } else {
-
+            DroneDinApp.loadingDialogMessage = getString(R.string.loading)
             filterParams?.page = "0"
             filterPresenter.getPilotData(filterParams!!)
         }
@@ -198,9 +199,11 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
         if (isPilotAccount()) {
             jobId = p0?.tag.toString()
             LogX.E(p0?.tag.toString())
+            DroneDinApp.loadingDialogMessage = getString(R.string.loading)
             pilotFindJobsDetailsPresenter.getPilotJobDetails(jobId, "pilot_job_detail")
         } else {
             profileId = p0?.tag.toString()
+            DroneDinApp.loadingDialogMessage = getString(R.string.loading)
             pilotProfilePresenter.getPilotProfile(profileId)
         }
         return true

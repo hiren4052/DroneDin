@@ -78,16 +78,18 @@ class EarningsActivity : BaseActivity(), View.OnClickListener, OnChartValueSelec
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         earningPresenter.attachView(this)
         earningPresenter.attachApiInterface(retrofit)
-
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
         earningPresenter.getMonthlyEarning()
         apiCall()
 
         segment_group.setOnPositionChangedListener {
             when (it) {
                 0 -> {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.loading)
                     earningPresenter.getMonthlyEarning()
                 }
                 1 -> {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.loading)
                     earningPresenter.getWeeklyEarning()
                 }
 
@@ -113,6 +115,7 @@ class EarningsActivity : BaseActivity(), View.OnClickListener, OnChartValueSelec
     }
 
     private fun apiCall() {
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
         earningPresenter.getEarningsData(offsetCount)
     }
 

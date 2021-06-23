@@ -65,6 +65,8 @@ class MilestoneAddRejectActivity : BaseActivity(), View.OnClickListener,
                 if (ValidationUtils.isEmptyFiled(edt_reason.text.toString())) {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.please_enter_reason))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.rejecting)
+
                     val params = NewMilestoneStatusUpdateParams()
                     params.milestoneRequestId = milestoneRequestId
                     params.milestoneRequestRejectReason = edt_reason.text.toString()

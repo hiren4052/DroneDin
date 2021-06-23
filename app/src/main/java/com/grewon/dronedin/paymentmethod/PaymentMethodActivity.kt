@@ -92,6 +92,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
         alertDialog!!.setPositiveBtnTxt(getString(R.string.yes))
         alertDialog!!.setNegativeBtnTxt(getString(R.string.no))
         alertDialog!!.setOkListener(View.OnClickListener {
+            DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
             if (isPilotAccount()) {
                 paymentMethodPresenter.deleteBankData(deleteID)
             } else {
@@ -104,6 +105,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
 
 
     override fun onDefaultSelect(itemView: BankDataBean.Data.Bank?) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
         bankSelectId = itemView?.id.toString()
         paymentMethodPresenter.setDefaultBankData(DefaultCardParams(itemView?.id))
     }
@@ -130,6 +132,7 @@ class PaymentMethodActivity : BaseActivity(), BankDataAdapter.OnItemCLickListene
     }
 
     override fun onDefaultCardSelect(itemView: CardDataBean.Data.Card) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
         cardSelectId = itemView.id.toString()
         paymentMethodPresenter.setDefaultCardData(DefaultCardParams(itemView.id))
     }

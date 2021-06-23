@@ -104,6 +104,7 @@ class SubmitMilestoneActivity : BaseActivity(), View.OnClickListener, SubmitMile
                 if (ValidationUtils.isEmptyFiled(edt_description.text.toString())) {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.please_add_comment))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.submitting)
                     val submitParams = SubmitMilestoneParams(
                         milestoneId,
                         edt_description.text.toString(),

@@ -117,7 +117,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         addProfilePresenter.attachView(this)
         addProfilePresenter.attachApiInterface(retrofit)
-
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
         addProfilePresenter.getProfile()
 
         if (isPilotAccount()) {
@@ -600,6 +600,7 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
     }
 
     private fun apiCall() {
+        DroneDinApp.loadingDialogMessage = getString(R.string.updating)
         val profileUpdateParams = ProfileUpdateParams(
             userName = edit_name.text.toString(),
             userPhoneNumber = edit_number.text.toString(),

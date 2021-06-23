@@ -117,6 +117,7 @@ class InvitePilotActivity : BaseActivity(), View.OnClickListener,
             }
             R.id.txt_invite -> {
                 if (invitePilotAdapter != null && invitePilotAdapter?.isSelected()!!) {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.inviting)
                     val inviteParams =
                         PilotInviteParams(jobId, invitePilotAdapter?.getSelectedPilotsId())
                     pilotInvitePresenter.invitePilots(inviteParams)

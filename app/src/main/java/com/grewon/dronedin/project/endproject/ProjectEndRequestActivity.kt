@@ -84,6 +84,7 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_accept -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.accepting)
                 val params = CancelEndProjectStatusUpdateParams()
                 params.jobCancelEndRequestId = jobRequestId
                 params.requestStatus = "accept"
@@ -91,6 +92,7 @@ class ProjectEndRequestActivity : BaseActivity(), View.OnClickListener,
                 endProjectRequestPresenter.projectStatusUpdate(params)
             }
             R.id.txt_dispute -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.creating)
                 val params = CreateDisputeParams("End Project", jobId, jobRequestId)
                 endProjectRequestPresenter.createDispute(params)
             }

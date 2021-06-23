@@ -72,6 +72,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
                             .showToast(getString(R.string.please_enter_valid_otp))
                     }
                     else -> {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.verifying)
                         val verifyCodeParams = VerifyCodeParams(
                             preferenceUtils.getLoginCredentials()?.data?.userId,
                             otp_view.otp
@@ -82,6 +83,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener, VerificationC
 
             }
             R.id.txt_receive_code -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.sending)
                 val verifyCodeParams = UserIdParams(
                     preferenceUtils.getLoginCredentials()?.data?.userId
 

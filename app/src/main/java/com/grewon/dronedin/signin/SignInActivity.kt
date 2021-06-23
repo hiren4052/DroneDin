@@ -236,7 +236,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
                 return@OnCompleteListener
             }
 
-
+            DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
             // Get new FCM registration token
             val token = task.result
             val loginParams = LoginParams(
@@ -251,6 +251,7 @@ class SignInActivity : BaseActivity(), View.OnClickListener, SignInContract.View
     }
 
     private fun socialMediaLogin(userEmail: String, socialId: String, userName: String) {
+        DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 return@OnCompleteListener

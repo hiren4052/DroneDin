@@ -227,11 +227,13 @@ class FilterResultActivity : BaseActivity(), PilotFindJobsAdapter.OnItemClickLis
     }
 
     override fun onPilotSaved(jobsDataBean: PilotDataBean.Data?, adapterPosition: Int) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.saving)
         this.adapterPosition = adapterPosition
         filterPresenter.savePilots(jobsDataBean?.userId.toString())
     }
 
     override fun onJobSaved(jobsDataBean: PilotJobsDataBean.Data?, adapterPosition: Int) {
+        DroneDinApp.loadingDialogMessage = getString(R.string.saving)
         this.adapterPosition = adapterPosition
         filterPresenter.saveJobs(jobsDataBean?.jobId.toString())
     }

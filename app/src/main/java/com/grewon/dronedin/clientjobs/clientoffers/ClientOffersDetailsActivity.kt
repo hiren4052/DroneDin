@@ -83,7 +83,7 @@ class ClientOffersDetailsActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_withdraw_offer -> {
-                DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.please_wait))
+                DroneDinApp.loadingDialogMessage = getString(R.string.withdrawing)
                 clientOffersDetailsPresenter.withDrawOffers(offersId)
             }
             R.id.txt_pilot_name -> {

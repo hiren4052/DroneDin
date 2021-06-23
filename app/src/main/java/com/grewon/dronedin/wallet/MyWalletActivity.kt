@@ -92,6 +92,7 @@ class MyWalletActivity : BaseActivity(), WalletContract.View, View.OnClickListen
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.please_enter_withdraw_amount))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.withdrawing)
                     walletPresenter.withdrawAmount(WithdrawParams(edt_amount.text.toString()))
                 }
             }
@@ -110,7 +111,7 @@ class MyWalletActivity : BaseActivity(), WalletContract.View, View.OnClickListen
             txt_total_withdraw.text = getString(R.string.price_string, response.totalWithdraw)
             txt_available_balance.text = getString(R.string.price_string, response.walletBalance)
         }
-        if (response.data != null&&response.data.size>0) {
+        if (response.data != null && response.data.size > 0) {
             isFirstTimeDataLoaded = true
             isLoaded = true
             if (earningAdapter != null) {

@@ -64,6 +64,8 @@ class MilestoneCancelRequestActivity : BaseActivity(), View.OnClickListener,
                 finish()
             }
             R.id.txt_accept -> {
+
+                DroneDinApp.loadingDialogMessage = getString(R.string.accepting)
                 val params = CancelMilestoneStatusUpdateParams()
                 params.milestoneRequestId = milestoneRequestId
                 params.milestoneRequestStatus = "accept"

@@ -189,7 +189,7 @@ class PostedJobDetailsActivity : BaseActivity(), View.OnClickListener,
                 }
             }
             R.id.txt_delete -> {
-                DroneDinApp.getAppInstance().setDialogMessage(getString(R.string.please_wait))
+                DroneDinApp.loadingDialogMessage = getString(R.string.deleting)
                 clientJobsDetailPresenter.deleteJob(jobId)
             }
             R.id.txt_see_list -> {

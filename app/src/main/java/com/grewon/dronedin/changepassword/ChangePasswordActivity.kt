@@ -76,6 +76,8 @@ class ChangePasswordActivity : BaseActivity(), View.OnClickListener, ChangePassw
                     DroneDinApp.getAppInstance()
                         .showToast(getString(R.string.password_does_not_match))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
+
                     val params = ChangePasswordParams(
                         edt_old_password.text.toString(),
                         edt_new_password.text.toString()

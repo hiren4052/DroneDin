@@ -76,7 +76,7 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
 
         addBioPresenter.attachView(this)
         addBioPresenter.attachApiInterface(retrofit)
-
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
         addBioPresenter.getBio()
 
         DroneDinApp.getAppInstance().loadGifImage(R.drawable.add_profile, top_image)
@@ -122,6 +122,8 @@ class AddMoreProfileActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun apiCall() {
+        DroneDinApp.loadingDialogMessage = getString(R.string.updating)
+
         val bioUpdateParams = BioUpdateParams(
             categoryId = selectedCategoryId,
             equipment = profileEquipmentsAdapter?.getSelectedItems()

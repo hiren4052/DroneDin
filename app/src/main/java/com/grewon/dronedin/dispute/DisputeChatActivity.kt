@@ -179,6 +179,7 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
                 if (ValidationUtils.isEmptyFiled(edt_message.text.toString())) {
                     DroneDinApp.getAppInstance().showToast(getString(R.string.please_type_message))
                 } else {
+                    DroneDinApp.loadingDialogMessage = getString(R.string.sending)
 
                     val chatParams = SentDisputeMessageParams()
                     chatParams.dispute_id = disputeId
@@ -424,6 +425,8 @@ class DisputeChatActivity : BaseActivity(), View.OnClickListener, DisputeChatAda
                         val fileList =
                             data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
                         if (fileList != null) {
+
+                            DroneDinApp.loadingDialogMessage = getString(R.string.sending)
 
                             val filePath: String = FileValidationUtils.getPath(this, fileList[0])
                             val chatParams = SentDisputeMessageParams()

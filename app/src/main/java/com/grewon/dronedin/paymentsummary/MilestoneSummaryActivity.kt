@@ -57,6 +57,7 @@ class MilestoneSummaryActivity : BaseActivity(), View.OnClickListener,
 
     override fun onResume() {
         super.onResume()
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
         activeMileStonePresenter.getCardData()
     }
 
@@ -161,6 +162,7 @@ class MilestoneSummaryActivity : BaseActivity(), View.OnClickListener,
             }
 
             R.id.txt_pay_now -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
                 if (check_wallet.isChecked) {
                    val params=ActiveMilestoneParams(milestoneId,AppConstant.YES_STATUS)
                     activeMileStonePresenter.activeMileStone(params)

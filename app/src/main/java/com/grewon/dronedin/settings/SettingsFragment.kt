@@ -209,6 +209,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             }
 
             R.id.notification_switch -> {
+                DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
                 val notificationStatus = if (notification_switch.isChecked) "on" else "off"
                 settingsPresenter.notificationOnOff(notificationStatus)
             }
@@ -235,7 +236,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
         txtCancel.setOnClickListener { logoutDialog?.dismiss() }
         txtLogout.setOnClickListener {
-
+            DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
             settingsPresenter.logoutUser()
         }
 

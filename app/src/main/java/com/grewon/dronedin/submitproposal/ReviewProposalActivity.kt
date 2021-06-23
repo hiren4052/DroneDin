@@ -130,6 +130,7 @@ class ReviewProposalActivity : BaseActivity(), View.OnClickListener, SubmitPropo
             }
 
             R.id.txt_submit -> {
+                DroneDinApp.loadingDialogMessage=getString(R.string.submitting)
                 submitProposalPresenter.submitProposal(submitParams!!)
             }
         }

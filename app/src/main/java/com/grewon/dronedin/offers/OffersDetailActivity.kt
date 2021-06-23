@@ -108,9 +108,11 @@ class OffersDetailActivity : BaseActivity(), View.OnClickListener, OffersDetails
                 finish()
             }
             R.id.txt_accept -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.accepting)
                 offersDetailPresenter.acceptDeclineOffers(offersId, AppConstant.OFFER_ACCEPT_STATUS)
             }
             R.id.txt_decline -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.declining)
                 offersDetailPresenter.acceptDeclineOffers(
                     offersId,
                     AppConstant.OFFER_DECLINE_STATUS

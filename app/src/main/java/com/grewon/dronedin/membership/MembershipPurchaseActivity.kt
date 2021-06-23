@@ -142,6 +142,7 @@ class MembershipPurchaseActivity : BaseActivity(), View.OnClickListener,
                             .showToast(getString(R.string.please_enter_card_cvv_number))
                     }
                     else -> {
+                        DroneDinApp.loadingDialogMessage = getString(R.string.purchasing)
                         val purchaseParams = PurchasePackageParams(
                             edt_name.text.toString(),
                             edt_card_number.creditCardNumber,
@@ -150,6 +151,7 @@ class MembershipPurchaseActivity : BaseActivity(), View.OnClickListener,
                             txt_year.text.toString(),
                             membershipBean?.packageId
                         )
+                        membershipPurchasePresenter.purchaseMemberShip(purchaseParams)
                     }
                 }
             }

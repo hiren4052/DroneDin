@@ -155,6 +155,7 @@ class PaymentSummaryActivity : BaseActivity(), View.OnClickListener, CreateOffer
                 finish()
             }
             R.id.txt_pay_now -> {
+                DroneDinApp.loadingDialogMessage = getString(R.string.submitting)
                 if (check_wallet.isChecked) {
                     submitOfferParams?.user_wallet = AppConstant.YES_STATUS
                 } else {

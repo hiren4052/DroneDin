@@ -72,6 +72,8 @@ class AddBankAccountActivity : BaseActivity(), View.OnClickListener, AddBankCont
     }
 
     private fun initView() {
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
+
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         addBankPresenter.attachView(this)
         addBankPresenter.attachApiInterface(retrofit)
@@ -116,6 +118,9 @@ class AddBankAccountActivity : BaseActivity(), View.OnClickListener, AddBankCont
             DroneDinApp.getAppInstance()
                 .showToast(getString(R.string.please_enter_account_holder_last_name))
         } else {
+
+            DroneDinApp.loadingDialogMessage = getString(R.string.updating)
+
             val addBankParams = UpdateBankParams()
             addBankParams.accHolderFirstname = edt_account_first_name.text.toString()
             addBankParams.accHolderLastname = edt_account_last_name.text.toString()
@@ -140,6 +145,9 @@ class AddBankAccountActivity : BaseActivity(), View.OnClickListener, AddBankCont
             DroneDinApp.getAppInstance()
                 .showToast(getString(R.string.please_enter_account_number))
         } else {
+
+            DroneDinApp.loadingDialogMessage = getString(R.string.adding)
+
             val addBankParams = AddBankParams()
             addBankParams.accHolderFirstname = edt_account_first_name.text.toString()
             addBankParams.accHolderLastname = edt_account_last_name.text.toString()
@@ -170,6 +178,8 @@ class AddBankAccountActivity : BaseActivity(), View.OnClickListener, AddBankCont
             DroneDinApp.getAppInstance()
                 .showToast(getString(R.string.please_enter_account_number))
         } else {
+
+            DroneDinApp.loadingDialogMessage = getString(R.string.adding)
 
             val addBankParams = AddBankParams()
             addBankParams.accHolderFirstname = edt_account_first_name.text.toString()
