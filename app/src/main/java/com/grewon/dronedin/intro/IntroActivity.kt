@@ -25,10 +25,8 @@ class IntroActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-
         txt_sign_up.text = TextUtils.signUpSpannableString(this)
         setViewPager()
-
     }
 
     private fun setClickListeners() {

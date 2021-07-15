@@ -35,6 +35,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10dp"
             android:layout_toEndOf="@id/img_user"
+            android:layout_toStartOf="@id/img_search"
             android:orientation="vertical">
 
             <TextView
@@ -42,6 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/_20sp" />
 
             <TextView
@@ -112,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/end_layout"
+                android:gravity="start"
                 android:background="@color/transparent"
                 android:hint="@string/type_a_message"
                 android:maxLines="5"
@@ -158,6 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:visibility="gone"
             app:backgroundTint="@color/colorPrimary"
             app:fabSize="mini"

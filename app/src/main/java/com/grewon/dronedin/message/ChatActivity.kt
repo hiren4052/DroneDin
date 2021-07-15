@@ -416,14 +416,18 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
             txt_online_status.text = getString(R.string.online)
         } else {
             //txt_online_status.visibility = View.GONE
-            txt_online_status.text = getString(
-                R.string.last_seen, TimeUtils.convertDate(
-                    recieverDetail?.lastSeen.toString(),
-                    "yyyy-MM-dd HH:mm:ss",
-                    "dd/MM/yyyy hh:mm a",
-                    true
-                )
-            )
+                if(recieverDetail?.lastSeen!=null) {
+                    txt_online_status.text = getString(
+                        R.string.last_seen, TimeUtils.convertDate(
+                            recieverDetail.lastSeen.toString(),
+                            "yyyy-MM-dd HH:mm:ss",
+                            "dd/MM/yyyy hh:mm a",
+                            true
+                        )
+                    )
+                }else{
+                    txt_online_status.visibility = View.GONE
+                }
         }
     }
 
@@ -581,7 +585,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.OnItemCli
                 if (data != null) {
                     if (resultCode == RESULT_OK) {
                         val fileList =
-                            data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_DOCS)
+                            data.getParcelableArrayListExtra<Uri>(FilePickerConst.KEY_SELECTED_MEDIA)
                         if (fileList != null) {
                             DroneDinApp.loadingDialogMessage = getString(R.string.sending)
                             val filePath: String = FileValidationUtils.getPath(this, fileList[0])

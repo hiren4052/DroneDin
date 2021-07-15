@@ -252,7 +252,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:text="Kristen Hunter"
                         android:textAppearance="@style/RobotoTextAppearance"
                         android:textColor="@color/gray_71"
                         android:textSize="@dimen/_16sp" />
@@ -263,7 +262,6 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:paddingTop="@dimen/_2dp"
-                        android:text="****1100"
                         android:textColor="@color/gray_71"
                         android:textSize="@dimen/_14sp" />
 

@@ -16,5 +16,7 @@ data class LoginParams(
     @SerializedName("user_name")
     val userName: String?,
     @SerializedName("user_password")
-    val userPassword: String?
+    val userPassword: String?,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

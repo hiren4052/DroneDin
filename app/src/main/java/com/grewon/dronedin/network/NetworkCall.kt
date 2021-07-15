@@ -27,43 +27,41 @@ abstract class NetworkCall<T>(private val parameter: String) : SingleObserver<T>
     override fun onError(e: Throwable) {
         when (e) {
             is HttpException -> {
-                if (e != null) {
-                    if (e.response().code() == 400) {
+                if (e.response().code() == 400) {
 
-                        val body = e.response()?.errorBody()
-                        val adapter = Gson().getAdapter(Any::class.java)
-                        val errorParser = adapter.fromJson(body?.string())
-                        val json = Gson().toJson(errorParser)
-                        onFailedResponse(json)
+                    val body = e.response()?.errorBody()
+                    val adapter = Gson().getAdapter(Any::class.java)
+                    val errorParser = adapter.fromJson(body?.string())
+                    val json = Gson().toJson(errorParser)
+                    onFailedResponse(json)
 
-                        val response = e.response()
-                        val url = response.raw().request().url().toString()
+                    val response = e.response()
+                    val url = response.raw().request().url().toString()
 
-                        AnalyticsUtils.setCustomCrashlytics(
-                            parameter,
-                            url,
-                            json.toString()
-                        )
+                    AnalyticsUtils.setCustomCrashlytics(
+                        parameter,
+                        url,
+                        json.toString()
+                    )
 
-                    } else {
+                } else {
 
-                        onException(e)
+                    onException(e)
 
-                        val body = e.response()?.errorBody()
-                        val adapter = Gson().getAdapter(Any::class.java)
-                        val errorParser = adapter.fromJson(body?.string())
-                        val json = Gson().toJson(errorParser)
-                        val response = e.response()
-                        val url = response.raw().request().url().toString()
+                    val body = e.response()?.errorBody()
+                    val adapter = Gson().getAdapter(Any::class.java)
+                    val errorParser = adapter.fromJson(body?.string())
+                    val json = Gson().toJson(errorParser)
+                    val response = e.response()
+                    val url = response.raw().request().url().toString()
 
 
-                        AnalyticsUtils.setCustomCrashlytics(
-                            parameter,
-                            url,
-                            json.toString()
-                        )
+                    AnalyticsUtils.setCustomCrashlytics(
+                        parameter,
+                        url,
+                        json.toString()
+                    )
 
-                    }
                 }
             }
             else -> {

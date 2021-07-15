@@ -20,5 +20,7 @@ data class SubmitOfferParams(
     var milestone: ArrayList<CreateMilestoneBean>? = null,
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
     var user_wallet: String? = "",
-    var miles_stone_price: String? = ""
+    var miles_stone_price: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

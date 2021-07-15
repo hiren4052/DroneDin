@@ -10,5 +10,7 @@ import android.os.Parcelable
 @Parcelize
 data class UploadAttachmentsParams(
     val filePath: String? = "",
-    val attachmentId: String = ""
+    val attachmentId: String = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

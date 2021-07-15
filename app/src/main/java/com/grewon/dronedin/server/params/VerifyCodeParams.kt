@@ -12,5 +12,7 @@ data class VerifyCodeParams(
     @SerializedName("user_id")
     val userId: String? = "",
     @SerializedName("user_verification_code")
-    val userVerificationCode: String? = ""
+    val userVerificationCode: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

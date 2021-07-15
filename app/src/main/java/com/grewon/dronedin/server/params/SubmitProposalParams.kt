@@ -18,4 +18,6 @@ data class SubmitProposalParams(
     var proposal_total_price: String? = "",
     var milestone: ArrayList<CreateMilestoneBean>? = null,
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

@@ -21,16 +21,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.grewon.dronedin.R
+import com.grewon.dronedin.addprofile.AddProfileActivity
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.error.ErrorHandler
 import com.grewon.dronedin.helper.LogX
+import com.grewon.dronedin.main.MainActivity
 import com.grewon.dronedin.server.FacebookModel
 import com.grewon.dronedin.server.UserData
 import com.grewon.dronedin.server.params.RegisterParams
 import com.grewon.dronedin.server.params.SocialLoginParams
 import com.grewon.dronedin.server.params.SocialRegisterParams
+import com.grewon.dronedin.signin.SignInActivity
 import com.grewon.dronedin.signup.contract.SignUpContract
 import com.grewon.dronedin.signup.presenter.SignUpPresenter
 import com.grewon.dronedin.utils.TextChangeListeners
@@ -237,7 +240,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                             return@OnCompleteListener
                         }
 
-                        DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
+                        DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
                         // Get new FCM registration token
                         val token = task.result
                         val registerParams = RegisterParams(
@@ -257,7 +260,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                 }
             }
             R.id.txt_sign_in -> {
-                finish()
+                startActivity(Intent(this, SignInActivity::class.java))
+                finishAffinity()
             }
             R.id.im_facebook -> {
                 loginType = AppConstant.LOGIN_FACEBOOK
@@ -283,7 +287,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
                 return@OnCompleteListener
             }
 
-            DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
+            DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
             // Get new FCM registration token
             val token = task.result
             val socialLoginParams =
@@ -369,7 +373,18 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, SignUpContract.View
             preferenceUtils.saveAuthToken(response.data.userApiToken.toString())
             response.data.isStepComplete = false
             preferenceUtils.saveLoginCredential(response)
-            startActivity(Intent(this, VerificationActivity::class.java))
+
+            when {
+                preferenceUtils.getLoginCredentials()?.data?.userVerified?.trim() == AppConstant.NO_STATUS -> {
+                    preferenceUtils.saveLoginCredential(response)
+                    startActivity(Intent(this, VerificationActivity::class.java))
+                }
+                preferenceUtils.getLoginCredentials()?.data?.profileUpdate?.trim() == AppConstant.NO_STATUS -> {
+                    preferenceUtils.saveLoginCredential(response)
+                    startActivity(Intent(this, AddProfileActivity::class.java))
+                }
+
+            }
         }
     }
 

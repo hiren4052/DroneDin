@@ -15,7 +15,7 @@
         android:background="@drawable/map_bottom"
         android:orientation="vertical"
         android:paddingStart="@dimen/_20dp"
-        android:paddingTop="@dimen/_80dp"
+        android:paddingTop="@dimen/_90dp"
         android:paddingEnd="@dimen/_20dp"
         android:paddingBottom="@dimen/_20dp">
 
@@ -25,187 +25,199 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_view_bottom_dialog" />
 
-        <TextView
-            android:id="@+id/txt_category_name"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20dp"
-            android:text="Real Estate"
-            android:textAppearance="@style/RobotoLightTextAppearance"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sp" />
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true">
 
-
-        <TextView
-            android:id="@+id/txt_job_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="We need a photographer for a short term project."
-            android:textAppearance="@style/MediumTextAppearance"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:background="@color/view_color" />
-
-        <TextView
-            android:id="@+id/txt_job_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:paddingTop="@dimen/_3dp"
-            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries_but_also_the_leap_into_electronic_typesetting_remaining_essentially_unchanged_it_was_popularised_in_the_1960s_with_the_release_of_letraset_sheets_containing_lorem_ipsum_passages_and_more_recently_with_desktop_publishing_software_like_aldus_pagemaker_including_versions_of_lorem_ipsum"
-            android:textAppearance="@style/RobotoTextAppearance"
-            android:textColor="@color/gray_eb"
-            android:textSize="@dimen/_14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/posted_by_"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_client_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_5dp"
-                android:text="Kristen Hunter"
-                android:textAppearance="@style/RobotoLightTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location_"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp" />
-
-            <TextView
-                android:id="@+id/txt_job_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_5dp"
-                android:text="Toronto"
-                android:textAppearance="@style/RobotoLightTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/budget_"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp" />
-
-            <TextView
-                android:id="@+id/txt_budget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_5dp"
-                android:text="$100"
-                android:textAppearance="@style/RobotoMediumTextAppearance"
-                android:textColor="@color/span_text_color"
-                android:textSize="@dimen/_14sp"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_"
-                android:textAppearance="@style/RobotoTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp" />
-
-            <TextView
-                android:id="@+id/txt_job_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_5dp"
-                android:text="22 Feb 2021"
-                android:textAppearance="@style/RobotoLightTextAppearance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sp"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/_10dp"
-            android:paddingBottom="@dimen/_10dp"
-            android:text="@string/skills_and_equipments_preferred"
-            android:textAppearance="@style/RobotoTextAppearance"
-            android:textColor="@color/gray_eb"
-            android:textSize="@dimen/_16sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chip_skills"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chip_equipments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/txt_details"
-            android:layout_width="@dimen/_200dp"
-            android:layout_height="@dimen/_45dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20dp"
-            android:background="@drawable/ic_rectangle"
-            android:gravity="center"
-            android:text="@string/details"
-            android:textAppearance="@style/MediumTextAppearance"
-            android:textColor="@drawable/white_text_selector"
-            android:textSize="@dimen/_20sp" />
+                <TextView
+                    android:id="@+id/txt_category_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:text="Real Estate"
+                    android:textAppearance="@style/RobotoLightTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
 
 
+                <TextView
+                    android:id="@+id/txt_job_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="We need a photographer for a short term project."
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:background="@color/view_color" />
+
+                <TextView
+                    android:id="@+id/txt_job_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:paddingTop="@dimen/_3dp"
+                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries_but_also_the_leap_into_electronic_typesetting_remaining_essentially_unchanged_it_was_popularised_in_the_1960s_with_the_release_of_letraset_sheets_containing_lorem_ipsum_passages_and_more_recently_with_desktop_publishing_software_like_aldus_pagemaker_including_versions_of_lorem_ipsum"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_eb"
+                    android:textSize="@dimen/_14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/posted_by_"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_client_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="Kristen Hunter"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location_"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_job_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="Toronto"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/budget_"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_budget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="$100"
+                        android:textAppearance="@style/RobotoMediumTextAppearance"
+                        android:textColor="@color/span_text_color"
+                        android:textSize="@dimen/_14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_"
+                        android:textAppearance="@style/RobotoTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_job_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/_5dp"
+                        android:text="22 Feb 2021"
+                        android:textAppearance="@style/RobotoLightTextAppearance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_10dp"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:text="@string/skills_and_equipments_preferred"
+                    android:textAppearance="@style/RobotoTextAppearance"
+                    android:textColor="@color/gray_eb"
+                    android:textSize="@dimen/_16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/chip_skills"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/chip_equipments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_details"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="@dimen/_45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:background="@drawable/ic_rectangle"
+                    android:gravity="center"
+                    android:text="@string/details"
+                    android:textAppearance="@style/MediumTextAppearance"
+                    android:textColor="@drawable/white_text_selector"
+                    android:textSize="@dimen/_20sp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 </RelativeLayout>

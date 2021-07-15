@@ -27,7 +27,9 @@ import com.grewon.dronedin.pilotjobhistory.PilotHistoryDetailsActivity
 import com.grewon.dronedin.server.CommonMessageBean
 import com.grewon.dronedin.server.NotificationDataBean
 import com.malinskiy.superrecyclerview.OnMoreListener
+import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.fragment_notifications.message_data_recycle
 import kotlinx.android.synthetic.main.layout_square_toolbar.*
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -100,7 +102,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
     override fun onItemClick(jobsDataBean: NotificationDataBean.Data?) {
 
-        if (jobsDataBean?.jobStatus != NOTIFICATION_TYPE.Announcement.name) {
+        if (jobsDataBean?.notificationType != NOTIFICATION_TYPE.Announcement.name) {
             if (isPilotAccount()) {
                 if (jobsDataBean?.notificationType == NOTIFICATION_TYPE.Offer.name) {
                     if (jobsDataBean.jobStatus == JOB_STATUS.active.name) {
@@ -196,6 +198,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
 
     override fun onRefresh() {
+        message_data_recycle.setRefreshListener(null)
         message_data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall(pageCount)
@@ -239,6 +242,7 @@ class NotificationsFragment : BaseFragment(), NotificationsAdapter.OnItemClickLi
 
     override fun onNotificationGetSuccessful(response: NotificationDataBean) {
         if (context != null && isVisible) {
+            message_data_recycle.setRefreshListener(this)
             if (response.data != null && response.data.size > 0) {
                 if (pageCount == 1) {
                     initMessageAdapter()

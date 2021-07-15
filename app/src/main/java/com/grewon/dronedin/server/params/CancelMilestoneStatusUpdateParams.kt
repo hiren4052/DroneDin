@@ -14,5 +14,7 @@ data class CancelMilestoneStatusUpdateParams(
     @SerializedName("milestone_request_reject_reason")
     var milestoneRequestRejectReason: String? = "",
     @SerializedName("milestone_request_status")
-    var milestoneRequestStatus: String? = ""
+    var milestoneRequestStatus: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

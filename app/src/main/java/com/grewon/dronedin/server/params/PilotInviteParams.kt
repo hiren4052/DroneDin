@@ -12,5 +12,7 @@ data class PilotInviteParams(
     @SerializedName("job_id")
     val jobId: String? = "",
     @SerializedName("pilot_ids")
-    val pilotIds: List<Int>? = null
+    val pilotIds: List<Int>? = null,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

@@ -25,4 +25,6 @@ data class CreateJobsParams(
     var jobTotalPrice: String? = "",
     var mileStones: ArrayList<CreateMilestoneBean>? = null,
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

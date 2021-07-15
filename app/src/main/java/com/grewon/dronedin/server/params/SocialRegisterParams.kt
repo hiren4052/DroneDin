@@ -25,5 +25,7 @@ data class SocialRegisterParams(
     @SerializedName("user_social_id")
     val userSocialId: String? ,
     @SerializedName("user_type")
-    val userType: String?
+    val userType: String?,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

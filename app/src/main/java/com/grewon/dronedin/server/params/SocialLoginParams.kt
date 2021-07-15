@@ -16,5 +16,7 @@ data class SocialLoginParams(
     @SerializedName("user_login_type")
     val userLoginType: String? ,
     @SerializedName("user_social_id")
-    val userSocialId: String?
+    val userSocialId: String?,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

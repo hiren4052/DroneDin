@@ -27,5 +27,7 @@ data class RegisterParams(
     @SerializedName("user_phone_number")
     val userPhoneNumber: String? ,
     @SerializedName("user_type")
-    val userType: String?
+    val userType: String?,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

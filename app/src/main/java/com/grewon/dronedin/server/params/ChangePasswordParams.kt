@@ -12,5 +12,7 @@ data class ChangePasswordParams(
     @SerializedName("old_password")
     val oldPassword: String? = "",
     @SerializedName("password")
-    val password: String? = ""
+    val password: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

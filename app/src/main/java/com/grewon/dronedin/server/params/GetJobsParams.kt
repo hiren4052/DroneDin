@@ -12,5 +12,7 @@ data class GetJobsParams(
     @SerializedName("job_type")
     val jobType: String? = "",
     @SerializedName("page")
-    val page: Int = 1
+    val page: Int = 1,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

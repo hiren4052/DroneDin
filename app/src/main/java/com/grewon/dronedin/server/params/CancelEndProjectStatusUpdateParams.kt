@@ -17,5 +17,7 @@ data class CancelEndProjectStatusUpdateParams(
     @SerializedName("request_status")
     var requestStatus: String? = "",
     @SerializedName("request_type")
-    var requestType: String? = ""
+    var requestType: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

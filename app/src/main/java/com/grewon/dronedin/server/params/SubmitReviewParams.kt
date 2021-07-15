@@ -15,5 +15,7 @@ data class SubmitReviewParams(
     @SerializedName("rate")
     val rate: String? = "",
     @SerializedName("review")
-    val review: String? = ""
+    val review: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

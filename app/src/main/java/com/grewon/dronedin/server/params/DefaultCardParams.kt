@@ -10,5 +10,7 @@ import android.os.Parcelable
 @Parcelize
 data class DefaultCardParams(
     @SerializedName("src_id")
-    val srcId: String? = ""
+    val srcId: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

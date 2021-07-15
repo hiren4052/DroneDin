@@ -33,7 +33,7 @@
             android:textAppearance="@style/RobotoBoldTextAppearance"
             android:textColor="@color/white"
             android:textSize="@dimen/_24sp"
-            app:drawableStartCompat="@drawable/ic_back_white" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -14,4 +14,6 @@ data class AddPortFolioParams(
     var portfolio_title: String? = "",
     var portfolio_desc: String? = "",
     var attachments: ArrayList<UploadAttachmentsParams>? = null,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

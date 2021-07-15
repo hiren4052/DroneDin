@@ -1,13 +1,11 @@
 package com.grewon.dronedin.review
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grewon.dronedin.R
 import com.grewon.dronedin.app.AppConstant
 import com.grewon.dronedin.app.BaseActivity
-import com.grewon.dronedin.review.adapter.ReviewsAdapter
 import com.grewon.dronedin.review.adapter.WhiteScreenReviewsAdapter
 import com.grewon.dronedin.server.ReviewsDataBean
 import kotlinx.android.synthetic.main.activity_review.*

@@ -34,10 +34,10 @@ public class AppConstant {
         const val ID: String = "id"
         const val USER_ID: String = "user_id"
         const val UPDATE_REQUEST_CODE: Int = 33
-        const val TERMS_OF_SERVICE_URL: String = "https://www.termsandcondiitionssample.com/"
+        const val TERMS_OF_SERVICE_URL: String = "https://dronedin.com//terms-of-service.html"
 
         const val PRIVACY_URL: String =
-            "https://app.privacypolicies.com/wizard/privacy-policy#step-2"
+            "https://dronedin.com/privacy-policy.html"
         const val FAQ_URL: String = "https://ubereats-city.appspot.com/en_sg/faq/"
         const val MICROSOFT_URL: String = "https://graph.microsoft.com/v1.0/me"
         val CHANNEL_NAME: CharSequence = "dronedin"

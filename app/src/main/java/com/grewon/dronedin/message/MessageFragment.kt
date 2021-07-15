@@ -103,10 +103,10 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
     }
 
     override fun onRefresh() {
+        message_data_recycle.setRefreshListener(null)
         message_data_recycle.setupMoreListener(this, 1)
         pageCount = 1
         apiCall()
-        message_data_recycle.setRefreshing(false)
     }
 
     override fun onApiException(error: Int) {
@@ -115,6 +115,7 @@ class MessageFragment : BaseFragment(), MessagesAdapter.OnItemClickListeners,
 
     override fun onMessageGetSuccessful(response: MessagesDataBean) {
         if (context != null && isVisible) {
+            message_data_recycle.setRefreshListener(this)
             if (response.data != null && response.data.size > 0) {
                 if (pageCount == 1) {
                     initAdapter()

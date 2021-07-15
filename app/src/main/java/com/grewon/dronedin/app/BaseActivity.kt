@@ -52,6 +52,7 @@ open class BaseActivity : AppCompatActivity(), BaseContract.View {
 
                 if (intent.getStringExtra(AppConstant.DATA_TYPE) != null) {
                     if (intent.getStringExtra(AppConstant.DATA_TYPE) == "yes") {
+                        if(preferenceUtils.getLoginCredentials()!=null)
                         displaySessionDialog()
                     }
                 }

@@ -10,5 +10,7 @@ import android.os.Parcelable
 @Parcelize
 data class ForgotPasswordParams(
     @SerializedName("user_email")
-    val userEmail: String? = ""
+    val userEmail: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

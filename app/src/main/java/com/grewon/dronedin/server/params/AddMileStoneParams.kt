@@ -13,4 +13,6 @@ import com.grewon.dronedin.server.JobInitBean
 data class AddMileStoneParams(
     var job_id: String? = "",
     var mileStones: ArrayList<CreateMilestoneBean>? = null,
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable

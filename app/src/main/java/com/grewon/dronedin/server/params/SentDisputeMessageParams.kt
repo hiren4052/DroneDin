@@ -11,5 +11,6 @@ import android.os.Parcelable
 data class SentDisputeMessageParams(
     var dispute_id: String? = "",
     var msg_type: String? = "",
+    @SerializedName("msg")
     var msg: String? = ""
 ) : Parcelable

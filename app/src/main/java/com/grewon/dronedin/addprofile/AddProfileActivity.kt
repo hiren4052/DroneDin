@@ -758,9 +758,14 @@ class AddProfileActivity : BaseActivity(), View.OnClickListener, AddProfileContr
         edit_name.setText(
             data.userName.toString()
         )
-        edit_email.setText(
-            data.userEmail.toString()
-        )
+        if(!ValidationUtils.isEmptyFiled(data.userEmail.toString())) {
+            edit_email.isEnabled=false
+            edit_email.setText(
+                data.userEmail.toString()
+            )
+        }else{
+            edit_email.isEnabled=true
+        }
         edit_number.setText(
             data.userPhoneNumber.toString()
         )

@@ -57,6 +57,12 @@ class PaymentSummaryActivity : BaseActivity(), View.OnClickListener, CreateOffer
         setClicks()
     }
 
+    override fun onResume() {
+        super.onResume()
+        DroneDinApp.loadingDialogMessage = getString(R.string.loading)
+        createOffersPresenter.getCardData()
+    }
+
     private fun initView() {
         txt_toolbar_title.text = getString(R.string.payment_details)
 

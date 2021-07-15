@@ -209,7 +209,7 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
                     target: Target<GifDrawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    return false;
+                    return false
                 }
 
                 override fun onResourceReady(
@@ -220,7 +220,7 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
                     isFirstResource: Boolean
                 ): Boolean {
                     resource?.setLoopCount(1);
-                    return false;
+                    return false
                 }
 
             }).into(imageView)
@@ -311,11 +311,9 @@ class DroneDinApp : MultiDexApplication(), AppLifecycleHandler.LifeCycleDelegate
     }
 
     override fun onAppForegrounded() {
-
         val intent = Intent(this, OnlineOfflineService::class.java)
         intent.putExtra(AppConstant.TAG, "yes")
         startService(intent)
-
     }
 
 

@@ -12,5 +12,7 @@ data class ActiveMilestoneParams(
     @SerializedName("milestone_id")
     val milestoneId: String? = "",
     @SerializedName("user_wallet")
-    val userWallet: String? = ""
+    val userWallet: String? = "",
+    @SerializedName("msg")
+    val msg: String? = ""
 ) : Parcelable
