@@ -47,6 +47,7 @@
     <color name="title_color">#203152</color>
     <color name="transparent_title_color">#50203152</color>
     <color name="trans_white">#80ffffff</color>
+    <color name="trans_white_50">#C2FFFFFF</color>
     <color name="grey_light">#DCDCDD</color>
     <color name="white_fa">#FAFAFA</color>
     <color name="white_fb">#FBFBFB</color>

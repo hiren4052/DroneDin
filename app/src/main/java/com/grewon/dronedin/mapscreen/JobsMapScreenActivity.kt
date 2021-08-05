@@ -43,9 +43,12 @@ import com.grewon.dronedin.server.params.FilterParams
 import com.grewon.dronedin.utils.IconUtils
 import com.grewon.dronedin.utils.MapUtils
 import com.grewon.dronedin.utils.TimeUtils
+import kotlinx.android.synthetic.main.activity_jobs_map_screen.*
 import kotlinx.android.synthetic.main.activity_pilot_profile.*
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.*
+import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.chip_skills
 import kotlinx.android.synthetic.main.jobs_map_bottom_dialog.view.txt_category_name
+import kotlinx.android.synthetic.main.map_type_bottom_dialog.view.*
 import kotlinx.android.synthetic.main.pilot_map_bottom_dialog.view.*
 import retrofit2.Retrofit
 import java.util.ArrayList
@@ -78,6 +81,8 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
 
     @Inject
     lateinit var pilotProfilePresenter: PilotProfileContract.Presenter
+
+    private var mapType: String = "default"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +124,7 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
     }
 
     private fun setClickListeners() {
-
+        map_type.setOnClickListener(this)
 
     }
 
@@ -157,7 +162,13 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun setCurrentLocation() {
+        mMap?.isMyLocationEnabled = true
+        mMap?.uiSettings?.isMyLocationButtonEnabled = true
+
+
+
         gpsTracker = GPSTracker(this, this)
         latitude = gpsTracker!!.latitude
         longitude = gpsTracker!!.longitude
@@ -170,7 +181,7 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
             CameraUpdateFactory.newLatLngZoom(
                 LatLng(
                     latitude!!, longitude!!
-                ), 15f
+                ), 10f
             )
         )
     }
@@ -190,7 +201,9 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-
+            R.id.map_type -> {
+                openMapDialog()
+            }
 
         }
     }
@@ -480,6 +493,66 @@ class JobsMapScreenActivity : BaseActivity(), OnMapReadyCallback,
     }
 
     override fun onJobsSaveFailed(loginParams: CommonMessageBean) {
+
+    }
+
+
+    @SuppressLint("InflateParams")
+    private fun openMapDialog() {
+        val view = LayoutInflater.from(this)
+            .inflate(R.layout.map_type_bottom_dialog, null)
+        val dialog = BottomSheetDialog(
+            this, R.style.CustomBottomSheetDialogTheme
+        )
+        dialog.setContentView(view)
+
+        val mapDefault = view.map_default
+        val mapSatellite = view.map_satellite
+        val mapTerrain = view.map_terrain
+        val imgClose = view.img_close
+
+
+        if (mapType == "default") {
+            mapDefault.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_default_selected, mapDefault)
+        } else if (mapType == "satellite") {
+            mapSatellite.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_satellite_selected, mapSatellite)
+        } else if (mapType == "terrain") {
+            mapTerrain.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_terrain_selected, mapTerrain)
+        }
+
+        mapDefault.setOnClickListener {
+            mapType = "default"
+            mMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
+            mapDefault.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_default_selected, mapDefault)
+            dialog.dismiss()
+        }
+
+        mapSatellite.setOnClickListener {
+            mapType = "satellite"
+            mMap?.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            mapSatellite.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_satellite_selected, mapSatellite)
+            dialog.dismiss()
+        }
+
+        mapTerrain.setOnClickListener {
+            mapType = "terrain"
+            mMap?.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            mapTerrain.setTextColor(ContextCompat.getColor(this, R.color.background_blue))
+            IconUtils.setTopDrawableIcontoText(this, R.drawable.ic_terrain_selected, mapTerrain)
+            dialog.dismiss()
+        }
+
+        imgClose.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
 
     }
 

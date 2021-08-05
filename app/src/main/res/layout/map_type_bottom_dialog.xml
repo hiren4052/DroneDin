@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_48dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/_12dp"
+        android:src="@drawable/ic_close_white"
+        app:tint="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/map_default"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+            android:drawablePadding="@dimen/_10dp"
+            android:gravity="center"
+            android:padding="@dimen/_10dp"
+
+            android:text="@string/txt_default"
+            android:textColor="@color/gray_9d"
+            android:textSize="@dimen/_16sp"
+            app:drawableTopCompat="@drawable/ic_default_map" />
+
+        <TextView
+            android:id="@+id/map_satellite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+            android:drawablePadding="@dimen/_10dp"
+            android:gravity="center"
+
+            android:padding="@dimen/_10dp"
+            android:text="@string/satellite"
+            android:textColor="@color/gray_9d"
+            android:textSize="@dimen/_16sp"
+            app:drawableTopCompat="@drawable/ic_satellite" />
+
+        <TextView
+            android:id="@+id/map_terrain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?selectableItemBackground"
+
+            android:drawablePadding="@dimen/_10dp"
+            android:gravity="center"
+            android:padding="@dimen/_10dp"
+            android:text="@string/terrain"
+            android:textColor="@color/gray_9d"
+            android:textSize="@dimen/_16sp"
+            app:drawableTopCompat="@drawable/ic_terrain" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

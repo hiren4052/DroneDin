@@ -13,8 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-
+    <ImageView
+        android:id="@+id/map_type"
+        android:layout_width="@dimen/_42dp"
+        android:layout_height="@dimen/_42dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_16dp"
+        android:padding="@dimen/_5dp"
+        android:elevation="@dimen/_5dp"
+        android:background="@drawable/white_transparent"
+        android:src="@drawable/ic_baseline_layers_24"
+        app:tint="@color/gray_55" />
 
 
 </RelativeLayout>

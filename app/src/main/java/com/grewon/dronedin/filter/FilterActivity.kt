@@ -77,7 +77,7 @@ class FilterActivity : BaseActivity(), FilterSkillsAdapter.OnFilterSkillsItemSel
     private fun initView() {
 
         if (isPilotAccount()) {
-            txt_title.text = getString(R.string.select_job_filters)
+            txt_title.text = getString(R.string.search_filters)
         } else {
             txt_title.text = getString(R.string.filters)
         }

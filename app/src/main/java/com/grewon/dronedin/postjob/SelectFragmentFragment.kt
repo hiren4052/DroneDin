@@ -79,7 +79,8 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
             setEquipmentsAdapter()
 
         } else {
-            selectedCategoryId=(activity as PostJobActivity).createJobsParams?.selectedCategoryId.toString()
+            selectedCategoryId =
+                (activity as PostJobActivity).createJobsParams?.selectedCategoryId.toString()
             skillsEquipmentsPresenter.getJobCommonData()
 
         }
@@ -207,22 +208,24 @@ class SelectFragmentFragment : BaseFragment(), FilterSkillsAdapter.OnFilterSkill
 
     override fun onJobCommonDataGetSuccessful(response: JobInitBean) {
 
-        if (response.category != null && response.category.size > 0) {
-            categoryList = response.category
-            (activity as PostJobActivity).createJobsParams?.categoryList = categoryList
-            setCategoryAdapter()
-        }
+        if (context != null && isVisible) {
+            if (response.category != null && response.category.size > 0) {
+                categoryList = response.category
+                (activity as PostJobActivity).createJobsParams?.categoryList = categoryList
+                setCategoryAdapter()
+            }
 
-        if (response.skill != null && response.skill.size > 0) {
-            skillsList = response.skill
-            (activity as PostJobActivity).createJobsParams?.skillList = skillsList
-            setSkillsAdapter()
-        }
+            if (response.skill != null && response.skill.size > 0) {
+                skillsList = response.skill
+                (activity as PostJobActivity).createJobsParams?.skillList = skillsList
+                setSkillsAdapter()
+            }
 
-        if (response.equipment != null && response.equipment.size > 0) {
-            equipmentsList = response.equipment
-            (activity as PostJobActivity).createJobsParams?.equipmentsList = equipmentsList
-            setEquipmentsAdapter()
+            if (response.equipment != null && response.equipment.size > 0) {
+                equipmentsList = response.equipment
+                (activity as PostJobActivity).createJobsParams?.equipmentsList = equipmentsList
+                setEquipmentsAdapter()
+            }
         }
 
     }

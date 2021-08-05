@@ -445,6 +445,7 @@
     <string name="safe_secure_simple">Safe - Secure - Simple</string>
     <string name="available_jobs_near_you">Available Jobs Near You</string>
     <string name="select_job_filters">Select Job Filters</string>
+    <string name="search_filters">Search Filters</string>
     <string name="search_results">Search Results</string>
     <string name="select_a_file">Select a File</string>
     <string name="propose_new_milestones">Propose new milestones</string>
@@ -486,6 +487,9 @@
     <string name="ending">Ending…</string>
     <string name="creating">Creating…</string>
     <string name="verifying">Verifying…</string>
+    <string name="txt_default">Default</string>
+    <string name="satellite">Satellite</string>
+    <string name="terrain">Terrain</string>
 
 
 </resources>

@@ -37,6 +37,20 @@ class IconUtils {
             )
         }
 
+        fun setTopDrawableIcontoText(
+            context: Context?,
+            drawableId: Int,
+            view: TextView
+        ) {
+            view.setCompoundDrawablesWithIntrinsicBounds(
+                null,
+                getDrawable(context, drawableId),
+                null,
+                null
+            )
+        }
+
+
         fun setRightDrawableIcontoText(
             context: Context?,
             drawableId: Int,

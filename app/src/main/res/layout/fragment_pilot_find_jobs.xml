@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_15dp"
             android:paddingEnd="@dimen/_15dp"
-            android:text="@string/filters"
+            android:text="@string/search_results"
             android:textAppearance="@style/RobotoMediumTextAppearance"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_20sp" />
