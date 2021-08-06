@@ -73,7 +73,7 @@ class MemberShipActivity : BaseActivity(), MembershipListContract.View, View.OnC
 
     private fun setAdapter(data: ArrayList<MemberShipBean.Data>) {
         no_data_layout.visibility = View.GONE
-        membership_package.layoutManager = GridLayoutManager(this, 2)
+        membership_package.layoutManager = LinearLayoutManager(this)
         membershipAdapter = MembershipAdapter(this, this)
         membership_package.adapter = membershipAdapter
         membershipAdapter?.addItemsList(data)

@@ -35,6 +35,9 @@ interface AppApi {
     @POST("profile_c/change_password")
     fun changePassword(@Body map: ChangePasswordParams): Single<CommonMessageBean>
 
+    @POST("profile_c/change_password")
+    fun sendToCustomerSupport(@Body map: CustomerSupportParams): Single<CommonMessageBean>
+
     @GET("profile_c/my_profile")
     fun myProfile(): Single<ProfileBean>
 

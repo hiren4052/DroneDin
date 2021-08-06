@@ -17,6 +17,7 @@ import com.grewon.dronedin.clientjobs.posted.ClientProposalDetailsActivity
 import com.grewon.dronedin.clientjobs.posted.ClientProposalsActivity
 import com.grewon.dronedin.clientjobs.posted.PostedJobDetailsActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
+import com.grewon.dronedin.customersupport.CustomerSupportActivity
 import com.grewon.dronedin.dagger.module.*
 import com.grewon.dronedin.dispute.DisputeActivity
 import com.grewon.dronedin.dispute.DisputeChatActivity
@@ -161,6 +162,7 @@ interface AppComponent {
     fun inject(activity: MyWalletActivity)
     fun inject(activity: ReviewProposalActivity)
     fun inject(activity: PostJobReviewActivity)
+    fun inject(activity: CustomerSupportActivity)
 
 
     //Fragments

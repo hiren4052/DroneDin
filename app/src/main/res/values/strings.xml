@@ -490,6 +490,8 @@
     <string name="txt_default">Default</string>
     <string name="satellite">Satellite</string>
     <string name="terrain">Terrain</string>
+    <string name="enter_title_here">Enter title here</string>
+    <string name="enter_brief_description_here">Enter brief description here</string>
 
 
 </resources>

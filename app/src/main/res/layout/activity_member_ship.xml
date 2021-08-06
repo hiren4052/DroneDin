@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".membership.MemberShipActivity">
 
     <include
@@ -23,7 +24,7 @@
             android:paddingTop="@dimen/_16dp"
             android:paddingEnd="@dimen/_16dp"
             android:text="@string/thanks_for_joining"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="@dimen/_20sp" />
 
         <TextView
@@ -36,7 +37,7 @@
             android:paddingTop="@dimen/_16dp"
             android:paddingEnd="@dimen/_16dp"
             android:text="@string/skip"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="@dimen/_20sp" />
 
     </RelativeLayout>
@@ -49,7 +50,7 @@
         android:paddingEnd="@dimen/_16dp"
         android:text="@string/select_a_package"
         android:textAppearance="@style/BoldTextAppearance"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         android:textSize="@dimen/_30sp" />
 
     <include

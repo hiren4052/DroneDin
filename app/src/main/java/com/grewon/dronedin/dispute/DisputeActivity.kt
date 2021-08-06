@@ -47,7 +47,7 @@ class DisputeActivity : BaseActivity(), View.OnClickListener, DisputeContract.Vi
 
     private fun initView() {
 
-        txt_toolbar_title.text = getString(R.string.disputes)
+        txt_toolbar_title.text = getString(R.string.dispute_resolution_center)
         DroneDinApp.getAppInstance().getAppComponent().inject(this)
         disputePresenter.attachView(this)
         disputePresenter.attachApiInterface(retrofit)

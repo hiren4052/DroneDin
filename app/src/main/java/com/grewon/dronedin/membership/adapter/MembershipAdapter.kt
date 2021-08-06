@@ -55,8 +55,8 @@ class MembershipAdapter(
 
             Glide.with(context).load(item.packageImage).into(holder.packageImage)
 
-            holder.packageName.text =
-                context.getString(R.string.package_name_price, item.packageName, item.packagePrice)
+            holder.packageName.text = item.packageName
+            holder.txtPrice.text = context.getString(R.string.price_string, item.packagePrice)
             holder.packageType.text = context.getString(R.string.package_type, item.packageType)
             holder.packageDescription.text = item.packageDescription
 
@@ -79,9 +79,8 @@ class MembershipAdapter(
         val packageDescription = itemView.package_description
         val packageName = itemView.package_name
         val packageImage = itemView.package_image
+        val txtPrice = itemView.txt_price
     }
-
-
 
 
 }

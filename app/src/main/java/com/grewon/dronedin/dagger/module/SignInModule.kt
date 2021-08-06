@@ -3,6 +3,8 @@ package com.grewon.dronedin.dagger.module
 
 import com.grewon.dronedin.changepassword.contract.ChangePasswordContract
 import com.grewon.dronedin.changepassword.presenter.ChangePasswordPresenter
+import com.grewon.dronedin.customersupport.contract.CustomerSupportContract
+import com.grewon.dronedin.customersupport.presenter.CustomerSupportPresenter
 import com.grewon.dronedin.forgotpassword.contract.ForgotPasswordContract
 import com.grewon.dronedin.forgotpassword.presenter.ForgotPasswordPresenter
 import com.grewon.dronedin.signin.contract.SignInContract
@@ -47,6 +49,12 @@ class SignInModule {
     @Provides
     fun provideVerificationPresenter(): VerificationContract.Presenter {
         return VerificationPresenter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCustomerSupportPresenter(): CustomerSupportContract.Presenter {
+        return CustomerSupportPresenter()
     }
 
 }

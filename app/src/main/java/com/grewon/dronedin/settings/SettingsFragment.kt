@@ -15,6 +15,7 @@ import com.grewon.dronedin.app.BaseFragment
 import com.grewon.dronedin.app.DroneDinApp
 import com.grewon.dronedin.changepassword.ChangePasswordActivity
 import com.grewon.dronedin.clientprofile.ClientProfileActivity
+import com.grewon.dronedin.customersupport.CustomerSupportActivity
 import com.grewon.dronedin.dispute.DisputeActivity
 import com.grewon.dronedin.membership.MemberShipActivity
 import com.grewon.dronedin.paymentmethod.PaymentMethodActivity
@@ -195,13 +196,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             }
 
             R.id.txt_customer_support -> {
-                startActivity(
-                    Intent(context, WebActivity::class.java).putExtra(
-                        AppConstant.WEB_URL,
-                        preferenceUtils.getProfileData()?.data?.customerSupportUrl.toString()
-                    ).putExtra(AppConstant.TAG, getString(R.string.customer_support))
-
-                )
+                startActivity(Intent(context, CustomerSupportActivity::class.java))
             }
 
             R.id.txt_dispute -> {
@@ -209,7 +204,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
             }
 
             R.id.notification_switch -> {
-                DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
+                DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
                 val notificationStatus = if (notification_switch.isChecked) "on" else "off"
                 settingsPresenter.notificationOnOff(notificationStatus)
             }
@@ -236,7 +231,7 @@ class SettingsFragment : BaseFragment(), View.OnClickListener, SettingsContract.
 
         txtCancel.setOnClickListener { logoutDialog?.dismiss() }
         txtLogout.setOnClickListener {
-            DroneDinApp.loadingDialogMessage=getString(R.string.please_wait)
+            DroneDinApp.loadingDialogMessage = getString(R.string.please_wait)
             settingsPresenter.logoutUser()
         }
 

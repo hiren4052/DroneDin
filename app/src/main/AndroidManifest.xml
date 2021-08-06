@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".customersupport.CustomerSupportActivity"></activity>
         <activity
             android:name=".postjob.PostJobReviewActivity"
             android:screenOrientation="portrait" />
@@ -337,8 +338,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
-
-
     </application>
 
 </manifest>
